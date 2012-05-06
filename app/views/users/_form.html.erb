@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="span6">
+		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+		<% if @user.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @user.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+			<fieldset>
+				<div class="control-group">
+					<%= f.label :username, :class => "control-label" %>
+          <div class="controls">
+				    <%= f.text_field :username, :class => "input-xlarge"  %>
+          </div>
+        </div>
+				<div class="control-group">
+					<%= f.label :email, :class => "control-label" %>
+          <div class="controls">
+				    <%= f.text_field :email, :class => "input-xlarge"  %>
+          </div>
+        </div>
+				<div class="control-group">
+					<%= f.label :password, :class => "control-label" %>
+          <div class="controls">
+				    <%= f.password_field :password, :class => "input-xlarge"  %>
+          </div>
+        </div>
+				<div class="control-group">
+					<%= f.label :password_confirmation, :class => "control-label" %>
+          <div class="controls">
+				    <%= f.password_field :password_confirmation, :class => "input-xlarge"  %>
+          </div>
+        </div>
+			 	<div class="form-actions">
+          <button type="submit" class="btn btn-primary">Create account</button>
+        </div>
+			</fieldset>
+		<% end %>
+  </div><!-- span6 -->
+</div><!-- row -->

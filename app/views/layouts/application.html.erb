@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My application</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="navbar">
+	    <div class="navbar-inner">
+	      <div class="container">
+			<%= link_to "My App", static_path("home"), :class => 'brand'%>
+	        <div class="nav-collapse">
+	          <ul class="nav">
+				<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
+	          </ul>
+						<ul class="nav pull-right">
+	           
+							<% if current_user %>
+								<li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi you!<b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><%= link_to "Edit Profile", edit_user_path(:current) %></li>
+		                <li class="divider"></li>
+		                <li><%= link_to "Logout", logout_path %></li>
+		              </ul>
+		            </li>
+						  <% else %>
+							 	<li><%= link_to "Sign up", register_path %></li>
+		            <li class="divider-vertical"></li>
+	            	<li><%= link_to "Login", login_path %></li>
+						  <% end %>
+	            
+	          </ul>
+	        </div><!-- /.nav-collapse -->
+	      </div> <!-- container -->
+	    </div><!-- /navbar-inner -->
+	  </div><!-- navbar -->
+
+ <div class="container content">			
+		<% if flash[:alert] %>
+		   <div class="alert alert-error">
+			  <p class="flash-error"><%= flash[:alert] %></p>
+			</div>
+		<% end %>
+
+		<% if flash[:notice] %>
+		    <div class="alert alert-info">
+				 <p class="flash-error"><%= flash[:notice] %></p>
+			</div>
+		<% end %>
+
+		<%= yield %>
+
+		<footer>
+			<div class='footer'>
+
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
