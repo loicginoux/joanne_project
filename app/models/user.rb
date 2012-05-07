@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
   disable_perishable_token_maintenance(true)
   before_validation :reset_perishable_token!, :on => :create 
+
   #cancan gem
   ROLES = %w[admin]
   
@@ -12,9 +13,14 @@ class User < ActiveRecord::Base
   
   def deliver_confirm_email_instructions!
     reset_perishable_token!
-    Notifier.deliver_confirm_email_instructions(self)
+    UserMailer.verify_account_email(self).deliver
   end
 
+  def verify!
+      self.confirmed = true
+      self.save
+  end
+  
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.reset_password_email(self).deliver

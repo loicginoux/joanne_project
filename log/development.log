@@ -4462,3 +4462,1560 @@ Processing by HighVoltage::PagesController#show as HTML
   Rendered pages/home.html.erb within layouts/application (0.0ms)
   [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
 Completed 200 OK in 11ms (Views: 10.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/logout" for 127.0.0.1 at 2012-05-07 19:40:42 +0200
+Processing by UserSessionsController#destroy as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 19:40:42 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 8.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 19:40:49 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered users/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 13ms (Views: 12.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 19:41:08 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (7.0ms)
+  Rendered user_sessions/new.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 15ms (Views: 14.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 19:41:12 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered users/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 11ms (Views: 10.8ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120506143345)
+Migrating to CreateUserSessions (20120506170613)
+Migrating to AddRoleToUsers (20120506170915)
+Migrating to AddUsersPasswordResetFields (20120507122039)
+Migrating to AddConfirmedToUsers (20120507180654)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" ADD "confirmed" boolean DEFAULT 'f'
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120507180654')[0m
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("user_sessions")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("users")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_info('index_users_on_perishable_token')[0m
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:23:38 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (4.6ms)
+  Rendered users/new.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 430ms (Views: 417.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:24:04 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 14ms (Views: 11.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:24:55 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (359.2ms)
+Completed 500 Internal Server Error in 362ms
+
+ActionView::Template::Error (undefined local variable or method `experience' for #<#<Class:0x007fa965a03848>:0x007fa9622d7310>):
+    12: 		  <tr>
+    13: 		    <td><%= user.username %></td>
+    14: 		    <td><%= user.email %></td>
+    15: 		    <td><%= link_to 'Destroy', experience, confirm: 'Are you sure?', method: :delete %></td>
+    16: 		
+    17: 		  </tr>
+    18: 		<% end %>
+  app/views/users/index.html.erb:15:in `block in _app_views_users_index_html_erb___2284663238590750156_70182736399360'
+  app/views/users/index.html.erb:11:in `each'
+  app/views/users/index.html.erb:11:in `_app_views_users_index_html_erb___2284663238590750156_70182736399360'
+  app/controllers/users_controller.rb:5:in `index'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.2ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (14.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:25:01 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 11ms (Views: 10.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/1" for 127.0.0.1 at 2012-05-07 20:25:07 +0200
+
+AbstractController::ActionNotFound (The action 'destroy' could not be found for UsersController):
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/unknown_action.erb within rescues/layout (0.6ms)
+
+
+Started DELETE "/users/1" for 127.0.0.1 at 2012-05-07 20:26:32 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.7ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 16ms (ActiveRecord: 3.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:26:32 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 14ms (Views: 12.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:26:33 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 13ms (Views: 12.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:26:37 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered users/new.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 13ms (Views: 12.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:26:46 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:26:46 UTC +00:00], ["crypted_password", "fd417dc862a181f2490c711eae350c97c3b83086bf5e1ec27404db02daa5c7e105ef60f39260119aed19923edde7e2df7697fef3d8b7aef1e962abbfca916f13"], ["email", "lginoux@gmail.com"], ["password_salt", "15GZ706AO41610gtdI"], ["perishable_token", "3Ggqj69MzyrF7gIugEK"], ["persistence_token", "88118d61890d0574918c80858f076cba02e6c7a1cf16b478834426cdb9eb21b841263f78c0a7e6d13b750c17845833a1ec0ec69b51c117c33a76aabc4ecbaa0a"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:26:46 UTC +00:00], ["username", "lginoux"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "perishable_token" = 'lHmxdwVoZf2RSwfh6LN', "updated_at" = '2012-05-07 18:26:46.575610' WHERE "users"."id" = 2[0m
+  [1m[35m (0.9ms)[0m  commit transaction
+Completed 500 Internal Server Error in 17ms
+
+NoMethodError (undefined method `welcome_email' for UserMailer:Class):
+  app/models/user.rb:16:in `deliver_confirm_email_instructions!'
+  app/controllers/users_controller.rb:23:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.8ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:27:38 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:27:38 UTC +00:00], ["crypted_password", "e13db4bdb60fe8090f82c21d5ba8cc28e29947ff78fc24eb93b8519d1299012c963887e703537cc994ce86de1c81d5f9fff44411dc4614e7b68d4812730b3d71"], ["email", "lginoux@gmail.com"], ["password_salt", "PcE9B0gbdIC4oauMdnF"], ["perishable_token", "30OGsvqLCVtHt2JSU2J"], ["persistence_token", "61868ba8eafcf79c88e2c8be6707e09cff79acd6bdb9724db875e6b4e8a0347ffaefa3c1667130a6f50d50ada2a2ae626ce46161b3ea2207305d6aea2ae5f109"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:27:38 UTC +00:00], ["username", "lginoux"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mUPDATE "users" SET "perishable_token" = 'VcHE1jyacLcfATTWCMl', "updated_at" = '2012-05-07 18:27:38.485081' WHERE "users"."id" = 3[0m
+  [1m[35m (1.1ms)[0m  commit transaction
+  Rendered user_mailer/verify_account_email.html.erb (0.4ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.3ms)
+
+Sent mail to lginoux@gmail.com (4128ms)
+Date: Mon, 07 May 2012 20:27:38 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa8141a7ed36_43083fd4b147bd1c36229@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa8141a7b67b_43083fd4b147bd1c3592f";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa8141a7b67b_43083fd4b147bd1c3592f
+Date: Mon, 07 May 2012 20:27:38 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8141a7d8bc_43083fd4b147bd1c36059@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa8141a7b67b_43083fd4b147bd1c3592f
+Date: Mon, 07 May 2012 20:27:38 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8141a7e4bd_43083fd4b147bd1c3614b@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p></p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa8141a7b67b_43083fd4b147bd1c3592f--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 4175ms (ActiveRecord: 3.5ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:27:42 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 10ms (Views: 9.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:28:31 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (7.3ms)
+  Rendered user_sessions/new.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 19ms (Views: 18.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:28:34 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+  Rendered user_sessions/_form.html.erb (3.6ms)
+  Rendered user_sessions/new.html.erb within layouts/application (4.2ms)
+Completed 500 Internal Server Error in 10ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    3: 		<%= form_for @user_session, :html => { :class => "form-horizontal" } do |f| %>
+    4: 			<% if @user_session.errors[:base].present? %>
+    5: 			   <div class="alert alert-error">
+    6: 				  <p class="flash-error"><%= @user.errors[:base].join(", ") %></p>
+    7: 				</div>
+    8: 			<% end %>
+    9: 			<fieldset>
+  app/views/user_sessions/_form.html.erb:6:in `block in _app_views_user_sessions__form_html_erb___4512357868349484755_70182742090440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb___4512357868349484755_70182742090440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb___3866819793792696273_70182740120880'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.4ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.4ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (14.4ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:30:11 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (6.6ms)
+  Rendered user_sessions/new.html.erb within layouts/application (7.5ms)
+Completed 500 Internal Server Error in 12ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    1: <div class="row">
+    2: 	<div class="span10">
+    3: 		<%= form_for @user_session, :html => { :class => "form-horizontal" } do |f| %>
+    4: 		<% if @company.errors.any? %>
+    5: 	   	<% if @message.errors.any? %>
+    6: 			<div class="alert alert-error">
+    7: 				<% @company.errors.full_messages.each do |msg| %>
+  app/views/user_sessions/_form.html.erb:4:in `block in _app_views_user_sessions__form_html_erb___4512357868349484755_70182730207200'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb___4512357868349484755_70182730207200'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb___3866819793792696273_70182740120880'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.8ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.4ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:31:21 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+  Rendered user_sessions/_form.html.erb (5.1ms)
+  Rendered user_sessions/new.html.erb within layouts/application (5.8ms)
+Completed 500 Internal Server Error in 10ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    1: <div class="row">
+    2: 	<div class="span10">
+    3: 		<%= form_for @user_session, :html => { :class => "form-horizontal" } do |f| %>
+    4: 	   	<% if @message.errors.any? %>
+    5: 				<div class="alert alert-error">
+    6: 					<% @user_session.errors.full_messages.each do |msg| %>
+    7: 						<p><%= msg %></p>
+  app/views/user_sessions/_form.html.erb:4:in `block in _app_views_user_sessions__form_html_erb___4512357868349484755_70182729295960'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb___4512357868349484755_70182729295960'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb___3866819793792696273_70182740120880'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.3ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (38.7ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (49.5ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:31:31 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (9.1ms)
+  Rendered user_sessions/new.html.erb within layouts/application (9.8ms)
+Completed 200 OK in 24ms (Views: 21.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:32:13 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 15ms (Views: 13.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/3" for 127.0.0.1 at 2012-05-07 20:32:16 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"3"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", "3"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 3]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 7ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:32:16 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 10ms (Views: 9.4ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/2" for 127.0.0.1 at 2012-05-07 20:32:18 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"2"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 2]]
+  [1m[35m (2.0ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 4ms (ActiveRecord: 2.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:32:18 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 9ms (Views: 8.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:32:21 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:32:30 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  begin transaction
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:32:30 UTC +00:00], ["crypted_password", "853a11f418e4cd6cddff7d6c51585060846317c9116e3f3657da3ba197c0e03121089a8927e42af59ebae77b1b34d0c395c2456601d28ff640433b554d4f003c"], ["email", "lginoux@gmail.com"], ["password_salt", "bhlND6di3JqhVbKqhuxD"], ["perishable_token", "Gm8MWHEMxzZkYSepSUm"], ["persistence_token", "d31565d0903eb90cd8595fc03792b43b960ac304df7da967ff3dbfb82c20ef4c664e477e17cd1bae33127eba1a62c52074f040cab8b5629d38c97a4c003aa83c"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:32:30 UTC +00:00], ["username", "lginoux"]]
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "perishable_token" = 'y5Cv3G3L9dvura000W9R', "updated_at" = '2012-05-07 18:32:30.617725' WHERE "users"."id" = 4
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  Rendered user_mailer/verify_account_email.html.erb (0.1ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.1ms)
+
+Sent mail to lginoux@gmail.com (3032ms)
+Date: Mon, 07 May 2012 20:32:30 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa8153e9d8c8_43083fd4b168f02c366c6@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa8153e9a21b_43083fd4b168f02c363a9";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa8153e9a21b_43083fd4b168f02c363a9
+Date: Mon, 07 May 2012 20:32:30 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8153e9c3fb_43083fd4b168f02c3643e@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa8153e9a21b_43083fd4b168f02c363a9
+Date: Mon, 07 May 2012 20:32:30 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8153e9cfe2_43083fd4b168f02c365bb@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p></p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa8153e9a21b_43083fd4b168f02c363a9--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3058ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:32:33 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 9ms (Views: 8.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:32:46 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (6.6ms)
+  Rendered user_sessions/new.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 16ms (Views: 15.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:32:48 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (6.0ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 17ms (Views: 15.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:32:56 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 12ms (Views: 11.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/4" for 127.0.0.1 at 2012-05-07 20:33:00 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"4"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", "4"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 4]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 5ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:33:00 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 11ms (Views: 9.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:33:35 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (5.5ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 15ms (Views: 14.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:33:37 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered users/new.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:33:42 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:33:42 UTC +00:00], ["crypted_password", "3c36b198023572ae3dcc8b298c24922f3b5f04f22cbf28301c8d7beb17d55eff08bcd3b22504bf377e812f0f8cf439364c3b2918b17b904cfa3e2740451a4886"], ["email", "lginoux@gmail.com"], ["password_salt", "oCkZ5LnfppSqc0Pds6b5"], ["perishable_token", "5wTQdPb2PJiBL0Yb0ETn"], ["persistence_token", "f967b5e935731f6311e2b25390d006c62183af331579209a82737a41b85ee47ad4b90f9d497d0aad43ee2ef6ca09c82c69bec9faa0909e0da269f50d4f48e2e4"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:33:42 UTC +00:00], ["username", "lginoux"]]
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "perishable_token" = 'NRWdRUkKG0YGrlMktlna', "updated_at" = '2012-05-07 18:33:42.267007' WHERE "users"."id" = 5[0m
+  [1m[35m (0.8ms)[0m  commit transaction
+  Rendered user_mailer/verify_account_email.html.erb (0.5ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.5ms)
+
+Sent mail to lginoux@gmail.com (3162ms)
+Date: Mon, 07 May 2012 20:33:42 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa8158648218_43083fd4b0a5e1b8370c5@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa815864485b_43083fd4b0a5e1b8367cf";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa815864485b_43083fd4b0a5e1b8367cf
+Date: Mon, 07 May 2012 20:33:42 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8158646bab_43083fd4b0a5e1b83689f@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+http://0.0.0.0:3000/user_verifications/NRWdRUkKG0YGrlMktlna
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa815864485b_43083fd4b0a5e1b8367cf
+Date: Mon, 07 May 2012 20:33:42 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8158647751_43083fd4b0a5e1b83698b@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p>http://0.0.0.0:3000/user_verifications/NRWdRUkKG0YGrlMktlna</p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa815864485b_43083fd4b0a5e1b8367cf--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3189ms (ActiveRecord: 2.6ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:33:45 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 8.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:34:45 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 9ms (Views: 8.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:34:46 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 9ms (Views: 8.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/5" for 127.0.0.1 at 2012-05-07 20:34:49 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"5"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 5]]
+  [1m[35m (2.0ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 6ms (ActiveRecord: 2.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:34:49 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 10ms (Views: 8.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:34:50 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered users/new.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 11ms (Views: 10.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:34:57 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  begin transaction
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:34:57 UTC +00:00], ["crypted_password", "49ec0f23bd882f69334760c01207b700249c33537a4e191a7e75f8620d80c4b0e8f4020c8386c2744ba258e4268b1cce6ba0e1b91809aaf933c28994ae6f700a"], ["email", "lginoux@gmail.com"], ["password_salt", "ZN5dpKBtqmAzHQ1Ao7qa"], ["perishable_token", "mDEGvs0m0aknXW1kT9s"], ["persistence_token", "36ed7ab60c703b0c62c306df714d5e5a5f1857541cdd4ace2599a35eeae46c6ff693ec60a702df6e7c373becbd6cbe06b4e21b470322ff8cfc2e32f362dd1624"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:34:57 UTC +00:00], ["username", "lginoux"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "perishable_token" = 'rzj1l6BiXah8FLKm7iRt', "updated_at" = '2012-05-07 18:34:57.200274' WHERE "users"."id" = 6
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  Rendered user_mailer/verify_account_email.html.erb (0.1ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.1ms)
+
+Sent mail to lginoux@gmail.com (2774ms)
+Date: Mon, 07 May 2012 20:34:57 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa815d141bbe_43083fd4b0a0ef3c37468@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa815d134e2a_43083fd4b0a0ef3c371c0";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa815d134e2a_43083fd4b0a0ef3c371c0
+Date: Mon, 07 May 2012 20:34:57 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa815d1407ac_43083fd4b0a0ef3c3721f@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+http://0.0.0.0:3000/user_verifications/rzj1l6BiXah8FLKm7iRt
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa815d134e2a_43083fd4b0a0ef3c371c0
+Date: Mon, 07 May 2012 20:34:57 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa815d14130c_43083fd4b0a0ef3c3739e@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p>http://0.0.0.0:3000/user_verifications/rzj1l6BiXah8FLKm7iRt</p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa815d134e2a_43083fd4b0a0ef3c371c0--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 2843ms (ActiveRecord: 3.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:35:00 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 7.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:38:23 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (14.9ms)
+Completed 200 OK in 117ms (Views: 107.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:38:23 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 10ms (Views: 8.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/6" for 127.0.0.1 at 2012-05-07 20:38:26 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"6"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (18.5ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 6]]
+  [1m[35m (0.9ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 26ms (ActiveRecord: 19.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:38:26 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 45ms (Views: 44.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:38:31 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered users/new.html.erb within layouts/application (16.7ms)
+Completed 200 OK in 26ms (Views: 25.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:38:37 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lgx", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  begin transaction
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[36mSQL (4.5ms)[0m  [1mINSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:38:37 UTC +00:00], ["crypted_password", "4dd5c3a2e694dc22769bf1658c2a52ae8009caa039f4de6bfdd0853f5dc0577150b9f91a3821bf445945097830a8c5717137303064203e7ae61255fdf79f76a1"], ["email", "lginoux@gmail.com"], ["password_salt", "OjJK9zUVcoZyKe4qoWo0"], ["perishable_token", "jXqzYTyZBwlq5oAim9Q"], ["persistence_token", "3cd758ba15a73b311f8f480ec45cc6a70fb2b99006e39ab19624b0f188bd5508b6656c562cb361d07010db2838298693a05af4381238aa5bfda7d9c1dd4cdf0f"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:38:37 UTC +00:00], ["username", "lgx"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "perishable_token" = 'BC4UGg0xJvZczkcPk2iY', "updated_at" = '2012-05-07 18:38:37.569929' WHERE "users"."id" = 7
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+#<User:0x007f91041aa648>
+  Rendered user_mailer/verify_account_email.text.erb (0.4ms)
+
+Sent mail to lginoux@gmail.com (3281ms)
+Date: Mon, 07 May 2012 20:38:37 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa816adb55de_43d03fc882cee2b41638b@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+http://0.0.0.0:3000/user_verifications/BC4UGg0xJvZczkcPk2iY
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3430ms (ActiveRecord: 7.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:38:40 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 9ms (Views: 8.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/user_verifications/BC4UGg0xJvZczkcPk2iY" for 127.0.0.1 at 2012-05-07 20:39:56 +0200
+Processing by UserVerificationsController#show as HTML
+  Parameters: {"id"=>"BC4UGg0xJvZczkcPk2iY"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE (perishable_token = 'BC4UGg0xJvZczkcPk2iY' and updated_at > '2012-05-07 18:29:56.600916') LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "confirmed" = 't', "updated_at" = '2012-05-07 18:39:56.603666' WHERE "users"."id" = 7
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/login
+Completed 302 Found in 7ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:39:56 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (6.6ms)
+  Rendered user_sessions/new.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 16ms (Views: 15.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:40:00 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (5.7ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.4ms)
+Completed 500 Internal Server Error in 12ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    15:           <div class="controls">
+    16: 				    <%= f.text_field :username, :class => "input-xlarge"  %>
+    17: 						<% if @user_session.errors[:username].present? %>
+    18: 							<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+    19: 						<%end%>
+    20:           </div>
+    21:         </div>
+  app/views/user_sessions/_form.html.erb:18:in `block in _app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb__4221571834945285438_70130419879700'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.9ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:40:15 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (6.0ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.6ms)
+Completed 200 OK in 14ms (Views: 13.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:40:17 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+  Rendered user_sessions/_form.html.erb (5.5ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.3ms)
+Completed 500 Internal Server Error in 10ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    15:           <div class="controls">
+    16: 				    <%= f.text_field :username, :class => "input-xlarge"  %>
+    17: 						<% if @user_session.errors[:username].present? %>
+    18: 							<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+    19: 						<%end%>
+    20:           </div>
+    21:         </div>
+  app/views/user_sessions/_form.html.erb:18:in `block in _app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb__4221571834945285438_70130419879700'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.2ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-05-07 20:40:52 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 9ms (Views: 8.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:40:54 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (5.8ms)
+  Rendered user_sessions/new.html.erb within layouts/application (41.6ms)
+Completed 200 OK in 52ms (Views: 51.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:41:00 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (5.4ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.2ms)
+Completed 500 Internal Server Error in 10ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    15:           <div class="controls">
+    16: 				    <%= f.text_field :username, :class => "input-xlarge"  %>
+    17: 						<% if @user_session.errors[:username].present? %>
+    18: 							<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+    19: 						<%end%>
+    20:           </div>
+    21:         </div>
+  app/views/user_sessions/_form.html.erb:18:in `block in _app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb__4221571834945285438_70130419879700'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.8ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.2ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:41:06 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+  Rendered user_sessions/_form.html.erb (5.6ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.2ms)
+Completed 500 Internal Server Error in 10ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    15:           <div class="controls">
+    16: 				    <%= f.text_field :username, :class => "input-xlarge"  %>
+    17: 						<% if @user_session.errors[:username].present? %>
+    18: 							<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+    19: 						<%end%>
+    20:           </div>
+    21:         </div>
+  app/views/user_sessions/_form.html.erb:18:in `block in _app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb__4221571834945285438_70130419879700'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.6ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:41:14 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lgx", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lgx') LIMIT 1
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `verified' for #<User:0x007f910459ce68>):
+  app/models/user_session.rb:6:in `check_if_verified'
+  app/controllers/user_sessions_controller.rb:20:in `block in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.2ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.6ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:41:53 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lgx", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lgx') LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 67ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:41:53 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 31ms (Views: 30.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/logout" for 127.0.0.1 at 2012-05-07 20:41:57 +0200
+Processing by UserSessionsController#destroy as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:41:57 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:42:00 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (5.9ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.6ms)
+Completed 200 OK in 15ms (Views: 14.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:42:02 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (5.4ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.3ms)
+Completed 500 Internal Server Error in 11ms
+
+ActionView::Template::Error (undefined method `errors' for nil:NilClass):
+    15:           <div class="controls">
+    16: 				    <%= f.text_field :username, :class => "input-xlarge"  %>
+    17: 						<% if @user_session.errors[:username].present? %>
+    18: 							<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+    19: 						<%end%>
+    20:           </div>
+    21:         </div>
+  app/views/user_sessions/_form.html.erb:18:in `block in _app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/_form.html.erb:3:in `_app_views_user_sessions__form_html_erb__1480656511571188530_70130419865440'
+  app/views/user_sessions/new.html.erb:3:in `_app_views_user_sessions_new_html_erb__4221571834945285438_70130419879700'
+  app/controllers/user_sessions_controller.rb:24:in `block (2 levels) in create'
+  app/controllers/user_sessions_controller.rb:19:in `create'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.8ms)
+
+
+Started GET "/user_sessions.json" for 127.0.0.1 at 2012-05-07 20:43:04 +0200
+Processing by UserSessionsController#index as JSON
+Completed 500 Internal Server Error in 2ms
+
+ActionView::MissingTemplate (Missing template user_sessions/index, application/index with {:locale=>[:en], :formats=>[:json], :handlers=>[:erb, :builder, :coffee]}. Searched in:
+  * "/Users/lginoux/project/ruby/foodrubix/app/views"
+):
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.5ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:43:48 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lgx", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lgx') LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:43:48 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 10ms (Views: 9.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/current/edit" for 127.0.0.1 at 2012-05-07 20:43:52 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"current"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  Rendered users/_form.html.erb (4.4ms)
+  Rendered users/edit.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 18ms (Views: 15.1ms | ActiveRecord: 0.2ms)
+
+
+Started PUT "/users/7" for 127.0.0.1 at 2012-05-07 20:44:00 +0200
+Processing by UsersController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "id"=>"7"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."username") = LOWER('lginoux') AND "users"."id" != 7) LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."persistence_token" = '8283eb63bbc36a751137366ba8bcaebf3e5a4b06b54adea627f0250337321da455b691199f23cd20804d591ef8936dd361e534c2d83ad6f4a7489b8dd9bd3237' AND "users"."id" != 7) LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "username" = 'lginoux', "password_salt" = 'sgNhKMmjd9XDNEZIYlnd', "crypted_password" = 'b4a5c7a396ee9d49bdbe0ad53bebafea4c40ce6eeab55e97b6f1fe568d668b97780a80e3f31dd575f113ba568b357f2f9554baf2224234814cc628261f189bea', "persistence_token" = '8283eb63bbc36a751137366ba8bcaebf3e5a4b06b54adea627f0250337321da455b691199f23cd20804d591ef8936dd361e534c2d83ad6f4a7489b8dd9bd3237', "updated_at" = '2012-05-07 18:44:01.023151' WHERE "users"."id" = 7[0m
+  [1m[35m (1.1ms)[0m  commit transaction
+Completed 500 Internal Server Error in 381ms
+
+NameError (undefined local variable or method `root_url' for #<UsersController:0x007f910590c020>):
+  app/controllers/users_controller.rb:38:in `update'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (31.3ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.4ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (38.5ms)
+
+
+Started PUT "/users/7" for 127.0.0.1 at 2012-05-07 20:44:27 +0200
+Processing by UsersController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "id"=>"7"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 500 Internal Server Error in 15ms
+
+NoMethodError (undefined method `update_attributes' for nil:NilClass):
+  app/controllers/users_controller.rb:36:in `update'
+  config/initializers/quiet_assets.rb:7:in `call_with_quiet_assets'
+
+
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.7ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/lginoux/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:44:37 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 11ms (Views: 10.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:44:41 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (37.5ms)
+  Rendered user_sessions/new.html.erb within layouts/application (38.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 48ms (Views: 47.5ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:44:45 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 6ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:44:45 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 10ms (Views: 9.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/current/edit" for 127.0.0.1 at 2012-05-07 20:44:49 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"current"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered users/edit.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 16ms (Views: 12.7ms | ActiveRecord: 0.3ms)
+
+
+Started PUT "/users/7" for 127.0.0.1 at 2012-05-07 20:44:58 +0200
+Processing by UsersController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "id"=>"7"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."persistence_token" = 'e0fc46cebe057de15a0bfbd15c9f00e471482a8486969d6bde4bfe13a137855c490904cbc683847cf4db519209aa58cfb09024114e8ca247dba203ea90ed8a3d' AND "users"."id" != 7) LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "password_salt" = 'sFRVbjnOZhFy77CV30p', "crypted_password" = '5a9df7920e716fb430e030cdbf2951a7af64d523e418be8d4c6dfe97c1c6a52c1da20a633ca8457bbc2c59b016489eaf09af940ceaf3aaf7f7fca0cbf287532a', "persistence_token" = 'e0fc46cebe057de15a0bfbd15c9f00e471482a8486969d6bde4bfe13a137855c490904cbc683847cf4db519209aa58cfb09024114e8ca247dba203ea90ed8a3d', "updated_at" = '2012-05-07 18:44:58.950894' WHERE "users"."id" = 7
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 13ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:44:58 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.1ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Completed 200 OK in 48ms (Views: 47.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/current/edit" for 127.0.0.1 at 2012-05-07 20:45:02 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"current"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered users/edit.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 14ms (Views: 11.6ms | ActiveRecord: 0.2ms)
+
+
+Started PUT "/users/7" for 127.0.0.1 at 2012-05-07 20:45:05 +0200
+Processing by UsersController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "id"=>"7"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:45:05 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+Completed 200 OK in 9ms (Views: 8.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/current/edit" for 127.0.0.1 at 2012-05-07 20:45:09 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"current"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered users/edit.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 13ms (Views: 11.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:45:19 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+Completed 200 OK in 10ms (Views: 9.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/logout" for 127.0.0.1 at 2012-05-07 20:45:24 +0200
+Processing by UserSessionsController#destroy as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 5ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:45:24 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 9ms (Views: 8.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:46:39 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 15ms (Views: 13.6ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/7" for 127.0.0.1 at 2012-05-07 20:46:42 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"7"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", "7"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 7]]
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 6ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:46:42 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 10ms (Views: 8.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:46:44 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered users/new.html.erb within layouts/application (5.1ms)
+Completed 200 OK in 18ms (Views: 16.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:46:51 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:46:51 UTC +00:00], ["crypted_password", "81c51c0bffc70b23943f0b27ab676e8b7761a7590445edc9c0ca46f474a8249ce3370e58e02ddf722a6701c5eaefa1a6cb2f29718d802e6959a54a47ad20ef45"], ["email", "lginoux@gmail.com"], ["password_salt", "s3WBhBDHl22zhczKLtZv"], ["perishable_token", "O4lkX1KNPqEI3OujuRUk"], ["persistence_token", "42e54f41ca8a1ff274258e13a0ec625e418d4a6286f58302db4eaff24aa3ec072a1cb753b496c4aefa41b7fe2b0254f7ecb199b5f3fbbade80fbf51927eb640d"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:46:51 UTC +00:00], ["username", "lginoux"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mUPDATE "users" SET "perishable_token" = 'JeTdzw7ilyV8yVUVGTR', "updated_at" = '2012-05-07 18:46:51.520061' WHERE "users"."id" = 8[0m
+  [1m[35m (0.7ms)[0m  commit transaction
+#<User:0x007f9105a2e818>
+  Rendered user_mailer/verify_account_email.html.erb (0.4ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.3ms)
+
+Sent mail to lginoux@gmail.com (3367ms)
+Date: Mon, 07 May 2012 20:46:51 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa8189b89407_43d03fc882364e6416734@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa8189b83e4e_43d03fc882364e6416498";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa8189b83e4e_43d03fc882364e6416498
+Date: Mon, 07 May 2012 20:46:51 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8189b87f55_43d03fc882364e641657e@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+http://0.0.0.0:3000/user_verifications/JeTdzw7ilyV8yVUVGTR
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa8189b83e4e_43d03fc882364e6416498
+Date: Mon, 07 May 2012 20:46:51 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa8189b88b4a_43d03fc882364e641662c@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p>http://0.0.0.0:3000/user_verifications/JeTdzw7ilyV8yVUVGTR</p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa8189b83e4e_43d03fc882364e6416498--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3401ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:46:54 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 9ms (Views: 8.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/user_verifications/JeTdzw7ilyV8yVUVGTR" for 127.0.0.1 at 2012-05-07 20:47:26 +0200
+Processing by UserVerificationsController#show as HTML
+  Parameters: {"id"=>"JeTdzw7ilyV8yVUVGTR"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE (perishable_token = 'JeTdzw7ilyV8yVUVGTR' and updated_at > '2012-05-07 18:37:26.868259') LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "confirmed" = 't', "updated_at" = '2012-05-07 18:47:26.869923' WHERE "users"."id" = 8[0m
+  [1m[35m (2.3ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/login
+Completed 302 Found in 6ms (ActiveRecord: 2.7ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:47:26 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (5.5ms)
+  Rendered user_sessions/new.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 14ms (Views: 14.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:47:32 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:47:32 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 8 LIMIT 1
+Completed 200 OK in 9ms (Views: 8.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/logout" for 127.0.0.1 at 2012-05-07 20:47:39 +0200
+Processing by UserSessionsController#destroy as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 8 LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:47:39 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 8.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:47:43 +0200
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 9ms (Views: 7.8ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/8" for 127.0.0.1 at 2012-05-07 20:47:46 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "id"=>"8"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "8"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 8]]
+  [1m[35m (2.1ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/users
+Completed 302 Found in 6ms (ActiveRecord: 2.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-05-07 20:47:46 +0200
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 12ms (Views: 10.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2012-05-07 20:47:47 +0200
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 12ms (Views: 11.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-05-07 20:47:55 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user"=>{"username"=>"lginoux", "email"=>"lginoux@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  begin transaction
+Binary data inserted for `string` type on column `crypted_password`
+Binary data inserted for `string` type on column `persistence_token`
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("confirmed", "created_at", "crypted_password", "email", "password_salt", "perishable_token", "persistence_token", "role", "updated_at", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["confirmed", false], ["created_at", Mon, 07 May 2012 18:47:55 UTC +00:00], ["crypted_password", "a496dcf70cd479933cbb374c71587d6876cc6bdafe0dc8833c1c04ffe68c36fecf143adfaab6054c5a68b8c3a4560bcd3387c4b203b7b8483d6d239dcbee341b"], ["email", "lginoux@gmail.com"], ["password_salt", "UkdbDgXltVJ10aihHW"], ["perishable_token", "DRmgTByjrzsMD4ORXxK"], ["persistence_token", "f5e4591a451f4e3de5526c9a01853725fb0418155dfb7d3ad00646a70eda5d81b2a3f8f54e962daf56a92040615bd481146bda7c5e59b319faadad5d43802072"], ["role", nil], ["updated_at", Mon, 07 May 2012 18:47:55 UTC +00:00], ["username", "lginoux"]]
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "perishable_token" = 'DcdMw4a7Oftvs05gVA', "updated_at" = '2012-05-07 18:47:55.696944' WHERE "users"."id" = 9
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+#<User:0x007f91045cca00>
+  Rendered user_mailer/verify_account_email.html.erb (0.1ms)
+  Rendered user_mailer/verify_account_email.text.erb (0.0ms)
+
+Sent mail to lginoux@gmail.com (2916ms)
+Date: Mon, 07 May 2012 20:47:55 +0200
+From: lgxtodo@gmail.com
+To: lginoux@gmail.com
+Message-ID: <4fa818dbb0d1b_43d03fc8810863241716f@Loics-MacBook-Air.local.mail>
+Subject: [Your App] Verify your account
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_4fa818dbad804_43d03fc8810863241688f";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+----==_mimepart_4fa818dbad804_43d03fc8810863241688f
+Date: Mon, 07 May 2012 20:47:55 +0200
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa818dbaf950_43d03fc881086324169e4@Loics-MacBook-Air.local.mail>
+
+Thank you for signing up for this site. Please click the following link to verify your email address:
+
+http://0.0.0.0:3000/user_verifications/DcdMw4a7Oftvs05gVA
+
+If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.
+
+
+----==_mimepart_4fa818dbad804_43d03fc8810863241688f
+Date: Mon, 07 May 2012 20:47:55 +0200
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <4fa818dbb0534_43d03fc8810863241708e@Loics-MacBook-Air.local.mail>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+	<p>Thank you for signing up for this site. Please click the following link to verify your email address:</p>
+	<p>http://0.0.0.0:3000/user_verifications/DcdMw4a7Oftvs05gVA</p>
+	<p>If the above URL does not work, try copying and pasting it into your browser. If you continue to have problems, please feel free to contact us.</p>
+</body>
+</html>
+
+----==_mimepart_4fa818dbad804_43d03fc8810863241688f--
+
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 2942ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:47:58 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 8ms (Views: 7.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:48:01 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (5.3ms)
+  Rendered user_sessions/new.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 14ms (Views: 13.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:48:02 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1
+  Rendered user_sessions/_form.html.erb (8.3ms)
+  Rendered user_sessions/new.html.erb within layouts/application (9.1ms)
+Completed 200 OK in 21ms (Views: 17.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/user_verifications/DcdMw4a7Oftvs05gVA" for 127.0.0.1 at 2012-05-07 20:48:14 +0200
+Processing by UserVerificationsController#show as HTML
+  Parameters: {"id"=>"DcdMw4a7Oftvs05gVA"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE (perishable_token = 'DcdMw4a7Oftvs05gVA' and updated_at > '2012-05-07 18:38:14.124243') LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mUPDATE "users" SET "confirmed" = 't', "updated_at" = '2012-05-07 18:48:14.125799' WHERE "users"."id" = 9[0m
+  [1m[35m (2.4ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/login
+Completed 302 Found in 6ms (ActiveRecord: 3.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2012-05-07 20:48:14 +0200
+Processing by UserSessionsController#new as HTML
+  Rendered user_sessions/_form.html.erb (7.3ms)
+  Rendered user_sessions/new.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 19ms (Views: 18.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/user_sessions" for 127.0.0.1 at 2012-05-07 20:48:17 +0200
+Processing by UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rHtXqHJEeLpMC0o9sQBHU4cJIXQ9DEzVmRfsTKD8O2M=", "user_session"=>{"username"=>"lginoux", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE ("users".username LIKE 'lginoux') LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/home
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:48:17 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1
+Completed 200 OK in 9ms (Views: 8.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-07 20:48:50 +0200
+Processing by HighVoltage::PagesController#show as HTML
+  Parameters: {"id"=>"home"}
+  Rendered pages/home.html.erb within layouts/application (0.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1[0m
+Completed 200 OK in 10ms (Views: 9.2ms | ActiveRecord: 0.2ms)

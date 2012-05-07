@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507122039) do
+ActiveRecord::Schema.define(:version => 20120507180654) do
 
   create_table "user_sessions", :force => true do |t|
     t.string   "username"
@@ -26,10 +26,11 @@ ActiveRecord::Schema.define(:version => 20120507122039) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "role"
-    t.string   "perishable_token",  :default => "", :null => false
+    t.string   "perishable_token",  :default => "",    :null => false
+    t.boolean  "confirmed",         :default => false
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
