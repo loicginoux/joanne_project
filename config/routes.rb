@@ -2,10 +2,11 @@ Foodrubix::Application.routes.draw do
   
   resources :users
   resources :user_sessions
-  
+  resources :password_resets  
   match "register" => "users#new", :as => :register  
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
+  match 'lost_password' => "password_resets#new", :as => :lost_password
   
   namespace :admin do
        resources :users

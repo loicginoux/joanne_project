@@ -1,10 +1,9 @@
 class UserSessionsController < ApplicationController
-
+    
   # GET /user_sessions/new
   # GET /user_sessions/new.json
   def new
     @user_session = UserSession.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user_session }
@@ -40,4 +39,6 @@ class UserSessionsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  
 end

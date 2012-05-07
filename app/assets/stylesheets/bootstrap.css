@@ -1111,7 +1111,7 @@ input[type="checkbox"][readonly] {
   border-color: #c09853;
 }
 
-.control-group.error > label,
+.control-group.error label,
 .control-group.error .help-block,
 .control-group.error .help-inline {
   color: #b94a48;
