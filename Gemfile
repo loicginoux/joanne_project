@@ -4,11 +4,19 @@ gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-group :development, :test do
+group :development do
   gem 'sqlite3'
 end
 group :production do
   gem 'pg'
+end
+
+group :test do
+  gem 'sqlite3'
+  #better fixtures
+  gem 'machinist'
+  #better test writting
+  gem 'shoulda'
 end
 
 # Gems used only for assets and not required
@@ -33,6 +41,9 @@ gem 'authlogic'
 
 #static pages
 gem "high_voltage"
+
+#file management
+gem "paperclip", "~> 3.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,0 +1,8 @@
+<% @data_points.each do |data_point| %>
+	<div style="display:inline; float:left;">
+		<%= image_tag(data_point.photo.url, :size => "100x100") %>
+		<%= data_point.calories %>
+		<%= data_point.user_id %>
+	</div>
+	
+<% end %>

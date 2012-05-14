@@ -1,0 +1,13 @@
+<div>
+	<%= link_to "upload new photo",new_data_point_url%>
+</div>
+
+<% @user.data_points.each do |data_point| %>
+	<div style="display:inline; float:left;">
+		<%= link_to image_tag(data_point.photo.url, :size => "100x100"), data_point_path(data_point) %>
+		
+
+		<%= data_point.calories %>
+	</div>
+	
+<% end %>

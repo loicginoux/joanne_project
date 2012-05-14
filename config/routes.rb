@@ -1,7 +1,8 @@
 Foodrubix::Application.routes.draw do
   
+  resources :data_points
   resources :users
-  resources :user_sessions
+  resources :user_sessions, :only => [:create, :destroy]
   resources :password_resets  
   resources :user_verifications  
 
@@ -10,13 +11,37 @@ Foodrubix::Application.routes.draw do
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'lost_password' => "password_resets#new", :as => :lost_password
   match 'confirm' => "user_verification#show", :as => :confirm
+  match 'upload' => "data_points#new", :as => :upload
+  match 'home'  => 'high_voltage/pages#show', :id => 'home', :as => "home"
   
+  # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/ 
+  match ":username/edit", :to => "users#edit",
+                            :as => "edit_user",
+                            :via => :get
+    
+   match ":username",      :to => "users#show",
+                           :as => "user",
+                           :via => :get
+  
+   match ":username",      :to => "users#update",
+                           :as => "user",
+                           :via => :put
+   
+  # match ":username",      :to => "users#destroy",
+  #                         :as => "user",
+  #                         :via => :delete
+                            
   namespace :admin do
        resources :users
   end
   
+ 
+  # namespace :users, :as => :user,  :path => '/:username' do
+  #     resources :data_points
+  # end
   
   match '/:id' => 'high_voltage/pages#show', :as => :static, :via => :get
+  
   root :to => 'high_voltage/pages#show', :id => 'home', :as => "home"
 
   # The priority is based upon order of creation:

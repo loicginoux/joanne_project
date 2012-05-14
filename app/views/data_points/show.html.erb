@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Calories:</b>
+  <%= @data_point.calories %>
+<b>photo</b>
+<%= image_tag @data_point.photo.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_data_point_path(@data_point) %>

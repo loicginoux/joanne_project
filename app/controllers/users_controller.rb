@@ -8,8 +8,24 @@ class UsersController < ApplicationController
     end
   end
     
+  def show
+    logger.info "show user"
+     @user = User.first(:conditions => {:username=> params[:username]})
+     respond_to do |format|
+       if @user.isUserAllowed(current_user)
+         format.html # show.html.erb
+         format.json { render :json => @user }
+       else
+         format.html { redirect_to login_path, :notice => 'you cannot access this user' }
+         format.json { head :ok }
+
+       end
+     end
+   end
+   
   def new
      @user = User.new
+     @user.data_points.build
      respond_to do |format|
        format.html # new.html.erb
        format.json { render json: @user }
@@ -42,11 +58,10 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
+    @user = User.first(:conditions => {:username=> params[:username]})
     @user.destroy
-
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to static_path("home") }
       format.json { head :ok }
     end
   end

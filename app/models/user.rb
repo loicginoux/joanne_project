@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
   disable_perishable_token_maintenance(true)
   before_validation :reset_perishable_token!, :on => :create 
 
+
+  has_many :data_points, :dependent => :destroy
+  accepts_nested_attributes_for :data_points
+  
+  
   #cancan gem
   ROLES = %w[admin]
   
@@ -24,5 +29,17 @@ class User < ActiveRecord::Base
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.reset_password_email(self).deliver
+  end
+  
+  def to_param
+    "#{username}"
+  end
+  
+  def isUserAllowed(user)
+    if user
+       user.username == self.username
+    else
+      false
+    end
   end
 end

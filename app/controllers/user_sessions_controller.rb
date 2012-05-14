@@ -18,7 +18,8 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to static_path("home"), notice: 'successfully logged in.' }
+        user = User.first(:conditions => {:username=> @user_session.username})
+        format.html { redirect_to user_path(:username=> user.username), notice: 'successfully logged in.' }
         format.json { render json: @user_session, status: :created, location: @user_session }
       else
         format.html { render action: "new" }
@@ -35,7 +36,7 @@ class UserSessionsController < ApplicationController
     @user_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to static_path("home"), notice: 'successfully logged out.' }
+      format.html { redirect_to home_path, notice: 'successfully logged out.' }
       format.json { head :ok }
     end
   end
