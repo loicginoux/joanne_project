@@ -16,20 +16,20 @@ Foodrubix::Application.routes.draw do
   
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/ 
   match ":username/edit", :to => "users#edit",
-                            :as => "edit_user",
-                            :via => :get
+                          :as => "edit_user",
+                          :via => :get
     
-   match ":username",      :to => "users#show",
-                           :as => "user",
-                           :via => :get
-  
-   match ":username",      :to => "users#update",
-                           :as => "user",
-                           :via => :put
-   
-  # match ":username",      :to => "users#destroy",
-  #                         :as => "user",
-  #                         :via => :delete
+  match ":username",:to => "users#show",
+                    :as => "user",
+                    :via => :get
+
+  match ":username",:to => "users#update",
+                    :as => "user",
+                    :via => :put
+
+  match ":username",:to => "users#destroy",
+                    :as => "user",
+                    :via => :delete
                             
   namespace :admin do
        resources :users

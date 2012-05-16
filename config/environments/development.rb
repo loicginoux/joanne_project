@@ -34,4 +34,6 @@ Foodrubix::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  Paperclip.options[:command_path] = "/usr/local/ImageMagick-6.7.5/bin/"
 end

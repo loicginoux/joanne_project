@@ -12,4 +12,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/tmp/
+/tmp
+
+/config/s3.yml
+
+

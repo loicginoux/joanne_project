@@ -44,6 +44,9 @@ gem "high_voltage"
 
 #file management
 gem "paperclip", "~> 3.0"
+# file storage amazon s3
+gem 'aws-s3'
+gem 'aws-sdk'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
