@@ -4,6 +4,7 @@ class UserSessionsController < ApplicationController
   # GET /user_sessions/new.json
   def new
     @user_session = UserSession.new
+    logger.info @user_session
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user_session }
@@ -15,7 +16,7 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions.json
   def create
     @user_session = UserSession.new(params[:user_session])
-
+    logger.info @user_session
     respond_to do |format|
       if @user_session.save
         user = User.first(:conditions => {:username=> @user_session.username})
