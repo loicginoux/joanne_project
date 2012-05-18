@@ -7,7 +7,7 @@ class DataPoint < ActiveRecord::Base
     :storage => :s3,
     :bucket => "foodrubix-assets",
     :path => ":attachment/:id/:style.:extension",
-    :s3_credentials => "#{Rails.root}/config/s3.yml"
+    :s3_credentials => S3_CREDENTIALS
     
   belongs_to :user
   accepts_nested_attributes_for :user
