@@ -1,21 +1,24 @@
 <h1>Users</h1>
 
 <table class="table table-striped">
-  <thead>
+	<thead>
 		<tr>
-	    <th>Username</th>
-	    <th>email</th>
-  	</tr>
+			<th>Username</th>
+			<th>Username</th>
+			<th>email</th>
+			<th>confirmed</th>
+		</tr>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
-		  <tr>
-		    <td><%= user.id %></td>
-		    <td><%= user.username %></td>
-		    <td><%= user.email %></td>
-		    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-		
-		  </tr>
+		<tr>
+			<td><%= user.id %></td>
+			<td><%= user.username %></td>
+			<td><%= user.email %></td>
+			<td><%= user.confirmed %></td>
+			<td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+
+		</tr>
 		<% end %>
 	</tbody>
 </table>

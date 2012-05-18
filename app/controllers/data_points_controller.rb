@@ -1,5 +1,6 @@
 class DataPointsController < ApplicationController
-
+  before_filter :check_for_cancel, :only => [:create, :update]
+  
   def index
     @data_points = DataPoint.all
     respond_to do |format|
@@ -73,6 +74,12 @@ class DataPointsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to data_points_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def check_for_cancel
+    unless params[:cancel].blank?
+      redirect_to user_path(:username => current_user)
     end
   end
 end

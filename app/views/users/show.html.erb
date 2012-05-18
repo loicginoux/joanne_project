@@ -1,5 +1,8 @@
-<div>
-	<%= link_to "upload new photo",new_data_point_url%>
+<div class="pull-right">
+	<%= link_to(new_data_point_url,:class=>"btn btn-primary") do%>
+		<i class="icon-upload icon-white"></i>
+		 Upload
+	<%end%>
 </div>
 
 <% @user.data_points.each do |data_point| %>
