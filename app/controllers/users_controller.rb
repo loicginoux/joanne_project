@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
     
   def show
-    logger.info "show user"
      @user = User.first(:conditions => {:username=> params[:username]})
      respond_to do |format|
        if @user.isUserAllowed(current_user)

@@ -1,4 +1,15 @@
 class User < ActiveRecord::Base
+  validates :username, 
+    :presence => true,
+    :uniqueness => true
+  validates :email, 
+    :format => { :with => /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/ },
+    :presence => true
+  validates :password,
+    :confirmation => true,
+    :length => { :minimum => 6 },
+    :presence => true
+    
   acts_as_authentic
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
   disable_perishable_token_maintenance(true)

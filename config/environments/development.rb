@@ -36,4 +36,7 @@ Foodrubix::Application.configure do
   config.assets.debug = true
   
   Paperclip.options[:command_path] = "/usr/local/ImageMagick-6.7.5/bin/"
+  
+  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  config.assets.precompile += %w( application-ie9.js )
 end

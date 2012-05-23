@@ -1,68 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My application</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<div class="navbar">
-	    <div class="navbar-inner">
-	      <div class="container">
-			<%= link_to "My App", static_path("home"), :class => 'brand'%>
-	        <div class="nav-collapse">
-	          <ul class="nav">
-							<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
-							<% if current_user %>
-								<li><%= link_to "Dashboard", user_path(:username=> current_user.username)%></li>
-							
-							<%end%>
-	          </ul>
-						<ul class="nav pull-right">
-	           
-							<% if current_user %>
-								<li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi <%= current_user.username%><b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		                <li>
-							<%= link_to(edit_user_path(current_user)) do%>
-								<i class="icon-user"></i>
-								 Edit Profile
-							<%end%>
-						</li>
-		                <li class="divider"></li>
-		                <li>
-							<%= link_to(logout_path) do%>
-								<i class="icon-off"></i>
-								 Logout
-							<%end%>
-						</li>
-		              </ul>
-		            </li>
-						  <% else %>
-							 	<li><%= link_to "Sign up", register_path %></li>
-		            <li class="divider-vertical"></li>
-	            	<li><%= link_to "Login", login_path %></li>
-						  <% end %>
-	            
-	          </ul>
-	        </div><!-- /.nav-collapse -->
-	      </div> <!-- container -->
-	    </div><!-- /navbar-inner -->
-	  </div><!-- navbar -->
+	<title>My application</title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<!--[if lt IE 9]>
+	<%= javascript_include_tag "application-ie9" %>
+	<![endif]-->
+	<%= javascript_include_tag "application" %>
 
- <div class="container content">			
+
+	<%= csrf_meta_tags %>
+</head>
+<body data-controller="<%= controller_name %>" data-action="<%= action_name %>" data-currentUser="<%= current_user.id %>">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<%= link_to "My App", static_path("home"), :class => 'brand'%>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
+						<% if current_user %>
+						<li><%= link_to "Dashboard", user_path(:username=> current_user.username)%></li>
+
+						<%end%>
+					</ul>
+					<ul class="nav pull-right">
+
+						<% if current_user %>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi <%= current_user.username%><b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to(edit_user_path(current_user)) do%>
+									<i class="icon-user"></i>
+									Edit Profile
+									<%end%>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<%= link_to(logout_path) do%>
+									<i class="icon-off"></i>
+									Logout
+									<%end%>
+								</li>
+							</ul>
+						</li>
+						<% else %>
+						<li><%= link_to "Sign up", register_path %></li>
+						<li class="divider-vertical"></li>
+						<li><%= link_to "Login", login_path %></li>
+						<% end %>
+
+					</ul>
+				</div><!-- /.nav-collapse -->
+			</div> <!-- container -->
+		</div><!-- /navbar-inner -->
+	</div><!-- navbar -->
+
+	<div class="container content">			
 		<% if flash[:alert] %>
-		   <div class="alert alert-error">
-			  <p class="flash-error"><%= flash[:alert] %></p>
-			</div>
+		<div class="alert alert-error">
+			<p class="flash-error"><%= flash[:alert] %></p>
+		</div>
 		<% end %>
 
 		<% if flash[:notice] %>
-		    <div class="alert alert-info">
-				 <p class="flash-error"><%= flash[:notice] %></p>
-			</div>
+		<div class="alert alert-info">
+			<p class="flash-error"><%= flash[:notice] %></p>
+		</div>
 		<% end %>
 
 		<%= yield %>
@@ -73,5 +78,10 @@
 			</div>
 		</footer>
 	</div>
+
+	<script id="loading_tmpl" type="text/html">
+		<%= render "data_points/loading" %>
+	</script>
+
 </body>
 </html>

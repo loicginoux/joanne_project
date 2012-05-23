@@ -4,13 +4,25 @@
 		 Upload
 	<%end%>
 </div>
-
-<% @user.data_points.each do |data_point| %>
-	<div style="display:inline; float:left;">
-		<%= link_to image_tag(data_point.photo.url(:thumb)), data_point_path(data_point) %>
-		
-
-		<%= data_point.calories %>
+<div class="row">
+	<div class="span10">
+		<div class="btn-group btn-last">
+		  <button class="btn" data-lastDays = "-30">This month</button>
+		  <button class="btn active" data-lastDays = "-6">This week</button>
+		  <button class="btn" data-lastDays = "0">Today</button>
+		</div>		
 	</div>
-	
-<% end %>
+</div>
+
+<br/>
+
+<script id="photos_tmpl" type="text/html">
+<%= render "data_points/photo_list" %>
+</script>
+
+<div id="photos">
+
+</div>
+
+
+<div id="chartdiv"></div>

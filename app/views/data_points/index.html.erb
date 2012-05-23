@@ -1,8 +1,12 @@
 <% @data_points.each do |data_point| %>
-	<div style="display:inline; float:left;">
-		<%= image_tag(data_point.photo.url, :size => "100x100") %>
-		<%= data_point.calories %>
-		<%= data_point.user_id %>
-	</div>
+		<div class="pull-left"><%= image_tag(data_point.photo.url, :size => "100x100") %></div>
+		<p>id<%= data_point.id %></p>
+		<p>calories<%= data_point.calories %></p>
+		<p>user id:<%= data_point.user_id %></p>
+		<p>date uploaded: <%= data_point.created_at %></p>
+		<%= link_to 'Destroy', data_point, method: :delete %>
+		<div class="clear"></div>
+		<br />
+	    
 	
 <% end %>

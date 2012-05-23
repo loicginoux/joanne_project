@@ -1,0 +1,18 @@
+{{#photos}}
+<div class="span2">
+	<div class="pull-left"><img src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" /></div>
+	<p>calories: {{calories}}</p>
+	<p>date: {{created_at_readable}}</p>
+	<div class="hide">
+		<p>user id: {{user_id}}</p>
+		<p>img path: {{img_path}}</p>
+
+	</div>
+</div>
+{{/photos}}
+{{^photos}}
+<div class="alert alert-info">
+	<button class="close" data-dismiss="alert">×</button>
+	<strong>No photos!</strong> You need to upload photos to start seeing something here
+</div>
+{{/photos}}

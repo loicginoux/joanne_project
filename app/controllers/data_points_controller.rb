@@ -2,7 +2,14 @@ class DataPointsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :update]
   
   def index
-    @data_points = DataPoint.all
+    if(params.has_key?(:start_date) && params.has_key?(:end_date))
+      @data_points = DataPoint.where(
+        :user_id => current_user.id,
+        :created_at => params[:start_date]..params[:end_date]
+      ).order("created_at ASC")
+    else
+      @data_points = DataPoint.all
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @data_points }
@@ -20,7 +27,6 @@ class DataPointsController < ApplicationController
   # GET /data_points/new
   # GET /data_points/new.json
   def new    
-    logger.info "new datapoint"
     @data_point = DataPoint.new
     respond_to do |format|
       format.html # new.html.erb
