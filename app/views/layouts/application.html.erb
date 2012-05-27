@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My application</title>
+	<title>Foodrubix</title>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<!--[if lt IE 9]>
 	<%= javascript_include_tag "application-ie9" %>
@@ -15,7 +15,7 @@
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
-				<%= link_to "My App", static_path("home"), :class => 'brand'%>
+				<%= link_to "Foodrubix", static_path("home"), :class => 'brand'%>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>

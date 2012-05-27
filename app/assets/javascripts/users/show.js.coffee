@@ -98,25 +98,24 @@ class foodrubix.graphic
 			@displayData()
 		
 	displayData: () =>
-		
 		jqplotData = @prepareInputFormat()
-		max_axis_x = new Date(jqplotData[jqplotData.length-1][0]).add(1).days().toString('dd-MMM-yyyy')
+		format = if @view != 0 then '%#d %b' else '%#d %b - %Hh'
+		title = if @view != 0 then 'Calories per day' else 'Calories for '+ @data[0].day_date
 		$.jqplot('chartdiv',
 			[jqplotData], 
 			{axes:{
 				xaxis:{
 					renderer:$.jqplot.DateAxisRenderer,
 					tickOptions:{
-                    	formatString:'%#d %b - %Hh'
-					},
-					max: max_axis_x
+                    	formatString: format
+					}
 				},
 				yaxis:{
 					min: 0,
 					tickInterval:200
 				}
 			}, 
-			title:"calories per day",
+			title:title,
 			highlighter: {
 				show: true,
 				sizeAdjust: 20
@@ -149,25 +148,7 @@ class foodrubix.graphic
 				dayCalories += dataPoint.calories
 			jqplotData.push([new Date(day.data_points[0].created_at).clearTime().toDateString(), dayCalories])
 		jqplotData
-				
-				
-		# for point in data
-		# 	newDate = new Date(point.created_at).clearTime()
-		# 	if jqplotData == []
-		# 		jqplotData.push [newDate, point.calories]
-		# 	else
-		# 		added = false
-		# 		for graphpoints in jqplotData
-		# 			if newDate.compareTo(graphpoints[0]) == 0
-		# 				graphpoints[1] += point.calories
-		# 				added = true
-		# 		if !added					
-		# 			jqplotData.push [newDate, point.calories]
-		#  
-		# for data in jqplotData			
-		# 	data[0] = data[0].toDateString()
-		# 	
-		# return jqplotData
+
 		
 					
 	
