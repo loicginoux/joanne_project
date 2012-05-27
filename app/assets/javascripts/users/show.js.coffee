@@ -35,37 +35,61 @@ getDataPoints = (startDate, endDate, onSuccess, lastDays) ->
 
 
 #function to run on success of the ajax call
+#data are data points, lastDays is the number of days to show (1, -6, -30)
 onSuccess = (data, lastDays) ->
+	#display loading gif
 	UTIL.load($('#photos'), "photos", false)
-	console.log("success:",data, lastDays);
-	displayPhotos(data);	
-	graphic = new foodrubix.graphic(data,lastDays)
+	dataSorted = groupDataByDay(data)
+	displayPhotos(dataSorted)
+	graphic = new foodrubix.graphic(dataSorted,lastDays)
 
-#display the photo list			
+
+# group data by day
+# return data sorted by date
+# [{date: date, data:[]}]
+groupDataByDay = (data) ->
+	dataSorted = []
+	for point in data
+		newDate = new Date(point.created_at).clearTime()
+		if dataSorted == []
+			dataSorted.push({
+				date: newDate,
+				day_date: newDate.toString('dddd dd'),
+				data_points: [point]
+			})
+		else
+			added = false
+			for day in dataSorted
+				if newDate.compareTo(day.date) == 0
+					day.data_points.push(point)
+					added = true
+			if !added					
+				dataSorted.push({
+					date: newDate,
+					day_date: newDate.toString('dddd dd'),
+					data_points: [point]
+				})
+	console.log("grouped data:",dataSorted);
+				
+	return dataSorted	
+	
+	
+#display the photo list	
+#data has the form [{date:Date, data_points:[data_point]}]
 displayPhotos = (data) ->
 	group = []
 	incr = 0
-	json_photos = {photos:[]}
 	$('#photos').empty()
-	#we format the date, build the img url and group them by 6
-	for dataPoint in data
-		if incr == 6 
-			incr = 1 
-			group.push(json_photos)
-			json_photos = {photos:[]}
-		else 
-			incr += 1 
-		dataPoint.created_at_readable = new Date(dataPoint.created_at).toString('dd-MMM-yyyy')
-		dataPoint.img_path = dataPoint.id + "/thumb.jpg"
-		json_photos.photos.push dataPoint
-	
-	group.push(json_photos)
-		
+	for day in data
+		for dataPoint in day.data_points
+			dataPoint.img_path = dataPoint.id + "/medium.jpg"
+			dataPoint.created_at_readable = new Date(dataPoint.created_at).toString('ddd MMM d yyyy hh:mm:ss')
 	tmpl = $('#photos_tmpl').html()
-	for json_photos in group
-		$('#photos').append("<div class='row'>"+Mustache.render(tmpl, json_photos)+"</div>")
+	$('#photos').append(Mustache.render(tmpl, {data:data}))
+	$('.thumb').popover({
+ 		delay: { show: 1000, hide: 100 }
+ 	})
 	
-
 	
 #manage graphics
 class foodrubix.graphic 
@@ -74,9 +98,8 @@ class foodrubix.graphic
 			@displayData()
 		
 	displayData: () =>
-		console.log("@data:",@data, @view);
+		
 		jqplotData = @prepareInputFormat()
-		console.log("jqplotData:",jqplotData);
 		max_axis_x = new Date(jqplotData[jqplotData.length-1][0]).add(1).days().toString('dd-MMM-yyyy')
 		$.jqplot('chartdiv',
 			[jqplotData], 
@@ -84,7 +107,7 @@ class foodrubix.graphic
 				xaxis:{
 					renderer:$.jqplot.DateAxisRenderer,
 					tickOptions:{
-                    	formatString:'%#d %b'
+                    	formatString:'%#d %b - %Hh'
 					},
 					max: max_axis_x
 				},
@@ -94,8 +117,6 @@ class foodrubix.graphic
 				}
 			}, 
 			title:"calories per day",
-			series:[{lineWidth:4, markerOptions:{style:'square'}}],
-			gridPadding:{right:35},
 			highlighter: {
 				show: true,
 				sizeAdjust: 20
@@ -111,8 +132,10 @@ class foodrubix.graphic
 			jqplotData = @groupDataByDay(@data)
 		else
 			jqplotData = []
-			for point in @data
-				jqplotData.push [new Date(point.created_at), point.calories]
+			for day in @data
+				for dataPoint in day.data_points
+					jqplotData.push [new Date(dataPoint.created_at), dataPoint.calories]
+		console.log("jqplotData:",jqplotData);		
 		return jqplotData
 				
 	#should return something like
@@ -120,23 +143,31 @@ class foodrubix.graphic
 	groupDataByDay: (data) ->
 		jqplotData = []
 		#we first group by day
-		for point in data
-			newDate = new Date(point.created_at).clearTime()
-			if jqplotData == []
-				jqplotData.push [newDate, point.calories]
-			else
-				added = false
-				for graphpoints in jqplotData
-					if newDate.compareTo(graphpoints[0]) == 0
-						graphpoints[1] += point.calories
-						added = true
-				if !added					
-					jqplotData.push [newDate, point.calories]
-		 
-		for data in jqplotData			
-			data[0] = data[0].toDateString()
-			
-		return jqplotData
+		for day in data
+			dayCalories = 0
+			for dataPoint in day.data_points
+				dayCalories += dataPoint.calories
+			jqplotData.push([new Date(day.data_points[0].created_at).clearTime().toDateString(), dayCalories])
+		jqplotData
+				
+				
+		# for point in data
+		# 	newDate = new Date(point.created_at).clearTime()
+		# 	if jqplotData == []
+		# 		jqplotData.push [newDate, point.calories]
+		# 	else
+		# 		added = false
+		# 		for graphpoints in jqplotData
+		# 			if newDate.compareTo(graphpoints[0]) == 0
+		# 				graphpoints[1] += point.calories
+		# 				added = true
+		# 		if !added					
+		# 			jqplotData.push [newDate, point.calories]
+		#  
+		# for data in jqplotData			
+		# 	data[0] = data[0].toDateString()
+		# 	
+		# return jqplotData
 		
 					
 	

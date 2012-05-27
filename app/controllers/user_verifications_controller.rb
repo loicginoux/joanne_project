@@ -3,10 +3,13 @@ class UserVerificationsController < ApplicationController
 
   def show
     if @user
-      @user.verify!
-      flash[:notice] = "Thank you for verifying your account. You may now login."
+      if @user.verify!
+        flash[:notice] = "Thank you for verifying your account. You may now login."
+      else
+        flash[:notice] = "Account verification impossible."
+      end
+      redirect_to login_path
     end
-    redirect_to login_path
   end
 
   def load_user_using_perishable_token  

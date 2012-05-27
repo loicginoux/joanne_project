@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   validates :password,
     :confirmation => true,
     :length => { :minimum => 6 },
-    :presence => true
+    :presence => true,
+    :on => :create
     
   acts_as_authentic
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/

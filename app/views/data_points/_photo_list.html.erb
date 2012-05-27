@@ -1,18 +1,23 @@
-{{#photos}}
-<div class="span2">
-	<div class="pull-left"><img src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" /></div>
-	<p>calories: {{calories}}</p>
-	<p>date: {{created_at_readable}}</p>
-	<div class="hide">
-		<p>user id: {{user_id}}</p>
-		<p>img path: {{img_path}}</p>
-
+<div class="row">
+{{#data}}
+<!-- period display -->
+	<div class="span2">
+	<p>{{day_date}}</p>
+	{{#data_points}}
+		<!-- day display -->
+			<div>
+				<img class="thumb" data-original-title="{{created_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+			</div>
+	{{/data_points}}
 	</div>
-</div>
-{{/photos}}
-{{^photos}}
+	{{^data_points}}
+		No entries for today
+	{{/data_points}}
+{{/data}}
+{{^data}}
 <div class="alert alert-info">
 	<button class="close" data-dismiss="alert">×</button>
 	<strong>No photos!</strong> You need to upload photos to start seeing something here
 </div>
-{{/photos}}
+{{/data}}
+</div>
