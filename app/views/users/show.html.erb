@@ -1,25 +1,50 @@
 <div class="pull-right">
 	<%= link_to(new_data_point_url,:class=>"btn btn-primary") do%>
-		<i class="icon-upload icon-white"></i>
-		 Upload
+	<i class="icon-upload icon-white"></i>
+	Upload
 	<%end%>
 </div>
-<div class="row">
-	<div class="span10">
-		<div class="btn-group btn-last">
-		  <button class="btn" data-lastDays = "0">Today</button>
-		  <button class="btn active" data-lastDays = "-6">This week</button>
-		  <button class="btn" data-lastDays = "-30">This month</button>
-		</div>		
+
+<div id="photoCalendar">
+	<div class="row">
+		<div class="span3">
+			<div class="btn-group btn-control">
+				<button class="btn period" data-period="day">Day</button>
+				<button class="btn period active" data-period = "week">Week</button>
+				<button class="btn period" data-period = "month" >Month</button>
+			</div>		
+		</div>
+		<div class="span3">
+			<div class="btn-group btn-control">
+				<a class="btn prev" href="#"><i class="icon-chevron-left"></i></a>
+				<button class="btn today">Today</button>
+				<a class="btn next" href="#"><i class="icon-chevron-right"></i></a>
+			</div>		
+			<div class="hide">
+				<input type="text" class="date-period" />
+				<input type="text" class="date-start" />
+				<input type="text" class="date-end" />
+			</div>
+		</div>
 	</div>
+
+	<br/>
+
+	<script id="week_photos_tmpl" type="text/html">
+	<%= render "data_points/week_photo_list" %>
+	</script>
+
+	<script id="day_photos_tmpl" type="text/html">
+	<%= render "data_points/day_photo_list" %>
+	</script>
+
+
+	<script id="month_photos_tmpl" type="text/html">
+	<%= render "data_points/month_photo_list" %>
+	</script>
+	
+	<div id="photos"></div>
+
+	<div id="graphicContainer"></div>
+
 </div>
-
-<br/>
-
-<script id="photos_tmpl" type="text/html">
-<%= render "data_points/photo_list" %>
-</script>
-
-<div id="photos"></div>
-
-<div id="chartdiv"></div>

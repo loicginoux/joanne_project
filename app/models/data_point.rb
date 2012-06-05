@@ -6,8 +6,7 @@ class DataPoint < ActiveRecord::Base
   
   has_attached_file :photo, 
     :styles => {
-      :thumb  => "100x100",
-      :medium => "200x200"
+      :medium => "200x200#"
     },
     :storage => :s3,
     :bucket => "foodrubix-assets",

@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require_tree ./all
 //= require init
 //= require utils
 
 //= require_tree ./users
-//= require_tree ./all

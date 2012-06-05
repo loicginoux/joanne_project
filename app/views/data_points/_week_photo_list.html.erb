@@ -1,0 +1,26 @@
+<div class="row">
+	<h2>{{startDate}} - {{endDate}} {{year}}</h2>
+</div>
+<div class="row">
+{{#data}}
+<!-- period display -->
+	<div class="span1_7">
+	<p>{{day_date}}</p>
+	{{#data_points}}
+		<!-- day display -->
+			<div>
+				<img class="thumb" data-original-title="{{created_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+			</div>
+	{{/data_points}}
+	</div>
+	{{^data_points}}
+		No entries for today
+	{{/data_points}}
+{{/data}}
+{{^data}}
+<div class="alert alert-info">
+	<button class="close" data-dismiss="alert">×</button>
+	<strong>No photos!</strong>
+</div>
+{{/data}}
+</div>
