@@ -1,23 +1,54 @@
 <div class="row">
-	<h2>{{startDate}} - {{endDate}} {{year}}</h2>
-</div>
-<div class="row">
-{{#data}}
-	{{#data_points}}
-	<div class="span1_7">
-			<div>
-				<img class="thumb" data-original-title="{{created_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
-			</div>
+	<div class="span6">
+		<h2>{{month}} {{year}}</h2>
 	</div>
-	{{/data_points}}
-	{{^data_points}}
-		No entries for today
-	{{/data_points}}
-{{/data}}
-{{^data}}
-<div class="alert alert-info">
-	<button class="close" data-dismiss="alert">×</button>
-	<strong>No photos!</strong>
 </div>
+<table class="calendar_table table table-striped">
+  <thead>
+    <tr>
+      <th class="span1_7">Sunday</th>
+      <th class="span1_7">Monday</th>
+      <th class="span1_7">Tuesday</th>
+      <th class="span1_7">Wednesday</th>
+      <th class="span1_7">Thursday</th>
+      <th class="span1_7">Friday</th>
+      <th class="span1_7">Saturday</th>
+    </tr>
+  </thead>
+  <tbody class="scrollable">
+{{#data}}
+    <tr>
+	{{#week_data}}
+      <td class="span1_7 with_margin"><b>{{day_date}}</b></td>
+	{{/week_data}}
+    </tr>
+    <tr>
+	{{#week_data}}
+      <td class="span1_7">
+      		{{#current_month}}
+				{{#data_points}}
+					<div class="image">
+						<img class="thumb" data-original-title="{{uploaded_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+						<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_{{id}}">
+							<i class="icon-pencil"></i>
+						</div>
+					</div>
+					<%= render "data_points/update_modal_box" %>			
+				{{/data_points}}
+				{{^data_points}}
+					<div class="image">
+						<p>nothing</p>
+					</div>
+				{{/data_points}}
+			{{/current_month}}
+			{{#other_month}}
+				
+			{{/other_month}}
+      </td>
+	{{/week_data}}
+    </tr>
 {{/data}}
-</div>
+  </tbody>
+</table>
+
+

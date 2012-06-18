@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514124948) do
+ActiveRecord::Schema.define(:version => 20120606110420) do
 
   create_table "data_points", :force => true do |t|
     t.integer  "calories"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120514124948) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "user_id"
+    t.datetime "uploaded_at"
   end
 
   create_table "user_sessions", :force => true do |t|

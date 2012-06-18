@@ -3,10 +3,12 @@ class DataPointsController < ApplicationController
   
   def index
     if(params.has_key?(:start_date) && params.has_key?(:end_date))
+      startDate = Time.zone.parse(params[:start_date]).utc
+      endDate = Time.zone.parse(params[:end_date]).utc
       @data_points = DataPoint.where(
         :user_id => current_user.id,
-        :created_at => params[:start_date]..params[:end_date]
-      ).order("created_at ASC")
+        :uploaded_at => startDate..endDate
+      ).order("uploaded_at ASC")
     else
       @data_points = DataPoint.all
     end
@@ -44,10 +46,11 @@ class DataPointsController < ApplicationController
   def create
     @data_point = DataPoint.new(params[:data_point])
     @data_point.user_id = current_user.id
+    @data_point.uploaded_at = DateTime.now
     respond_to do |format|
       if @data_point.save
         format.html { redirect_to user_path(:username => current_user), notice: 'Data point was successfully created.' }
-        format.json { render json: @data_point, status: :created, location: @data_point }
+        format.json { render json: @data_point }
       else
         format.html { render action: "new" }
         format.json { render json: @data_point.errors, status: :unprocessable_entity }
@@ -59,11 +62,10 @@ class DataPointsController < ApplicationController
   # PUT /data_points/1.json
   def update
     @data_point = DataPoint.find(params[:id])
-
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
         format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @data_point }
       else
         format.html { render action: "edit" }
         format.json { render json: @data_point.errors, status: :unprocessable_entity }

@@ -56,6 +56,7 @@ GEM
       multi_json (~> 1.0)
     high_voltage (1.1.1)
     hike (1.2.1)
+    hirb (0.6.2)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -144,6 +145,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 3.2.1)
   high_voltage
+  hirb
   jquery-rails
   machinist
   paperclip (~> 3.0)

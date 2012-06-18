@@ -1,21 +1,30 @@
 <div class="row">
-	<h2>{{startDate}} - {{endDate}} {{year}}</h2>
+	<div class="span6">
+		<h2>{{startDate}} - {{endDate}} {{year}}</h2>
+	</div>
 </div>
 <div class="row">
 {{#data}}
-<!-- period display -->
-	<div class="span1_7">
-	<p>{{day_date}}</p>
+	<div class="span1_7 {{#first}}first{{/first}}">
+	<h5 class="pagination-centered">{{day_date}}</h5>
+	<br/>
 	{{#data_points}}
-		<!-- day display -->
-			<div>
-				<img class="thumb" data-original-title="{{created_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+		<div class="image">
+			<img class="thumb" data-original-title="{{uploaded_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+			<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_{{id}}">
+				<i class="icon-pencil"></i>
 			</div>
+		</div>
+		<%= render "data_points/update_modal_box" %>
+		
+	{{/data_points}}
+
+	{{^data_points}}
+		<div class="image">
+			<p class="pagination-centered">nothing</p>
+		</div>	
 	{{/data_points}}
 	</div>
-	{{^data_points}}
-		No entries for today
-	{{/data_points}}
 {{/data}}
 {{^data}}
 <div class="alert alert-info">

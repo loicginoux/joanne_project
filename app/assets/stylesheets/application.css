@@ -16,3 +16,48 @@
 .center{
 	text-align: center;
 }
+
+.image{
+	position:relative;
+}
+
+.edit_data_point{
+	position:absolute;
+	top:0;
+	right:0;
+	background-color: white;
+	width:15px;
+	height:15px;
+	cursor:pointer;	
+}
+
+
+/*month view table*/
+table.calendar_table th.span1_7{
+	width: 131px;
+	margin: 2px 0;	
+	padding:0;
+}
+
+table.calendar_table td.span1_7{
+	width: 131px;
+	margin-top: 0px;	
+	margin-left: 0;	
+	padding:0;
+}
+
+table.calendar_table tbody.scrollable td.span1_7{
+	width: 131px;
+	
+}
+
+table.calendar_table tbody.scrollable{
+display: block;
+height: 400px;
+overflow: auto;
+width: 100%;
+}
+
+.span1_7.first {
+  margin-left: 80px;
+}
