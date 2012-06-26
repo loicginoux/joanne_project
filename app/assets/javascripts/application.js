@@ -17,3 +17,4 @@
 //= require utils
 
 //= require_tree ./users
+//= require_tree ./data_points

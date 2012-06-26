@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Foodrubix</title>
+	<title>FoodRubix</title>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<!--[if lt IE 9]>
 	<%= javascript_include_tag "application-ie9" %>
@@ -40,7 +40,7 @@
 								<li>
 									<%= link_to(logout_path) do%>
 									<i class="icon-off"></i>
-									Logout
+									Log out
 									<%end%>
 								</li>
 							</ul>
@@ -48,7 +48,7 @@
 						<% else %>
 						<li><%= link_to "Sign up", register_path %></li>
 						<li class="divider-vertical"></li>
-						<li><%= link_to "Login", login_path %></li>
+						<li><%= link_to "Log in", login_path %></li>
 						<% end %>
 
 					</ul>

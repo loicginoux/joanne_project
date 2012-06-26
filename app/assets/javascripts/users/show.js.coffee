@@ -11,6 +11,7 @@ class PhotoCalendar extends Spine.Controller
 		"click .today": "gotToToday"
 		"hover .image": "toggleEditIcon"
 		"click .edit_data_point": "initUpdatePopup"
+		"shown .modal": "updateCurrentModal"
 
 	elements:
 		"#photos": "photos"
@@ -236,14 +237,14 @@ class PhotoCalendar extends Spine.Controller
 			for day in data
 				for dataPoint in day.data_points
 					dataPoint.img_path = dataPoint.id + "/medium.jpg"
-					dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy HH:mm:ss')
+					dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy - hh:mm tt')
 					dataPoint.uploaded_at_editable = new Date(dataPoint.uploaded_at).toString('MM-dd-yyyy')
 		else if @period == "month"
 			for week in data
 				for day in week.week_data
 					for dataPoint in day.data_points
 						dataPoint.img_path = dataPoint.id + "/medium.jpg"
-						dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy HH:mm:ss')
+						dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy - hh:mm tt')
 						dataPoint.uploaded_at_editable = new Date(dataPoint.uploaded_at).toString('MM-dd-yyyy')
 		if (@period == "day") 
 			tmpl = $('#day_photos_tmpl').html()
@@ -281,11 +282,13 @@ class PhotoCalendar extends Spine.Controller
 		$('.datePicker').datepicker()
 		$('.modal .btn-save').click @updateDataPoint
 		$('.modal .btn-delete').click @removeDataPoint
+		$('.modal .btn-confirm-delete').click @showConfirmDeleteBox
+	
+	updateCurrentModal: (e) =>
+		@activeModal = $('.modal.in')
 		
 	updateDataPoint: (e) =>
-		
 		$(e.target).button('loading')
-		@activeModal = $('.modal.in')
 		calories = @activeModal.find('#data_point_calories').val()
 		input = @activeModal.find('.datePicker input')
 		dateVal = input.val()
@@ -304,9 +307,11 @@ class PhotoCalendar extends Spine.Controller
 		          success: @onSuccessUpdate.bind @
 		})
 	
+	showConfirmDeleteBox: () =>
+		popup = @activeModal.find(".alert-delete").removeClass('hide')
+	
 	removeDataPoint: (e) =>
 		$(e.target).button('loading')
-		@activeModal = $('.modal.in')
 		id = @activeModal.attr('data-id')
 		$.ajax({
 		          type: "DELETE",
@@ -331,7 +336,7 @@ class foodrubix.graphic
 			else if @view == "week"
 				@displayWeekChart()	
 			else
-				@displayHighchart()
+				@displayMonthChart()
 				
 	displayDayChart: () =>
 		nbPoints = @processedData.length
@@ -400,7 +405,7 @@ class foodrubix.graphic
 				min: 0
 			},
 			tooltip: {
-				formatter: () -> return '<b>'+this.series.name+'</b><br/>'+Highcharts.dateFormat('%e. %b', this.x)+': '+this.y+' Calories';
+				formatter: () -> return '<b>'+this.series.name+'</b><br/>'+this.x+': '+this.y+' calories';
 			},
 			plotOptions: {
 				series: {
@@ -420,7 +425,7 @@ class foodrubix.graphic
 			}]
 		})
 			
-	displayHighchart: () =>
+	displayMonthChart: () =>
 
 		chart1 = new Highcharts.Chart({
 			chart: {
@@ -436,6 +441,9 @@ class foodrubix.graphic
 			},
 			xAxis: {
 				type: 'datetime',
+				labels: {
+					formatter: () -> Highcharts.dateFormat('%b %d', this.value)
+				}
 			},
 			yAxis: {
 				title: {
@@ -444,7 +452,10 @@ class foodrubix.graphic
 				min: 0
 			},
 			tooltip: {
-				formatter: () -> return '<b>'+this.series.name+'</b><br/>'+Highcharts.dateFormat('%e. %b', this.x)+': '+this.y+' Calories';
+				formatter: () -> 
+					date = new Date(this.x)
+					date_to_s = date.toString("dd MMM")
+					'<b>'+this.series.name+'</b><br/>'+date_to_s+': '+this.y+' calories'
 			},
 			plotOptions: {
 				series: {
@@ -479,7 +490,7 @@ class foodrubix.graphic
 					for dataPoint in day.data_points
 						dayCalories += dataPoint.calories
 					if day.date.getMonth() == @date_now.getMonth()
-						@processedData.push([day.date.add(1).days().clearTime().valueOf(), dayCalories])
+						@processedData.push([day.date.clearTime().valueOf(), dayCalories])
 		else if @view == "day"
 			for day in @data
 				for dataPoint in day.data_points 

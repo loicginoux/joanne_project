@@ -1,0 +1,1 @@
+foodrubix.data_points.init = () ->
