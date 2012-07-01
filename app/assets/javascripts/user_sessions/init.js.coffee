@@ -1,0 +1,1 @@
+foodrubix.user_sessions.init = () ->

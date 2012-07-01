@@ -62,6 +62,10 @@ class DataPointsController < ApplicationController
   # PUT /data_points/1.json
   def update
     @data_point = DataPoint.find(params[:id])
+    if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
+      params[:data_point].delete(:photo)
+    end
+      
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
         format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }

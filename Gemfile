@@ -39,6 +39,11 @@ gem 'cancan'
 #authentification system
 gem 'authlogic'
 
+# facebook functionnalities
+gem 'omniauth'
+gem 'fb_graph'
+gem 'omniauth-facebook'
+
 #static pages
 gem "high_voltage"
 

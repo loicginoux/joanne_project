@@ -237,15 +237,20 @@ class PhotoCalendar extends Spine.Controller
 			for day in data
 				for dataPoint in day.data_points
 					dataPoint.img_path = dataPoint.id + "/medium.jpg"
-					dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy - hh:mm tt')
-					dataPoint.uploaded_at_editable = new Date(dataPoint.uploaded_at).toString('MM-dd-yyyy')
+					date = new Date(dataPoint.uploaded_at)
+					dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
+					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
+					dataPoint.time_uploaded_at = date.toString('HH:mm')
 		else if @period == "month"
 			for week in data
 				for day in week.week_data
 					for dataPoint in day.data_points
 						dataPoint.img_path = dataPoint.id + "/medium.jpg"
-						dataPoint.uploaded_at_readable = new Date(dataPoint.uploaded_at).toString('ddd MMM d yyyy - hh:mm tt')
-						dataPoint.uploaded_at_editable = new Date(dataPoint.uploaded_at).toString('MM-dd-yyyy')
+						date = new Date(dataPoint.uploaded_at)
+						dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
+						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
+						dataPoint.time_uploaded_at = date.toString('HH:mm')
+						
 		if (@period == "day") 
 			tmpl = $('#day_photos_tmpl').html()
 			json = {
@@ -269,6 +274,7 @@ class PhotoCalendar extends Spine.Controller
 			}
 		html = Mustache.render(tmpl, json )
 		$('#photos').append html
+
 		$('.thumb').popover({
 	 		delay: { show: 1000, hide: 100 }
 	 	})
@@ -279,33 +285,111 @@ class PhotoCalendar extends Spine.Controller
 		target.parents('.image').find('.edit_data_point').toggleClass 'hide'
 
 	initUpdatePopup: (e) ->
-		$('.datePicker').datepicker()
-		$('.modal .btn-save').click @updateDataPoint
+		$('.modal .datePicker').datepicker()
+		$('.modal .timePicker').timePicker()
+		$('.modal .btn-upload').click @changePhoto
+		$('.modal .data_point_photo').change @onChangePhoto
+		$('.modal .btn-save').click @validateUpdateData
 		$('.modal .btn-delete').click @removeDataPoint
 		$('.modal .btn-confirm-delete').click @showConfirmDeleteBox
 	
 	updateCurrentModal: (e) =>
 		@activeModal = $('.modal.in')
+	
+	changePhoto: (e) =>
+		file_input = $(e.target).next(".data_point_photo")
+		file_input.click()
+	
+	onChangePhoto: (e) =>
+		input = e.target
+		if input.files && input.files[0]
+			reader = new FileReader()
+			reader.onload = (e) ->
+				$(input).parent().find("img").attr('src', e.target.result);
+			reader.readAsDataURL(input.files[0]);
+	
+	validateUpdateData: (e) =>
+		validated = true
+		id = @activeModal.attr('data-id')
+		unless parseInt id
+			throw "no id for update modal box"
+		#remove all previous error 
+		@activeModal.find(".control-group").removeClass('error')
+		@activeModal.find(".help-inline").addClass('hide')
 		
-	updateDataPoint: (e) =>
-		$(e.target).button('loading')
+		# validate calories
 		calories = @activeModal.find('#data_point_calories').val()
+		unless parseInt calories
+			validated = false
+			@activeModal.find(".control-group.calories").addClass('error')
+			@activeModal.find('.help-inline.calories').removeClass('hide')
+	
+		# validate date
 		input = @activeModal.find('.datePicker input')
 		dateVal = input.val()
-		oldDateUtc = new Date(input.attr('data-date-utc'))
-		ISODate =  Date.parse(dateVal,"M-d-yyyy").set(
-				hour:oldDateUtc.getHours(),
-				minute:oldDateUtc.getMinutes(),
-				second:oldDateUtc.getSeconds()
-			).toISOString()
-		id = @activeModal.attr('data-id')
-		$.ajax({
-		          type: "PUT",
-		          url: '/data_points/'+id+'.json',
-		          data: {data_point : {calories: parseInt(calories), uploaded_at: ISODate} },
-		          dataType: 'json',
-		          success: @onSuccessUpdate.bind @
-		})
+		ISODate =  Date.parse(dateVal,"M-d-yyyy")
+		unless ISODate
+			validated = false
+			@activeModal.find(".control-group.date").addClass('error')
+			@activeModal.find('.help-inline.date').removeClass('hide')
+			
+		# validate time
+		date = $.timePicker("#timePicker_"+id).getTime() 
+		unless date 
+			validated = false
+			@activeModal.find(".control-group.time").addClass('error')
+			@activeModal.find('.help-inline.time').removeClass('hide')
+			
+		ISODate.set(
+			hour:date.getHours(),
+			minute:date.getMinutes()
+		)
+		
+		if validated
+			@updateDataPoint(e, {
+				id:id
+				calories: calories
+				uploaded_at: ISODate
+			})
+			
+			
+	# data should have id, calories, uploaded_at
+	updateDataPoint: (e, data) =>
+		$(e.target).button('loading')	
+		progress = @activeModal.find('.progress')
+		bar = progress.children()
+		
+		# 	update data 
+		onSuccess = () ->
+			$.ajax({
+				type: "PUT",
+				url: '/data_points/'+data.id+'.json',
+				data: 
+					data_point : data,
+					dataType: 'json',
+					success: @onSuccessUpdate.bind @
+			})
+			
+		beforeSend = () ->
+			progress.removeClass('hide').parent().find("a.btn").addClass('hide')
+			percentVal = '0%';
+			bar.width(percentVal)
+
+		uploadProgress = (event, position, total, percentComplete) ->
+			percentVal = percentComplete + '%';
+			bar.width(percentVal)
+		
+		# update photo first
+		form = $("#uploadForm_"+data.id);
+		form.ajaxSubmit(
+			type:"put"
+			dataType:"json"
+			success: onSuccess.bind @
+			beforeSend: beforeSend.bind @
+			uploadProgress: uploadProgress.bind @
+		)
+
+	
 	
 	showConfirmDeleteBox: () =>
 		popup = @activeModal.find(".alert-delete").removeClass('hide')
@@ -320,9 +404,11 @@ class PhotoCalendar extends Spine.Controller
 		          success: @onSuccessUpdate.bind @
 		})
 		
-	onSuccessUpdate: (data) ->
-		$(".modal.in").modal('hide')
-		@refresh()
+	onSuccessUpdate: (data) =>
+		fn = ()->
+			$(".modal.in").modal('hide')
+			@refresh()
+		_.delay(fn.bind(@), 2000) #we put a delay to give time to server to update before to refresh
 	
 	
 #manage graphics

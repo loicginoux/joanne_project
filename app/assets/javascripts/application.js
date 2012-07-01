@@ -18,3 +18,4 @@
 
 //= require_tree ./users
 //= require_tree ./data_points
+//= require_tree ./user_sessions

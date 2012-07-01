@@ -1,7 +1,8 @@
-window.foodrubix = {}
-foodrubix.common = {}
-foodrubix.users = {}
-foodrubix.data_points = {}
+window.foodrubix = 
+	common: {}
+	users: {}
+	data_points: {}
+	user_sessions: {}
 
 foodrubix.common.init = () ->
 	fadeOutAlert()
