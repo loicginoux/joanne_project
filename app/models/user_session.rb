@@ -1,4 +1,5 @@
 class UserSession < Authlogic::Session::Base
+  single_access_allowed_request_types :any
   validate :check_if_confirmed
 
   private

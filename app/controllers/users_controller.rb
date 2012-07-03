@@ -10,6 +10,9 @@ class UsersController < ApplicationController
     
   def show
      @user = User.first(:conditions => {:username=> params[:username]})
+     logger.debug @user.inspect
+     logger.debug params[:username]
+     logger.debug current_user
      respond_to do |format|
        if @user.isUserAllowed(current_user)
          format.html # show.html.erb
@@ -33,7 +36,19 @@ class UsersController < ApplicationController
    
   def create
     @user = User.new(params[:user])
-    if @user.save
+    # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
+    if session[:omniauth] 
+      #we verify directly the account, no need to verify email
+      @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid])
+      if @user.verify! 
+        user_session = UserSession.new(User.find_by_single_access_token(@user.single_access_token))
+        user_session.save
+        redirect_to user_path(:username=> @user.username), notice: 'successfully logged in.'
+      else
+        render :action => 'new'
+      end
+    # we register directly a new user
+    elsif @user.save
       flash[:notice] = "Thanks for signing up, we've delivered an email to you with instructions on how to complete your registration!"
       @user.deliver_confirm_email_instructions!
       redirect_to static_path("home")

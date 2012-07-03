@@ -16,10 +16,12 @@ class User < ActiveRecord::Base
   disable_perishable_token_maintenance(true)
   before_validation :reset_perishable_token!, :on => :create 
 
-
-  has_many :data_points, :dependent => :destroy
-  accepts_nested_attributes_for :data_points
+  has_many :authentications, :dependent => :destroy, :autosave => true
   
+  has_many :data_points, :dependent => :destroy
+  
+  accepts_nested_attributes_for :data_points
+  accepts_nested_attributes_for :authentications
   
   #cancan gem
   ROLES = %w[admin]
@@ -54,4 +56,20 @@ class User < ActiveRecord::Base
       false
     end
   end
+  
+  def apply_omniauth(omniauth)
+    logger.debug omniauth.inspect
+    self.email = omniauth['info']['email']
+    # Update user info fetching from social network
+    case omniauth['provider']
+    when 'facebook'
+      # fetch extra user info from facebook
+      username = omniauth['info']['nickname'].gsub('.', '')
+      self.username = username
+      
+    when 'twitter'
+      # fetch extra user info from twitter
+    end
+  end
+
 end

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development do
@@ -43,7 +44,7 @@ gem 'authlogic'
 gem 'omniauth'
 gem 'fb_graph'
 gem 'omniauth-facebook'
-
+gem 'omniauth-twitter'
 #static pages
 gem "high_voltage"
 
