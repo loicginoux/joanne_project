@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120702113933) do
+ActiveRecord::Schema.define(:version => 20120708170527) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "username"
+    t.string   "access_token"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "data_points", :force => true do |t|
@@ -51,9 +53,8 @@ ActiveRecord::Schema.define(:version => 20120702113933) do
     t.string   "role"
     t.string   "perishable_token",    :default => "",    :null => false
     t.boolean  "confirmed",           :default => false
-    t.integer  "fb_user_uid",         :default => 0
-    t.string   "fb_access_token"
     t.string   "single_access_token"
+    t.boolean  "fb_sharing",          :default => false
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

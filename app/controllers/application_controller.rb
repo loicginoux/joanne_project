@@ -9,6 +9,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
   
+  rescue_from FbGraph::Exception, :with => :fb_graph_exception
+
+  def fb_graph_exception(e)
+    flash[:error] = {
+      :title => e.class,
+      :message => e.message
+    }
+    redirect_to static_path('home')
+  end
+  
   #authentification
   private
 

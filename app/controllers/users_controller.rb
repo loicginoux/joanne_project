@@ -38,11 +38,12 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
     if session[:omniauth] 
+      @user.authentications.build(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :username => session[:omniauth]['extra']['raw_info']['username'] , :access_token => session[:omniauth]["credentials"]['token'])
       #we verify directly the account, no need to verify email
-      @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid])
       if @user.verify! 
         user_session = UserSession.new(User.find_by_single_access_token(@user.single_access_token))
         user_session.save
+        session[:omniauth] = nil
         redirect_to user_path(:username=> @user.username), notice: 'successfully logged in.'
       else
         render :action => 'new'
@@ -64,8 +65,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated profile."
-      redirect_to static_path("home")
+      redirect_to user_path(:username=> @user.username), notice: 'Successfully updated profile.'
     else
       render :action => 'edit'
     end

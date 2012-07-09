@@ -11,6 +11,7 @@ class AuthenticationsController < ApplicationController
   
   def create
     omniauth = request.env['omniauth.auth']
+    logger.debug omniauth.inspect
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
     if authentication
@@ -20,7 +21,7 @@ class AuthenticationsController < ApplicationController
 
     elsif current_user
       # User is signed in but has not already authenticated with this social network
-      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :username => omniauth['extra']['raw_info']['username'] , :access_token => omniauth["credentials"]['token'])
       current_user.apply_omniauth(omniauth)
       current_user.save
       flash[:info] = 'Authentication successful.'
@@ -28,13 +29,13 @@ class AuthenticationsController < ApplicationController
     else
       # User is new to this application
       user = User.new
-      user.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      user.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :username => omniauth['extra']['raw_info']['username'] , :access_token => omniauth["credentials"]['token'])
       user.apply_omniauth(omniauth)
       if user.save
         flash[:info] = 'User created and signed in successfully.'
         sign_in_and_redirect(user)
       else
-        session[:omniauth] = omniauth.except('extra')
+        session[:omniauth] = omniauth
         redirect_to register_path
       end
     end

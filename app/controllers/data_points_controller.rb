@@ -22,7 +22,7 @@ class DataPointsController < ApplicationController
      @data_point = DataPoint.find(params[:id])
      respond_to do |format|
          format.html # show.html.erb
-         format.json { render :json => @user }
+         format.json { render :json => @data_point }
      end
    end
    
@@ -47,11 +47,21 @@ class DataPointsController < ApplicationController
     @data_point = DataPoint.new(params[:data_point])
     @data_point.user_id = current_user.id
     @data_point.uploaded_at = DateTime.now
+    
+
     respond_to do |format|
       if @data_point.save
-        format.html { redirect_to user_path(:username => current_user), notice: 'Data point was successfully created.' }
+        # publish to facebook
+        current_user.fb_publish(@data_point)
+        if current_user.canPublishOnFacebook?
+          notice = 'Data point was successfully created and shared on Facebook.'
+        else
+          notice = 'Data point was successfully created.'
+        end
+        format.html { redirect_to user_path(:username => current_user), notice: notice }
         format.json { render json: @data_point }
       else
+        logger.info @data_point.errors.inspect
         format.html { render action: "new" }
         format.json { render json: @data_point.errors, status: :unprocessable_entity }
       end

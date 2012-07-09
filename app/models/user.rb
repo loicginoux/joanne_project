@@ -57,18 +57,40 @@ class User < ActiveRecord::Base
     end
   end
   
+  def hasFacebookConnected?
+     !Authentication.find_by_provider_and_user_id("facebook", self.id).nil?
+  end
+  
+  def canPublishOnFacebook?
+    self.hasFacebookConnected? && self.fb_sharing
+  end
+  
   def apply_omniauth(omniauth)
-    logger.debug omniauth.inspect
     self.email = omniauth['info']['email']
     # Update user info fetching from social network
     case omniauth['provider']
     when 'facebook'
       # fetch extra user info from facebook
-      username = omniauth['info']['nickname'].gsub('.', '')
-      self.username = username
-      
+      fb_username = omniauth['extra']['raw_info']['username']
+      self.username = fb_username.gsub('.', '')
+      self.fb_sharing = true
     when 'twitter'
       # fetch extra user info from twitter
+    end
+  end
+  
+  def fb_publish(data_point)
+    fb_authent = Authentication.find_by_provider_and_user_id("facebook", self.id)
+    if self.canPublishOnFacebook?
+      user = FbGraph::User.new(fb_authent.username, :access_token => fb_authent.access_token)
+      user = user.fetch
+      user.feed!(
+        :message =>  'What do you think of my latest meal?',
+        :picture => data_point.photo.url(:medium),
+        :name => 'FoodRubix',
+        :link => 'http://www.foodrubix.com',
+        :description => "a super cool visual food journal - the easiest way to track what you're eating"
+      )
     end
   end
 

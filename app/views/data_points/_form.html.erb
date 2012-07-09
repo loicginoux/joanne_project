@@ -14,12 +14,15 @@
 				</div>
 			</div>
 			
-			<div class="control-group <% if @data_point.errors[:photo].present? %>error<%end%>">
+			<div class="control-group <% if @data_point.errors[:photo].present? || @data_point.errors[:photo_file_size].present? %>error<%end%>">
 				<%= f.label :photo, :class => "control-label" %>
 				<div class="controls">
 					<%= f.file_field :photo, :class => "input-xlarge"  %>
 					<% if @data_point.errors[:photo].present? %>
 					<span class="help-inline"><%= @data_point.errors[:photo].join(", ")%></span>
+					<%end%>
+					<% if @data_point.errors[:photo_file_size].present? %>
+					<span class="help-inline"><%= @data_point.errors[:photo_file_size].join(", ")%></span>
 					<%end%>
 				</div>
 			</div>

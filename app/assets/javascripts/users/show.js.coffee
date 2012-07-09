@@ -433,7 +433,8 @@ class foodrubix.graphic
 			chart: {
 				renderTo: 'dayGraphicContainer',
 				type: 'bar',
-				shadow:true
+				shadow:true,
+				spacingRight:20
 			},
 			credits:{
 				enabled:false
