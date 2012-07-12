@@ -349,7 +349,7 @@ class PhotoCalendar extends Spine.Controller
 			@updateDataPoint(e, {
 				id:id
 				calories: calories
-				uploaded_at: ISODate
+				uploaded_at: ISODate.toISOString()
 			})
 			
 			
