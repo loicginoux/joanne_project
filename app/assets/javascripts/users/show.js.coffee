@@ -286,7 +286,7 @@ class PhotoCalendar extends Spine.Controller
 
 	initUpdatePopup: (e) ->
 		$('.modal .datePicker').datepicker()
-		$('.modal .timePicker').timePicker()
+		$('.modal .timePicker').timePicker({show24Hours: false})
 		$('.modal .btn-upload').click @changePhoto
 		$('.modal .data_point_photo').change @onChangePhoto
 		$('.modal .btn-save').click @validateUpdateData

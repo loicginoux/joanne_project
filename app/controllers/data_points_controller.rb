@@ -47,8 +47,7 @@ class DataPointsController < ApplicationController
     @data_point = DataPoint.new(params[:data_point])
     @data_point.user_id = current_user.id
     @data_point.uploaded_at = DateTime.now
-    puts @data_point.uploaded_at
-
+    
     respond_to do |format|
       if @data_point.save
         # publish to facebook
@@ -77,10 +76,8 @@ class DataPointsController < ApplicationController
       params[:data_point].delete(:photo)
     end
     if params[:data_point].has_key?(:uploaded_at)
-        puts params[:data_point][:uploaded_at]
         # to not take into account timezone
         params[:data_point][:uploaded_at] = Time.zone.parse(params[:data_point][:uploaded_at]).utc
-        puts params[:data_point][:uploaded_at]    
     end
   
     
