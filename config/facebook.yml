@@ -1,0 +1,6 @@
+development:
+    fb_app_id: '445409062150241'
+    secret_access_key: "997dc180be8d351ff126d4a97009c26e"
+production:
+    fb_app_id: '316843158409417'
+    secret_access_key: "370ed9b4d13d5f96ead27997ca738e9b"
