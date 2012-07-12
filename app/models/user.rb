@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
         :message =>  'What do you think of my latest meal?',
         :picture => data_point.photo.url(:medium),
         :name => 'FoodRubix',
-        :link => 'http://www.foodrubix.com',
+        :link => 'http://quiet-summer-5721.herokuapp.com',
         :description => "a super cool visual food journal - the easiest way to track what you're eating"
       )
     end
