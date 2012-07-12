@@ -15,6 +15,7 @@ Foodrubix::Application.routes.draw do
   match 'upload' => "data_points#new", :as => :upload
   match 'home'  => 'high_voltage/pages#show', :id => 'home', :as => "home"
   match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/:provider/failure' => "user_sessions#new"
   
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/ 
   match ":username/edit", :to => "users#edit",

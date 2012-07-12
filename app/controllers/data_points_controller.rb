@@ -47,13 +47,13 @@ class DataPointsController < ApplicationController
     @data_point = DataPoint.new(params[:data_point])
     @data_point.user_id = current_user.id
     @data_point.uploaded_at = DateTime.now
-    
+    logger.debug  @data_point.uploaded_at
 
     respond_to do |format|
       if @data_point.save
         # publish to facebook
-        current_user.fb_publish(@data_point)
         if current_user.canPublishOnFacebook?
+          current_user.fb_publish(@data_point)
           notice = 'Data point was successfully created and shared on Facebook.'
         else
           notice = 'Data point was successfully created.'
