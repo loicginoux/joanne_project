@@ -240,7 +240,7 @@ class PhotoCalendar extends Spine.Controller
 					date = new Date(dataPoint.uploaded_at)
 					dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
 					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
-					dataPoint.time_uploaded_at = date.toString('HH:mm')
+					dataPoint.time_uploaded_at = date.toString('hh:mm tt')
 		else if @period == "month"
 			for week in data
 				for day in week.week_data
@@ -249,7 +249,7 @@ class PhotoCalendar extends Spine.Controller
 						date = new Date(dataPoint.uploaded_at)
 						dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
 						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
-						dataPoint.time_uploaded_at = date.toString('HH:mm')
+						dataPoint.time_uploaded_at = date.toString('hh:mm tt')
 						
 		if (@period == "day") 
 			tmpl = $('#day_photos_tmpl').html()

@@ -10,7 +10,7 @@
 	<br/>
 	{{#data_points}}
 		<div class="image">
-			<img class="thumb" data-original-title="{{uploaded_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/foodrubix-assets/photos/{{img_path}}" />
+			<img class="thumb" data-original-title="{{uploaded_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}" />
 			<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_{{id}}">
 				<i class="icon-pencil"></i>
 			</div>

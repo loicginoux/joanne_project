@@ -5,5 +5,7 @@ if Rails.env == "production"
     :bucket => ENV["S3_BUCKET_NAME"]}
 else
   # get credentials from YML file
-  S3_CREDENTIALS = Rails.root.join("config/s3.yml")
+  s3_config_file = File.join(Rails.root,'config','s3.yml')
+  raise "#{s3_config_file} is missing!" unless File.exists? s3_config_file
+  S3_CREDENTIALS = YAML.load_file(s3_config_file)[Rails.env].symbolize_keys
 end

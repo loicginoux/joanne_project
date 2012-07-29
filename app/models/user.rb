@@ -72,7 +72,9 @@ class User < ActiveRecord::Base
     when 'facebook'
       # fetch extra user info from facebook
       fb_username = omniauth['extra']['raw_info']['username']
-      self.username = fb_username.gsub('.', '')
+      if self.username.nil?
+        self.username = fb_username
+      end
       self.fb_sharing = true
     when 'twitter'
       # fetch extra user info from twitter
@@ -88,7 +90,7 @@ class User < ActiveRecord::Base
         :message =>  'What do you think of my latest meal?',
         :picture => data_point.photo.url(:medium),
         :name => 'FoodRubix',
-        :link => 'http://quiet-summer-5721.herokuapp.com',
+        :link => 'http://www.foodrubix.com',
         :description => "a super cool visual food journal - the easiest way to track what you're eating"
       )
     end
