@@ -60,12 +60,14 @@
 	<div class="container content">			
 		<% if flash[:alert] %>
 		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button>
 			<p class="flash-error"><%= flash[:alert] %></p>
 		</div>
 		<% end %>
 
 		<% if flash[:notice] %>
 		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert">×</button>
 			<p class="flash-error"><%= flash[:notice] %></p>
 		</div>
 		<% end %>

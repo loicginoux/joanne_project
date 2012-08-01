@@ -1,5 +1,15 @@
+
+<br />
 <div class="row">
 	<div class="span9">
+		<% if session[:omniauth] %>
+			<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong>Complete your registration</strong>
+				<p>You have been authenticated via Facebook. Please complete your registration below.</p>
+			</div>
+		<% end %>
+		
 		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
 	
 			<fieldset>
@@ -52,14 +62,16 @@
           		<button type="submit" class="btn btn-primary">Update</button>
 			<%else%>
           		<button type="submit" class="btn btn-primary">Create account</button>
-				or
-				<a href="/auth/facebook" class="auth_provider">
-			  		<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
-				</a>
-				<!-- or
-							<a href="/auth/twitter" class="auth_provider">
-						  		<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
-							</a> -->
+				<% if !session[:omniauth] %>
+					or
+					<a href="/auth/facebook" class="auth_provider">
+				  		<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
+					</a>
+					<!-- or
+								<a href="/auth/twitter" class="auth_provider">
+							  		<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
+								</a> -->
+				<%end%>
 			<%end%>
         </div>
 			</fieldset>

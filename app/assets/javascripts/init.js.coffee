@@ -5,7 +5,7 @@ window.foodrubix =
 	user_sessions: {}
 
 foodrubix.common.init = () ->
-	fadeOutAlert()
+	# fadeOutAlert()
 	
 	
 fadeOutAlert = ()->
