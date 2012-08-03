@@ -7,7 +7,7 @@
 		<form id="uploadForm_{{id}}" action="/data_points/{{id}}" method="PUT" enctype="multipart/form-data">
 			
 			<div class="alert alert-block alert-error alert-delete fade in hide">
-				<h4 class="alert-heading">Are you sure you want to delete it?</h4>
+				<h4 class="alert-heading">Are you sure you want to delete?</h4>
 				<p>
 					<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">Delete</a> 
 					<a class="btn" href="#" data-dismiss="modal">Cancel</a>
@@ -57,7 +57,7 @@
 		</fieldset>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+		<a href="#" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
 		<a href="#" class="btn btn-danger btn-confirm-delete">Delete</a>
 		<a href="#" class="btn btn-primary btn-save" data-loading-text="Saving...">Save changes</a>
 	</div>

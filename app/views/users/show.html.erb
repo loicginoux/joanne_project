@@ -1,11 +1,12 @@
-<div class="pull-right">
-	<%= link_to(new_data_point_url,:class=>"btn btn-primary") do%>
-	<i class="icon-upload icon-white"></i>
-	Upload
-	<%end%>
-</div>
-
 <div id="photoCalendar">
+
+	<div class="pull-right">
+		<%= link_to('#new_upload',:class=>"btn btn-primary upload_btn", 'data-toggle'=>"modal") do%>
+		<i class="icon-upload icon-white"></i>
+		Upload
+		<%end%>
+	</div>
+
 	<div class="row">
 		<div class="span3">
 			<div class="btn-group btn-control">
@@ -46,5 +47,7 @@
 	<div id="photos"></div>
 
 	<div id="graphicContainer"></div>
+
+	<%= render "data_points/new_upload" %>
 
 </div>

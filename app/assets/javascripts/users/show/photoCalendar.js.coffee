@@ -1,8 +1,4 @@
-foodrubix.users.show = () ->
-	photoCalendar = new PhotoCalendar({el: $("#photoCalendar")})
-	
-
-class PhotoCalendar extends Spine.Controller
+class foodrubix.PhotoCalendar extends Spine.Controller
 	
 	events:
 		"click .period": "changeView"
@@ -10,8 +6,7 @@ class PhotoCalendar extends Spine.Controller
 		"click .next": "goToNext"
 		"click .today": "gotToToday"
 		"hover .image": "toggleEditIcon"
-		"click .edit_data_point": "initUpdatePopup"
-		"shown .modal": "updateCurrentModal"
+		"shown .modal": "initModal"
 
 	elements:
 		"#photos": "photos"
@@ -284,306 +279,23 @@ class PhotoCalendar extends Spine.Controller
 		target = $(e.target)
 		target.parents('.image').find('.edit_data_point').toggleClass 'hide'
 
-	initUpdatePopup: (e) ->
-		$('.modal .datePicker').datepicker()
-		$('.modal .timePicker').timePicker({show24Hours: false})
-		$('.modal .btn-upload').click @changePhoto
-		$('.modal .data_point_photo').change @onChangePhoto
-		$('.modal .btn-save').click @validateUpdateData
-		$('.modal .btn-delete').click @removeDataPoint
-		$('.modal .btn-confirm-delete').click @showConfirmDeleteBox
-	
-	updateCurrentModal: (e) =>
-		@activeModal = $('.modal.in')
-	
-	changePhoto: (e) =>
-		file_input = $(e.target).next(".data_point_photo")
-		file_input.click()
-	
-	onChangePhoto: (e) =>
-		input = e.target
-		if input.files && input.files[0]
-			reader = new FileReader()
-			reader.onload = (e) ->
-				$(input).parent().find("img").attr('src', e.target.result);
-			reader.readAsDataURL(input.files[0]);
-	
-	validateUpdateData: (e) =>
-		validated = true
-		id = @activeModal.attr('data-id')
-		unless parseInt id
-			throw "no id for update modal box"
-		#remove all previous error 
-		@activeModal.find(".control-group").removeClass('error')
-		@activeModal.find(".help-inline").addClass('hide')
-		
-		# validate calories
-		calories = @activeModal.find('#data_point_calories').val()
-		unless parseInt calories
-			validated = false
-			@activeModal.find(".control-group.calories").addClass('error')
-			@activeModal.find('.help-inline.calories').removeClass('hide')
-	
-		# validate date
-		input = @activeModal.find('.datePicker input')
-		dateVal = input.val()
-		ISODate =  Date.parse(dateVal,"M-d-yyyy")
-		unless ISODate
-			validated = false
-			@activeModal.find(".control-group.date").addClass('error')
-			@activeModal.find('.help-inline.date').removeClass('hide')
-			
-		# validate time
-		date = $.timePicker("#timePicker_"+id).getTime() 
-		unless date 
-			validated = false
-			@activeModal.find(".control-group.time").addClass('error')
-			@activeModal.find('.help-inline.time').removeClass('hide')
-			
-		ISODate.set(
-			hour:date.getHours(),
-			minute:date.getMinutes()
-		)
-		
-		if validated
-			@updateDataPoint(e, {
-				id:id
-				calories: calories
-				uploaded_at: ISODate.toISOString()
-			})
-			
-			
-	# data should have id, calories, uploaded_at
-	updateDataPoint: (e, data) =>
-		$(e.target).button('loading')	
-		progress = @activeModal.find('.progress')
-		bar = progress.children()
-		
-		# 	update data 
-		onSuccess = () ->
-			$.ajax({
-				type: "PUT",
-				url: '/data_points/'+data.id+'.json',
-				data: 
-					data_point : data,
-					dataType: 'json',
-					success: @onSuccessUpdate.bind @
-			})
-			
-		beforeSend = () ->
-			progress.removeClass('hide').parent().find("a.btn").addClass('hide')
-			percentVal = '0%';
-			bar.width(percentVal)
-
-		uploadProgress = (event, position, total, percentComplete) ->
-			percentVal = percentComplete + '%';
-			bar.width(percentVal)
-		
-		# update photo first
-		form = $("#uploadForm_"+data.id);
-		form.ajaxSubmit(
-			type:"put"
-			dataType:"json"
-			success: onSuccess.bind @
-			beforeSend: beforeSend.bind @
-			uploadProgress: uploadProgress.bind @
-		)
 
 	
-	
-	showConfirmDeleteBox: () =>
-		popup = @activeModal.find(".alert-delete").removeClass('hide')
-	
-	removeDataPoint: (e) =>
-		$(e.target).button('loading')
-		id = @activeModal.attr('data-id')
-		$.ajax({
-		          type: "DELETE",
-		          url: '/data_points/'+id+'.json',
-		          dataType: 'json',
-		          success: @onSuccessUpdate.bind @
+	initModal: (e) =>
+		@activeModal = new foodrubix.DataPointModal({
+			el:$('.modal.in')
+			master: @
 		})
-		
-	onSuccessUpdate: (data) =>
+				
+	onSuccessAjax: (data) =>
+		$(".modal.in").modal('hide')
+		$('.datepicker, .time-picker').remove()
+		@activeModal.clean()
+		@activeModal = ""
 		fn = ()->
-			$(".modal.in").modal('hide')
 			@refresh()
 		_.delay(fn.bind(@), 2000) #we put a delay to give time to server to update before to refresh
 	
-	
-#manage graphics
-class foodrubix.graphic 
-	constructor: (@data, @view, @date_now) ->
-		if @data.length
-			#@displayData()
-			@prepareDataForHighchart()
-			if @view == "day"
-				@displayDayChart()	
-			else if @view == "week"
-				@displayWeekChart()	
-			else
-				@displayMonthChart()
-				
-	displayDayChart: () =>
-		nbPoints = @processedData.length
-		$('#dayGraphicContainer').css height: nbPoints*200+125
-		categories = [1..nbPoints]
-		categories = _.map(categories, (num) -> "Photo "+num.toString())
-		chart1 = new Highcharts.Chart({
-			chart: {
-				renderTo: 'dayGraphicContainer',
-				type: 'bar',
-				shadow:true,
-				spacingRight:20
-			},
-			credits:{
-				enabled:false
-			}
-			title: {
-				text: 'Calories per meal'
-			},
-			xAxis: {
-				categories: categories,
-				title: {
-					text: null
-				}
-			},
-			yAxis: {
-				title: {
-					text: 'Calories'
-				},
-				min: 0
-			},
-			plotOptions: {
-				bar: {
-					dataLabels: {
-						enabled: true
-					}
-				}				
-			},
-			series: [{
-				name: 'Calories',
-				data: @processedData
-			}]
-		})
-		
 
-	displayWeekChart: () =>
-		categories = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-		chart1 = new Highcharts.Chart({
-			chart: {
-				renderTo: 'graphicContainer',
-				type: 'line',
-				shadow:true
-			},
-			credits:{
-				enabled:false
-			}
-			title: {
-				text: 'Calories per day'
-			},
-			xAxis: {
-				categories: categories
-			},
-			yAxis: {
-				title: {
-					text: 'Calories'
-				},
-				min: 0
-			},
-			tooltip: {
-				formatter: () -> return '<b>'+this.series.name+'</b><br/>'+this.x+': '+this.y+' calories';
-			},
-			plotOptions: {
-				series: {
-					cursor: 'pointer',
-					events: {
-						click: (e) ->
-							console.log("this over:",this, e.point)	
-						,
-						mouseOut: (e) ->
-							console.log("this out:",this, e)
-					}
-				}
-			},
-			series: [{
-				name: 'Calories',
-				data: @processedData
-			}]
-		})
-			
-	displayMonthChart: () =>
 
-		chart1 = new Highcharts.Chart({
-			chart: {
-				renderTo: 'graphicContainer',
-				type: 'line',
-				shadow:true
-			},
-			credits:{
-				enabled:false
-			}
-			title: {
-				text: 'Calories per day'
-			},
-			xAxis: {
-				type: 'datetime',
-				labels: {
-					formatter: () -> Highcharts.dateFormat('%b %d', this.value)
-				}
-			},
-			yAxis: {
-				title: {
-					text: 'Calories'
-				},
-				min: 0
-			},
-			tooltip: {
-				formatter: () -> 
-					date = new Date(this.x)
-					date_to_s = date.toString("dd MMM")
-					'<b>'+this.series.name+'</b><br/>'+date_to_s+': '+this.y+' calories'
-			},
-			plotOptions: {
-				series: {
-					cursor: 'pointer',
-					events: {
-						click: (e) ->
-							console.log("this over:",this, e.point)	
-						,
-						mouseOut: (e) ->
-							console.log("this out:",this, e)
-					}
-				}
-			},
-			series: [{
-				name: 'Calories',
-				data: @processedData
-			}]
-		})
 
-	prepareDataForHighchart: () ->
-		@processedData = []
-		if @view == "week"
-			for day in @data
-				dayCalories = 0
-				for dataPoint in day.data_points
-					dayCalories += dataPoint.calories
-				@processedData.push(dayCalories)
-		else if @view == "month"
-			for week in @data
-				for day in week.week_data
-					dayCalories = 0
-					for dataPoint in day.data_points
-						dayCalories += dataPoint.calories
-					if day.date.getMonth() == @date_now.getMonth()
-						@processedData.push([day.date.clearTime().valueOf(), dayCalories])
-		else if @view == "day"
-			for day in @data
-				for dataPoint in day.data_points 
-					@processedData.push dataPoint.calories
-		
-					
-	
-        
-	
