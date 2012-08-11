@@ -1,10 +1,17 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
-
+    # all but yourself and followee
+    @users = User.without_user(current_user)
+    logger.debug @users.inspect
+    followee_ids = current_user.friendships.map(&:followee_id)    
+    logger.debug followee_ids
+    @users = @users.without_followees(followee_ids)
+    logger.debug @users.inspect
+    @groups = User.prepareGroups(@users, 6)
+    logger.debug @groups
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.json { render json: @groups }
     end
   end
     
@@ -14,14 +21,14 @@ class UsersController < ApplicationController
      logger.debug params[:username]
      logger.debug current_user
      respond_to do |format|
-       if @user.isUserAllowed(current_user)
+       # if @user.isUserAllowed(current_user)
          format.html # show.html.erb
          format.json { render :json => @user }
-       else
-         format.html { redirect_to login_path, :notice => 'you cannot access this user' }
-         format.json { head :ok }
-
-       end
+       # else
+       #          format.html { redirect_to login_path, :notice => 'you cannot access this user' }
+       #          format.json { head :ok }
+       # 
+       #        end
      end
    end
    

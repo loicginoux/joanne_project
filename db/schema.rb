@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708170527) do
+ActiveRecord::Schema.define(:version => 20120806222157) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(:version => 20120708170527) do
     t.datetime "uploaded_at"
   end
 
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "followee_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "user_sessions", :force => true do |t|
     t.string   "username"
     t.string   "password"
@@ -48,13 +55,17 @@ ActiveRecord::Schema.define(:version => 20120708170527) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "role"
-    t.string   "perishable_token",    :default => "",    :null => false
-    t.boolean  "confirmed",           :default => false
+    t.string   "perishable_token",     :default => "",    :null => false
+    t.boolean  "confirmed",            :default => false
     t.string   "single_access_token"
-    t.boolean  "fb_sharing",          :default => false
+    t.boolean  "fb_sharing",           :default => false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

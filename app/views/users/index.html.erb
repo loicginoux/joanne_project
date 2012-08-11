@@ -1,26 +1,21 @@
-<h1>Users</h1>
+<h1>Our awesome Foodrubix family</h1>
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Username</th>
-			<th>Username</th>
-			<th>email</th>
-			<th>confirmed</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @users.each do |user| %>
-		<tr>
-			<td><%= user.id %></td>
-			<td><%= user.username %></td>
-			<td><%= user.email %></td>
-			<td><%= user.confirmed %></td>
-			<td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-
-		</tr>
+<% @groups.each do |group| %>
+	<div class="row">
+		<% group.each do |user| %>
+  			<div class="span2">
+				<div class="image">
+					<%= link_to user_path(:username=> user.username) do %>
+						<%=  image_tag user.picture.url(:medium), :size => 50 %>
+					<% end %>
+				  	<%= link_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary"  %>
+			    	<%= user.username%>
+			
+				</div>
+	  		</div>
 		<% end %>
-	</tbody>
-</table>
+	</div>
+<% end %>
 
-<br />
+
+

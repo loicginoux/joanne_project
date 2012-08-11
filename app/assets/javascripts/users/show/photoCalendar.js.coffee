@@ -49,7 +49,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			url: '/data_points.json',
 			data: {
 				start_date : @startDate.toISOString() ,
-				end_date : @endDate.toISOString()
+				end_date : @endDate.toISOString(),
+				user_id: @el.attr("data-user")
 			},
 			dataType: 'json', 
 			success: onSuccessFetch.bind @

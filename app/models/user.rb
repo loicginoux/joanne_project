@@ -18,10 +18,30 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy, :autosave => true
   
+  has_many :friendships
+  has_many :friends, :through => :friendships
+      
   has_many :data_points, :dependent => :destroy
   
   accepts_nested_attributes_for :data_points
   accepts_nested_attributes_for :authentications
+  
+  has_attached_file :picture, 
+     :styles => {
+       :medium => ["200x200#",:jpg]
+     },
+     :storage => :s3,
+     :bucket => S3_CREDENTIALS[:bucket],
+     :path => ":attachment/:id/:style.:extension",
+     :s3_credentials => S3_CREDENTIALS,
+     :default_url => '/assets/default_user.gif'
+  
+  scope :without_user, lambda{|user| 
+    user ? {:conditions => ["users.id != ?", user.id]} : {} }
+  
+  scope :without_followees, lambda{|followee_ids| 
+    User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
+  }
   
   #cancan gem
   ROLES = %w[admin]
@@ -56,13 +76,32 @@ class User < ActiveRecord::Base
       false
     end
   end
-  
+
+   
   def hasFacebookConnected?
      !Authentication.find_by_provider_and_user_id("facebook", self.id).nil?
   end
   
   def canPublishOnFacebook?
     self.hasFacebookConnected? && self.fb_sharing
+  end
+  
+  def self.prepareGroups(users, groupSize)
+    groups = Array.new
+    userGroup = Array.new
+    $i = 1;
+    users.each do|user|
+      if $i<groupSize 
+        userGroup.push(user)
+        $i +=1;
+      else
+        groups.push(userGroup)
+        userGroup = Array.new
+        $i = 1
+      end
+    end
+    groups.push(userGroup)
+    groups
   end
   
   def apply_omniauth(omniauth)
@@ -87,7 +126,7 @@ class User < ActiveRecord::Base
       user = FbGraph::User.new(fb_authent.username, :access_token => fb_authent.access_token)
       user = user.fetch
       user.feed!(
-        :message =>  'What do you think of my latest meal?',
+        :message =>  "This is what I've been eating. What have you been eating?",
         :picture => data_point.photo.url(:medium),
         :name => 'FoodRubix',
         :link => 'http://www.foodrubix.com',
@@ -95,5 +134,6 @@ class User < ActiveRecord::Base
       )
     end
   end
+
 
 end

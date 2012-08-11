@@ -2,11 +2,11 @@ class DataPointsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :update]
   
   def index
-    if(params.has_key?(:start_date) && params.has_key?(:end_date))
+    if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
       startDate = Time.zone.parse(params[:start_date]).utc
       endDate = Time.zone.parse(params[:end_date]).utc
       @data_points = DataPoint.where(
-        :user_id => current_user.id,
+        :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
       ).order("uploaded_at ASC")
     else

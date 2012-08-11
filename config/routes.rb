@@ -1,12 +1,14 @@
 Foodrubix::Application.routes.draw do
   
+
   resources :authentications
   resources :data_points
   resources :users
   resources :user_sessions, :only => [:create, :destroy]
   resources :password_resets  
   resources :user_verifications  
-
+  resources :friendships
+  
   match "register" => "users#new", :as => :register  
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
@@ -16,6 +18,8 @@ Foodrubix::Application.routes.draw do
   match 'home'  => 'high_voltage/pages#show', :id => 'home', :as => "home"
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider/failure', to: redirect('/')
+  match 'people' => 'users#index', :as => :people
+  match 'following' => 'friendships#index', :as => :following
   
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/ 
   match ":username/edit", :to => "users#edit",

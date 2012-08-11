@@ -1,10 +1,15 @@
-<div id="photoCalendar">
+<div id="photoCalendar" data-user = "<%= @user.id%>">
 
 	<div class="pull-right">
-		<%= link_to('#new_upload',:class=>"btn btn-primary upload_btn", 'data-toggle'=>"modal") do%>
-		<i class="icon-upload icon-white"></i>
-		Upload
+		<% if @user.isUserAllowed(current_user) %>
+			<%= link_to('#new_upload',:class=>"btn btn-primary upload_btn", 'data-toggle'=>"modal") do%>
+				<i class="icon-upload icon-white"></i>
+				Upload
+			<%end%>
+		<%else%>
+			<%= link_to "Follow", friendships_path(:followee => @user.id), :method => :post, :class => "btn btn-primary"  %>
 		<%end%>
+		
 	</div>
 
 	<div class="row">

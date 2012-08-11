@@ -18,10 +18,13 @@
 				<%= link_to "FoodRubix", static_path("home"), :class => 'brand'%>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
 						<% if current_user %>
-						<li><%= link_to "Dashboard", user_path(:username=> current_user.username)%></li>
-
+							<li><%= link_to "Home", user_path(:username=> current_user.username)%></li>
+							<!-- <li><%= link_to "Following", following_path%></li>
+														<li><%= link_to "People", people_path%></li> -->
+						<%else%>
+							<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
+						
 						<%end%>
 					</ul>
 					<ul class="nav pull-right">

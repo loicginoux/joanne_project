@@ -10,7 +10,11 @@
  *
  *= require_self
  *= require jquery.jqplot.min.css
- *= require_tree .
+ *= require bootstrap.css
+ *= require datepicker.css
+ *= require timePicker.css
+ *= require icon.css
+
 */
 
 .center{
@@ -73,10 +77,14 @@ div.editable_img_container{
 	position:relative;
 }
 
+.editable_img_container .controls{	
+    border: 1px solid #CCC;
+    height: 200px;
+    width: 200px;
+
+}
 .editable_img_container img{
 	opacity: 0.5;	
-	width: 200px;
-	height: 200px;
 }
 
 .editable_img_container a{

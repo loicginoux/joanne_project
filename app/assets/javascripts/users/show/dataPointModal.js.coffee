@@ -37,7 +37,7 @@ class foodrubix.DataPointModal	extends Spine.Controller
 
 
 	clearNewUpload: () ->
-		@img.attr('src','')
+		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
 		@uploadBtn.removeClass('hide')
@@ -72,7 +72,7 @@ class foodrubix.DataPointModal	extends Spine.Controller
 		if input.files && input.files[0]
 			reader = new FileReader()
 			reader.onload = (e) ->
-				$(input).parent().find("img").attr('src', e.target.result);
+				$(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
 
 	validateDataPointData: (e) =>

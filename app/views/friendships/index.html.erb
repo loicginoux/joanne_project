@@ -1,0 +1,19 @@
+
+<h2>Your Friends</h2>
+
+<% @groups.each do |group| %>
+	<div class="row">
+		<% group.each do |friendship| %>
+  			<div class="span2">
+				<div class="image">
+					<%= link_to user_path(:username=> friendship.followee.username) do %>
+						<%=  image_tag friendship.followee.picture.url(:medium), :size => 50 %>
+					<% end %>
+				  	<%= link_to "Remove", friendship, :method => :delete, :class => "btn btn-primary"  %>
+			    	<%= friendship.followee.username%>
+			
+				</div>
+	  		</div>
+		<% end %>
+	</div>
+<% end %>
