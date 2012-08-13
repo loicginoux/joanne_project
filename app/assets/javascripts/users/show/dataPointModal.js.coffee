@@ -22,7 +22,6 @@ class foodrubix.DataPointModal	extends Spine.Controller
 
 	constructor: ()->
 		super
-		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		@id = @el.attr('data-id')
 		
 	init: () ->
@@ -35,7 +34,7 @@ class foodrubix.DataPointModal	extends Spine.Controller
 		@btnConfirmDelete.click @showConfirmDeleteBox
 		@cancelBtn.click @clean
 		console.log("is new", @isNewUploadBox, @el);
-		
+		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		if @isNewUploadBox
 			@clearNewUpload()
 
