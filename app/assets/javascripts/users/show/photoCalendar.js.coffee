@@ -40,7 +40,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		else if @period == "month"  
 			@startDate.moveToFirstDayOfMonth().clearTime()
 			@endDate.moveToLastDayOfMonth().set({hour:23, minute:59, second:59})
-		console.log("@startDate, @endDate:",@startDate, @endDate);
 		
 	#make the ajax call to get the data points
 	getDataPoints: (onSuccessFetch) ->
@@ -102,7 +101,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	#function to run on success of the ajax call to get data points
 	#data are data points
 	onSuccessFetch: (data) ->
-		console.log("data:",data);
 		#display loading gif
 		UTIL.load($('#photos'), "photos", false)
 		dataSorted = @groupDataByDay(data)
@@ -171,12 +169,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			date.add(1).days()
 			
 		month.push(week)	
-		console.log("monthData:",month);
 		month
 	
 	#create an array of 7 items with empty days if there is no photo uploaded	
 	createWeekDays: (data) ->
-		console.log("data week days", data)
 		newData = []
 		for num in [0..6]
 			date = @startDate.clone()
@@ -218,7 +214,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 						day_date: newDate.toString('dddd'),
 						data_points: [point]
 					})
-		console.log("grouped data:",dataSorted);
 		return dataSorted	
 	
 	
