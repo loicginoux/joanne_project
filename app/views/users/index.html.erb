@@ -1,15 +1,16 @@
-<h1>Our awesome Foodrubix family</h1>
+<h2>Our awesome Foodrubix family</h2>
 
 <% @groups.each do |group| %>
 	<div class="row">
 		<% group.each do |user| %>
-  			<div class="span2">
+  			<div class="span3">
 				<div class="image">
 					<%= link_to user_path(:username=> user.username) do %>
-						<%=  image_tag user.picture.url(:medium), :size => 50 %>
+						<%=  image_tag user.picture.url(:small) %>
 					<% end %>
+					<%= user.username%>
+			    	
 				  	<%= link_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary"  %>
-			    	<%= user.username%>
 			
 				</div>
 	  		</div>

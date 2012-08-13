@@ -4,13 +4,13 @@
 <% @groups.each do |group| %>
 	<div class="row">
 		<% group.each do |friendship| %>
-  			<div class="span2">
+  			<div class="span3">
 				<div class="image">
 					<%= link_to user_path(:username=> friendship.followee.username) do %>
-						<%=  image_tag friendship.followee.picture.url(:medium), :size => 50 %>
+						<%=  image_tag friendship.followee.picture.url(:small) %>
 					<% end %>
-				  	<%= link_to "Remove", friendship, :method => :delete, :class => "btn btn-primary"  %>
 			    	<%= friendship.followee.username%>
+				  	<%= link_to "Remove", friendship, :method => :delete, :class => "btn btn-primary"  %>
 			
 				</div>
 	  		</div>

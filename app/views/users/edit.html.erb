@@ -15,14 +15,14 @@
 	</div>
 	<div id="profile" class="content span9"><%= render 'form' %></div>
 	<div id="picture" class="content span9 hide">
-		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+		<%= form_for @user, :html => { :class => "form-horizontal", :multipart => true } do |f| %>
 		<fieldset>
 			<div class="control-group">
 					<div class="control-group editable_img_container file">
 						<div class="controls">
-							<%= image_tag getPicture(@user) %>
+							<%= getPicture(@user) %>
 							<a class="btn btn-upload" href="#">Upload photo</a>
-							<input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file">
+							<input class="hide user_picture" id="fileInput" name="user[picture]" type="file">
 							<div class="progress progress-striped active hide">
 							  <div class="bar" style="width: 0%;"></div>
 							</div>

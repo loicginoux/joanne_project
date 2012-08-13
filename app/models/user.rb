@@ -10,7 +10,9 @@ class User < ActiveRecord::Base
     :length => { :minimum => 6 },
     :presence => true,
     :on => :create
-    
+  validates_attachment_size :picture, :less_than=>3.megabyte
+  validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']  
+  
   acts_as_authentic
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
   disable_perishable_token_maintenance(true)
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
   
   has_attached_file :picture, 
      :styles => {
+       :small => ["50x50#",:jpg],
        :medium => ["200x200#",:jpg]
      },
      :storage => :s3,

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     logger.debug followee_ids
     @users = @users.without_followees(followee_ids)
     logger.debug @users.inspect
-    @groups = User.prepareGroups(@users, 6)
+    @groups = User.prepareGroups(@users, 4)
     logger.debug @groups
     respond_to do |format|
       format.html # index.html.erb
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes(params[:user])
-      redirect_to user_path(:username=> @user.username), notice: 'Successfully updated profile.'
+      redirect_to edit_user_path(:username=> @user.username), notice: 'Successfully updated profile.'
     else
       render :action => 'edit'
     end

@@ -34,6 +34,8 @@ class foodrubix.DataPointModal	extends Spine.Controller
 		@deleteBtn.click @removeDataPoint
 		@btnConfirmDelete.click @showConfirmDeleteBox
 		@cancelBtn.click @clean
+		if @isNewUploadBox
+			@clearNewUpload()
 
 
 	clearNewUpload: () ->
