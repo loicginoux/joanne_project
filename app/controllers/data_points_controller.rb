@@ -13,7 +13,7 @@ class DataPointsController < ApplicationController
       .find(:all,	
         :select => 'data_points.*, count(comments.id) as nbComments, (SELECT COUNT(*) FROM likes where likes.data_point_id = data_points.id) AS nbLikes',	
         :joins => 'LEFT OUTER JOIN comments on comments.data_point_id = data_points.id LEFT OUTER JOIN likes on likes.data_point_id = data_points.id',	
-        :group => 'data_points.id')
+        :group => ['data_points.id', 'data_points.calories'])
     end
     respond_to do |format|
       format.html # index.html.erb
