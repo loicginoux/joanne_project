@@ -8,12 +8,16 @@ class DataPointsController < ApplicationController
       @data_points = DataPoint.where(
         :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
-      ).order("uploaded_at ASC")
-    else
-      @data_points = DataPoint.all
+      )
+      .order("uploaded_at ASC")
+      .find(:all,	
+        :select => 'data_points.*, count(comments.id) as nbComments, (SELECT COUNT(*) FROM likes where likes.data_point_id = data_points.id) AS nbLikes',	
+        :joins => 'LEFT OUTER JOIN comments on comments.data_point_id = data_points.id LEFT OUTER JOIN likes on likes.data_point_id = data_points.id',	
+        :group => 'data_points.id')
     end
     respond_to do |format|
       format.html # index.html.erb
+      format.js {  }
       format.json { render json: @data_points }
     end
   end

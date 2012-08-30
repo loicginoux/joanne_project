@@ -23,6 +23,26 @@
 
 .image{
 	position:relative;
+	overflow:hidden;
+	cursor: pointer;
+}
+.dayView .image{
+	width:200px;
+}
+.image .overlay{
+	position: absolute;
+	right: 0px;
+	height: 26px;
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	text-align: left;
+	bottom: -26px;
+	
+}
+
+.image .overlay>span{
+	float: right;
+	margin: 4px;	
 }
 
 .edit_data_point{
@@ -99,4 +119,18 @@ div.editable_img_container{
 	top: 47%;
 	left: 25%;
 	
+}
+
+
+.modal.viewPhoto form{
+	margin: 10px 0 10px 0;
+}
+
+.modal.viewPhoto .comments{
+	overflow-y: scroll;
+	max-height:150px;
+}
+.row.comment{
+	margin-top:10px;
+	margin-bottom:20px;
 }

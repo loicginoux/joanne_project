@@ -14,6 +14,9 @@ class DataPoint < ActiveRecord::Base
     :s3_credentials => S3_CREDENTIALS
     
   belongs_to :user
+  has_many :comments, :dependent => :destroy
+  has_many :likes
+  has_many :fan, :through => :likes
   
 
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:

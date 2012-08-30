@@ -5,8 +5,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .prev": "goToPrev"
 		"click .next": "goToNext"
 		"click .today": "gotToToday"
-		"hover .image": "toggleEditIcon"
-		"shown .modal": "initModal"
+		"hover .image": "onHoverImage"
+		"shown .modal.uploadPhoto": "initEditModal"
+		"shown .modal.editPhoto": "initEditModal"
+		"shown .modal.viewPhoto": "initViewModal"
 
 	elements:
 		"#photos": "photos"
@@ -266,23 +268,40 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		html = Mustache.render(tmpl, json )
 		$('#photos').append html
 
-		$('.thumb').popover({
-	 		delay: { show: 1000, hide: 100 }
-	 	})
+		# $('.thumb').popover({
+		# 	 		delay: { show: 1000, hide: 100 }
+		# 	 	})
 
 
-	toggleEditIcon: (e) ->
+	onHoverImage: (e) ->		
 		target = $(e.target)
-		target.parents('.image').find('.edit_data_point').toggleClass 'hide'
+		image = target.parents('.image')
+		overlay = image.find(".overlay")
+		image.find('.edit_data_point').toggleClass 'hide'
+
+		if e.type == "mouseleave"
+			overlay.stop(true, false).animate({
+				bottom: '-26px'
+				}, 300)
+		else
+			overlay.stop(true, false).animate({
+				bottom: '0px'
+				}, 300)
 
 
 	
-	initModal: (e) =>
-		@activeModal = new foodrubix.DataPointModal({
+	initEditModal: (e) =>
+		@activeModal = new foodrubix.DataPointEditModal({
 			el:$('.modal.in')
 			master: @
 		})
-				
+	
+	initViewModal: (e) =>
+		@activeModal = new foodrubix.DataPointViewModal({
+			el:$('.modal.in')
+			master: @
+		})
+			
 	onSuccessAjax: (data) =>
 		$(".modal.in").modal('hide')
 		$('.datepicker, .time-picker').remove()

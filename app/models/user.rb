@@ -22,8 +22,12 @@ class User < ActiveRecord::Base
   
   has_many :friendships
   has_many :friends, :through => :friendships
+    
+  has_many :likes
+  has_many :yums, :through => :likes
       
   has_many :data_points, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   
   accepts_nested_attributes_for :data_points
   accepts_nested_attributes_for :authentications

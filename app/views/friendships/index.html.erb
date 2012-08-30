@@ -1,5 +1,5 @@
 
-<h2>Your Friends</h2>
+<h2>People that inspire you</h2>
 
 <% @groups.each do |group| %>
 	<div class="row">
@@ -10,7 +10,7 @@
 						<%=  image_tag friendship.followee.picture.url(:small) %>
 					<% end %>
 			    	<%= friendship.followee.username%>
-				  	<%= link_to "Remove", friendship, :method => :delete, :class => "btn btn-primary"  %>
+				  	<%= link_to "Unfollow", friendship, :method => :delete, :class => "btn btn-primary"  %>
 			
 				</div>
 	  		</div>

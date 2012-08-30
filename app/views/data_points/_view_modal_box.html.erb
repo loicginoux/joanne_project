@@ -1,0 +1,41 @@
+<div id="modal_view_{{id}}" class="hide  modal viewPhoto" data-id="{{id}}">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+	</div>
+
+	<div class="modal-body">
+		<div class="row">
+			<div class="span3">
+				<img class="big" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}"/>
+			</div>
+			<div class="span3">
+				<p>Calories: {{calories}} Kcal</p>
+				<p>Date: {{uploaded_at_readable}} </p>
+				<p><span class="nbLikes">{{nbLikes}}</span> Likes</p>
+				<p><span class="nbComments">{{nbComments}}</span> Comments</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span6">
+				<form>
+					<div class="control-group comment hide">
+						<div class="controls">
+							<textarea class="input-comment" placeholder="Add your comment..."/>
+							<span class="help-inline comment hide">Please enter a comment</span>
+						</div>
+					</div>
+					<a href="#" class="btn btn-primary btn-comment" data-loading-text="Commenting..."><i class="icon-white icon-comment"></i> Comment</a>
+					<a href="#" class="btn btn-primary btn-like"><i class="icon-white icon-heart"></i><span> Like<span></a>
+					<a href="#" class="unlike hide">Unlike</a>
+				</form>
+				<div class="comments"></div>
+			</div>
+				
+		</div>
+		
+	
+	
+	
+	</div>	
+
+</div>

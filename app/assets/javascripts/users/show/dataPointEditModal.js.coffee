@@ -1,4 +1,4 @@
-class foodrubix.DataPointModal	extends Spine.Controller
+class foodrubix.DataPointEditModal	extends Spine.Controller
 
 	elements:
 		"#photos":                 "photos"
@@ -33,7 +33,6 @@ class foodrubix.DataPointModal	extends Spine.Controller
 		@deleteBtn.click @removeDataPoint
 		@btnConfirmDelete.click @showConfirmDeleteBox
 		@cancelBtn.click @clean
-		console.log("is new", @isNewUploadBox, @el);
 		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		if @isNewUploadBox
 			@clearNewUpload()

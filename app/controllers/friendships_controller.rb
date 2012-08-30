@@ -17,10 +17,10 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friendships.build(:followee_id => params[:followee])
      if @friendship.save
        flash[:notice] = "Added friend."
-       redirect_to people_path
+       redirect_to challengers_path
      else
        flash[:notice] = "Unable to add friend."
-       redirect_to people_path
+       redirect_to challengers_path
      end
   end
 

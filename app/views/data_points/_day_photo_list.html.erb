@@ -1,34 +1,46 @@
-<div class="row">
-	<div class="span6">
-		<h2>{{hr_date}}</h2>
-	</div>
-</div>
-<div class="row">
-{{#data}}
-	<div class="span3">
-	{{#data_points}}
-		<div class="image">
-			<img class="thumb" data-original-title="{{uploaded_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}" />
-			<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_{{id}}">
-				<i class="icon-pencil"></i>
-			</div>
+<div class="dayView">
+	<div class="row">
+		<div class="span6">
+			<h2>{{hr_date}}</h2>
 		</div>
-		<%= render "data_points/update_modal_box" %>
+	</div>
+	<div class="row">
+	{{#data}}
+		<div class="span3">
+		{{#data_points}}
+			<div class="image" id="image_{{id}}">
+				<img class="thumb" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}" data-toggle="modal" data-target="#modal_view_{{id}}" />
+				<div class="overlay">
+					<span class="label label-info">
+						<span class="nbComments">{{nbComments}}</span>
+						<i class="icon-comment"></i>
+					</span>
+					<span class="label label-info">
+						<span class="nbLikes">{{nbLikes}}</span>
+						<i class="icon-heart"></i>
+					</span>
+				</div>
+				<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_edit_{{id}}">
+					<i class="icon-pencil"></i>
+				</div>
+			</div>
+			<%= render "data_points/update_modal_box" %>
+			<%= render "data_points/view_modal_box" %>			
 		
-	{{/data_points}}
-	{{^data_points}}
-	{{/data_points}}
+		{{/data_points}}
+		{{^data_points}}
+		{{/data_points}}
+		</div>
+		<div class="span9">
+			<div id="dayGraphicContainer"></div>
+		</div>
+	{{/data}}
+	{{^data}}
+	<div class="alert alert-info">
+		<button class="close" data-dismiss="alert">×</button>
+		<strong>No photos!</strong>
 	</div>
-	<div class="span9">
-		<div id="dayGraphicContainer"></div>
+	{{/data}}
 	</div>
-{{/data}}
-{{^data}}
-<div class="alert alert-info">
-	<button class="close" data-dismiss="alert">×</button>
-	<strong>No photos!</strong>
 </div>
-{{/data}}
-</div>
-
 
