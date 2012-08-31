@@ -21,8 +21,13 @@ class DataPointsController < ApplicationController
   def show
      @data_point = DataPoint.find(params[:id])
      respond_to do |format|
-         format.html # show.html.erb
-         format.json { render :json => @data_point }
+        if current_user
+          format.html # show.html.erb
+          format.json { render :json => @data_point }
+        else
+          format.html { redirect_to login_path, :notice => 'you need to login first.' }        
+        end
+       
      end
    end
    

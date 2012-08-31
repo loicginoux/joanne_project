@@ -1,4 +1,4 @@
-class foodrubix.DataPointViewModal	extends Spine.Controller
+class foodrubix.commentsAndLikesManager extends Spine.Controller
 
 	elements:
 		".btn-comment":"btnComment"
@@ -20,7 +20,7 @@ class foodrubix.DataPointViewModal	extends Spine.Controller
 	
 	init: () ->
 		@id = @el.attr('data-id')
-		@userId = @master.el.attr("data-user")
+		@userId = $("body").attr("data-user")
 		@nbLikes = parseInt(@nbLikesHTML.text())
 		@nbComments = parseInt(@nbCommentsHTML.text())
 		@refreshComments()
@@ -97,10 +97,12 @@ class foodrubix.DataPointViewModal	extends Spine.Controller
 		@refreshComments()
 		
 	updateMasterInfo: (which) =>
-		if which == "comments"
-			@master.el.find("#image_"+@id+ " span.nbComments").html(@nbComments)
-		else if which == "likes"
-			@master.el.find("#image_"+@id+ " span.nbLikes").html(@nbLikes)
+		if @master
+			  # body...
+			if which == "comments"
+				@master.el.find("#image_"+@id+ " span.nbComments").html(@nbComments)
+			else if which == "likes"
+				@master.el.find("#image_"+@id+ " span.nbLikes").html(@nbLikes)
 	
 	like: () =>
 		data = 

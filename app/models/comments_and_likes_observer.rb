@@ -5,8 +5,10 @@ class CommentsAndLikesObserver < ActiveRecord::Observer
     dataPoint = DataPoint.find(record.data_point_id)
     if record.class == Comment
       dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments+1)
+      UserMailer.added_comment_email(dataPoint, record).deliver
     else
-      dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes+1)      
+      dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes+1) 
+      UserMailer.added_like_email(dataPoint, record).deliver
     end
   end
   

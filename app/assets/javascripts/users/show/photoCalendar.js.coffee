@@ -297,7 +297,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		})
 	
 	initViewModal: (e) =>
-		@activeModal = new foodrubix.DataPointViewModal({
+		@activeModal = new foodrubix.commentsAndLikesManager({
 			el:$('.modal.in')
 			master: @
 		})

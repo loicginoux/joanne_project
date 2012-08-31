@@ -122,14 +122,15 @@ div.editable_img_container{
 }
 
 
-.modal.viewPhoto form{
+.viewPhoto form{
 	margin: 10px 0 10px 0;
 }
 
-.modal.viewPhoto .comments{
+.viewPhoto .comments{
 	overflow-y: scroll;
 	max-height:150px;
 }
+
 .row.comment{
 	margin-top:10px;
 	margin-bottom:20px;

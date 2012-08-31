@@ -1,11 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div class="viewPhoto" data-id="<%= @data_point.id%>">
+	<div class="row">
+		<div class="span3">
+			<img class="big" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/<%= @data_point.id%>/medium.jpg"/>
+		</div>
+		<div class="span3">
+			<p>Calories: <%= @data_point.calories%> Kcal</p>
+			<p>Date: <%= @data_point.uploaded_at%> </p>
+			<p><span class="nbLikes"><%= @data_point.nb_likes%></span> Likes</p>
+			<p><span class="nbComments"><%= @data_point.nb_comments%></span> Comments</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span6">
+			<form>
+				<div class="control-group comment hide">
+					<div class="controls">
+						<textarea class="input-comment" placeholder="Add your comment..."></textarea>
+						<span class="help-inline comment hide">Please enter a comment</span>
+					</div>
+				</div>
+				<a href="#" class="btn btn-primary btn-comment" data-loading-text="Commenting..."><i class="icon-white icon-comment"></i> Comment</a>
+				<a href="#" class="btn btn-primary btn-like">
+					<i class="icon-white icon-heart"></i>
+					<span> Like</span>
+				</a>
+				<a href="#" class="unlike hide">Unlike</a>
+			</form>
+			<div class="comments"></div>
+		</div>
 
-<p>
-  <b>Calories:</b>
-  <%= @data_point.calories %>
-<b>photo</b>
-<%= image_tag @data_point.photo.url(:medium) %>
-</p>
-
-
-<%= link_to 'Edit', edit_data_point_path(@data_point) %>
+	</div>
+</div>
