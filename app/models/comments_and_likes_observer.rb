@@ -2,7 +2,6 @@ class CommentsAndLikesObserver < ActiveRecord::Observer
   observe :comment, :like
   
   def after_save(record)
-    debugger
     dataPoint = DataPoint.find(record.data_point_id)
     if record.class == Comment
       dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments+1)
