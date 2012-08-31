@@ -20,6 +20,6 @@ class UserMailer < ActionMailer::Base
   def added_like_email(dataPoint, like)
     @dataPoint = dataPoint
     @like = like
-    mail(:to => like.user.email, :subject => "[FoodRubix] someone like your meal")
+    mail(:to => dataPoint.user.email, :subject => "[FoodRubix] someone like your meal")
   end
 end
