@@ -10,20 +10,6 @@ class DataPointsController < ApplicationController
         :uploaded_at => startDate..endDate
       )
       .order("uploaded_at ASC")
-      .find(:all,	
-        :select => 'data_points.*, count(comments.id) as nbComments, (SELECT COUNT(*) FROM likes where likes.data_point_id = data_points.id) AS nbLikes',	
-        :joins => 'LEFT OUTER JOIN comments on comments.data_point_id = data_points.id LEFT OUTER JOIN likes on likes.data_point_id = data_points.id',	
-        :group => ['data_points.id',
-                  'data_points.calories', 
-                  'data_points.created_at', 
-                  'data_points.updated_at', 
-                  'data_points.photo_file_name', 
-                  'data_points.photo_content_type', 
-                  'data_points.photo_file_size', 
-                  'data_points.photo_updated_at', 
-                  'data_points.user_id', 
-                  'data_points.uploaded_at'])
-
     end
     respond_to do |format|
       format.html # index.html.erb

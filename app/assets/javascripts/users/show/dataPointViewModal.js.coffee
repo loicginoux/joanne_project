@@ -53,7 +53,6 @@ class foodrubix.DataPointViewModal	extends Spine.Controller
 		})
 		
 	onEnter: (e) =>
-		console.log("e.keyCode:",e.keyCode)
 		
 		if e.keyCode == 13  #enter
 			@comment()

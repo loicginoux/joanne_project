@@ -2,13 +2,9 @@ class UsersController < ApplicationController
   def index
     # all but yourself and followee
     @users = User.without_user(current_user)
-    logger.debug @users.inspect
     followee_ids = current_user.friendships.map(&:followee_id)    
-    logger.debug followee_ids
     @users = @users.without_followees(followee_ids)
-    logger.debug @users.inspect
     @groups = User.prepareGroups(@users, 4)
-    logger.debug @groups
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
@@ -17,9 +13,6 @@ class UsersController < ApplicationController
     
   def show
      @user = User.first(:conditions => {:username=> params[:username]})
-     logger.debug @user.inspect
-     logger.debug params[:username]
-     logger.debug current_user
      respond_to do |format|
        # if @user.isUserAllowed(current_user)
          format.html # show.html.erb

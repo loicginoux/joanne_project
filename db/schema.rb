@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820114238) do
+ActiveRecord::Schema.define(:version => 20120831131623) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -33,14 +33,16 @@ ActiveRecord::Schema.define(:version => 20120820114238) do
 
   create_table "data_points", :force => true do |t|
     t.integer  "calories"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "user_id"
     t.datetime "uploaded_at"
+    t.integer  "nb_comments",        :default => 0
+    t.integer  "nb_likes",           :default => 0
   end
 
   create_table "friendships", :force => true do |t|
