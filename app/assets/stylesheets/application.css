@@ -126,7 +126,7 @@ div.editable_img_container{
 	margin: 10px 0 10px 0;
 }
 
-.viewPhoto .comments{
+.modal.viewPhoto .comments{
 	overflow-y: scroll;
 	max-height:150px;
 }

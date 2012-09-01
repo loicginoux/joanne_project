@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+  before_filter :require_login
+  
   # GET /likes
   # GET /likes.json
   def index

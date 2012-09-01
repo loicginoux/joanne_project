@@ -1,0 +1,9 @@
+---
+:DataPoint:
+  :photo:
+  - :big
+  - :medium
+:User:
+  :picture:
+  - :medium
+  - :small

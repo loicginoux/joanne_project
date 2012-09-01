@@ -18,7 +18,8 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if @user_session.save
         user = User.first(:conditions => {:username=> @user_session.username})
-        format.html { redirect_to user_path(:username=> user.username), notice: 'successfully logged in.' }
+        # format.html { redirect_to user_path(:username=> user.username), notice: 'successfully logged in.' }
+        format.html { redirect_back_or_default(user_path(:username=> user.username))  }
         format.json { render json: @user_session, status: :created, location: @user_session }
       else
         format.html { render action: "new" }

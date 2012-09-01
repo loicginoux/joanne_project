@@ -1,11 +1,11 @@
 <div class="viewPhoto" data-id="<%= @data_point.id%>">
 	<div class="row">
-		<div class="span3">
-			<img class="big" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/<%= @data_point.id%>/medium.jpg"/>
+		<div class="span5">
+			<%= getPhoto(@data_point, "big")%>
 		</div>
 		<div class="span3">
-			<p>Calories: <%= @data_point.calories%> Kcal</p>
-			<p>Date: <%= @data_point.uploaded_at%> </p>
+			<p>Calories: <%= @data_point.calories%> calories</p>
+			<p>Date: <%= @data_point.uploaded_at.strftime("%m-%d-%Y")%> </p>
 			<p><span class="nbLikes"><%= @data_point.nb_likes%></span> Likes</p>
 			<p><span class="nbComments"><%= @data_point.nb_comments%></span> Comments</p>
 		</div>

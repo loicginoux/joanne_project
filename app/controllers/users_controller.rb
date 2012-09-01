@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :require_login
+  before_filter :require_login, :except => [:new, :create]
   def index
     # all but yourself and followee
     @users = User.without_user(current_user)
@@ -14,14 +16,8 @@ class UsersController < ApplicationController
   def show
      @user = User.first(:conditions => {:username=> params[:username]})
      respond_to do |format|
-       # if @user.isUserAllowed(current_user)
-         format.html # show.html.erb
-         format.json { render :json => @user }
-       # else
-       #          format.html { redirect_to login_path, :notice => 'you cannot access this user' }
-       #          format.json { head :ok }
-       # 
-       #        end
+       format.html # show.html.erb
+       format.json { render :json => @user }
      end
    end
    

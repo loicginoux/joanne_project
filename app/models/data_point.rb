@@ -6,7 +6,8 @@ class DataPoint < ActiveRecord::Base
   
   has_attached_file :photo, 
     :styles => {
-      :medium => ["200x200#",:jpg]
+      :medium => ["220x220#",:jpg],
+      :big => ["380x380#",:jpg]
     },
     :storage => :s3,
     :bucket => S3_CREDENTIALS[:bucket],

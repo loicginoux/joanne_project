@@ -1,4 +1,6 @@
 class FriendshipsController < ApplicationController
+  before_filter :require_login
+  
   # GET /friendships
   # GET /friendships.json
   def index

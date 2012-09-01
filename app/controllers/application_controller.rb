@@ -36,4 +36,20 @@ class ApplicationController < ActionController::Base
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end 
 
+  def require_login
+    unless current_user
+      store_location
+      flash[:notice] = "You must be logged in to access this page"
+      redirect_to login_url
+    end
+  end
+  
+  def store_location
+    session[:return_to] = request.env['REQUEST_URI']
+  end
+  
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
 end

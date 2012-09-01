@@ -1,5 +1,6 @@
 class DataPointsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :update]
+  before_filter :require_login
   
   def index
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
@@ -21,13 +22,8 @@ class DataPointsController < ApplicationController
   def show
      @data_point = DataPoint.find(params[:id])
      respond_to do |format|
-        if current_user
-          format.html # show.html.erb
-          format.json { render :json => @data_point }
-        else
-          format.html { redirect_to login_path, :notice => 'you need to login first.' }        
-        end
-       
+        format.html # show.html.erb
+        format.json { render :json => @data_point }
      end
    end
    
