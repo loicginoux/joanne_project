@@ -1,41 +1,118 @@
-<div id="modal_view_{{id}}" class="hide  modal viewPhoto" data-id="{{id}}">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-	</div>
-
-	<div class="modal-body">
-		<div class="row">
-			<div class="span3">
-				<img class="big" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}"/>
-			</div>
-			<div class="span3">
-				<p>Calories: {{calories}} calories</p>
-				<p>Date: {{uploaded_at_readable}} </p>
-				<p><span class="nbLikes">{{nb_likes}}</span> Likes</p>
-				<p><span class="nbComments">{{nb_comments}}</span> Comments</p>
-			</div>
+<div class="row">
+	<div class="span5">
+		<div class="viewMode">
+			<%= getPhoto(@data_point, "big")%>
 		</div>
-		<div class="row">
-			<div class="span6">
-				<form>
-					<div class="control-group comment hide">
+		<div class="editMode hide">
+			<form id="uploadForm_<%= @data_point.id%>" action="/data_points/<%= @data_point.id%>" method="PUT" enctype="multipart/form-data">
+			
+				<div class="alert alert-block alert-error alert-delete fade in hide">
+					<h4 class="alert-heading">Are you sure you want to delete?</h4>
+					<p>
+						<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">Delete</a> 
+						<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+					</p>
+				</div>
+				<div class="editable_img_container">
+					<%= getPhoto(@data_point, "big")%>
+					<a class="btn btn-upload" href="#">Change photo</a>
+					<input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file">
+					<div class="progress progress-striped active hide">
+					  <div class="bar" style="width: 0%;"></div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="span5 info" data-id="<%= @data_point.id%>">
+		<div class="editMode hide">
+				<fieldset>
+					<div class="control-group calories">
+						<label class="control-label">Calories</label>
 						<div class="controls">
-							<textarea class="input-comment" placeholder="Add your comment..."></textarea>
-							<span class="help-inline comment hide">Please enter a comment</span>
+							<input class="" id="data_point_calories" name="data_point[calories]" type="number"
+							 value="<%= @data_point.calories%>">
+							<span class="help-inline calories hide">Please enter an integer</span>
+
 						</div>
 					</div>
-					<a href="#" class="btn btn-primary btn-comment" data-loading-text="Commenting..."><i class="icon-white icon-comment"></i> Comment</a>
-					<a href="#" class="btn btn-primary btn-like"><i class="icon-white icon-heart"></i><span> Like</span></a>
-					<a href="#" class="unlike hide">Unlike</a>
-				</form>
-				<div class="comments"></div>
+
+					<div class="control-group date">
+						<label class="control-label">Date</label>
+						<div class="controls">
+							<div class="input-append date datePicker" data-date="<%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%m-%d-%Y")%>" data-date-format="mm-dd-yyyy">
+								<input size="16" type="text" value="<%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%m-%d-%Y")%>">
+								<span class="add-on"><i class="icon-th"></i></span>
+								<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
+
+							</div>	
+						</div>
+					</div>	
+					<div class="control-group time">
+						<label class="control-label">Time</label>
+						<div class="controls">
+							<input class="timePicker" id="timePicker_<%= @data_point.id%>" name="data_point[time]" type="text"
+							 value="<%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%I:%M %P")%>">
+							<span class="help-inline time hide">Please enter a correct time (HH:mm)</span>
+						</div>
+					</div>		
+				</fieldset>
+		</div>
+		<div class="meta viewMode">
+			<p>Calories: <%= @data_point.calories%> calories</p>
+			<p>Date: <%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%m-%d-%Y %I:%M %P")%> </p>
+			<p><span class="nbLikes"><%= @data_point.nb_likes%></span> Likes</p>
+			<p><span class="nbComments"><%= @data_point.nb_comments%></span> Comments</p>
+		</div>
+		<form>
+			<div class="viewMode">
+				<div class="control-group comment hide">
+					<div class="controls">
+						<textarea class="input-comment" placeholder="Add your comment..."></textarea>
+						<span class="help-inline comment hide">Please enter a comment</span>
+					</div>
+				</div>
+			
+			
+				<a href="#" class="btn btn-primary btn-comment viewMode" data-loading-text="Commenting...">
+					<i class="icon-white icon-comment"></i> Comment
+				</a>
+				<%if current_user.like(@data_point).nil? %>
+					<a href="#" class="btn btn-primary btn-like viewMode" data-action="Like">
+						<i class="icon-white icon-thumbs-up"></i>
+						<span> Like</span>
+					</a>
+				<%else%>
+					<a href="#" class="btn btn-primary btn-like viewMode" data-action="Unlike" data-like-id="<%=current_user.like(@data_point).id%>" >
+						<i class="icon-white icon-thumbs-down"></i>
+						<span> Unlike</span>
+					</a>
+				<%end%>
+				<% if @data_point.isOwner(current_user) %>
+					<a href="#" class="btn btn-primary btn-edit viewMode" >
+						<i class="icon-white icon-pencil"></i> Edit
+					</a>
+				<%end%>
 			</div>
-				
+			<% if @data_point.isOwner(current_user) %>
+				<div class="editMode hide">
+					<a href="#" class="btn btn-cancel">
+						Cancel
+					</a>
+
+					<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">
+						<i class="icon-white icon-trash"></i> Delete
+					</a> 
+					<a href="#" class="btn btn-primary btn-save" data-loading-text="Saving...">
+						Save changes
+					</a>	
+				</div>
+			<%end%>
+			
+		</form>
+		<div class="comments">
+			<%= render @data_point.comments %>
 		</div>
 		
-	
-	
-	
-	</div>	
-
+	</div>
 </div>

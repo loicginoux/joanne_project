@@ -24,7 +24,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		super
 		@id = @el.attr('data-id')
 		
-	init: () ->
+	initialize: () ->
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
 		@uploadBtn.click @changePhoto

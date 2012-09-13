@@ -1,4 +1,4 @@
 foodrubix.data_points.show = () ->
-	commentManager = new foodrubix.commentsAndLikesManager({
+	commentManager = new foodrubix.dataPointViewManager({
 		el:$('.viewPhoto')
 	})

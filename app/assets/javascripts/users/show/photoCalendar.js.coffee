@@ -6,9 +6,12 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .next": "goToNext"
 		"click .today": "gotToToday"
 		"hover .image": "onHoverImage"
+		"click .image": "onImageClick"
+		"click .overlay .like": "like"
+		"hover .overlay .label": "changeLabelColor"
 		"shown .modal.uploadPhoto": "initEditModal"
-		"shown .modal.editPhoto": "initEditModal"
-		"shown .modal.viewPhoto": "initViewModal"
+		"shown .modal.viewPhoto": "fetchViewModal"
+		"modalRendered .viewPhoto": "initViewModal"
 
 	elements:
 		"#photos": "photos"
@@ -20,8 +23,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		UTIL.load($('#photos'), "photos", true)
 		@period = "week"
 		@date = Date.today()
+		@userId = @el.attr("data-user")
 		@getDates("week", Date.today())
 		@getDataPoints(@onSuccessFetch)
+		@uploadModal = new foodrubix.DataPointEditModal({
+			el:$('.modal.uploadPhoto')
+			master: @
+		})
 	
 	refresh: () ->
 		UTIL.load($('#photos'), "photos", true)
@@ -51,7 +59,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			data: {
 				start_date : @startDate.toISOString() ,
 				end_date : @endDate.toISOString(),
-				user_id: @el.attr("data-user")
+				user_id: @userId
 			},
 			dataType: 'json', 
 			success: onSuccessFetch.bind @
@@ -231,19 +239,36 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				for dataPoint in day.data_points
 					dataPoint.img_path = dataPoint.id + "/medium.jpg"
 					date = new Date(dataPoint.uploaded_at)
-					dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
+					dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 					dataPoint.time_uploaded_at = date.toString('hh:mm tt')
+					likeId = @userLikeImage( @userId, dataPoint)
+					if likeId
+						dataPoint.liked = "liked"
+						dataPoint.like_class = "icon-thumbs-down"
+						dataPoint.like_id = likeId
+					else
+						dataPoint.liked = ""
+						dataPoint.like_class = "icon-thumbs-up"
+					
 		else if @period == "month"
 			for week in data
 				for day in week.week_data
 					for dataPoint in day.data_points
 						dataPoint.img_path = dataPoint.id + "/medium.jpg"
 						date = new Date(dataPoint.uploaded_at)
-						dataPoint.uploaded_at_readable = date.toString('ddd MMM d yyyy - hh:mm tt')
+						dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 						dataPoint.time_uploaded_at = date.toString('hh:mm tt')
-						
+						likeId = @userLikeImage( @userId, dataPoint)
+						if likeId
+							dataPoint.liked = "liked"
+							dataPoint.like_class = "icon-thumbs-down"
+							dataPoint.like_id = likeId
+						else
+							dataPoint.liked = ""
+							dataPoint.like_class = "icon-thumbs-up"
+								
 		if (@period == "day") 
 			tmpl = $('#day_photos_tmpl').html()
 			json = {
@@ -272,7 +297,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		# 	 		delay: { show: 1000, hide: 100 }
 		# 	 	})
 
-
+	userLikeImage: (userId, dataPoint) ->
+		return like.id for like in dataPoint.likes when like.user_id.toString() == userId
+	
 	onHoverImage: (e) ->		
 		target = $(e.target)
 		image = target.parents('.image')
@@ -281,7 +308,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 		if e.type == "mouseleave"
 			overlay.stop(true, false).animate({
-				bottom: '-26px'
+				bottom: '-44px'
 				}, 300)
 		else
 			overlay.stop(true, false).animate({
@@ -291,26 +318,102 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 	
 	initEditModal: (e) =>
-		@activeModal = new foodrubix.DataPointEditModal({
-			el:$('.modal.in')
-			master: @
-		})
+		@activeModal = @uploadModal
+		@uploadModal.initialize()
 	
-	initViewModal: (e) =>
-		@activeModal = new foodrubix.commentsAndLikesManager({
-			el:$('.modal.in')
-			master: @
+	fetchViewModal: (e) =>
+		$.ajax({
+			type: 'GET',
+			url: '/data_points/'+@idImageClicked,
+			dataType: 'script'
 		})
-			
+		
+	initViewModal: () ->
+		@activeModal = new foodrubix.dataPointViewManager({
+		 	el:$('.modal.in')
+		 	master: @
+		})
+		
+	onImageClick: (e) =>		
+		@idImageClicked = $(e.target).parents(".image").attr("data-id")
+		console.log("e:",@idImageClicked)
+		
+				
 	onSuccessAjax: (data) =>
 		$(".modal.in").modal('hide')
-		$('.datepicker, .time-picker').remove()
-		@activeModal.clean()
+		if typeof @activeModal.clean == "function"
+		  @activeModal.clean()
 		@activeModal = ""
 		fn = ()->
 			@refresh()
 		_.delay(fn.bind(@), 2000) #we put a delay to give time to server to update before to refresh
 	
 
+	like:(e)=>
+		el = $(e.target)
+		label = if el.hasClass("label") then el else el.parent(".label.like")
+		id = el.parents(".image").attr("data-id")	
+	
+		data = 
+			user_id: @userId
+			data_point_id: id
+			
+		if !label.hasClass("disabled") && !label.hasClass("liked")
+			nbLikes = label.children(".nbLikes").text()
+			nbLikes = parseInt(nbLikes)+1
+			label
+				.addClass("liked")
+				.addClass("disabled")
+				.children(".nbLikes")
+					.html(nbLikes)
+				.end().find("i")
+					.toggleClass("icon-thumbs-up")
+					.toggleClass("icon-thumbs-down")
+			$.ajax({
+				type: "POST"
+				url: '/likes.json'
+				success: (data) ->
+					label.removeClass("disabled")
+					label.attr("like-id", data.id) 
+					
+				dataType: 'json'
+				data: 
+					like : data
+			})
+		
+		if !label.hasClass("disabled") && label.hasClass("liked")
+			nbLikes = label.children(".nbLikes").text()
+			nbLikes = parseInt(nbLikes)-1	
+			label
+				.removeClass("liked")
+				.addClass("disabled")
+				.children(".nbLikes")
+					.html(nbLikes)
+				.end().find("i")
+					.toggleClass("icon-thumbs-up")
+					.toggleClass("icon-thumbs-down")
+			$.ajax({
+				type: "DELETE"
+				url: '/likes/'+label.attr("like-id")+'.json'
+				success: () ->
+					label.removeClass("disabled")
+					label.attr("like-id", "") 
+				dataType: 'json'
+				data: 
+					like : data
+			})
+		e.stopPropagation()
+		
+	changeLabelColor:(e)=>
+		el = $(e.target)
+		if el.hasClass("label")
+			el
+				.toggleClass("label-info")
+				.toggleClass("label-important")
+		else
+			el.parent(".label")
+				.toggleClass("label-info")
+				.toggleClass("label-important")
+			
 
 

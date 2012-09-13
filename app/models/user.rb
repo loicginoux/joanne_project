@@ -142,5 +142,10 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  def like(data_point)
+    return Like.where(
+      :user_id => self.id,
+      :data_point_id => data_point.id
+    ).first
+  end
 end

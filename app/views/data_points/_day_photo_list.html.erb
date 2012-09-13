@@ -8,25 +8,7 @@
 	{{#data}}
 		<div class="span3">
 		{{#data_points}}
-			<div class="image" id="image_{{id}}">
-				<img class="thumb" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}" data-toggle="modal" data-target="#modal_view_{{id}}" />
-				<div class="overlay">
-					<span class="label label-info">
-						<span class="nbComments">{{nb_comments}}</span>
-						<i class="icon-comment"></i>
-					</span>
-					<span class="label label-info">
-						<span class="nbLikes">{{nb_likes}}</span>
-						<i class="icon-heart"></i>
-					</span>
-				</div>
-				<div class="edit_data_point hide " data-toggle="modal" data-target="#modal_edit_{{id}}">
-					<i class="icon-pencil"></i>
-				</div>
-			</div>
-			<%= render "data_points/update_modal_box" %>
-			<%= render "data_points/view_modal_box" %>			
-		
+			<%= render "data_points/main_photo" %>			
 		{{/data_points}}
 		{{^data_points}}
 		{{/data_points}}

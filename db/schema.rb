@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831131623) do
+ActiveRecord::Schema.define(:version => 20120910144523) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -72,10 +72,10 @@ ActiveRecord::Schema.define(:version => 20120831131623) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.string   "role"
-    t.string   "perishable_token",     :default => "",    :null => false
+    t.string   "perishable_token",     :default => "",                           :null => false
     t.boolean  "confirmed",            :default => false
     t.string   "single_access_token"
     t.boolean  "fb_sharing",           :default => false
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20120831131623) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.string   "timezone",             :default => "Central Time (US & Canada)"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

@@ -10,20 +10,22 @@ class DataPointsController < ApplicationController
         :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
       )
-      .order("uploaded_at ASC")
+      .order("uploaded_at ASC")                
     end
     respond_to do |format|
       format.html # index.html.erb
       format.js {  }
-      format.json { render json: @data_points }
+      format.json { render json: @data_points.to_json(:include => [:likes]) }
     end
   end
 
   def show
-     @data_point = DataPoint.find(params[:id])
+     # @data_point = DataPoint.includes(:comments => :us).where("comments.data_point_id", params[:id]).find(params[:id])
+     @data_point = DataPoint.includes(:comments => :user).find(params[:id])
      respond_to do |format|
         format.html # show.html.erb
-        format.json { render :json => @data_point }
+        format.js {  }
+        format.json { render :json => @data_point  }
      end
    end
    
@@ -48,7 +50,7 @@ class DataPointsController < ApplicationController
     @data_point = DataPoint.new(params[:data_point])
     @data_point.user_id = current_user.id
     @data_point.uploaded_at = DateTime.now
-    
+    Rails.logger.debug @data_point.uploaded_at
     respond_to do |format|
       if @data_point.save
         # publish to facebook
@@ -76,11 +78,12 @@ class DataPointsController < ApplicationController
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
+    Rails.logger.debug params[:data_point][:uploaded_at]
     if params[:data_point].has_key?(:uploaded_at)
         # to not take into account timezone
         params[:data_point][:uploaded_at] = Time.zone.parse(params[:data_point][:uploaded_at]).utc
     end
-  
+    Rails.logger.debug params[:data_point][:uploaded_at]  
     
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
@@ -100,7 +103,7 @@ class DataPointsController < ApplicationController
     @data_point.destroy
 
     respond_to do |format|
-      format.html { redirect_to data_points_url }
+      format.html { redirect_to user_path(:username => current_user) }
       format.json { head :no_content }
     end
   end

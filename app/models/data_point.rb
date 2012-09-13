@@ -17,10 +17,19 @@ class DataPoint < ActiveRecord::Base
   belongs_to :user
   has_many :comments, :dependent => :destroy
   has_many :likes
-  has_many :fan, :through => :likes
+  has_many :fans, :through => :likes, :source => :user
   
 
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:
   # attr_accessible :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at
+  
+  def isOwner(user)
+    if user
+       user.id == self.user.id
+    else
+      false
+    end
+  end
+  
 end
 

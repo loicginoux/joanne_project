@@ -2,8 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :mailer_set_url_options
+  before_filter :set_timezone  
   helper_method :current_user
-
+  
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
     redirect_to root_url, :alert => exception.message
@@ -35,6 +36,14 @@ class ApplicationController < ActionController::Base
   def mailer_set_url_options
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end 
+  
+  def set_timezone  
+    # current_user.time_zone #=> 'Central Time (US & Canada)'  
+    if current_user
+      Time.zone = current_user.timezone || 'Central Time (US & Canada)'  
+    end
+  end
+  
 
   def require_login
     unless current_user
