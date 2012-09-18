@@ -47,23 +47,38 @@ class DataPointsController < ApplicationController
   # POST /data_points
   # POST /data_points.json
   def create
-    @data_point = DataPoint.new(params[:data_point])
-    @data_point.user_id = current_user.id
-    @data_point.uploaded_at = DateTime.now
-    Rails.logger.debug @data_point.uploaded_at
+    Rails.logger.debug ">>>>>>>>>>>>>>>>>"
+    Rails.logger.debug params.inspect
+    if !params[:data_point].nil?
+      user = current_user
+      # This is data coming from forms  
+      @data_point = DataPoint.new(params[:data_point])
+      @data_point.user_id = current_user.id
+      @data_point.uploaded_at = DateTime.now
+    else
+      # This is data coming from mailgun   
+      user = User.find_by_email params["sender"]
+      if params["Subject"].to_i.to_s == params["Subject"] && current_user
+        @data_point = DataPoint.new
+        @data_point.user_id = current_user.id
+        @data_point.calories = params["Subject"]
+        @data_point.uploaded_at = DateTime.now
+        @data_point.photo = params["attachment-1"]  
+      end
+    end
+
     respond_to do |format|
       if @data_point.save
         # publish to facebook
-        if current_user.canPublishOnFacebook?
-          current_user.fb_publish(@data_point)
+        if user.canPublishOnFacebook?
+          user.fb_publish(@data_point)
           notice = 'Data point was successfully created and shared on Facebook.'
         else
           notice = 'Data point was successfully created.'
         end
-        format.html { redirect_to user_path(:username => current_user), notice: notice }
+        format.html { redirect_to user_path(:username => user), notice: notice }
         format.json { render json: @data_point }
       else
-        logger.info @data_point.errors.inspect
         format.html { render action: "new" }
         format.json { render json: @data_point.errors, status: :unprocessable_entity }
       end

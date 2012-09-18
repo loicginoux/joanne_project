@@ -132,9 +132,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			.addClass("disabled")
 			
 		if @btnLike.attr("data-action") == "Like"
-			console.log("like, @id, @user_id:", @id, @userId)
-			
-			
 			$.ajax({
 				type: "POST"
 				url: '/likes.json'
@@ -147,7 +144,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			})
 		else
 			likeId = @btnLike.attr("data-like-id")
-			console.log("unlike,", likeId)
 			
 			$.ajax({
 				type: "DELETE"
@@ -299,8 +295,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
-			console.log("data:",data)
-			
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',

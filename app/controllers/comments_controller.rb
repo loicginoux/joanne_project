@@ -1,3 +1,4 @@
+
 class CommentsController < ApplicationController
   before_filter :require_login
   
