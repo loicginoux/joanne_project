@@ -60,13 +60,14 @@ class DataPointsController < ApplicationController
       user = User.find_by_email params["sender"]
       if params["Subject"].to_i.to_s == params["Subject"] && current_user
         @data_point = DataPoint.new
-        @data_point.user_id = current_user.id
+        @data_point.user_id = user.id
         @data_point.calories = params["Subject"]
         @data_point.uploaded_at = DateTime.now
         @data_point.photo = params["attachment-1"]  
       end
     end
-
+    Rails.logger.debug ">>>>>>>>>>>>>>>>>"
+    Rails.logger.debug @data_point.inspect
     respond_to do |format|
       if @data_point.save
         # publish to facebook
