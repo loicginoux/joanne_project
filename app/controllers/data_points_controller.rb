@@ -1,6 +1,7 @@
 class DataPointsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :update]
   before_filter :require_login, :except => [:create]
+  skip_before_filter :verify_authenticity_token, :only => [:create]
   
   def index
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
