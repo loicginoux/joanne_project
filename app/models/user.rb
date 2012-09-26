@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
     :uniqueness => true
   validates :email, 
     :format => { :with => /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/ },
-    :presence => true
+    :presence => true,
+    :uniqueness => true
   validates :password,
     :confirmation => true,
     :length => { :minimum => 6 },
@@ -20,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy, :autosave => true
   
-  has_many :friendships
+  has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
     
   has_many :likes
@@ -97,7 +98,7 @@ class User < ActiveRecord::Base
   def self.prepareGroups(users, groupSize)
     groups = Array.new
     userGroup = Array.new
-    $i = 1;
+    $i = 0;
     users.each do|user|
       if $i<groupSize 
         userGroup.push(user)
@@ -105,6 +106,7 @@ class User < ActiveRecord::Base
       else
         groups.push(userGroup)
         userGroup = Array.new
+        userGroup.push(user)
         $i = 1
       end
     end

@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships.json
   def index
     @friendships = current_user.friendships
-    @groups = Friendship.prepareGroups(@friendships, 4)
+    @groups = Friendship.prepareGroups(@friendships, 3)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }

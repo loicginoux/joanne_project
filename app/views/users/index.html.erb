@@ -1,20 +1,21 @@
 <h2>Our awesome FoodRubix family. We're in this together.</h2>
 
 <% @groups.each do |group| %>
-	<div class="row">
-		<% group.each do |user| %>
-  			<div class="span3">
-				<div class="image">
-					<%= link_to user_path(:username=> user.username) do %>
-						<%=  image_tag user.picture.url(:small) %>
-					<% end %>
-					<%= user.username%>
-			    	
-				  	<%= link_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary"  %>
-			
-				</div>
-	  		</div>
-		<% end %>
+	<div class="row-fluid user-list">
+		<div class="span12">
+			<% group.each do |user| %>
+	  			<div class="span4">
+					<div class="image pull-left">
+						<%= link_to user_path(:username=> user.username) do %>
+							<%=  image_tag user.picture.url(:small) %>
+							<%= user.username%>
+							
+						<% end %>
+					</div>
+					  	<%= link_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary pull-right"  %>
+		  		</div>
+			<% end %>
+		</div>
 	</div>
 <% end %>
 

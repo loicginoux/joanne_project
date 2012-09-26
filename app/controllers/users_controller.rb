@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @users = User.without_user(current_user)
     followee_ids = current_user.friendships.map(&:followee_id)    
     @users = @users.without_followees(followee_ids)
-    @groups = User.prepareGroups(@users, 4)
+    @groups = User.prepareGroups(@users, 3)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }

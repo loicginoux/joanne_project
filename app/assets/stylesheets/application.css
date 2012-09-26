@@ -105,16 +105,21 @@ div.editable_img_container{
     border: 1px solid #CCC;
     height: 200px;
     width: 200px;
+	position:relative;
 
 }
 .editable_img_container img{
-	opacity: 0.5;	
+	opacity: 0.5;
+	width: 100%;	
+	height: 100%;	
 }
 
 .editable_img_container a{
 	position: absolute;
-	top: 45%;
-	left: 25%;
+}
+.editable_img_container a.btn-upload{
+	top: 47%;
+	left: 27%;
 }
 
 .editable_img_container .progress{
@@ -163,4 +168,18 @@ div.editable_img_container{
 .row.comment{
 	margin-top:10px;
 	margin-bottom:20px;
+}
+
+/*user list*/
+.user-list .span4{
+	background-color: #EEE;
+	margin-bottom: 10px;
+	padding: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.user-list .btn{
+	margin-top:10px;
 }
