@@ -20,7 +20,9 @@
 			<div class="control-group">
 					<div class="control-group editable_img_container file">
 						<div class="controls">
-							<%= getPicture(@user) %>
+							<div class="pic">
+								<%= getPicture(@user) %>
+							</div>
 							<a class="btn btn-upload" href="#">Upload photo</a>
 							<input class="hide user_picture" id="fileInput" name="user[picture]" type="file">
 							<div class="progress progress-striped active hide">
