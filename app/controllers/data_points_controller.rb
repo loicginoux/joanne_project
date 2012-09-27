@@ -57,8 +57,9 @@ class DataPointsController < ApplicationController
       @data_point.user_id = user.id
       @data_point.uploaded_at = DateTime.now
     else
-      # This is data coming from mailgun   
-      user = User.find_by_email params["sender"]
+      # This is data coming from mailgun 
+        
+      user = User.find_by_email(params["sender"].downcase)
       if params["Subject"].to_i.to_s == params["Subject"] && user
         @data_point = DataPoint.new
         @data_point.user_id = user.id
