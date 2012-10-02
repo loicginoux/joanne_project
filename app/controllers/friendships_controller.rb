@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
-    @friendships = current_user.friendships.paginate(:per_page => 15, :page => params[:page])
+    @friendships = current_user.friendships.paginate(:per_page => 30, :page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @friendships }

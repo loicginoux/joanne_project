@@ -3,9 +3,14 @@ class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create]
   def index
     # all but yourself and followee
-    @users = User.without_user(current_user).paginate(:per_page => 15, :page => params[:page])
-    # followee_ids = current_user.friendships.map(&:followee_id)    
-    # @users = @users.without_followees(followee_ids)
+    @users = User.without_user(current_user)
+    followee_ids = current_user.friendships.map(&:followee_id)    
+    @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
+    
+    @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
+    
+    
+    
     
     # @groups = User.prepareGroups(@users, 3)
     respond_to do |format|
@@ -15,10 +20,15 @@ class UsersController < ApplicationController
   end
     
   def show
+
     @user = User.first(:conditions => {:username=> params[:username]}) 
     respond_to do |format|
+      if @user
         format.html # show.html.erb
         format.json { render :json => @user }
+
+        redirect_to static_path("home")
+      end
     end
   end
    

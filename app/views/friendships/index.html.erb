@@ -1,12 +1,4 @@
 
 <h2>People that inspire you.</h2>
 
-<% @friendships.each_slice(3) do |group| %>
-	<div class="row-fluid user-list">
-		<div class="span12">
-			<%= render :partial => "friendship", :collection => group, :as => :friendship %>
-		</div>
-	</div>
-<% end %>
-
-<%= will_paginate @users %>  
+<%= render :partial => "followees" %>

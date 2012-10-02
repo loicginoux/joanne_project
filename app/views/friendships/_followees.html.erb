@@ -1,0 +1,9 @@
+<% @friendships.each_slice(3) do |group| %>
+	<div class="row-fluid user-list">
+		<div class="span12">
+			<%= render :partial => "friendship", :collection => group, :as => :friendship %>
+		</div>
+	</div>
+<% end %>
+
+<%= will_paginate @friendships, :param_name => 'followees_page' %>
