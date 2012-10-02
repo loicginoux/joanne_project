@@ -26,8 +26,6 @@ class UsersController < ApplicationController
       if @user
         format.html # show.html.erb
         format.json { render :json => @user }
-
-        redirect_to static_path("home")
       end
     end
   end
