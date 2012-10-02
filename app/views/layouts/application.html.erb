@@ -19,11 +19,15 @@
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
-				<%= link_to "FoodRubix", static_path("home"), :class => 'brand'%>
+				<% if current_user %>
+					<%= link_to image_tag('FoodRubix_logo.png'), root_path, :class => 'brand'%>
+				<% else %>
+					<%= link_to "FoodRubix", static_path("home"), :class => 'brand'%>
+				<% end %>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<% if current_user %>
-							<li><%= link_to "Home", user_path(:username=> current_user.username)%></li>
+							<li><%= link_to "My Diary", user_path(:username=> current_user.username)%></li>
 							<li><%= link_to "Following", following_path%></li>
 							<li><%= link_to "Challengers", challengers_path%></li>
 						<%else%>

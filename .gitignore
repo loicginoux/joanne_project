@@ -15,5 +15,7 @@
 /tmp
 
 /config/s3.yml
+/config/mailgun.yml
+/config/facebook.yml
 
-
+/paperclip

@@ -1,18 +1,12 @@
 
 <h2>People that inspire you.</h2>
 
-<% @groups.each do |group| %>
-	<div class="row user-list">
-		<% group.each do |friendship| %>
-  			<div class="span4">
-				<div class="image pull-left">
-					<%= link_to user_path(:username=> friendship.followee.username) do %>
-						<%=  image_tag friendship.followee.picture.url(:small) %>
-			    		<%= friendship.followee.username%>
-					<% end %>
-				</div>
-				<%= link_to "Unfollow", friendship, :method => :delete, :class => "btn btn-primary pull-right"  %>
-	  		</div>
-		<% end %>
+<% @friendships.each_slice(3) do |group| %>
+	<div class="row-fluid user-list">
+		<div class="span12">
+			<%= render :partial => "friendship", :collection => group, :as => :friendship %>
+		</div>
 	</div>
 <% end %>
+
+<%= will_paginate @users %>  

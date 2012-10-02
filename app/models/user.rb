@@ -47,9 +47,9 @@ class User < ActiveRecord::Base
   scope :without_user, lambda{|user| 
     user ? {:conditions => ["users.id != ?", user.id]} : {} }
   
-  scope :without_followees, lambda{|followee_ids| 
-    User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
-  }
+  # scope :without_followees, lambda{|followee_ids| 
+  #   User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
+  # }
   
   #cancan gem
   ROLES = %w[admin]
@@ -85,34 +85,36 @@ class User < ActiveRecord::Base
     end
   end
 
-   
+  def isFollowing(followee)
+    Friendship.where(:user_id => self.id, :followee_id => followee.id)
+  end
+  
   def hasFacebookConnected?
      !Authentication.find_by_provider_and_user_id("facebook", self.id).nil?
   end
   
   def canPublishOnFacebook?
-    Rails.logger.debug ">>A>>>>> into can pub"
     self.hasFacebookConnected? && self.fb_sharing
   end
   
-  def self.prepareGroups(users, groupSize)
-    groups = Array.new
-    userGroup = Array.new
-    $i = 0;
-    users.each do|user|
-      if $i<groupSize 
-        userGroup.push(user)
-        $i +=1;
-      else
-        groups.push(userGroup)
-        userGroup = Array.new
-        userGroup.push(user)
-        $i = 1
-      end
-    end
-    groups.push(userGroup)
-    groups
-  end
+  # def self.prepareGroups(users, groupSize)
+  #     groups = Array.new
+  #     userGroup = Array.new
+  #     $i = 0;
+  #     users.each do|user|
+  #       if $i<groupSize 
+  #         userGroup.push(user)
+  #         $i +=1;
+  #       else
+  #         groups.push(userGroup)
+  #         userGroup = Array.new
+  #         userGroup.push(user)
+  #         $i = 1
+  #       end
+  #     end
+  #     groups.push(userGroup)
+  #     groups
+  #   end
   
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email']

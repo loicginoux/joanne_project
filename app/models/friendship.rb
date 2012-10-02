@@ -20,4 +20,5 @@ class Friendship < ActiveRecord::Base
     groups.push(friendshipGroup)
     groups
   end
+  
 end

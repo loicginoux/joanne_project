@@ -4,11 +4,10 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
-    @friendships = current_user.friendships
-    @groups = Friendship.prepareGroups(@friendships, 3)
+    @friendships = current_user.friendships.paginate(:per_page => 15, :page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @groups }
+      format.json { render json: @friendships }
     end
   end
 
@@ -34,7 +33,7 @@ class FriendshipsController < ApplicationController
     @friendship.destroy
 
     respond_to do |format|
-      format.html { redirect_to friendships_url }
+      format.html { redirect_to users_path }
       format.json { head :no_content }
     end
   end
