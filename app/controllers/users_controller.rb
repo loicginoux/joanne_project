@@ -26,6 +26,8 @@ class UsersController < ApplicationController
       if @user
         format.html # show.html.erb
         format.json { render :json => @user }
+
+
       end
     end
   end

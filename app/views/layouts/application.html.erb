@@ -29,7 +29,7 @@
 						<% if current_user %>
 							<li><%= link_to "My Diary", user_path(:username=> current_user.username)%></li>
 							<li><%= link_to "Following", following_path%></li>
-							<li><%= link_to "Challengers", challengers_path%></li>
+							<li><%= link_to "Team Rubix", challengers_path%></li>
 						<%else%>
 							<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
 						
