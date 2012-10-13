@@ -63,8 +63,11 @@ gem "awesome_print"
 
 gem "rest-client"
 
-#pagination 
+#pagination
 gem 'will_paginate', '~> 3.0'
+
+#passing rails variable to js
+gem 'gon'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

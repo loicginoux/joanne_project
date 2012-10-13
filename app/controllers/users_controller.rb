@@ -4,24 +4,30 @@ class UsersController < ApplicationController
   def index
     # all but yourself and followee
     @users = User.without_user(current_user)
-    followee_ids = current_user.friendships.map(&:followee_id)    
+    followee_ids = current_user.friendships.map(&:followee_id)
     @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
-    
+
     @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
-    
-    
-    
-    
+
+
+
+
     # @groups = User.prepareGroups(@users, 3)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
     end
   end
-    
-  def show
 
-    @user = User.first(:conditions => {:username=> params[:username]}) 
+  def show
+    @user = User.first(:conditions => {:username=> params[:username]})
+    gon.daily_calories_limit = @user.daily_calories_limit
+    if @user.isUserAllowed(current_user)
+      gon.isCurrentUserDashboard = true
+      gon.last_login_at = current_user.last_login_at
+    else
+      gon.isCurrentUserDashboard = false
+    end
     respond_to do |format|
       if @user
         format.html # show.html.erb
@@ -31,7 +37,7 @@ class UsersController < ApplicationController
       end
     end
   end
-   
+
   def new
      @user = User.new
      @user.data_points.build
@@ -40,14 +46,14 @@ class UsersController < ApplicationController
        format.json { render json: @user }
      end
    end
-   
+
   def create
     @user = User.new(params[:user])
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
-    if session[:omniauth] 
+    if session[:omniauth]
       @user.authentications.build(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :username => session[:omniauth]['extra']['raw_info']['username'] , :access_token => session[:omniauth]["credentials"]['token'])
       #we verify directly the account, no need to verify email
-      if @user.verify! 
+      if @user.verify!
         user_session = UserSession.new(User.find_by_single_access_token(@user.single_access_token))
         user_session.save
         session[:omniauth] = nil
@@ -77,7 +83,7 @@ class UsersController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @user = User.first(:conditions => {:username=> params[:username]})
     @user.destroy
@@ -86,5 +92,5 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
 end

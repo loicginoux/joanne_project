@@ -1,0 +1,18 @@
+<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+	<fieldset>
+		<div class="control-group <% if @user.errors[:daily_calories_limit].present? %>error<%end%>">
+			<%= f.label :daily_calories_limit, "Daily Calories goal", :class => "control-label"  %>
+			<div class="controls">
+				<%= f.text_field :daily_calories_limit, :type=> "number"  %>
+				<span class="help-inline">This will set a line on the graph as a reference point</span>
+				<% if @user.errors[:daily_calories_limit].present? %>
+					<span class="help-inline"><%= @user.errors[:daily_calories_limit].join(", ")%></span>
+				<%end%>
+			</div>
+
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Update</button>
+		</div>
+	</fieldset>
+<% end %>

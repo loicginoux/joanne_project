@@ -1,6 +1,6 @@
 <h1>Settings</h1>
 <div class="row">
-	<div class="span3">	
+	<div class="span3">
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active" data-content="profile">
 				<a href="#">Profile</a>
@@ -11,59 +11,13 @@
 			<li data-content="social">
 				<a href="#">Social Sharing</a>
 			</li>
+			<li data-content="preferences">
+				<a href="#">Preferences</a>
+			</li>
 		</ul>
 	</div>
 	<div id="profile" class="content span9"><%= render 'form' %></div>
-	<div id="picture" class="content span9 hide">
-		<%= form_for @user, :html => { :class => "form-horizontal", :multipart => true } do |f| %>
-		<fieldset>
-			<div class="control-group">
-					<div class="control-group editable_img_container file">
-						<div class="controls">
-							<div class="pic">
-								<%= getPicture(@user) %>
-							</div>
-							<a class="btn btn-upload" href="#">Upload photo</a>
-							<input class="hide user_picture" id="fileInput" name="user[picture]" type="file">
-							<div class="progress progress-striped active hide">
-							  <div class="bar" style="width: 0%;"></div>
-							</div>
-							<div>
-								<span class="help-inline clear file hide">Please upload a photo</span>
-							</div>
-						</div>
-					</div>
-			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Update</button>
-			</div>
-		</fieldset>
-	<% end %>
-		
-	</div>
-	<div id="social" class="content span9 hide">
-		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
-		<fieldset>
-			<div class="control-group">
-				<% if  @user.hasFacebookConnected?%>
-					<p>Check this box to share your photos on Facebook and tell others what you’re up to.  You’ll only hold yourself accountable for goals that others know about, so put yourself out there a little.</p>
-					<%= f.label :fb_sharing, "Share on Facebook", :class => "control-label"  %>
-					<div class="controls">
-						<%= f.check_box :fb_sharing %>
-					</div>	
-				<% else %>
-					<p>Connect to Facebook to share your photos on Facebook and tell others what you’re up to.  You’ll only hold yourself accountable for goals that others know about, so put yourself out there a little.</p>
-					<a href="/auth/facebook" class="auth_provider">
-				  		<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
-					</a>
-				<% end %>
-				
-			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Update</button>
-			</div>
-		</fieldset>
-	<% end %>
-		
-	</div>
+	<div id="picture" class="content span9 hide"><%= render 'settings_picture' %></div>
+	<div id="social" class="content span9 hide"><%= render 'settings_social' %></div>
+	<div id="preferences" class="content span9 hide"><%= render 'settings_preferences' %></div>
 </div>

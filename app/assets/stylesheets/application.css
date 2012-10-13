@@ -37,7 +37,7 @@
 	width: 100%;
 	text-align: left;
 	bottom: -44px;
-	
+
 }
 
 .image .overlay div{
@@ -47,7 +47,7 @@
 	font-size: 10px;
 	font-weight: normal;
 	float: right;
-	margin: 2px 1px;	
+	margin: 2px 1px;
 	background-color: #E96000;
 }
 
@@ -63,27 +63,27 @@
 	background-color: white;
 	width:15px;
 	height:15px;
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 
 /*month view table*/
 table.calendar_table th.span1_7{
 	width: 131px;
-	margin: 2px 0;	
+	margin: 2px 0;
 	padding:0;
 }
 
 table.calendar_table td.span1_7{
 	width: 131px;
-	margin-top: 0px;	
-	margin-left: 0;	
+	margin-top: 0px;
+	margin-left: 0;
 	padding:0;
 }
 
 table.calendar_table tbody.scrollable td.span1_7{
 	width: 131px;
-	
+
 }
 
 table.calendar_table tbody.scrollable{
@@ -108,7 +108,7 @@ div.editable_img_container{
 	position:relative;
 }
 
-.editable_img_container .controls{	
+.editable_img_container .controls{
     border: 1px solid #CCC;
     height: 200px;
     width: 200px;
@@ -117,12 +117,12 @@ div.editable_img_container{
 }
 .editable_img_container img{
 	opacity: 0.5;
-	width: 100%;	
-	height: 100%;	
+	width: 100%;
+	height: 100%;
 }
 
 .editable_img_container .pic a{
-	width: 100%;	
+	width: 100%;
 	height: 100%;
 }
 .editable_img_container a{
@@ -138,7 +138,7 @@ div.editable_img_container{
 	width: 51%;
 	top: 47%;
 	left: 25%;
-	
+
 }
 
 
@@ -206,12 +206,34 @@ border: 1px solid #DDD;
 border-left-width: 0;
 }
 .pagination .previous_page{
-border-left-width: 1px;	
+border-left-width: 1px;
 }
 
 /* Nav bar
 --------------------------------*/
 .navbar .container .brand{
-	padding: 12px 20px;
+	padding: 5px 20px 0;
 }
 
+.brand img{
+	width: 200px;
+}
+
+.navbar .container .nav{
+	padding-bottom: 0;
+}
+
+.navbar .container .nav>li>a{
+	padding: 15px 12px 0;
+}
+
+.navbar .container .dropdown a.dropdown-toggle{
+	padding-top:25px;
+}
+.navbar .container .dropdown-menu{
+	top:110%;
+}
+.nav_icon{
+	width: 35px;
+	padding-bottom: 15px;
+}

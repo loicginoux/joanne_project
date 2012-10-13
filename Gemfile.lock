@@ -62,6 +62,9 @@ GEM
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.4)
       tzinfo
+    gon (4.0.0)
+      actionpack (>= 2.3.0)
+      json
     hashie (1.2.0)
     high_voltage (1.1.1)
     hike (1.2.1)
@@ -187,6 +190,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 3.2.1)
   fb_graph
+  gon
   high_voltage
   hirb
   jquery-rails

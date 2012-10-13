@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>FoodRubix</title>
+	<%= include_gon %>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<!--[if lt IE 9]>
 	<%= javascript_include_tag "application-ie9" %>
@@ -11,35 +12,51 @@
 
 	<%= csrf_meta_tags %>
 </head>
-<body data-controller="<%= controller_name %>" data-action="<%= action_name %>" 
+<body data-controller="<%= controller_name %>" data-action="<%= action_name %>"
 	<% if current_user %>
 		data-user="<%= current_user.id %>"
-	<%end%> 
+	<%end%>
 >
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
 				<% if current_user %>
-					<%= link_to image_tag('FoodRubix_logo.png'), root_path, :class => 'brand'%>
+					<%= link_to image_tag('foodRubix_logo.svg'), root_path, :class => 'brand'%>
 				<% else %>
-					<%= link_to "FoodRubix", static_path("home"), :class => 'brand'%>
+					<%= link_to image_tag('foodRubix_logo.svg'), static_path("home"), :class => 'brand'%>
 				<% end %>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<% if current_user %>
-							<li><%= link_to "My Diary", user_path(:username=> current_user.username)%></li>
-							<li><%= link_to "Following", following_path%></li>
-							<li><%= link_to "Team Rubix", challengers_path%></li>
+							<li>
+								<%= link_to(user_path(:username=> current_user.username)) do%>
+									My Diary
+									<%=image_tag("diary.svg", :class=> "nav_icon")%>
+								<%end%>
+							</li>
+							<li>
+								<%= link_to(following_path) do%>
+									Following
+									<%=image_tag("following.svg", :class=> "nav_icon") %>
+								<%end%>
+							<li>
+								<%= link_to(challengers_path) do%>
+									Team Rubix
+									<%=image_tag("team.svg", :class=> "nav_icon") %>
+								<%end%>
+							</li>
 						<%else%>
-							<li class="<%="active" if request.fullpath == page_path("home")%>"><%= link_to t(:home), static_path("home")%></li>
-						
+							<li class="<%="active" if request.fullpath == page_path("home")%>">
+								<%= link_to t(:home), static_path("home")%>
+							</li>
+
 						<%end%>
 					</ul>
 					<ul class="nav pull-right">
 
 						<% if current_user %>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi <%= current_user.username%><b class="caret"></b></a>
+							<a href="#" id="hi_current_user" class="dropdown-toggle" data-toggle="dropdown">Hi <%= current_user.username%><b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li>
 									<%= link_to(edit_user_path(current_user)) do%>
@@ -68,7 +85,7 @@
 		</div><!-- /navbar-inner -->
 	</div><!-- navbar -->
 
-	<div class="container content">			
+	<div class="container content">
 		<% if flash[:alert] %>
 		<div class="alert alert-error">
 			<button type="button" class="close" data-dismiss="alert">×</button>

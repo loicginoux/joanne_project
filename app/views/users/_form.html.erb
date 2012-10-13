@@ -19,7 +19,7 @@
 					<% if session[:omniauth] %>
 					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:info][:nickname].gsub('.', '')   %>
 					<% else %>
-					<%= f.text_field :username, :class => "input-xlarge"  %>
+					<%= f.text_field :username, :class => "input-xlarge", :type => "number"  %>
 					<%end%>
 					<% if @user.errors[:username].present? %>
 					<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
@@ -60,7 +60,7 @@
 			<div class="control-group <% if @user.errors[:timezone].present? %>error<%end%>">
 				<%= f.label :timezone, :class => "control-label" %>
 				<div class="controls">
-					<%= time_zone_select( "user", 'timezone', nil, :default => 'Central Time (US & Canada)' )  
+					<%= time_zone_select( "user", 'timezone', nil, :default => 'Central Time (US & Canada)' )
 					%>
 					<% if @user.errors[:timezone].present? %>
 					<span class="help-inline"><%= @user.errors[:timezone].join(", ")%></span>

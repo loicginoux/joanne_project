@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910144523) do
+ActiveRecord::Schema.define(:version => 20121013101310) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(:version => 20120910144523) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.string   "timezone",             :default => "Central Time (US & Canada)"
+    t.integer  "daily_calories_limit", :default => 0
+    t.integer  "login_count",          :default => 0,                            :null => false
+    t.integer  "failed_login_count",   :default => 0,                            :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
