@@ -176,7 +176,6 @@ class foodrubix.graphic
 	maxGraph:()->
 		max = gon.daily_calories_limit
 		for points in @processedData
-			console.log points, max
 			if points[1]>max
 				max = null
 				break
