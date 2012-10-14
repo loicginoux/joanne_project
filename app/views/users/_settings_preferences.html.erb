@@ -1,7 +1,7 @@
 <%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
 	<fieldset>
 		<div class="control-group <% if @user.errors[:daily_calories_limit].present? %>error<%end%>">
-			<%= f.label :daily_calories_limit, "Daily Calories goal", :class => "control-label"  %>
+			<%= f.label :daily_calories_limit, "Daily calorie goal", :class => "control-label"  %>
 			<div class="controls">
 				<%= f.text_field :daily_calories_limit, :type=> "number"  %>
 				<span class="help-inline">This will set a line on the graph as a reference point</span>
