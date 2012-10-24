@@ -1,5 +1,5 @@
 class foodrubix.PhotoCalendar extends Spine.Controller
-	
+
 	events:
 		"click .period": "changeView"
 		"click .prev": "goToPrev"
@@ -30,11 +30,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			el:$('.modal.uploadPhoto')
 			master: @
 		})
-	
+
 	refresh: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@getDataPoints(@onSuccessFetch)
-		
+
 	#get start date and end date from a period and a date
 	# period is "day" or "week" or "month"
 	getDates: (period, date) ->
@@ -43,14 +43,14 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		if @period == "day"
 			@endDate.set({hour:23, minute:59, second:59})
 		else if @period == "week"
-			@startDate.last().sunday() unless date.is().sunday() 
-			@startDate.clearTime() 
-			@endDate.next().saturday() unless date.is().saturday() 
+			@startDate.last().sunday() unless date.is().sunday()
+			@startDate.clearTime()
+			@endDate.next().saturday() unless date.is().saturday()
 			@endDate.set({hour:23, minute:59, second:59})
-		else if @period == "month"  
+		else if @period == "month"
 			@startDate.moveToFirstDayOfMonth().clearTime()
 			@endDate.moveToLastDayOfMonth().set({hour:23, minute:59, second:59})
-		
+
 	#make the ajax call to get the data points
 	getDataPoints: (onSuccessFetch) ->
 		$.ajax({
@@ -61,10 +61,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				end_date : @endDate.toISOString(),
 				user_id: @userId
 			},
-			dataType: 'json', 
+			dataType: 'json',
 			success: onSuccessFetch.bind @
 		})
-		
+
 	changeView: (e) ->
 		btn = $(e.target)
 		unless btn.hasClass('active')
@@ -76,38 +76,38 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			@date = Date.today()
 			@getDates(@period, @date)
 			@getDataPoints(@onSuccessFetch)
-	
+
 	goToPrev: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
-		
+
 		switch @period
 			when "day" then @date.add(-1).days()
 			when "week" then @date.add(-7).days()
 			when "month" then @date.add(-30).days()
-				
+
 		@getDates(@period, @date)
 		@getDataPoints(@onSuccessFetch)
-	
+
 	goToNext: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
-		
+
 		switch @period
 			when "day" then @date = @date.add(1).days()
 			when "week" then @date = @date.add(7).days()
 			when "month" then @date = @date.add(30).days()
-				
+
 		@getDates(@period, @date)
 		@getDataPoints(@onSuccessFetch)
-		
+
 	gotToToday: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
 		@date = Date.today()
 		@getDates(@period, @date)
 		@getDataPoints(@onSuccessFetch)
-	
+
 	#function to run on success of the ajax call to get data points
 	#data are data points
 	onSuccessFetch: (data) ->
@@ -137,6 +137,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			date.add(-1).days()
 			week.week_data.unshift({
 				date: date,
+				date_drop: date.toString("MM-dd-yyyy"),
 				day_date: date.toString('d'),
 				data_points: [],
 				other_month:true
@@ -146,7 +147,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		endDate = @endDate.clone()
 		endDate.add(1).seconds()
 		until date.equals(endDate)
-		
+
 			#when we arrive at the end of the week we start another array
 			if date.is().sunday()
 				week.week_number = week_number
@@ -157,31 +158,33 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			data_points = []
 			for point in data
 				if point.date.equals(date)
-					data_points = point.data_points 
+					data_points = point.data_points
 			clone = date.clone()
 			week.week_data.push({
 				date: clone,
+				date_drop: clone.toString("MM-dd-yyyy"),
 				day_date: clone.toString('d'),
 				data_points: data_points,
 				current_month:true
 			})
 			#add one day
 			date.add(1).days()
-			
+
 		#add the last days of the last week that belongs to next month
 		until date.is().sunday()
 			week.week_data.push({
 				date: date,
+				date_drop: date.toString("MM-dd-yyyy"),
 				day_date: date.toString('d'),
 				data_points: [],
 				other_month:true
 			})
 			date.add(1).days()
-			
-		month.push(week)	
+
+		month.push(week)
 		month
-	
-	#create an array of 7 items with empty days if there is no photo uploaded	
+
+	#create an array of 7 items with empty days if there is no photo uploaded
 	createWeekDays: (data) ->
 		newData = []
 		for num in [0..6]
@@ -191,13 +194,14 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			first = if num == 0 then true else false
 			for point in data
 				if point.date.equals(date)
-					data_points = point.data_points 
+					data_points = point.data_points
 			newData.push({
 				date: date,
+				date_drop: date.toString("MM-dd-yyyy"),
 				day_date: date.toString('dddd'),
-				data_points: data_points 
+				data_points: data_points
 				first: first
-			})		
+			})
 		newData
 	# group data by day
 	# return data sorted by date
@@ -218,16 +222,16 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 					if newDate.compareTo(day.date) == 0
 						day.data_points.push(point)
 						added = true
-				if !added					
+				if !added
 					dataSorted.push({
 						date: newDate,
 						day_date: newDate.toString('dddd'),
 						data_points: [point]
 					})
-		return dataSorted	
-	
-	
-	#display the photo list	
+		return dataSorted
+
+
+	#display the photo list
 	#data has the form [{date:Date, data_points:[data_point]}]
 	displayPhotos: (data) ->
 		group = []
@@ -250,7 +254,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 					else
 						dataPoint.liked = ""
 						dataPoint.like_class = "icon-thumbs-up"
-					
+
 		else if @period == "month"
 			for week in data
 				for day in week.week_data
@@ -268,17 +272,17 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 						else
 							dataPoint.liked = ""
 							dataPoint.like_class = "icon-thumbs-up"
-								
-		if (@period == "day") 
+
+		if (@period == "day")
 			tmpl = $('#day_photos_tmpl').html()
 			json = {
-				data:data, 
+				data:data,
 				hr_date: @startDate.toString("ddd d MMM yyyy")
-			}			
-		else if (@period == "week") 	
+			}
+		else if (@period == "week")
 			tmpl = $('#week_photos_tmpl').html()
 			json = {
-				data:data, 
+				data:data,
 				startDate: @startDate.toString(formatDate)
 				endDate: @endDate.toString(formatDate)
 				year: @endDate.toString("yyyy")
@@ -286,21 +290,72 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		else if (@period == "month")
 			tmpl = $('#month_photos_tmpl').html()
 			json = {
-				data:data, 
+				data:data,
 				month: @startDate.toString("MMMM")
 				year: @endDate.toString("yyyy")
 			}
 		html = Mustache.render(tmpl, json )
 		$('#photos').append html
+		@attachDragAndDrops()
 
-		# $('.thumb').popover({
-		# 	 		delay: { show: 1000, hide: 100 }
-		# 	 	})
+	unifyHeights: () ->
+		fn = (weekSpans)->
+			arr = weekSpans.map((i, el) ->
+	            return $(el).outerHeight()
+	        )
+	        max = Math.max.apply(null, arr)
+	        weekSpans.css('height', max)
+
+		weekSpans = $('.week_view .span1_7')
+		# week view
+		if weekSpans.length
+			fn(weekSpans)
+	    # month view
+		else
+			$(".month_view tbody tr").each((i, el)->
+				weekSpans = $(el).find(".span1_7")
+				fn(weekSpans)
+			)
+
+
+
+	attachDragAndDrops:()->
+		$(".span1_7 img").imagesLoaded(@unifyHeights)
+		$(".week_view .image, .month_view .image").draggable();
+		$(".week_view .span1_7, .month_view tbody .span1_7").droppable(
+			hoverClass: "hoverActive",
+			drop: @onDrop.bind @
+		);
+
+	onDrop:(event, ui)->
+		# form the new date
+		id = ui.draggable.attr("data-id")
+		el = $(event.target)
+		dateDrop = el.attr("data-date");
+		date = Date.parse(dateDrop,"M-d-yyyy")
+		timeVal = ui.draggable.find(".time").text()
+		time = Date.parse(timeVal, 'hh:mm tt')
+		date.set(
+			hour:time.getHours(),
+			minute:time.getMinutes()
+			)
+		# update date
+		$.ajax({
+			type: "PUT",
+			url: '/data_points/'+id+'.json',
+			data:
+				data_point : {
+					id: id,
+					uploaded_at: date.toISOString()
+				},
+				dataType: 'json',
+				success: @onSuccessAjax.bind @
+		})
 
 	userLikeImage: (userId, dataPoint) ->
 		return like.id for like in dataPoint.likes when like.user_id.toString() == userId
-	
-	onHoverImage: (e) ->		
+
+	onHoverImage: (e) ->
 		target = $(e.target)
 		image = target.parents('.image')
 		overlay = image.find(".overlay")
@@ -316,48 +371,51 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				}, 300)
 
 
-	
+
 	initEditModal: (e) =>
 		@activeModal = @uploadModal
 		@uploadModal.initialize()
-	
+
 	fetchViewModal: (e) =>
 		$.ajax({
 			type: 'GET',
 			url: '/data_points/'+@idImageClicked,
 			dataType: 'script'
 		})
-		
+
 	initViewModal: () ->
 		@activeModal = new foodrubix.dataPointViewManager({
 		 	el:$('.modal.in')
 		 	master: @
 		})
-		
-	onImageClick: (e) =>		
+
+	onImageClick: (e) =>
 		@idImageClicked = $(e.target).parents(".image").attr("data-id")
 		console.log("e:",@idImageClicked)
-		
-				
+
+
 	onSuccessAjax: (data) =>
+
 		$(".modal.in").modal('hide')
-		if typeof @activeModal.clean == "function"
+		if @activeModal && typeof @activeModal.clean == "function"
 		  @activeModal.clean()
 		@activeModal = ""
+		UTIL.load($('#photos'), "photos", true)
 		fn = ()->
 			@refresh()
-		_.delay(fn.bind(@), 2000) #we put a delay to give time to server to update before to refresh
-	
+		_.delay(fn.bind(@), 1000) #we put a delay to give time to server to update before to refresh
+
+
 
 	like:(e)=>
 		el = $(e.target)
 		label = if el.hasClass("label") then el else el.parent(".label.like")
-		id = el.parents(".image").attr("data-id")	
-	
-		data = 
+		id = el.parents(".image").attr("data-id")
+
+		data =
 			user_id: @userId
 			data_point_id: id
-			
+
 		if !label.hasClass("disabled") && !label.hasClass("liked")
 			nbLikes = label.children(".nbLikes").text()
 			nbLikes = parseInt(nbLikes)+1
@@ -374,16 +432,16 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				url: '/likes.json'
 				success: (data) ->
 					label.removeClass("disabled")
-					label.attr("like-id", data.id) 
-					
+					label.attr("like-id", data.id)
+
 				dataType: 'json'
-				data: 
+				data:
 					like : data
 			})
-		
+
 		if !label.hasClass("disabled") && label.hasClass("liked")
 			nbLikes = label.children(".nbLikes").text()
-			nbLikes = parseInt(nbLikes)-1	
+			nbLikes = parseInt(nbLikes)-1
 			label
 				.removeClass("liked")
 				.addClass("disabled")
@@ -397,13 +455,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				url: '/likes/'+label.attr("like-id")+'.json'
 				success: () ->
 					label.removeClass("disabled")
-					label.attr("like-id", "") 
+					label.attr("like-id", "")
 				dataType: 'json'
-				data: 
+				data:
 					like : data
 			})
 		e.stopPropagation()
-		
+
 	changeLabelColor:(e)=>
 		el = $(e.target)
 		if el.hasClass("label")
@@ -414,6 +472,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			el.parent(".label")
 				.toggleClass("label-info")
 				.toggleClass("label-important")
-			
+
 
 

@@ -1,46 +1,43 @@
-<div class="row">
-	<div class="span6">
-		<h2>{{month}} {{year}}</h2>
-	</div>
+<div class="month_view">
+  <div class="row">
+  	<div class="span6">
+  		<h2>{{month}} {{year}}</h2>
+  	</div>
+  </div>
+  <table class="calendar_table table">
+    <thead>
+      <tr>
+        <th class="span1_7">Sunday</th>
+        <th class="span1_7">Monday</th>
+        <th class="span1_7">Tuesday</th>
+        <th class="span1_7">Wednesday</th>
+        <th class="span1_7">Thursday</th>
+        <th class="span1_7">Friday</th>
+        <th class="span1_7">Saturday</th>
+      </tr>
+    </thead>
+    <!-- <tbody class="scrollable"> -->
+    <tbody>
+  {{#data}}
+      <tr>
+  	{{#week_data}}
+        <td class="span1_7 {{#first_of_week}}first{{/first_of_week}}" data-date="{{date_drop}}">
+          <div class="day_date"><b>{{day_date}}</b></div>
+        		{{#current_month}}
+  				{{#data_points}}
+  					<%= render "data_points/main_photo" %>
+  				{{/data_points}}
+  				{{^data_points}}
+
+  				{{/data_points}}
+  			{{/current_month}}
+  			{{#other_month}}
+
+  			{{/other_month}}
+        </td>
+  	{{/week_data}}
+      </tr>
+  {{/data}}
+    </tbody>
+  </table>
 </div>
-<table class="calendar_table table table-striped">
-  <thead>
-    <tr>
-      <th class="span1_7">Sunday</th>
-      <th class="span1_7">Monday</th>
-      <th class="span1_7">Tuesday</th>
-      <th class="span1_7">Wednesday</th>
-      <th class="span1_7">Thursday</th>
-      <th class="span1_7">Friday</th>
-      <th class="span1_7">Saturday</th>
-    </tr>
-  </thead>
-  <tbody class="scrollable">
-{{#data}}
-    <tr>
-	{{#week_data}}
-      <td class="span1_7 with_margin"><b>{{day_date}}</b></td>
-	{{/week_data}}
-    </tr>
-    <tr>
-	{{#week_data}}
-      <td class="span1_7">
-      		{{#current_month}}
-				{{#data_points}}
-					<%= render "data_points/main_photo" %>		
-				{{/data_points}}
-				{{^data_points}}
-
-				{{/data_points}}
-			{{/current_month}}
-			{{#other_month}}
-				
-			{{/other_month}}
-      </td>
-	{{/week_data}}
-    </tr>
-{{/data}}
-  </tbody>
-</table>
-
-

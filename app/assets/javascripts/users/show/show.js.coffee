@@ -5,9 +5,7 @@ foodrubix.users.show = () ->
 
 
 manageLoginTooltip = () ->
-	console.log gon.isCurrentUserDashboard, gon.last_login_at
 	if gon.isCurrentUserDashboard && !gon.last_login_at && gon.daily_calories_limit == 0
-		console.log "display"
 		$("#hi_current_user").popover({
 			placement:"bottom",
 			trigger: "manual",

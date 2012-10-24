@@ -1,0 +1,12 @@
+<p>
+	Hi <%= @dataPoint.user.username%>,
+</p>
+<p>
+	<%= link_to @like.user.username, user_url(:username=> @like.user.username)%> liked your meal.
+</p>
+<p>
+	Nice one!
+</p>
+<p>
+	View it <%= link_to "here", data_point_url(:id => @dataPoint.id)%>
+</p>

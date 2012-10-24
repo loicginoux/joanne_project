@@ -21,6 +21,22 @@
 	text-align: center;
 }
 
+/*images
+--------------------------------*/
+
+.cbm_wrap {
+	background: white;
+	display: block;
+	padding: 10px;
+	margin:3px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 1px 4px
+	rgba(0, 0, 0, 0.3), 0 0 40px
+	rgba(0, 0, 0, 0.1) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
 .image{
 	position:relative;
 	overflow:hidden;
@@ -67,24 +83,37 @@
 }
 
 
-/*month view table*/
+/* month view table
+--------------------------------*/
+.month_view .table tbody tr:hover td,
+.month_view .table tbody tr:hover th {
+  background-color: white;
+}
 table.calendar_table th.span1_7{
-	width: 131px;
+	width: 132px;
 	margin: 2px 0;
+	margin-left: 0;
 	padding:0;
+	text-align: center;
 }
 
+
 table.calendar_table td.span1_7{
-	width: 131px;
-	margin-top: 0px;
+	width: 132px;
+	margin-top: 0;
 	margin-left: 0;
 	padding:0;
 }
 
+table.calendar_table td.span1_7 .day_date{
+	text-align: center
+}
 table.calendar_table tbody.scrollable td.span1_7{
-	width: 131px;
+	width: 132px;
 
 }
+
+
 
 table.calendar_table tbody.scrollable{
 display: block;
@@ -93,17 +122,28 @@ overflow: auto;
 width: 100%;
 }
 
-/*week view layout*/
-.span1_7 {
-  width: 108px;
+/*week view layout
+--------------------------------*/
+
+.week_view .span1_7 {
+  width: 125px;
   margin-top: 10px;
+  margin-left: 0;
 }
 
-.span1_7.first {
+.week_view .span1_7.first {
   margin-left: 80px;
 }
 
-/*update data point modal box*/
+.week_view .hoverActive, .month_view .table tbody tr td.hoverActive {
+	background-color: #E96000;
+	border-radius: 4px;
+
+}
+
+/*update data point modal box
+--------------------------------*/
+
 div.editable_img_container{
 	position:relative;
 }
@@ -142,7 +182,9 @@ div.editable_img_container{
 }
 
 
-/*view photo popup box */
+/*view photo popup box
+--------------------------------*/
+
 .modal.viewPhoto{
 	width:840px;
 	margin-left: -425px;
@@ -181,7 +223,9 @@ div.editable_img_container{
 	margin-bottom:20px;
 }
 
-/*user list*/
+/*user list
+--------------------------------*/
+
 .user-list .span4{
 	background-color: #EEE;
 	margin-bottom: 10px;
