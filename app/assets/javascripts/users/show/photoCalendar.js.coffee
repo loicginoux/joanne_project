@@ -296,7 +296,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			}
 		html = Mustache.render(tmpl, json )
 		$('#photos').append html
-		@attachDragAndDrops()
+		if gon.isCurrentUserDashboard
+			@attachDragAndDrops()
 
 	unifyHeights: () ->
 		fn = (weekSpans)->
