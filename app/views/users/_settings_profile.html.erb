@@ -19,7 +19,7 @@
 					<% if session[:omniauth] %>
 					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:info][:nickname].gsub('.', '')   %>
 					<% else %>
-					<%= f.text_field :username, :class => "input-xlarge", :type => "number"  %>
+					<%= f.text_field :username, :class => "input-xlarge"  %>
 					<%end%>
 					<% if @user.errors[:username].present? %>
 					<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
@@ -67,6 +67,9 @@
 					<%end%>
 				</div>
 			</div>
+
+
+
 			<div class="form-actions">
 				<% if current_user%>
 				<button type="submit" class="btn btn-primary">Update</button>
@@ -80,11 +83,11 @@
 				<!-- or
 				<a href="/auth/twitter" class="auth_provider">
 				<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
-				</a> -->
+			</a> -->
 				<%end%>
-				<%end%>
-			</div>
-		</fieldset>
-		<% end %>
-	</div><!-- span6 -->
+			<%end%>
+		</div>
+	</fieldset>
+	<% end %>
+</div><!-- span6 -->
 </div><!-- row -->

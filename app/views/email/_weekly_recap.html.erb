@@ -1,0 +1,62 @@
+
+<tr style="border-collapse: collapse;"><td width="640" height="30" bgcolor="#ffffff" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+<tr style="border-collapse: collapse;"><td width="640" bgcolor="#ffffff" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+    <table width="640" cellpadding="0" cellspacing="0" border="0">
+        <tbody><tr style="border-collapse: collapse;">
+            <td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+            <td width="580" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+
+                <layout label="Text only">
+                    <table width="580" cellpadding="0" cellspacing="0" border="0">
+                        <tbody><tr style="border-collapse: collapse;">
+                            <td width="580" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                                <p align="left" style="font-size: 18px; line-height: 24px; color: #b0b0b0; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">This is what you ate this week</p>
+                            </td>
+                        </tr>
+                        <tr style="border-collapse: collapse;"><td width="580" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+                    </tbody></table>
+                </layout>
+
+
+
+                <% @groups.each do |day, day_data_point| %>
+                    <layout label="Text only">
+                    <table width="580" cellpadding="0" cellspacing="0" border="0">
+                        <tbody><tr style="border-collapse: collapse;">
+                            <td width="580" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                                <p align="left" style="font-size: 18px; line-height: 24px; color: #b0b0b0; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                                    <%= day %>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr style="border-collapse: collapse;"><td width="580" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+                    </tbody></table>
+                    </layout>
+
+                    <% day_data_point.each_slice(3) do |group| %>
+                        <% if group.length == 3 %>
+                        <table width="580" cellpadding="0" cellspacing="0" border="0">
+                        <% elsif  group.length == 2%>
+                        <table width="380" cellpadding="0" cellspacing="0" border="0">
+                        <% elsif  group.length == 1%>
+                        <table width="180" cellpadding="0" cellspacing="0" border="0">
+                        <%end%>                        <tbody>
+                            <tr style="border-collapse: collapse;">
+                                        <%= render :partial => "email/data_point", :collection => group, :as => :data_point %>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- end of images -->
+                    <% end %>
+
+                <% end %>
+
+                <!-- start of image row -->
+
+
+
+            </td>
+            <td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+        </tr>
+    </tbody></table>
+</td></tr>

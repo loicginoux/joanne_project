@@ -69,6 +69,9 @@ gem 'will_paginate', '~> 3.0'
 #passing rails variable to js
 gem 'gon'
 
+# scheduled cron jobs
+gem 'whenever', :require => false
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

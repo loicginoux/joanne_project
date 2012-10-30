@@ -2,7 +2,7 @@ class DataPointsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :update]
   before_filter :require_login, :except => [:create]
   skip_before_filter :verify_authenticity_token, :only => [:create]
-  
+
   def index
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
       startDate = Time.zone.parse(params[:start_date]).utc
@@ -11,7 +11,7 @@ class DataPointsController < ApplicationController
         :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
       )
-      .order("uploaded_at ASC")                
+      .order("uploaded_at ASC")
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -29,10 +29,10 @@ class DataPointsController < ApplicationController
         format.json { render :json => @data_point  }
      end
    end
-   
+
   # GET /data_points/new
   # GET /data_points/new.json
-  def new    
+  def new
     @data_point = DataPoint.new
     respond_to do |format|
       format.html # new.html.erb
@@ -48,28 +48,24 @@ class DataPointsController < ApplicationController
   # POST /data_points
   # POST /data_points.json
   def create
-    Rails.logger.debug ">>>>>>>>>>>>>>>>>"
-    Rails.logger.debug params.inspect
     if !params[:data_point].nil?
       user = current_user
-      # This is data coming from forms  
+      # This is data coming from forms
       @data_point = DataPoint.new(params[:data_point])
       @data_point.user_id = user.id
       @data_point.uploaded_at = DateTime.now
     else
-      # This is data coming from mailgun 
-        
+      # This is data coming from mailgun
+
       user = User.find_by_email(params["sender"].downcase)
       if params["Subject"].to_i.to_s == params["Subject"] && user
         @data_point = DataPoint.new
         @data_point.user_id = user.id
         @data_point.calories = params["Subject"]
         @data_point.uploaded_at = DateTime.now
-        @data_point.photo = params["attachment-1"]  
+        @data_point.photo = params["attachment-1"]
       end
     end
-    Rails.logger.debug ">>>>>>>>>>>>>>>>>"
-    Rails.logger.debug @data_point.inspect
     respond_to do |format|
       if @data_point.save
         # publish to facebook
@@ -101,8 +97,8 @@ class DataPointsController < ApplicationController
         # to not take into account timezone
         params[:data_point][:uploaded_at] = Time.zone.parse(params[:data_point][:uploaded_at]).utc
     end
-    Rails.logger.debug params[:data_point][:uploaded_at]  
-    
+    Rails.logger.debug params[:data_point][:uploaded_at]
+
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
         format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }
@@ -125,7 +121,7 @@ class DataPointsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def check_for_cancel
     unless params[:cancel].blank?
       redirect_to user_path(:username => current_user)

@@ -47,7 +47,13 @@ class ApplicationController < ActionController::Base
 
 
   def require_login
-    unless current_user
+    if current_user
+      gon.current_user_email = current_user.email
+      gon.current_user_created_at = current_user.created_at.to_i
+      gon.current_user_username = current_user.username
+      gon.current_user_id = current_user.id
+
+    else
       store_location
       flash[:notice] = "You must be logged in to access this page"
       redirect_to login_url

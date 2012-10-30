@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013101310) do
+ActiveRecord::Schema.define(:version => 20121026141634) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20121013101310) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.string   "email_recap",          :default => "Weekly"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

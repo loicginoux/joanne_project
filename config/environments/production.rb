@@ -46,6 +46,10 @@ Foodrubix::Application.configure do
   config.action_controller.asset_host = "http://www.foodrubix.com"
   config.action_mailer.asset_host = config.action_controller.asset_host
 
+  # email configuration
+  config.action_mailer.default_url_options = { :host => config.action_controller.asset_host }
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application-ie9.js )
 

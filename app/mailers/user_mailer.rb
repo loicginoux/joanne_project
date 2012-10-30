@@ -57,6 +57,54 @@ class UserMailer < ActionMailer::Base
       :to => followee.email,
       :subject => "[FoodRubix] #{follower.username} is now following you",
       :html => html.to_str
-
   end
+
+  def weekly_recap_email(users)
+
+# DataPoint.where(:user_id => 11, :uploaded_at => ((Time.now - 7.days).utc)..Time.now.utc).group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}.each{|key, group| puts key; puts group.count}
+
+    users.each {|user|
+      startDate = (Time.now - 7.days).utc
+      endDate = Time.now.utc
+      @groups = DataPoint.where(
+        :user_id => user.id,
+        :uploaded_at => startDate..endDate
+      )
+      .order("uploaded_at ASC")
+      .group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}
+
+      @user = user
+      html = render :partial => "email/weekly_recap", :layout => "email"
+
+      RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => user.email,
+      :subject => "[FoodRubix] This is what you ate this week",
+      :html => html.to_str
+    }
+  end
+
+  def daily_recap_email(users)
+    users.each {|user|
+
+      startDate = (Time.now - 1.days).utc
+      endDate = Time.now.utc
+      @data_points = DataPoint.where(
+        :user_id => user.id,
+        :uploaded_at => startDate..endDate
+      )
+      .order("uploaded_at ASC")
+
+      @user = user
+
+      html = render :partial => "email/daily_recap", :layout => "email"
+
+      RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => user.email,
+      :subject => "[FoodRubix] This is what you ate today",
+      :html => html.to_str
+    }
+  end
+
 end

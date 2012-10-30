@@ -1,0 +1,28 @@
+<% if Rails.env == "production" %>
+
+var intercomSettings = {
+	app_id: 'oxkhdxqk',
+    email: gon.current_user_email,
+    created_at: gon.current_user_created_at,
+    name: gon.current_user_username,
+    user_id: gon.current_user_id
+};
+
+(function() {
+	var i=function(){i.c(arguments)};i.q=[];
+	i.c=function(args){i.q.push(args)};window.Intercom=i;
+	function async_load() {
+		var s = document.createElement('script');
+		s.type = 'text/javascript'; s.async = true;
+		s.src = 'https://api.intercom.io/api/js/library.js';
+		var x = document.getElementsByTagName('script')[0];
+		x.parentNode.insertBefore(s, x);
+	}
+	if (window.attachEvent) {
+		window.attachEvent('onload', async_load);
+	} else {
+		window.addEventListener('load', async_load, false);
+	}
+})();
+
+<%end%>

@@ -1,20 +1,167 @@
+<div style="width: 100% !important; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: #dedede;" bgcolor="#dedede">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #dedede;" bgcolor="#dedede">
+		<tbody>
+			<tr style="border-collapse: collapse;">
+				<td align="center" bgcolor="#dedede" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+					<table style="margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px;" width="640" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr style="border-collapse: collapse;">
+								<td width="640" height="20" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+							</tr>
 
-<div style="text-align: center;">
-	<div style="border-bottom: 2px solid #EEE;margin-bottom: 20px;">
-		<%= link_to image_tag('foodRubix_logo_800*150.png', :size => "400x75", :alt=> "Foodrubix logo"), static_url("home")%>
-	</div>
+							<tr style="border-collapse: collapse;">
+								<td width="640" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+									<table width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-radius: 6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius: 6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #c7c7c7; color: #ededed;">
+										<tbody>
+											<tr style="border-collapse: collapse;">
+												<!-- <td width="15" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td> -->
+												<td width="640" valign="middle" align="left" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+													<table width="640" cellpadding="0" cellspacing="0" border="0">
+														<tbody>
+															<tr style="border-collapse: collapse;">
+																<td width="640" height="20" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+												<!-- <td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td> -->
+												<!-- <td width="255" valign="middle" align="right" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+													<table width="255" cellpadding="0" cellspacing="0" border="0">
+														<tbody>
+															<tr style="border-collapse: collapse;">
+																<td width="255" height="8" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													<table cellpadding="0" cellspacing="0" border="0">
+														<tbody>
+															<tr style="border-collapse: collapse;">
 
 
-	<%= yield %>
 
-</div>
-<div style="font-style:italic;padding: 20px 0;">
-	<p>
-		The FoodRubix team
-	</p>
-</div>
+																<td width="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+																<td valign="middle" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+																	<img src="https://www.foodrubix.com/assets/settings.png" border="0" width="19" height="14" alt="" style="outline: none; text-decoration: none; display: block;" />
+																</td>
+																<td width="3" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+																<td valign="middle" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+																	<div style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; font-size: 12px; color: #ededed;">
 
-<div style = "border-top: 2px dashed #EEE; padding-top: 10px; margin-top: 10px;">
-Questions? email us at at jdaudier@outlook.com
-<%= link_to %>
-</div>
+																		<%= link_to edit_user_url(@user), :style => "font-weight: bold; color: #ffffff; text-decoration: none;" do%>
+																		<%=	image_tag 'settings.png', :style => "outline: none; text-decoration: none; display: block;", :width => "19px", :border =>0 %>
+																		Manage your preferences
+																		<%end%>
+
+
+																	</div>
+																</td>
+
+															</tr>
+														</tbody>
+													</table>
+													<table width="255" cellpadding="0" cellspacing="0" border="0">
+														<tbody>
+															<tr style="border-collapse: collapse;"><td width="255" height="8" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+														</tbody>
+													</table>
+												</td> -->
+												<!-- <td width="15" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td> -->
+											</tr>
+										</tbody>
+									</table>
+
+								</td>
+							</tr>
+							<tr style="border-collapse: collapse;">
+								<td width="640" align="center" bgcolor="#FFFFFF" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+
+									<div align="center" style="text-align: center;">
+										<%= link_to root_url do%>
+										<%=	image_tag('foodRubix_logo_800*150.png', :style => "display: inline; outline: none; text-decoration: none; width:640px; ")%>
+										<%end%>
+
+                                        <!-- <a href="http://www.foodrubix.com">
+                                        	<%=	image_tag('foodRubix_logo_800*150.png')%>
+                                            <img label="Header Image" editable="true" width="640" src="http://0.0.0.0:3001/assets/foodRubix_logo_800*150.png" border="0" align="top" style="display: inline; outline: none; text-decoration: none;" />
+                                        </a> -->
+                                    </div>
+
+
+                                </td>
+                            </tr>
+
+
+
+
+
+
+                            <%= yield %>
+
+
+
+
+
+
+
+
+
+
+                            <tr style="border-collapse: collapse;">
+                            	<td width="640" height="15" bgcolor="#ffffff" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            </tr>
+
+                            <!-- start of footer -->
+                            <tr style="border-collapse: collapse;">
+                            	<td width="640" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                            		<table width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#c7c7c7" style="border-radius: 0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius: 0px 0px 6px 6px; -webkit-font-smoothing: antialiased; color: #ededed; background-color: #c7c7c7;">
+                            			<tbody>
+                            				<tr style="border-collapse: collapse;">
+                            					<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					<td width="360" height="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					<td width="60" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					<td width="160" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            				</tr>
+                            				<tr style="border-collapse: collapse;">
+                            					<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					<td width="360" valign="top" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                            						<p align="left" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; font-size: 12px; line-height: 15px; color: #ededed; margin-top: 0px; margin-bottom: 15px; white-space: normal;">
+                            							<span>You are receiving this because you registered to FoodRubix.com. Any questions? please email us at jdaudier@outlook.com</span>
+                            						</p>
+                            						<p align="left" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; font-size: 12px; line-height: 15px; color: #ededed; margin-top: 0px; margin-bottom: 15px;">
+                            							<%= link_to "Manage your preferences", edit_user_url(@user), :html =>{:style => "color: #ffffff; font-weight: bold; text-decoration: none;"} %>
+
+                            						</td>
+                            						<td width="60" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            						<td width="160" valign="top" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+                            							<p align="right" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; font-size: 11px; line-height: 16px; color: #b0b0b0; margin-top: 0px; margin-bottom: 15px; white-space: normal;">
+                            								<span></span>
+                            								<br style="line-height: 100%;" />
+                            								<span></span>
+                            							</p>
+                            						</td>
+                            						<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					</tr>
+                            					<tr style="border-collapse: collapse;">
+                            						<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            						<td width="360" height="15" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            						<td width="60" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            						<td width="160" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            						<td width="30" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            					</tr>
+                            				</tbody>
+                            			</table>
+                            		</td>
+                            	</tr>
+                            	<tr style="border-collapse: collapse;">
+                            		<td width="640" height="60" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+                            	</tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
