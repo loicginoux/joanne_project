@@ -38,7 +38,8 @@ Foodrubix::Application.configure do
   Paperclip.options[:command_path] = "/usr/local/ImageMagick-6.7.5/bin/"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( application-ie9.js )
+  config.assets.precompile += %w( application-ie9.js, homepage.css )
+
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "http://0.0.0.0:3001"

@@ -3,8 +3,6 @@ class PagesController < HighVoltage::PagesController
 
   protected
     def layout_for_page
-    	logger.debug ">>>>>>>>>>>>>"
-    	logger.debug params[:id]
       case params[:id]
       when 'home'
         'home'
