@@ -1,6 +1,18 @@
-<p>
-<%=link_to image_tag(@follower.picture.url(:medium), :size => 100) ,  user_url(:username=> @follower.username)%>
-</p>
-<p>Hi <%= @followee.username%>,</p>
-<p><%= link_to @follower.username, user_url(:username=> @follower.username)%> is now following you.</p>
-<p><%= link_to "Follow #{@follower.username}", team_rubix_url%>.</p>
+<layout label="Text only">
+    <table width="580" cellpadding="0" cellspacing="0" border="0">
+        <tbody><tr style="border-collapse: collapse;">
+            <td width="580" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+
+
+                <p>
+				<%=link_to image_tag(@follower.picture.url(:medium), :size => 100) ,  user_url(:username=> @follower.username)%>
+				</p>
+				<p>Hi <%= @followee.username%>,</p>
+				<p><%= link_to @follower.username, user_url(:username=> @follower.username)%> is now following you.</p>
+				<p><%= link_to "Follow #{@follower.username}", team_rubix_url%>.</p>
+            </td>
+        </tr>
+        <tr style="border-collapse: collapse;"><td width="580" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+    </tbody></table>
+</layout>
+

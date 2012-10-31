@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Easy food journal | Lose weight with FoodRubix</title>
+
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<!--[if lt IE 9]>
+	<%= javascript_include_tag "application-ie9" %>
+	<![endif]-->
+	<%= stylesheet_link_tag    "homepage/normalize.css", :media => "all" %>
+	<%= stylesheet_link_tag    "homepage/homepage.css", :media => "all" %>
+
+
+
+	<meta name="description" content="A super cool visual food journal - the easiest way to track what you're eating!">
+	<meta name="keywords" content="food journal, food diary, food tracker, calorie tracker, app to help you lose weight">
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+
+
+	<%= csrf_meta_tags %>
+</head>
+<body>
+
+	<div id="container">
+		<div id="header">
+			<div id="nav">
+				<ul>
+					<li>
+						<%= link_to static_path("home") do %>
+						<%=  image_tag("foodRubix_logo.svg", :alt=>"FoodRubx logo", :width=>"289", :height=>"81")  %>
+						<% end %>
+					</li>
+					<li><%= link_to "Sign up", register_path, :class=> "cta" %></li>
+					<li><%= link_to "Log in", login_path, :class=> "cta" %></li>
+
+				</ul>
+			</div><!-- #nav -->
+		</div><!-- #header -->
+
+		<div id="main">
+				<%= yield %>
+		</div><!-- #main -->
+		<div id="footer">
+			<h5>Contact Us - jdaudier [at] outlook [dot] com</h5>
+		</div><!-- #footer -->
+	</div><!-- #container -->
+
+
+
+
+
+</body>
+</html>

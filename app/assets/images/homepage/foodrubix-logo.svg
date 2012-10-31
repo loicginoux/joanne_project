@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="322.058px" height="90.457px" viewBox="0 0 322.058 90.457" enable-background="new 0 0 322.058 90.457"
+	 xml:space="preserve">
+<text transform="matrix(1 0 0 1 0 70.1133)" font-family="'HamburgerHeaven'" font-size="80.7291">FoodRubi</text>
+<defs>
+	<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="0" y="0" width="270.437" height="90.457">
+		<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+	</filter>
+</defs>
+<mask maskUnits="userSpaceOnUse" x="0" y="0" width="270.437" height="90.457" id="SVGID_1_">
+	<g filter="url(#Adobe_OpacityMaskFilter)">
+		<ellipse fill="#606060" cx="158.601" cy="15.96" rx="155.901" ry="34.197"/>
+	</g>
+</mask>
+<g mask="url(#SVGID_1_)">
+	<text transform="matrix(1 0 0 1 0 70.1133)" fill="#B2B2B2" font-family="'HamburgerHeaven'" font-size="80.7291">FoodRubi</text>
+</g>
+<g>
+	<g>
+		<path fill="#E96000" d="M322.058,66.033c0,2.317-1.532,4.196-3.422,4.196h-45.352c-1.89,0-3.422-1.878-3.422-4.196V26.995
+			c0-2.317,1.532-4.196,3.422-4.196h45.352c1.89,0,3.422,1.878,3.422,4.196V66.033z"/>
+		<path fill="#E96000" d="M280.957,22.799c0,0,2.149-6.135,5.178-6.135c3.029,0,20.324,0,20.324,0s2.118-0.318,4.333,6.135H280.957z
+			"/>
+	</g>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="269.861" y="16.662" width="52.196" height="53.567">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="269.861" y="16.662" width="52.196" height="53.567" id="SVGID_2_">
+		<g filter="url(#Adobe_OpacityMaskFilter_1_)">
+		</g>
+	</mask>
+	<g mask="url(#SVGID_2_)">
+		<path fill="#F79B5C" d="M322.058,66.033c0,2.317-1.532,4.196-3.422,4.196h-45.352c-1.89,0-3.422-1.878-3.422-4.196V26.995
+			c0-2.317,1.532-4.196,3.422-4.196h45.352c1.89,0,3.422,1.878,3.422,4.196V66.033z"/>
+		<path fill="#F79B5C" d="M280.957,22.799c0,0,2.149-6.135,5.178-6.135c3.029,0,20.324,0,20.324,0s2.118-0.318,4.333,6.135H280.957z
+			"/>
+	</g>
+	<circle fill="#ED8D4C" cx="295.959" cy="45.615" r="14.737"/>
+</g>
+<g>
+	<polygon fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" points="309.817,26.755 298.424,38.887 
+		298.513,42.35 277.064,65.193 280.169,68.108 301.714,45.163 305.411,45 316.58,33.106 315.148,31.763 306.951,40.493 
+		305.709,39.327 313.907,30.596 312.503,29.278 304.133,38.192 302.87,37.007 311.241,28.092 	"/>
+	<polygon fill="#FFFFFF" points="276.101,28.858 279.822,39.387 284.372,43.974 292.121,47.907 312.766,68.557 316.033,65.316 
+		277.915,27.058 	"/>
+</g>
+</svg>

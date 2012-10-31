@@ -1,15 +1,14 @@
 <h1>Forgot Password</h1>
 <p>Fill out the form below and instructions to reset your password will be emailed to you:</p>
 <div class="row">
-	<div class="span6">
-		<%= form_tag(password_resets_path, :method=>'post') do -%>
+	<div class="span10">
+		<%= form_tag(password_resets_path, :method=>'post', :class => "form-horizontal" )   do -%>
 
 		<fieldset>
 			<!-- username -->
 			<div class="control-group">
-				<label class="control-label">Email</label>				
 				<div class="controls">
-					<%= text_field_tag "email"  %>
+					<%= text_field_tag "email", nil, :placeholder => "Email"  %>
 				</div>
 			</div>
 			<div class="form-actions">

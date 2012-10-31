@@ -1,0 +1,136 @@
+h1 {
+	font-size: 4em;
+	margin-bottom: 0.1em;
+}
+
+h2 {
+	font-size: 2em;
+}
+
+h2.step {
+	color: #e96000;
+}
+
+#container {
+	margin: 0 auto;
+	width: 960px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: #D1D0CF;
+	text-decoration: none;
+}
+
+ul{
+	padding-left: 0px;
+}
+
+ul li {
+  display: inline;
+}
+
+.cta {
+	float: right;
+	padding: 12px;
+	background-color: #e96000;
+	border-radius: 6px;
+	margin-top: 20px;
+	margin-right: 20px;
+	color: #fff;
+	text-align: center;
+}
+
+#main {
+	background: url("../../assets/homepage/mesh.png") repeat;
+	width: 100%;
+	height: auto;
+	float: left;
+	text-align: center;
+	border: 2px dashed #fff;
+}
+
+#footer {
+	background: url("../../assets/homepage/footer-bg.png") repeat;
+	width: 100%;
+	height: 100px;
+	float: left;
+	text-align: right;
+	border-radius: 6px
+}
+
+h5 {
+	color: white;
+	margin-right: 20px;
+	margin-top: 50px;
+}
+
+h3 {
+	color: black;
+}
+
+body {
+	font-family: 'Droid Sans', sans-serif;;
+}
+
+iframe {
+    background: #fff;
+    margin: 20px auto;
+    padding:20px;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 8px 6px -6px #777;
+}
+
+.column1of3, .column2of3, .column3of3 {
+    background: #fff;
+    padding:20px;
+    border-radius: 2px 2px 2px 2px;
+    width: 270px;
+    height: 175px;
+	float: left;
+	margin: 5px;
+	box-shadow: 0 1px 4px
+     rgba(0, 0, 0, 0.3), 0 0 40px
+     rgba(0, 0, 0, 0.1) inset;
+}
+
+/* RIBBON ----------------------------------------------------*/
+
+#orange-ribbon {
+  position: relative;
+}
+#orange-ribbon .ribbon {
+  background: #e96000;
+  min-height: 92px;
+  text-align: center;
+}
+#orange-ribbon .ribbon-left {
+  position: absolute;
+  width: 56px;
+  height: 92px;
+  background: url(../../assets/homepage/ribbon-left.png) no-repeat;
+  top: -18px;
+  left: -56px;
+}
+#orange-ribbon .ribbon-right {
+  position: absolute;
+  width: 56px;
+  height: 92px;
+  background: url(../../assets/homepage/ribbon-right.png) no-repeat;
+  top: -18px;
+  right: -56px;
+}
+
+/* login and register ----------------------------------------------------*/
+.form-actions{
+	background-color: transparent;
+	border-top: 0;
+}
+
+.alert{
+	margin-left: 160px;
+}
+

@@ -17,7 +17,7 @@ Foodrubix::Application.routes.draw do
   match 'lost_password' => "password_resets#new", :as => :lost_password
   match 'confirm' => "user_verification#show", :as => :confirm
   match 'upload' => "data_points#new", :as => :upload
-  match 'home'  => 'high_voltage/pages#show', :id => 'home', :as => "home"
+  match 'home'  => 'pages#show', :id => 'home', :as => "home", :format => false
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider/failure', to: redirect('/')
   match 'team_rubix' => 'users#index', :as => :team_rubix

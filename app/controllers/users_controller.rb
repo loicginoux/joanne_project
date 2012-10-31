@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_filter :require_login
   before_filter :require_login, :except => [:new, :create]
+
+  layout :resolve_layout
+
+
   def index
     # all but yourself and followee
     @users = User.without_user(current_user)
@@ -90,6 +94,17 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to static_path("home") }
       format.json { head :ok }
+    end
+  end
+
+  private
+
+  def resolve_layout
+    case action_name
+    when "new"
+      "home"
+    else
+      "application"
     end
   end
 

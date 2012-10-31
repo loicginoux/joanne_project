@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
-    
+
+  layout "home"
   # GET /user_sessions/new
   # GET /user_sessions/new.json
   def new
@@ -40,6 +41,16 @@ class UserSessionsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  
+
+  private
+
+  def resolve_layout
+    case action_name
+    when "new", "destroy", "index"
+      "home"
+    else
+      "application"
+    end
+  end
+
 end

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FoodRubix</title>
+	<title>FoodRubix - Easy food journal</title>
 	<%= include_gon %>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<!--[if lt IE 9]>
 	<%= javascript_include_tag "application-ie9" %>
 	<![endif]-->
 	<%= javascript_include_tag "application" %>
+
+
 
 
 	<%= csrf_meta_tags %>
@@ -27,6 +29,7 @@
 				<% end %>
 				<div class="nav-collapse">
 					<ul class="nav">
+
 						<% if current_user %>
 							<li>
 								<%= link_to(user_path(:username=> current_user.username)) do%>

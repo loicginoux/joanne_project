@@ -1,7 +1,7 @@
 
 <br />
 <div class="row">
-	<div class="span9">
+	<div class="span10">
 		<% if session[:omniauth] %>
 		<div class="alert alert-info">
 			<button type="button" class="close" data-dismiss="alert">×</button>
@@ -14,12 +14,11 @@
 
 		<fieldset>
 			<div class="control-group <% if @user.errors[:username].present? %>error<%end%>">
-				<%= f.label :username, :class => "control-label" %>
 				<div class="controls">
 					<% if session[:omniauth] %>
-					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:info][:nickname].gsub('.', '')   %>
+					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:info][:nickname].gsub('.', ''), :placeholder=> "Username" %>
 					<% else %>
-					<%= f.text_field :username, :class => "input-xlarge"  %>
+					<%= f.text_field :username, :class => "input-xlarge" , :placeholder=> "Username"  %>
 					<%end%>
 					<% if @user.errors[:username].present? %>
 					<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
@@ -27,12 +26,11 @@
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:email].present? %>error<%end%>">
-				<%= f.label :email, :class => "control-label" %>
 				<div class="controls">
 					<% if session[:omniauth] %>
-					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:info][:email]  %>
+					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:info][:email], :placeholder=> "Email"  %>
 					<% else %>
-					<%= f.text_field :email, :class => "input-xlarge"  %>
+					<%= f.text_field :email, :class => "input-xlarge", :placeholder=> "Email"  %>
 					<%end%>
 					<% if @user.errors[:email].present? %>
 					<span class="help-inline"><%= @user.errors[:email].join(", ")%></span>
@@ -40,25 +38,22 @@
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:password].present? %>error<%end%>">
-				<%= f.label :password, :class => "control-label" %>
 				<div class="controls">
-					<%= f.password_field :password, :class => "input-xlarge"  %>
+					<%= f.password_field :password, :class => "input-xlarge", :placeholder=> "Password"   %>
 					<% if @user.errors[:password].present? %>
 					<span class="help-inline"><%= @user.errors[:password].join(", ")%></span>
 					<%end%>
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
-				<%= f.label :password_confirmation, :class => "control-label" %>
 				<div class="controls">
-					<%= f.password_field :password_confirmation, :class => "input-xlarge"  %>
+					<%= f.password_field :password_confirmation, :class => "input-xlarge" , :placeholder=> "Password confirmation"  %>
 					<% if @user.errors[:password_confirmation].present? %>
 					<span class="help-inline"><%= @user.errors[:password_confirmation].join(", ")%></span>
 					<%end%>
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:timezone].present? %>error<%end%>">
-				<%= f.label :timezone, :class => "control-label" %>
 				<div class="controls">
 					<%= time_zone_select( "user", 'timezone', nil, :default => 'Central Time (US & Canada)' )
 					%>
