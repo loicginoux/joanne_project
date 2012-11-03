@@ -77,6 +77,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    puts ">>>>>>>>>>>>>>>"
+    puts @user.weekly_email
+    puts @user.daily_email
   end
 
   def update
