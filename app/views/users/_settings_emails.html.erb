@@ -1,11 +1,22 @@
 <%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
 	<fieldset>
-		<div class="control-group <% if @user.errors[:email_recap].present? %>error<%end%>">
-			<%= f.label :email_recap, "How ofter do you want to receive emails?", :class => "control-label"  %>
+		<div class="control-group <% if @user.errors[:daily_email].present? %>error<%end%>">
+			<p>Do you want to receive emails to remind you what you have been eating?</p>
+			<%= f.label :daily_email, "Daily emails?", :class => "control-label"  %>
 			<div class="controls">
-				<%= f.select :email_recap, options_for_select(["Never", "Daily", "Weekly"], @user.email_recap)  %>
-				<% if @user.errors[:email_recap].present? %>
-					<span class="help-inline"><%= @user.errors[:email_recap].join(", ")%></span>
+				<%= f.check_box :daily_email %>
+				<% if @user.errors[:daily_email].present? %>
+					<span class="help-inline"><%= @user.errors[:daily_email].join(", ")%></span>
+				<%end%>
+			</div>
+
+		</div>
+		<div class="control-group <% if @user.errors[:weekly_email].present? %>error<%end%>">
+			<%= f.label :weekly_email, "Weekly emails?", :class => "control-label"  %>
+			<div class="controls">
+				<%= f.check_box :weekly_email %>
+				<% if @user.errors[:weekly_email].present? %>
+					<span class="help-inline"><%= @user.errors[:weekly_email].join(", ")%></span>
 				<%end%>
 			</div>
 

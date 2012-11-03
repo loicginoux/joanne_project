@@ -74,7 +74,11 @@ class UserMailer < ActionMailer::Base
       .group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}
 
       @user = user
-      html = render :partial => "email/weekly_recap", :layout => "email"
+      if @groups.empty?
+        html = render :partial => "email/empty_recap", :layout => "email"
+      else
+        html = render :partial => "email/weekly_recap", :layout => "email"
+      end
 
       RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
@@ -97,7 +101,11 @@ class UserMailer < ActionMailer::Base
 
       @user = user
 
-      html = render :partial => "email/daily_recap", :layout => "email"
+      if @data_points.empty?
+        html = render :partial => "email/empty_recap", :layout => "email"
+      else
+        html = render :partial => "email/daily_recap", :layout => "email"
+      end
 
       RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],

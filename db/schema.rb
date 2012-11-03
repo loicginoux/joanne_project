@@ -92,7 +92,8 @@ ActiveRecord::Schema.define(:version => 20121026141634) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.string   "email_recap",          :default => "Weekly"
+    t.boolean  "daily_email",          :default => true
+    t.boolean  "weekly_email",         :default => true
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
