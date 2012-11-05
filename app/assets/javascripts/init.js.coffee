@@ -1,4 +1,5 @@
 window.foodrubix =
+
 	common: {}
 	users: {}
 	data_points: {}

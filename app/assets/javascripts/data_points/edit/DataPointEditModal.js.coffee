@@ -18,12 +18,14 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		".btn-delete":             "deleteBtn"
 		".btn-cancel":             "cancelBtn"
 		".alert-delete":           "deleteMessage"
-
+		".addDescription":         "addDescr"
+		".descrInput":             "descrInput"
+		"#data_point_description": "descrVal"
 
 	constructor: ()->
 		super
 		@id = @el.attr('data-id')
-		
+
 	initialize: () ->
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
@@ -35,6 +37,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@cancelBtn.click @clean
 		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		if @isNewUploadBox
+			@addDescr.click @toggleDescription
 			@clearNewUpload()
 
 
@@ -48,6 +51,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		now = new Date()
 		@uploaded_at.val(now.toString("MM-dd-yyyy"))
 		@timePicker.val(now.toString('hh:mm tt'))
+		@descrVal.val("")
+		@addDescr.removeClass("hide")
+		@descrInput.addClass("hide")
 		@saveBtn.button('reset')
 		@controlGroups.removeClass('error')
 		@inlineHelps.addClass('hide')
@@ -61,7 +67,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@deleteBtn.unbind "click"
 		@btnConfirmDelete.unbind "click"
 		@cancelBtn.unbind "click"
-	
+
 	changePhoto: (e) =>
 		@fileInput.click()
 		e.stopPropagation()
@@ -83,9 +89,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		if !parseInt(@id) && !@isNewUploadBox
 			throw "no id for update modal box"
 
-		#remove all previous error 
+		#remove all previous error
 		@controlGroups.removeClass('error')
-		@inlineHelps.addClass('hide')		
+		@inlineHelps.addClass('hide')
 
 		# validate calories
 		calories = @calories.val()
@@ -105,8 +111,8 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		# validate time
 		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
-		date = $.timePicker(timePickerId).getTime() 
-		unless date 
+		date = $.timePicker(timePickerId).getTime()
+		unless date
 			validated = false
 			@el.find(".control-group.time").addClass('error')
 			@el.find('.help-inline.time').removeClass('hide')
@@ -125,17 +131,18 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		if validated
 			@updateDataPoint(e, {
-				id:@id
-				calories: calories
-				uploaded_at: ISODate.toISOString()
+				id:@id,
+				calories: calories,
+				uploaded_at: ISODate.toISOString(),
+				description:  @descrVal.val()
 			})
 
 
 	# data should have id, calories, uploaded_at
 	updateDataPoint: (e, data) =>
-		@saveBtn.button('loading')	
-		
-		# 	update data 
+		@saveBtn.button('loading')
+
+		# 	update data
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
@@ -143,7 +150,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
-				data: 
+				data:
 					data_point : data,
 					dataType: 'json',
 					success: @master.onSuccessAjax.bind @master
@@ -178,4 +185,14 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		          url: '/data_points/'+@id+'.json',
 		          dataType: 'json',
 		          success: @master.onSuccessAjax.bind @master
-		})	
+		})
+
+
+	toggleDescription: () =>
+		@addDescr.toggleClass("hide")
+		@descrInput.toggleClass("hide")
+		if @descrInput.hasClass("hide")
+			@descrVal.val("")
+		else
+			@descrVal.focus()
+

@@ -65,6 +65,10 @@ Foodrubix::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  #because of bug on heroku about precompliling assets
+  #https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
+  config.assets.initialize_on_precompile = false
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5

@@ -26,6 +26,9 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".control-group":             "controlGroups"
 		".help-inline":               "inlineHelps"
 		".alert-delete":              "deleteMessage"
+		".addDescription":            "addDescr"
+		".descrInput":                "descrInput"
+		"#data_point_description":    "descrVal"
 
 	events:
 		"click .btn-like":    "like"
@@ -33,50 +36,51 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		"keypress textarea":  "onEnter"
 		"click .btn-edit":    "startEditing"
 		"click .btn-cancel":  "switchMode"
+		"click .addDescription":  "toggleDescription"
 
-		
+
 
 	constructor: ()->
 		super
-	
+
 	init: () ->
 		@id = @el.find(".info").attr('data-id')
 		@userId = $("body").attr("data-user")
 		@nbLikes = parseInt(@nbLikesHTML.text())
 		@nbComments = parseInt(@nbCommentsHTML.text())
-		
+
 	refreshLike: () =>
 		$.ajax({
 			type: "GET"
 			url: '/likes'
 			dataType: 'json'
-			data: 
+			data:
 				data_point_id: @id
 				user_id: @userId
 			success: @ongetLikeState.bind @
 		})
-	
+
 	ongetLikeState: (data) =>
 		if data.length
 			@likeId = data[0].id
 			@changeLikeState("Liked")
-			
+
 
 	refreshComments: () =>
 		$.ajax({
 			type: "GET"
-			url: '/comments'	
+			url: '/comments'
 			dataType: 'script'
-			data: 
+			data:
 				data_point_id: @id
 		})
-		
+
 	onEnter: (e) =>
-		
+
 		if e.keyCode == 13  #enter
 			@comment()
 			return false
-		
+
 	comment: () =>
 		if @btnComment.attr("disabled")
 			return
@@ -88,8 +92,8 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			if text != ""
 				@el.find(".control-group.comment").removeClass('error')
 				@el.find('.help-inline.comment').addClass('hide')
-				@btnComment.button('loading').attr("disabled", true)	
-				data = 
+				@btnComment.button('loading').attr("disabled", true)
+				data =
 					user_id: @userId
 					text: text
 					data_point_id: @id
@@ -98,15 +102,15 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 					url: '/comments.json'
 					success: @onSuccessComment.bind @
 					dataType: 'json'
-					data: 
+					data:
 						comment : data
 				})
 			else
 				# display error message
 				@el.find(".control-group.comment").addClass('error')
 				@el.find('.help-inline.comment').removeClass('hide')
-		
-	
+
+
 	onSuccessComment: (data, textStatus, jqXHR) =>
 		@btnComment.button('reset').attr("disabled", false).removeClass("disabled")
 		@inputComment.val("")
@@ -115,7 +119,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@nbCommentsHTML.html(@nbComments)
 		@updateMasterInfo("comments")
 		@refreshComments()
-		
+
 	updateMasterInfo: (which) =>
 		if @master
 			  # body...
@@ -123,56 +127,55 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 				@master.el.find("#image_"+@id+ " span.nbComments").html(@nbComments)
 			else if which == "likes"
 				@master.el.find("#image_"+@id+ " span.nbLikes").html(@nbLikes)
-	
+
 	like: () =>
 		if @btnLike.attr("disabled")
 			return
 
 		@btnLike.attr("disabled", true)
 			.addClass("disabled")
-			
+
 		if @btnLike.attr("data-action") == "Like"
 			$.ajax({
 				type: "POST"
 				url: '/likes.json'
 				success: @onSuccessLike.bind @
 				dataType: 'json'
-				data: 
-					like : 
+				data:
+					like :
 						user_id: @userId
 						data_point_id: @id
 			})
 		else
 			likeId = @btnLike.attr("data-like-id")
-			
+
 			$.ajax({
 				type: "DELETE"
 				url: '/likes/'+likeId+'.json'
 				success: @onSuccessUnlike.bind @
 				dataType: 'json'
 			})
-		
-		
 
-			
 
-	
-	
+
+
+
+
+
 	onSuccessLike: (data, textStatus, jqXHR) =>
-		console.log("likeid created", data.id)
-		
+
 		@btnLike.attr("data-like-id", data.id)
 		@nbLikes = @nbLikes+1
 		@nbLikesHTML.html(@nbLikes)
 		@updateMasterInfo("likes")
 		@changeLikeState("Unlike")
-	
+
 	onSuccessUnlike: (data, textStatus, jqXHR) =>
 		@nbLikes = @nbLikes - 1
 		@nbLikesHTML.html(@nbLikes)
 		@updateMasterInfo("likes")
-		@changeLikeState("Like")	
-			
+		@changeLikeState("Like")
+
 	changeLikeState: (text) =>
 		@btnLike.attr("data-action", text)
 			.attr("disabled", false)
@@ -182,7 +185,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			.find("i")
 				.toggleClass("icon-thumbs-up")
 				.toggleClass("icon-thumbs-down")
-		
+
 	removeDataPoint: (e) =>
 		@deleteBtn.button('loading')
 		dataType = if @master then "json" else "html"
@@ -191,14 +194,14 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		          url: '/data_points/'+@id+'.json',
 		          dataType: dataType,
 		          success: @onSuccess.bind @
-		})	
+		})
 
 	onSuccess:(e) ->
 		if @master
 			@master.onSuccessAjax(e)
 		else
 			window.location.href = "/"+@el.attr("data-username")
-	
+
 	startEditing: () ->
 		@switchMode()
 		@datePicker.datepicker()
@@ -212,12 +215,12 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		if @isNewUploadBox
 			@clearNewUpload()
-	
-	
+
+
 	switchMode:()->
-		@viewElements.toggleClass("hide")		
+		@viewElements.toggleClass("hide")
 		@editElements.toggleClass("hide")
-	
+
 	changePhoto: (e) =>
 		@fileInput.click()
 		e.stopPropagation()
@@ -239,9 +242,9 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		if !parseInt(@id) && !@isNewUploadBox
 			throw "no id for update modal box"
 
-		#remove all previous error 
+		#remove all previous error
 		@controlGroups.removeClass('error')
-		@inlineHelps.addClass('hide')		
+		@inlineHelps.addClass('hide')
 
 		# validate calories
 		calories = @calories.val()
@@ -261,8 +264,8 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		# validate time
 		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
-		date = $.timePicker(timePickerId).getTime() 
-		unless date 
+		date = $.timePicker(timePickerId).getTime()
+		unless date
 			validated = false
 			@el.find(".control-group.time").addClass('error')
 			@el.find('.help-inline.time').removeClass('hide')
@@ -283,22 +286,23 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@updateDataPoint(e, {
 				id:@id
 				calories: calories
-				uploaded_at: ISODate
+				uploaded_at: ISODate,
+				description: @descrVal.val()
 			})
 
 
 	# data should have id, calories, uploaded_at
 	updateDataPoint: (e, data) =>
-		@saveBtn.button('loading')	
+		@saveBtn.button('loading')
 
-		# 	update data 
+		# 	update data
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
-				data: 
+				data:
 					data_point : data,
 					dataType: 'json'
 				success: @onSuccess.bind @
@@ -324,4 +328,11 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	showConfirmDeleteBox: () =>
 		@deleteMessage.removeClass('hide')
-			
+
+	toggleDescription: () =>
+		@addDescr.toggleClass("hide")
+		@descrInput.toggleClass("hide")
+		if @descrInput.hasClass("hide")
+			@descrVal.val("")
+		else
+			@descrVal.focus()

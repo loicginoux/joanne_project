@@ -5,11 +5,11 @@
 		</div>
 		<div class="editMode hide">
 			<form id="uploadForm_<%= @data_point.id%>" action="/data_points/<%= @data_point.id%>" method="PUT" enctype="multipart/form-data">
-			
+
 				<div class="alert alert-block alert-error alert-delete fade in hide">
 					<h4 class="alert-heading">Are you sure you want to delete?</h4>
 					<p>
-						<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">Delete</a> 
+						<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">Delete</a>
 						<a class="btn" href="#" data-dismiss="modal">Cancel</a>
 					</p>
 				</div>
@@ -45,9 +45,9 @@
 								<span class="add-on"><i class="icon-th"></i></span>
 								<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
 
-							</div>	
+							</div>
 						</div>
-					</div>	
+					</div>
 					<div class="control-group time">
 						<label class="control-label">Time</label>
 						<div class="controls">
@@ -55,10 +55,26 @@
 							 value="<%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%I:%M %P")%>">
 							<span class="help-inline time hide">Please enter a correct time (HH:mm)</span>
 						</div>
-					</div>		
+					</div>
+
+					<div class="control-group description">
+							<a href="#" class="addDescription <%= "hide" if !@data_point.description.empty?%>">+ Add a description</a>
+							<div class="descrInput <%="hide" if @data_point.description.empty?%>">
+								<label class="control-label">Description</label>
+								<div class="controls">
+									<input class="" id="data_point_description" name="data_point[description]" type="text"
+									value="<%= @data_point.description%>">
+								</div>
+							</div>
+
+
+					</div>
 				</fieldset>
 		</div>
 		<div class="meta viewMode">
+			<% if !@data_point.description.empty? %>
+				<p>Description: <%= @data_point.description%> </p>
+			<%end%>
 			<p>Calories: <%= @data_point.calories%> calories</p>
 			<p>Date: <%= @data_point.uploaded_at.in_time_zone(Time.zone).strftime("%m-%d-%Y %I:%M %P")%> </p>
 			<p><span class="nbLikes"><%= @data_point.nb_likes%></span> Likes</p>
@@ -72,8 +88,8 @@
 						<span class="help-inline comment hide">Please enter a comment</span>
 					</div>
 				</div>
-			
-			
+
+
 				<a href="#" class="btn btn-primary btn-comment viewMode" data-loading-text="Commenting...">
 					<i class="icon-white icon-comment"></i> Comment
 				</a>
@@ -102,17 +118,17 @@
 
 					<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">
 						<i class="icon-white icon-trash"></i> Delete
-					</a> 
+					</a>
 					<a href="#" class="btn btn-primary btn-save" data-loading-text="Saving...">
 						Save changes
-					</a>	
+					</a>
 				</div>
 			<%end%>
-			
+
 		</form>
 		<div class="comments">
 			<%= render @data_point.comments %>
 		</div>
-		
+
 	</div>
 </div>

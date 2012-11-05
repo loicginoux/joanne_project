@@ -6,7 +6,7 @@
 	<div class="modal-body">
 		<fieldset>
 			<form id="uploadForm" action="/data_points" method="POST" enctype="multipart/form-data">
-			
+
 					<div class="control-group editable_img_container pull-right file">
 						<div class="controls">
 							<img src="" />
@@ -20,6 +20,7 @@
 							</div>
 						</div>
 					</div>
+
 
 					<div class="control-group calories">
 						<label class="control-label">Calories</label>
@@ -39,10 +40,10 @@
 								<span class="add-on"><i class="icon-th"></i></span>
 								<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
 
-							</div>	
+							</div>
 						</div>
-					</div>	
-				
+					</div>
+
 			</form>
 			<div class="control-group time">
 				<label class="control-label">Time</label>
@@ -52,8 +53,19 @@
 					<span class="help-inline time hide">Please enter a correct time (HH:mm AM/PM)</span>
 				</div>
 			</div>
+
+			<div class="control-group description">
+				<a href="#" class="addDescription">+ Add a description</a>
+				<div class="descrInput hide">
+					<label class="control-label">Description</label>
+					<div class="controls">
+						<input class="" id="data_point_description" name="data_point[description]" type="text"
+						value="">
+					</div>
+				</div>
+			</div>
 		</fieldset>
-		
+
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-cancel" data-dismiss="modal">Cancel</a>

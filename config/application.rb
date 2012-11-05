@@ -60,9 +60,7 @@ module Foodrubix
     #email configuration
     # config.action_mailer.delivery_method = :smtp
 
-    #because of bug on heroku about precompliling assets
-    #https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
-    config.assets.initialize_on_precompile = false
+
 
 
   end

@@ -392,7 +392,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 	onImageClick: (e) =>
 		@idImageClicked = $(e.target).parents(".image").attr("data-id")
-		console.log("e:",@idImageClicked)
 
 
 	onSuccessAjax: (data) =>
