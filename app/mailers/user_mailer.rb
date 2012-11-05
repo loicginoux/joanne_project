@@ -89,6 +89,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_recap_email(users)
+    puts users
     users.each {|user|
       puts user.id
       if user.id == 8
