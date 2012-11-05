@@ -89,8 +89,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_recap_email(users)
-    users.each {|user|
-
+    # users.each {|user|
+      user = users
       startDate = (Time.now - 1.days).utc
       endDate = Time.now.utc
       @data_points = DataPoint.where(
@@ -112,7 +112,7 @@ class UserMailer < ActionMailer::Base
       :to => user.email,
       :subject => "[FoodRubix] This is what you ate today",
       :html => html.to_str
-    }
+    # }
   end
 
 end
