@@ -89,13 +89,9 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_recap_email(users)
-    puts users
     users.each {|user|
       puts user.id
       if user.id == 8
-
-
-        user = users
         startDate = (Time.now - 1.days).utc
         endDate = Time.now.utc
         @data_points = DataPoint.where(
