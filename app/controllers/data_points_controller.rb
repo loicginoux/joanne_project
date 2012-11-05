@@ -97,7 +97,7 @@ class DataPointsController < ApplicationController
         # to not take into account timezone
         params[:data_point][:uploaded_at] = Time.zone.parse(params[:data_point][:uploaded_at]).utc
     end
-    Rails.logger.debug params[:data_point][:uploaded_at]
+    puts params[:data_point]
 
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
