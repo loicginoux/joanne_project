@@ -10,8 +10,10 @@ end
 
 desc "send daily email recap to users"
 task :send_daily_email => :environment do
+  	puts ">>>>>>>>>>>>>>>"
   	puts "sending daily emails: start"
-	users = User.where(:daily_email => true)
+	# users = User.where(:daily_email => true)
+	users = User.find(8)
 	UserMailer.daily_recap_email(users)
 	puts "sending daily email: done"
 end
