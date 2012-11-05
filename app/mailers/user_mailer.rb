@@ -60,9 +60,6 @@ class UserMailer < ActionMailer::Base
   end
 
   def weekly_recap_email(users)
-
-# DataPoint.where(:user_id => 11, :uploaded_at => ((Time.now - 7.days).utc)..Time.now.utc).group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}.each{|key, group| puts key; puts group.count}
-
     users.each {|user|
       startDate = (Time.now - 7.days).utc
       endDate = Time.now.utc
@@ -90,31 +87,28 @@ class UserMailer < ActionMailer::Base
 
   def daily_recap_email(users)
     users.each {|user|
-      puts user.id
-      if user.id == 8
-        startDate = (Time.now - 1.days).utc
-        endDate = Time.now.utc
-        @data_points = DataPoint.where(
-          :user_id => user.id,
-          :uploaded_at => startDate..endDate
-          )
-        .order("uploaded_at ASC")
+      startDate = (Time.now - 1.days).utc
+      endDate = Time.now.utc
+      @data_points = DataPoint.where(
+        :user_id => user.id,
+        :uploaded_at => startDate..endDate
+        )
+      .order("uploaded_at ASC")
 
-        @user = user
+      @user = user
 
-        if @data_points.empty?
-          html = render :partial => "email/empty_recap", :layout => "email"
-        else
-          html = render :partial => "email/daily_recap", :layout => "email"
-        end
-
-        RestClient.post MAILGUN[:api_url]+"/messages",
-        :from => MAILGUN[:admin_mailbox],
-        :to => user.email,
-        :subject => "[FoodRubix] This is what you ate today",
-        :html => html.to_str
-
+      if @data_points.empty?
+        html = render :partial => "email/empty_recap", :layout => "email"
+      else
+        html = render :partial => "email/daily_recap", :layout => "email"
       end
+
+      RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => user.email,
+      :subject => "[FoodRubix] This is what you ate today",
+      :html => html.to_str
+
     }
   end
 
