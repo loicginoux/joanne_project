@@ -106,7 +106,7 @@ class UserMailer < ActionMailer::Base
       RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => user.email,
-      :subject => "[FoodRubix] This is what you ate today",
+      :subject => "[FoodRubix] This is what you ate yesterday",
       :html => html.to_str
 
     }
