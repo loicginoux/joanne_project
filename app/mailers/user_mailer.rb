@@ -27,6 +27,7 @@ class UserMailer < ActionMailer::Base
   def added_comment_email(dataPoint, comment)
     @dataPoint = dataPoint
     @comment = comment
+    @user = dataPoint.user
     html = render :partial => "email/added_comment", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
@@ -39,6 +40,7 @@ class UserMailer < ActionMailer::Base
   def added_like_email(dataPoint, like)
     @dataPoint = dataPoint
     @like = like
+    @user = dataPoint.user
     html = render :partial => "email/added_like", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
@@ -51,6 +53,7 @@ class UserMailer < ActionMailer::Base
     # html = EmailController.new.new_follower.to_str
     @followee = followee
     @follower = follower
+    @user = followee
     html = render :partial => "email/new_follower", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
