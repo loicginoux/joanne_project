@@ -44,10 +44,10 @@ Foodrubix::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "www.foodrubix.com"
-  config.action_mailer.asset_host = config.action_controller.asset_host
+  config.action_mailer.asset_host = "http://www.foodrubix.com"
 
   # email configuration
-  config.action_mailer.default_url_options = { :host => config.action_controller.asset_host }
+  config.action_mailer.default_url_options = { :host => config.action_mailer.asset_host }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
