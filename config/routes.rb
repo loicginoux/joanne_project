@@ -23,6 +23,12 @@ Foodrubix::Application.routes.draw do
   match 'team_rubix' => 'users#index', :as => :team_rubix
   match 'following' => 'friendships#index', :as => :following
 
+  namespace :admin do
+    resources :users
+    match 'mailer(/:action(/:id(.:format)))' => 'mailer#:action'
+
+  end
+
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/
   match ":username/edit", :to => "users#edit",
                           :as => "edit_user",
@@ -40,9 +46,7 @@ Foodrubix::Application.routes.draw do
                     :as => "user",
                     :via => :delete
 
-  namespace :admin do
-       resources :users
-  end
+
 
 
   # namespace :users, :as => :user,  :path => '/:username' do
@@ -52,6 +56,8 @@ Foodrubix::Application.routes.draw do
   match '/:id' => 'high_voltage/pages#show', :as => :static, :via => :get
 
   root :to => 'home_redirect#show'
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
