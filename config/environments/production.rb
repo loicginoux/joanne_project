@@ -47,7 +47,10 @@ Foodrubix::Application.configure do
   config.action_mailer.asset_host = "www.foodrubix.com"
 
   # email configuration
-  config.action_mailer.default_url_options = { :host => config.action_mailer.asset_host }
+  config.action_mailer.default_url_options = {
+    :host => config.action_mailer.asset_host,
+    :only_path => false
+  }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
