@@ -43,15 +43,17 @@ Foodrubix::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "www.foodrubix.com"
-  config.action_mailer.asset_host = "www.foodrubix.com"
+  config.action_controller.asset_host = "http://www.foodrubix.com"
+  config.action_mailer.asset_host = "http://www.foodrubix.com"
 
   # email configuration
   config.action_mailer.default_url_options = {
-    :host => config.action_mailer.asset_host,
+    :host => "www.foodrubix.com",
     :only_path => false
   }
-  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+
+  Rails.application.routes.default_url_options = "www.foodrubix.com"
+
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += ['application-ie9.js', 'homepage.css']
