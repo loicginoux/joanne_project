@@ -26,8 +26,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".control-group":             "controlGroups"
 		".help-inline":               "inlineHelps"
 		".alert-delete":              "deleteMessage"
-		".addDescription":            "addDescr"
-		".descrInput":                "descrInput"
 		"#data_point_description":    "descrVal"
 
 	events:
@@ -36,9 +34,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		"keypress textarea":  "onEnter"
 		"click .btn-edit":    "startEditing"
 		"click .btn-cancel":  "switchMode"
-		"click .addDescription":  "toggleDescription"
-
-
 
 	constructor: ()->
 		super
@@ -328,11 +323,3 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	showConfirmDeleteBox: () =>
 		@deleteMessage.removeClass('hide')
-
-	toggleDescription: () =>
-		@addDescr.toggleClass("hide")
-		@descrInput.toggleClass("hide")
-		if @descrInput.hasClass("hide")
-			@descrVal.val("")
-		else
-			@descrVal.focus()

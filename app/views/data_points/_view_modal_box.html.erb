@@ -58,9 +58,8 @@
 					</div>
 
 					<div class="control-group description">
-							<a href="#" class="addDescription <%= "hide" if !@data_point.description.empty?%>">+ Add a description</a>
-							<div class="descrInput <%="hide" if @data_point.description.empty?%>">
-								<label class="control-label">Description</label>
+							<div class="descrInput">
+								<label class="control-label">Description (optional)</label>
 								<div class="controls">
 									<input class="" id="data_point_description" name="data_point[description]" type="text"
 									value="<%= @data_point.description%>">

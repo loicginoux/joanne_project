@@ -40,16 +40,26 @@ strong{
 
 }
 
-.cta {
+.cta, .cta-log-in {
 	float: right;
-	padding: 12px;
-	background-color: #e96000;
+	padding: 10px;
+	background-color: #E96000;
 	border-radius: 6px;
-	margin-top: 20px;
-	margin-right: 20px;
-	color: #fff;
+	margin-top: 25px;
+	margin-left: 20px;
+	color: #FFF;
 	text-align: center;
+	width: 100px;
+	text-transform: uppercase;
+	border: 1px solid #DB5B02;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.cta-log-in {
+	background-color: #999999;
+	border: 1px solid #6D6D6D;
+}
+
 
 #main {
 	background: url("../../assets/homepage/mesh.png") repeat;
@@ -96,13 +106,22 @@ iframe {
     padding:20px;
     border-radius: 2px 2px 2px 2px;
     width: 270px;
-    height: 175px;
+    height: 510px;
 	float: left;
 	margin: 5px;
 	box-shadow: 0 1px 4px
      rgba(0, 0, 0, 0.3), 0 0 40px
      rgba(0, 0, 0, 0.1) inset;
 }
+
+.column1of3 p, .column2of3 p, .column3of3 p{
+	margin-top: 20px
+}
+
+.column3of3 img {
+	margin-top: 16px;
+}
+
 
 /* RIBBON ----------------------------------------------------*/
 

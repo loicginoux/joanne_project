@@ -1,6 +1,6 @@
 desc "send weekly email recap to users"
 task :send_weekly_email => :environment do
-  	if Time.now.sunday?
+  	if Time.now.monday?
 		puts "sending weekly emails: start"
   		users = User.where(:weekly_email => true)
 		UserMailer.weekly_recap_email(users)

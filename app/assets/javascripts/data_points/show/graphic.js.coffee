@@ -35,6 +35,7 @@ class foodrubix.graphic
 					text: null
 				}
 			},
+			colors: ['#E96000'],
 			yAxis: {
 				title: {
 					text: 'Calories'

@@ -18,8 +18,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		".btn-delete":             "deleteBtn"
 		".btn-cancel":             "cancelBtn"
 		".alert-delete":           "deleteMessage"
-		".addDescription":         "addDescr"
-		".descrInput":             "descrInput"
 		"#data_point_description": "descrVal"
 
 	constructor: ()->
@@ -37,7 +35,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@cancelBtn.click @clean
 		@isNewUploadBox = (@el.attr('id') == "new_upload")
 		if @isNewUploadBox
-			@addDescr.click @toggleDescription
 			@clearNewUpload()
 
 
@@ -52,8 +49,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@uploaded_at.val(now.toString("MM-dd-yyyy"))
 		@timePicker.val(now.toString('hh:mm tt'))
 		@descrVal.val("")
-		@addDescr.removeClass("hide")
-		@descrInput.addClass("hide")
 		@saveBtn.button('reset')
 		@controlGroups.removeClass('error')
 		@inlineHelps.addClass('hide')
@@ -186,13 +181,4 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		          dataType: 'json',
 		          success: @master.onSuccessAjax.bind @master
 		})
-
-
-	toggleDescription: () =>
-		@addDescr.toggleClass("hide")
-		@descrInput.toggleClass("hide")
-		if @descrInput.hasClass("hide")
-			@descrVal.val("")
-		else
-			@descrVal.focus()
 

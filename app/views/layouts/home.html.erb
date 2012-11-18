@@ -22,11 +22,11 @@
 				<ul>
 					<li>
 						<%= link_to static_path("home") do %>
-						<%=  image_tag("foodRubix_logo.svg", :alt=>"FoodRubx logo", :width=>"289", :height=>"81")  %>
+						<%=  image_tag("foodRubix_logo_beta.svg", :alt=>"FoodRubix logo", :width=>"289", :height=>"81")  %>
 						<% end %>
 					</li>
 					<li><%= link_to "Sign up", register_path, :class=> "cta" %></li>
-					<li><%= link_to "Log in", login_path, :class=> "cta" %></li>
+					<li><%= link_to "Log in", login_path, :class=> "cta-log-in" %></li>
 
 				</ul>
 			</div><!-- #nav -->
@@ -36,7 +36,6 @@
 				<%= yield %>
 		</div><!-- #main -->
 		<div id="footer">
-			<h5>Contact Us - jdaudier [at] outlook [dot] com</h5>
 		</div><!-- #footer -->
 	</div><!-- #container -->
 

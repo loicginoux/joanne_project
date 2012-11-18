@@ -259,8 +259,9 @@ border-left-width: 1px;
 	padding: 5px 20px 0;
 }
 
-.brand img{
+.brand img {
 	width: 200px;
+	margin: 4px 0 0 0;
 }
 
 .navbar .container .nav{
