@@ -9,6 +9,7 @@ h2 {
 	margin-bottom: 25px;
 }
 
+
 h2.step {
 	color: #e96000;
 }
@@ -22,17 +23,28 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	color: #D1D0CF;
+
+
+a:hover.cta {
 	text-decoration: none;
+	background-color: #F6722F;
+	color:white;
 }
 
+a:hover.cta-log-in {
+	text-decoration: none;
+	background-color: #828282;
+	color:white;
+}
+
+
 ul{
-	padding-left: 0px;
+	padding-left: 0;
+	margin-left: 0;
 }
 
 ul li {
-  display: inline;
+	display: inline;
 }
 
 strong{
@@ -42,6 +54,7 @@ strong{
 
 .cta, .cta-log-in {
 	float: right;
+	font-size: 16px;
 	padding: 10px;
 	background-color: #E96000;
 	border-radius: 6px;
@@ -94,28 +107,32 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 iframe {
-    background: #fff;
-    margin: 20px auto;
-    padding:20px;
-    border-radius: 2px 2px 2px 2px;
-    box-shadow: 0 8px 6px -6px #777;
+	background: #fff;
+	margin: 20px auto;
+	padding:20px;
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: 0 8px 6px -6px #777;
 }
 
 .column1of3, .column2of3, .column3of3 {
-    background: #fff;
-    padding:20px;
-    border-radius: 2px 2px 2px 2px;
-    width: 270px;
-    height: 510px;
+	background: #fff;
+	padding:20px;
+	border-radius: 2px 2px 2px 2px;
+	width: 270px;
+	height: 510px;
 	float: left;
 	margin: 5px;
 	box-shadow: 0 1px 4px
-     rgba(0, 0, 0, 0.3), 0 0 40px
-     rgba(0, 0, 0, 0.1) inset;
+	rgba(0, 0, 0, 0.3), 0 0 40px
+	rgba(0, 0, 0, 0.1) inset;
 }
 
 .column1of3 p, .column2of3 p, .column3of3 p{
-	margin-top: 20px
+	margin-top: 20px;
+	color:black;
+	line-height: 1.7em;
+	font-weight: bolder;
+	font-size: 15px;
 }
 
 .column3of3 img {
@@ -126,28 +143,28 @@ iframe {
 /* RIBBON ----------------------------------------------------*/
 
 #orange-ribbon {
-  position: relative;
+	position: relative;
 }
 #orange-ribbon .ribbon {
-  background: #e96000;
-  min-height: 92px;
-  text-align: center;
+	background: #e96000;
+	min-height: 92px;
+	text-align: center;
 }
 #orange-ribbon .ribbon-left {
-  position: absolute;
-  width: 56px;
-  height: 92px;
-  background: url(../../assets/homepage/ribbon-left.png) no-repeat;
-  top: -18px;
-  left: -56px;
+	position: absolute;
+	width: 56px;
+	height: 92px;
+	background: url(../../assets/homepage/ribbon-left.png) no-repeat;
+	top: -18px;
+	left: -56px;
 }
 #orange-ribbon .ribbon-right {
-  position: absolute;
-  width: 56px;
-  height: 92px;
-  background: url(../../assets/homepage/ribbon-right.png) no-repeat;
-  top: -18px;
-  right: -56px;
+	position: absolute;
+	width: 56px;
+	height: 92px;
+	background: url(../../assets/homepage/ribbon-right.png) no-repeat;
+	top: -18px;
+	right: -56px;
 }
 
 /* login and register ----------------------------------------------------*/
