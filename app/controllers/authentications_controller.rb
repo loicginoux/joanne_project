@@ -8,7 +8,7 @@ class AuthenticationsController < ApplicationController
     end
   end
 
-  
+
   def create
     omniauth = request.env['omniauth.auth']
     logger.debug omniauth.inspect
@@ -46,14 +46,16 @@ class AuthenticationsController < ApplicationController
     @authentication.destroy
     flash[:notice] = "Successfully destroyed authentication."
   end
-  
+
   private
     def sign_in_and_redirect(user)
       unless current_user
         user_session = UserSession.new(User.find_by_single_access_token(user.single_access_token))
         user_session.save
       end
-      redirect_to user_path(:username=> user.username), notice: 'successfully logged in.' 
+      # redirect_to user_path(:username=> user.username), notice: 'successfully logged in.'
+      redirect_back_or_default(user_path(:username=> user.username))
+
     end
-  
+
 end

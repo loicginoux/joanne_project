@@ -19,7 +19,7 @@ Foodrubix::Application.routes.draw do
   match 'upload' => "data_points#new", :as => :upload
   match 'home'  => 'pages#show', :id => 'home', :as => "home", :format => false
   match '/auth/:provider/callback' => 'authentications#create'
-  match '/auth/:provider/failure', to: redirect('/')
+  match '/auth/:provider/failure', to: redirect('/login')
   match 'team_rubix' => 'users#index', :as => :team_rubix
   match 'following' => 'friendships#index', :as => :following
 

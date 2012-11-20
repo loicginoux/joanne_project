@@ -114,7 +114,7 @@ iframe {
 	padding:20px;
 	border-radius: 2px 2px 2px 2px;
 	width: 270px;
-	height: 435px;
+	height: 425px;
 	float: left;
 	margin: 5px;
 	box-shadow: 0 1px 4px
@@ -131,7 +131,7 @@ iframe {
 }
 
 .column1of3 img, .column2of3 img, .column3of3 img {
-    margin-top: 10px;
+ 	margin-top: 10px;
 }
 
 /* RIBBON ----------------------------------------------------*/
