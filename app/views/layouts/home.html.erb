@@ -11,14 +11,14 @@
 	<meta name="keywords" content="food journal, food diary, food tracker, calorie tracker, app to help you lose weight">
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
-
 	<%= csrf_meta_tags %>
+
 </head>
 <body>
 
 	<div id="container">
-		<div id="header">
-			<div id="nav">
+		<header>
+				<nav>
 				<ul>
 					<li>
 						<%= link_to static_path("home") do %>
@@ -29,19 +29,19 @@
 					<li><%= link_to "Log in", login_path, :class=> "cta-log-in" %></li>
 
 				</ul>
-			</div><!-- #nav -->
-		</div><!-- #header -->
+			</nav>
+		</header>
 
 		<div id="main">
 				<%= yield %>
 		</div><!-- #main -->
-		<div id="footer">
-		</div><!-- #footer -->
+		<footer></footer>
 	</div><!-- #container -->
 
 
-
-
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js'></script>
+	<script>var ofc_key = '7403efdb6e8e70ce9429b51bf39841a0';</script>
+	<script src='http://offerchat.com/offerchat_widget.min.js' type='text/javascript'></script>
 
 </body>
 </html>
