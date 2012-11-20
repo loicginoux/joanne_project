@@ -9,11 +9,6 @@ h2 {
 	margin-bottom: 25px;
 }
 
-
-h2.step {
-	color: #e96000;
-}
-
 #container {
 	margin: 0 auto;
 	width: 960px;
@@ -119,7 +114,7 @@ iframe {
 	padding:20px;
 	border-radius: 2px 2px 2px 2px;
 	width: 270px;
-	height: 500px;
+	height: 435px;
 	float: left;
 	margin: 5px;
 	box-shadow: 0 1px 4px
@@ -135,10 +130,9 @@ iframe {
 	font-size: 15px;
 }
 
-.column3of3 img {
-	margin-top: 14px;
+.column1of3 img, .column2of3 img, .column3of3 img {
+    margin-top: 10px;
 }
-
 
 /* RIBBON ----------------------------------------------------*/
 

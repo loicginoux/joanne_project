@@ -71,9 +71,10 @@ class UserMailer < ActionMailer::Base
         :uploaded_at => startDate..endDate
       )
       .order("uploaded_at ASC")
-      .group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}
+      .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
 
       @user = user
+      logger.debug @groups
       if @groups.empty?
         html = render :partial => "email/empty_recap", :layout => "email"
       else

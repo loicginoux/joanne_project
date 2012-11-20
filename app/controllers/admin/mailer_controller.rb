@@ -37,7 +37,7 @@ class Admin::MailerController < ApplicationController
       :uploaded_at => startDate..endDate
       )
     .order("uploaded_at ASC")
-    .group_by{|v| v.uploaded_at.strftime("%a %d %b %Y")}
+    .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
 
     render :partial => "email/weekly_recap", :layout => "email"
   end
