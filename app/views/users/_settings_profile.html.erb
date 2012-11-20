@@ -7,6 +7,7 @@
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<strong>Complete your registration</strong>
 			<p>You have been authenticated via Facebook. Please complete your registration below.</p>
+			<p><strong>IMPORTANT!</strong>If you're planning to send in photos using your phone, please create an account using the <strong>SAME</strong> email address.</p>
 		</div>
 		<% end %>
 
@@ -35,6 +36,11 @@
 					<% if @user.errors[:email].present? %>
 					<span class="help-inline"><%= @user.errors[:email].join(", ")%></span>
 					<%end%>
+					<span class="help-inline hide important_email">
+						<div>
+							<strong>IMPORTANT!</strong>If you're planning to send in photos using your phone, please create an account using the <strong>SAME</strong> email address.
+						</div>
+					</span>
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:password].present? %>error<%end%>">
