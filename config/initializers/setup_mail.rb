@@ -1,9 +1,9 @@
 if Rails.env == "production"
   # set credentials from ENV hash
-  MAILGUN = { 
-    :api_key => ENV['MAILGUN_API_KEY'], 
+  MAILGUN = {
+    :api_key => ENV['MAILGUN_API_KEY'],
     :api_url => "https://api:#{ENV['MAILGUN_API_KEY']}@api.mailgun.net/v2/foodrubix.mailgun.org",
-    :admin_mailbox => "foodrubix@foodrubix.mailgun.org"
+    :admin_mailbox => "hi@foodrubix.com"
   }
 else
   # get credentials from YML file
