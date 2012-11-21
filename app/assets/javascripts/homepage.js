@@ -17,3 +17,4 @@
 //= require ./utils
 
 //= require_tree ./users/new
+//= require_tree ./homepage
