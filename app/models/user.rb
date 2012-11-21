@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy, :autosave => true
 
   has_many :friendships, :dependent => :destroy
-  has_many :friends, :through => :friendships, :dependent => :destroy
+  has_many :followees, :through => :friendships, :source=> :followee
 
   has_many :likes,  :dependent => :destroy
-  has_many :yums, :through => :likes,  :dependent => :destroy
+  has_many :yums, :through => :likes, :source => :data_point
 
   has_many :data_points, :dependent => :destroy
   has_many :comments, :dependent => :destroy
@@ -63,6 +63,8 @@ class User < ActiveRecord::Base
     UserMailer.verify_account_email(self)
   end
 
+
+
   def verify!
       self.confirmed = true
       self.save
@@ -83,6 +85,10 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def followers_friendship
+    Friendship.where(:followee_id => self.id)
   end
 
   def isFollowing(followee)
