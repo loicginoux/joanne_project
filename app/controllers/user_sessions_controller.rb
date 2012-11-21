@@ -15,11 +15,12 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions
   # POST /user_sessions.json
   def create
+    puts "para user session"
+    puts params[:user_session]
     @user_session = UserSession.new(params[:user_session])
     respond_to do |format|
       if @user_session.save
-        user = User.first(:conditions => {:username=> @user_session.username})
-        # format.html { redirect_to user_path(:username=> user.username), notice: 'successfully logged in.' }
+        user = User.first(:conditions => {:username=> @user_session.username.downcase})
         format.html { redirect_back_or_default(user_path(:username=> user.username))  }
         format.json { render json: @user_session, status: :created, location: @user_session }
       else

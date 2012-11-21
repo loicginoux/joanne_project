@@ -25,6 +25,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
+
+    puts @user.inspect
+    puts params[:username]
     gon.daily_calories_limit = @user.daily_calories_limit
     if @user.isUserAllowed(current_user)
       gon.isCurrentUserDashboard = true
@@ -34,12 +37,12 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       if @user
-        format.html # show.html.erb
-        format.json { render :json => @user }
+          format.html # show.html.erb
+          format.json { render :json => @user }
 
 
+        end
       end
-    end
   end
 
   def new
@@ -52,6 +55,8 @@ class UsersController < ApplicationController
    end
 
   def create
+    params[:user][:username] = params[:user][:username].downcase
+    puts params[:user]
     @user = User.new(params[:user])
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
     if session[:omniauth]
@@ -77,9 +82,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    puts ">>>>>>>>>>>>>>>"
-    puts @user.weekly_email
-    puts @user.daily_email
   end
 
   def update
