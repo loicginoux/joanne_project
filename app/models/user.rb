@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-  validates :username, 
+  validates :username,
     :presence => true,
     :uniqueness => true
-  validates :email, 
+  validates :email,
     :format => { :with => /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/ },
     :presence => true,
     :uniqueness => true
@@ -12,28 +12,28 @@ class User < ActiveRecord::Base
     :presence => true,
     :on => :create
   validates_attachment_size :picture, :less_than=>3.megabyte
-  validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']  
-  
+  validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
+
   acts_as_authentic
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
   disable_perishable_token_maintenance(true)
-  before_validation :reset_perishable_token!, :on => :create 
+  before_validation :reset_perishable_token!, :on => :create
 
   has_many :authentications, :dependent => :destroy, :autosave => true
-  
+
   has_many :friendships, :dependent => :destroy
-  has_many :friends, :through => :friendships
-    
-  has_many :likes
-  has_many :yums, :through => :likes
-      
+  has_many :friends, :through => :friendships, :dependent => :destroy
+
+  has_many :likes,  :dependent => :destroy
+  has_many :yums, :through => :likes,  :dependent => :destroy
+
   has_many :data_points, :dependent => :destroy
   has_many :comments, :dependent => :destroy
-  
+
   accepts_nested_attributes_for :data_points
   accepts_nested_attributes_for :authentications
-  
-  has_attached_file :picture, 
+
+  has_attached_file :picture,
      :styles => {
        :small => ["50x50#",:jpg],
        :medium => ["200x200#",:jpg]
@@ -43,21 +43,21 @@ class User < ActiveRecord::Base
      :path => ":attachment/:id/:style.:extension",
      :s3_credentials => S3_CREDENTIALS,
      :default_url => '/assets/default_user.gif'
-  
-  scope :without_user, lambda{|user| 
+
+  scope :without_user, lambda{|user|
     user ? {:conditions => ["users.id != ?", user.id]} : {} }
-  
-  scope :without_followees, lambda{|followee_ids| 
+
+  scope :without_followees, lambda{|followee_ids|
     User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
   }
-  
+
   #cancan gem
   ROLES = %w[admin]
-  
+
   def admin?
     self.role == 'admin'
   end
-  
+
   def deliver_confirm_email_instructions!
     reset_perishable_token!
     UserMailer.verify_account_email(self)
@@ -67,16 +67,16 @@ class User < ActiveRecord::Base
       self.confirmed = true
       self.save
   end
-  
+
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.reset_password_email(self)
   end
-  
+
   def to_param
     "#{username}"
   end
-  
+
   def isUserAllowed(user)
     if user
        user.username == self.username
@@ -88,16 +88,16 @@ class User < ActiveRecord::Base
   def isFollowing(followee)
     Friendship.where(:user_id => self.id, :followee_id => followee.id)
   end
-  
+
   def hasFacebookConnected?
      !Authentication.find_by_provider_and_user_id("facebook", self.id).nil?
   end
-  
+
   def canPublishOnFacebook?
     self.hasFacebookConnected? && self.fb_sharing
   end
-  
-  
+
+
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email']
     # Update user info fetching from social network
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
       # fetch extra user info from twitter
     end
   end
-  
+
   def fb_publish(data_point)
     fb_authent = Authentication.find_by_provider_and_user_id("facebook", self.id)
     if self.canPublishOnFacebook?
