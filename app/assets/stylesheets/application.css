@@ -223,7 +223,7 @@ div.editable_img_container{
 	margin-bottom:20px;
 }
 
-/*user list
+/*user list (team rubix page and following page)
 --------------------------------*/
 
 .user-list .span4{
@@ -281,4 +281,15 @@ border-left-width: 1px;
 .nav_icon{
 	width: 35px;
 	padding-bottom: 15px;
+}
+
+/* footer
+--------------------------------*/
+footer {
+	background: url("../../assets/homepage/footer-bg.png") repeat;
+	width: 100%;
+	height: 100px;
+	float: left;
+	text-align: right;
+	border-radius: 6px
 }

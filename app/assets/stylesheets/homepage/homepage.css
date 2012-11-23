@@ -1,7 +1,6 @@
 h1 {
 	font-size: 5em;
 	margin-bottom: 0.1em;
-	margin-top: 40px;
 }
 
 h2 {
@@ -81,6 +80,7 @@ strong{
 	float: left;
 	text-align: center;
 	border: 2px dashed #fff;
+	padding-top: 40px;
 }
 
 footer {
