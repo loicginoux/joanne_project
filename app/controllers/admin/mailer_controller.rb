@@ -1,5 +1,19 @@
 class Admin::MailerController < ApplicationController
 
+  def preview_added_comment()
+    @dataPoint = DataPoint.last
+    @comment = Comment.last
+    @user = User.find(11)
+    render :partial => "email/added_comment", :layout => "email"
+  end
+
+  def preview_verify_account()
+    @user = User.find(11)
+    @verification_url = user_verification_url(@user.perishable_token)
+    render :partial => "email/verify_account", :layout => "email"
+
+  end
+
   def preview_empty()
     @user = User.find(11)
     startDate = (Time.now - 1.days).utc

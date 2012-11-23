@@ -45,10 +45,15 @@ class User < ActiveRecord::Base
      :default_url => '/assets/default_user.gif'
 
   scope :without_user, lambda{|user|
-    user ? {:conditions => ["users.id != ?", user.id]} : {} }
+    user ? {:conditions => ["users.id != ?", user.id]} : {}
+  }
 
   scope :without_followees, lambda{|followee_ids|
     User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
+  }
+
+  scope :confirmed, lambda{||
+    User.where(:confirmed => true)
   }
 
   #cancan gem

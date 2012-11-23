@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
     # all but yourself and followee
-    @users = User.without_user(current_user)
+    @users = User.confirmed().without_user(current_user)
     followee_ids = current_user.friendships.map(&:followee_id)
     @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
 
