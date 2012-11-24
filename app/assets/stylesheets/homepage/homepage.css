@@ -106,7 +106,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-family: 'Droid Sans', sans-serif;;
 }
 
-iframe {
+iframe.youtube_video {
 	background: #fff;
 	margin: 20px auto;
 	padding:20px;
@@ -179,9 +179,11 @@ iframe {
 
 span.important_email{
 	width: 333px;
+	color: black;
 }
 
 span.important_email div{
 	width: 280px;
 	padding: 5px 0 0 25px;
 }
+
