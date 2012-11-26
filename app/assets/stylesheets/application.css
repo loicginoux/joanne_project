@@ -289,8 +289,13 @@ footer {
 	background: url("../../assets/homepage/footer-bg.png") repeat;
 	width: 100%;
 	height: 100px;
+	float: left;
 	text-align: right;
 	border-radius: 6px;
+	margin-top:	50px;
+}
+
+footer.absolute{
 	position: absolute;
 	bottom: 0;
 }
