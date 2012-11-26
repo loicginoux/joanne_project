@@ -20,6 +20,8 @@
 		data-user="<%= current_user.id %>"
 	<%end%>
 >
+
+<div id="wrapper">
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
@@ -113,8 +115,10 @@
 
 		</div>
 	</footer>
+
 	<script id="loading_tmpl" type="text/html">
 		<%= render "data_points/loading" %>
 	</script>
+</div>
 </body>
 </html>

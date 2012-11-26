@@ -17,6 +17,10 @@
 
 */
 
+
+
+
+
 .center{
 	text-align: center;
 }
@@ -284,18 +288,39 @@ border-left-width: 1px;
 }
 
 /* footer
+
+the rest of the rules are for always stick the footer at bottom
+see this tuto:
+http://www.cssreset.com/how-to-keep-footer-at-bottom-of-page-with-css/
 --------------------------------*/
+body, html {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+
+
+.container.content {
+	padding:10px;
+	padding-bottom:100px;   /* Height of the footer element */
+}
+
+
 footer {
 	background: url("../../assets/homepage/footer-bg.png") repeat;
 	width: 100%;
 	height: 100px;
-	float: left;
 	text-align: right;
 	border-radius: 6px;
 	margin-top:	50px;
+	position:absolute;
+	bottom:0;
+	left:0;
 }
 
-footer.absolute{
-	position: absolute;
-	bottom: 0;
-}
+
