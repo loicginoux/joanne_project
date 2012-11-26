@@ -108,6 +108,8 @@ class UsersController < ApplicationController
     case action_name
     when "new"
       "home"
+    when "create"
+      "home"
     else
       "application"
     end

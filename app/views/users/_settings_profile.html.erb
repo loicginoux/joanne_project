@@ -59,15 +59,8 @@
 					<%end%>
 				</div>
 			</div>
-			<div class="control-group <% if @user.errors[:timezone].present? %>error<%end%>">
-				<div class="controls">
-					<%= time_zone_select( "user", 'timezone', nil, :default => 'Central Time (US & Canada)' )
-					%>
-					<% if @user.errors[:timezone].present? %>
-					<span class="help-inline"><%= @user.errors[:timezone].join(", ")%></span>
-					<%end%>
-				</div>
-			</div>
+
+			<%= f.hidden_field :timezone %>
 
 
 

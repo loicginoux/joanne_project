@@ -3,9 +3,12 @@
 		<%= form_for @user_session, :html => { :class => "form-horizontal" } do |f| %>
 	   	<% if @user_session.errors.any? %>
 				<div class="alert alert-error">
-					<% @user_session.errors.full_messages.each do |msg| %>
-						<p><%= msg %></p>
-					<% end %>
+					<p>Username and/or password incorrect</p>
+					<div class="hide">
+						<% @user_session.errors.full_messages.each do |msg| %>
+							<p><%= msg %></p>
+						<% end %>
+					</div>
 				</div>
 			<% end %>
 			<fieldset>
