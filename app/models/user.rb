@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   validates :username,
     :presence => true,
-    :uniqueness => { :case_sensitive => false },
-    :format => { :with => /^[a-zA-Z]+$/, :message => "Only letters and numbers allowed" }
+    :uniqueness => { :case_sensitive => false }
   validates :email,
     :format => { :with => /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/ },
     :presence => true,
@@ -15,7 +14,10 @@ class User < ActiveRecord::Base
   validates_attachment_size :picture, :less_than=>3.megabyte
   validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
 
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z]+$/)
+  end
+
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
   disable_perishable_token_maintenance(true)
   before_validation :reset_perishable_token!, :on => :create

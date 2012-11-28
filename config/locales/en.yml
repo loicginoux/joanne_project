@@ -6,3 +6,6 @@ en:
     date:
       formats:
         default: "%m-%d-%Y"
+    authlogic:
+      error_messages:
+        login_invalid: "Only letters and numbers allowed"
