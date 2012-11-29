@@ -11,7 +11,7 @@ class AuthenticationsController < ApplicationController
 
   def create
     omniauth = request.env['omniauth.auth']
-    logger.debug omniauth.inspect
+    puts omniauth.inspect
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
     if authentication
@@ -35,7 +35,15 @@ class AuthenticationsController < ApplicationController
         flash[:info] = 'User created and signed in successfully.'
         sign_in_and_redirect(user)
       else
-        session[:omniauth] = omniauth
+        # session[:omniauth] = omniauth
+        session[:omniauth] =  {:provider=>omniauth['provider'],
+                              :uid => omniauth['uid'],
+                              :username => omniauth['extra']['raw_info']['username'] ,
+                              :email => omniauth[:info][:email],
+                              :access_token => omniauth["credentials"]['token'],
+                              :image => omniauth[:info][:image]}
+        puts "session[:omniauth]:"
+        puts session[:omniauth]
         redirect_to register_path
       end
     end

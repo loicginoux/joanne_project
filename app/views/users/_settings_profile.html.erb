@@ -17,7 +17,7 @@
 			<div class="control-group <% if @user.errors[:username].present? %>error<%end%>">
 				<div class="controls">
 					<% if session[:omniauth] %>
-					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:info][:nickname].gsub('.', ''), :placeholder=> "Username" %>
+					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:username].gsub('.', ''), :placeholder=> "Username" %>
 					<% else %>
 					<%= f.text_field :username, :class => "input-xlarge" , :placeholder=> "Username"  %>
 					<%end%>
@@ -29,7 +29,7 @@
 			<div class="control-group <% if @user.errors[:email].present? %>error<%end%>">
 				<div class="controls">
 					<% if session[:omniauth] %>
-					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:info][:email], :placeholder=> "Email"  %>
+					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:email], :placeholder=> "Email"  %>
 					<% else %>
 					<%= f.text_field :email, :class => "input-xlarge", :placeholder=> "Email"  %>
 					<%end%>

@@ -122,6 +122,13 @@ class User < ActiveRecord::Base
       if self.username.nil?
         self.username = fb_username
       end
+      puts "image"
+      puts omniauth[:info][:image]
+      if omniauth[:info][:image]
+        self.picture = open(omniauth[:info][:image])
+        puts "self.picture"
+        puts self.picture
+      end
       self.fb_sharing = true
     when 'twitter'
       # fetch extra user info from twitter

@@ -25,9 +25,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
-
-    puts @user.inspect
-    puts params[:username]
     gon.daily_calories_limit = @user.daily_calories_limit
     if @user.isUserAllowed(current_user)
       gon.isCurrentUserDashboard = true
@@ -60,10 +57,14 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
     if session[:omniauth]
-      @user.authentications.build(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :username => session[:omniauth]['extra']['raw_info']['username'] , :access_token => session[:omniauth]["credentials"]['token'])
+      @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid], :username => session[:omniauth][:username] , :access_token => session[:omniauth][:access_token])
+      if session[:omniauth][:image]
+        @user.picture = open(session[:omniauth][:image])
+      end
       #we verify directly the account, no need to verify email
       if @user.verify!
         user_session = UserSession.new(User.find_by_single_access_token(@user.single_access_token))
+
         user_session.save
         session[:omniauth] = nil
         redirect_to user_path(:username=> @user.username), notice: 'successfully logged in.'
@@ -95,6 +96,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.first(:conditions => {:username=> params[:username]})
+    @user.picture.destroy
     @user.destroy
     respond_to do |format|
       format.html { redirect_to static_path("home") }

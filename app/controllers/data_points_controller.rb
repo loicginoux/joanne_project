@@ -114,6 +114,7 @@ class DataPointsController < ApplicationController
   # DELETE /data_points/1.json
   def destroy
     @data_point = DataPoint.find(params[:id])
+    @data_point.photo.destroy
     @data_point.destroy
 
     respond_to do |format|
