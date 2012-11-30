@@ -16,6 +16,7 @@
 		<fieldset>
 			<div class="control-group <% if @user.errors[:username].present? %>error<%end%>">
 				<div class="controls">
+					<%= label_tag :username %>
 					<% if session[:omniauth] %>
 					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:username].gsub('.', ''), :placeholder=> "Username" %>
 					<% else %>
@@ -28,6 +29,7 @@
 			</div>
 			<div class="control-group <% if @user.errors[:email].present? %>error<%end%>">
 				<div class="controls">
+					<%= label_tag :email%>
 					<% if session[:omniauth] %>
 					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:email], :placeholder=> "Email"  %>
 					<% else %>
@@ -45,6 +47,7 @@
 			</div>
 			<div class="control-group <% if @user.errors[:password].present? %>error<%end%>">
 				<div class="controls">
+					<%= label_tag :password %>
 					<%= f.password_field :password, :class => "input-xlarge", :placeholder=> "Password"   %>
 					<% if @user.errors[:password].present? %>
 					<span class="help-inline"><%= @user.errors[:password].join(", ")%></span>
@@ -53,6 +56,7 @@
 			</div>
 			<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
 				<div class="controls">
+          			<%= label_tag :password_confirmation %>
 					<%= f.password_field :password_confirmation, :class => "input-xlarge" , :placeholder=> "Password confirmation"  %>
 					<% if @user.errors[:password_confirmation].present? %>
 					<span class="help-inline"><%= @user.errors[:password_confirmation].join(", ")%></span>
@@ -78,7 +82,7 @@
 				<a href="/auth/twitter" class="auth_provider">
 				<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
 			</a> -->
-				<%end%>
+			<%end%>
 			<%end%>
 		</div>
 	</fieldset>

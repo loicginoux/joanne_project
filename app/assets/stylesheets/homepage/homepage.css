@@ -167,6 +167,13 @@ iframe.youtube_video {
 }
 
 /* login and register ----------------------------------------------------*/
+
+.controls label{
+	float: left;
+	margin: 0 175px 2px;
+	color: black;
+}
+
 .form-actions{
 	background-color: transparent;
 	border-top: 0;

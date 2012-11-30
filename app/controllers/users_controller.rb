@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
     gon.daily_calories_limit = @user.daily_calories_limit
-    if @user.isUserAllowed(current_user)
+    if @user.is(current_user)
       gon.isCurrentUserDashboard = true
       gon.last_login_at = current_user.last_login_at
     else

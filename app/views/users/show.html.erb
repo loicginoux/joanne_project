@@ -1,7 +1,7 @@
 <div id="photoCalendar" data-user = "<%= @user.id%>">
 
 	<div class="pull-right">
-		<% if @user.isUserAllowed(current_user) %>
+		<% if @user.is(current_user) %>
 			<%= link_to('#new_upload',:class=>"btn btn-primary upload_btn", 'data-toggle'=>"modal") do%>
 				<i class="icon-upload icon-white"></i>
 				Upload

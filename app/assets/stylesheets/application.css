@@ -287,6 +287,14 @@ border-left-width: 1px;
 	padding-bottom: 15px;
 }
 
+#hi_current_user{
+	font-size: 18px;
+	text-shadow: none;
+	text-transform: uppercase;
+	padding: 25px 12px 0;
+	display: inline-block;
+	color: black;
+}
 /* footer
 
 the rest of the rules are for always stick the footer at bottom

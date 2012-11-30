@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
     :uniqueness => true
   validates :password,
     :confirmation => true,
-    :length => { :minimum => 6 },
     :presence => true,
     :on => :create
   validates_attachment_size :picture, :less_than=>3.megabyte
@@ -16,6 +15,8 @@ class User < ActiveRecord::Base
 
   acts_as_authentic do |c|
     c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z]+$/)
+    c.merge_validates_length_of_password_field_options(:minimum => 6)
+    c.merge_validates_length_of_password_confirmation_field_options(:minimum => 6)
   end
 
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
@@ -72,6 +73,9 @@ class User < ActiveRecord::Base
   end
 
 
+  def confirmed?
+    self.confirmed
+  end
 
   def verify!
       self.confirmed = true
@@ -87,7 +91,7 @@ class User < ActiveRecord::Base
     "#{username}"
   end
 
-  def isUserAllowed(user)
+  def is(user)
     if user
        user.username == self.username
     else
