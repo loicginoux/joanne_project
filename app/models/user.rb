@@ -160,4 +160,18 @@ class User < ActiveRecord::Base
       :data_point_id => data_point.id
     ).first
   end
+
+  def getEmailProviderUrl()
+    lookup = {
+      "gmail"=> "http://www.gmail.com",
+      "hotmail"=> "http://www.hotmail.com",
+      "outlook"=> "http://www.outlook.com",
+      "yahoo"=> "http://www.yahoo.com",
+      "icloud"=> "http://www.icloud.com",
+      "aol"=> "http://www.mail.aim.com"
+    }
+    match = self.email.match /@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*)\./
+    provider = match[1]
+    return lookup[provider]
+  end
 end

@@ -227,6 +227,10 @@ div.editable_img_container{
 	margin-bottom:20px;
 }
 
+a.username{
+	text-transform: capitalize;
+}
+
 /*user list (team rubix page and following page)
 --------------------------------*/
 
@@ -294,6 +298,11 @@ border-left-width: 1px;
 	padding: 25px 12px 0;
 	display: inline-block;
 	color: black;
+}
+
+.navbar .user_pic{
+	float: left;
+	margin-top: 10px;
 }
 /* footer
 

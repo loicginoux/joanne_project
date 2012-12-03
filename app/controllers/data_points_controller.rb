@@ -60,7 +60,7 @@ class DataPointsController < ApplicationController
       user = User.find_by_email(params["sender"].downcase)
 
 
-      if params["Subject"] && user
+      if params["attachment-1"] && user
         @data_point = DataPoint.new
         @data_point.user_id = user.id
         match = (params["Subject"]).match(/(\d)+/)

@@ -62,8 +62,10 @@
 
 						<% if current_user %>
 							<% if @user && !@user.is(current_user) %>
+								<%= getPicture(@user, 'small') %>
 								<h3  id="hi_current_user"><%= @user.username%>'s diary</h3>
 							<%else%>
+								<%= getPicture(current_user, 'small') %>
 								<li class="dropdown">
 									<a href="#" id="hi_current_user" class="dropdown-toggle" data-toggle="dropdown">Go <%= current_user.username%><b class="caret"></b></a>
 									<ul class="dropdown-menu">
