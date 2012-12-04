@@ -16,8 +16,8 @@ class Admin::MailerController < ApplicationController
 
   def preview_empty()
     @user = User.find(11)
-    startDate = (Time.now - 1.days).utc
-    endDate = Time.now.utc
+    startDate = (Time.zone.now - 1.days).utc
+    endDate = Time.zone.now.utc
     @data_points = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate
@@ -30,8 +30,8 @@ class Admin::MailerController < ApplicationController
 
   def preview_daily()
     @user = User.find(11)
-    startDate = (Time.now - 1.days).utc
-    endDate = Time.now.utc
+    startDate = (Time.zone.now - 1.days).utc
+    endDate = Time.zone.now.utc
     @data_points = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate
@@ -44,8 +44,8 @@ class Admin::MailerController < ApplicationController
 
   def preview_weekly()
     @user = User.find(11)
-    startDate = (Time.now - 7.days).utc
-    endDate = Time.now.utc
+    startDate = (Time.zone.now - 7.days).utc
+    endDate = Time.zone.now.utc
     @groups = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate

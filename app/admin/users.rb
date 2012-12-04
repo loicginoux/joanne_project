@@ -7,6 +7,7 @@ ActiveAdmin.register User do
 		column :username
 		column :email
 		column :confirmed
+		column :timezone
 		default_actions
 	end
 
@@ -14,6 +15,8 @@ ActiveAdmin.register User do
 	form do |f|
 		f.inputs "User Details" do
 			f.input :email
+			f.input :confirmed
+			f.input :timezone
 		end
 		f.buttons
 	end

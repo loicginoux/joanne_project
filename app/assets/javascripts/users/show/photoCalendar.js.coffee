@@ -209,23 +209,24 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	groupDataByDay: (data) ->
 		dataSorted = []
 		for point in data
-			newDate = new Date(point.uploaded_at).clearTime()
+			date = UTIL.getJsDateFromServer(point.uploaded_at)
+			date.clearTime()
 			if dataSorted == []
 				dataSorted.push({
-					date: newDate,
-					day_date: newDate.toString('dddd'),
+					date: date,
+					day_date: date.toString('dddd'),
 					data_points: [point]
 				})
 			else
 				added = false
 				for day in dataSorted
-					if newDate.compareTo(day.date) == 0
+					if date.compareTo(day.date) == 0
 						day.data_points.push(point)
 						added = true
 				if !added
 					dataSorted.push({
-						date: newDate,
-						day_date: newDate.toString('dddd'),
+						date: date,
+						day_date: date.toString('dddd'),
 						data_points: [point]
 					})
 		return dataSorted
@@ -242,7 +243,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			for day in data
 				for dataPoint in day.data_points
 					dataPoint.img_path = dataPoint.id + "/medium.jpg"
-					date = new Date(dataPoint.uploaded_at)
+					# we remove the timezone part of the date
+					date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
 					dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 					dataPoint.time_uploaded_at = date.toString('hh:mm tt')
@@ -260,7 +262,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				for day in week.week_data
 					for dataPoint in day.data_points
 						dataPoint.img_path = dataPoint.id + "/medium.jpg"
-						date = new Date(dataPoint.uploaded_at)
+						date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
 						dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 						dataPoint.time_uploaded_at = date.toString('hh:mm tt')

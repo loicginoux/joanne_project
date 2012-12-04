@@ -50,6 +50,16 @@ window.UTIL = {
 			result += chars.charAt(enc1) + chars.charAt(enc2) + chars.charAt(enc3) + chars.charAt(enc4)
 		result
 
+
+	getJsDateFromServer:(serverDate)->
+		match1 = serverDate.match(/(\w)+, (\d)+ (\w)+ (\d)+ (\d)+:(\d)+:(\d)+/)
+		match2 = serverDate.match(/(\d)+-(\d)+-(\d)+T(\d)+:(\d)+:(\d)+/)
+		if match1
+			date = new Date(match1[0])
+		else if match2
+			date = new Date(match2[0])
+		return date
+
 }
 
 $( document ).ready UTIL.init

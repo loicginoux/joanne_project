@@ -4,9 +4,12 @@ class DataPointsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
   def index
+    puts ">>>>>>>>>>>>> index"
+    puts params.inspect
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
-      startDate = Time.zone.parse(params[:start_date]).utc
-      endDate = Time.zone.parse(params[:end_date]).utc
+      startDate = getDateFromParam(params[:start_date])
+      endDate = getDateFromParam(params[:end_date])
+
       @data_points = DataPoint.where(
         :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
@@ -53,14 +56,12 @@ class DataPointsController < ApplicationController
       # This is data coming from forms
       @data_point = DataPoint.new(params[:data_point])
       @data_point.user_id = user.id
-      @data_point.uploaded_at = DateTime.now
+      @data_point.uploaded_at = Time.zone.now
     else
       # This is data coming from mailgun
-
       user = User.find_by_email(params["sender"].downcase)
-
-
       if params["attachment-1"] && user
+        Time.zone = user.timezone
         @data_point = DataPoint.new
         @data_point.user_id = user.id
         if params["Subject"]
@@ -73,8 +74,7 @@ class DataPointsController < ApplicationController
         else
             @data_point.calories = 0
         end
-
-        @data_point.uploaded_at = DateTime.now
+        @data_point.uploaded_at = Time.zone.now
         @data_point.photo = params["attachment-1"]
       end
     end
@@ -104,23 +104,19 @@ class DataPointsController < ApplicationController
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
-    Rails.logger.debug params[:data_point][:uploaded_at]
-    if params[:data_point].has_key?(:uploaded_at)
-        # to not take into account timezone
-        params[:data_point][:uploaded_at] = Time.zone.parse(params[:data_point][:uploaded_at]).utc
-      end
-      puts params[:data_point]
-
-      respond_to do |format|
-        if @data_point.update_attributes(params[:data_point])
-          format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }
-          format.json { render json: @data_point }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @data_point.errors, status: :unprocessable_entity }
-        end
+    if params[:data_point]["uploaded_at"]
+      params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
+    end
+    respond_to do |format|
+      if @data_point.update_attributes(params[:data_point])
+        format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }
+        format.json { render json: @data_point }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @data_point.errors, status: :unprocessable_entity }
       end
     end
+  end
 
   # DELETE /data_points/1
   # DELETE /data_points/1.json

@@ -64,8 +64,9 @@ class UserMailer < ActionMailer::Base
 
   def weekly_recap_email(users)
     users.each {|user|
-      startDate = (Time.now - 7.days).utc
-      endDate = Time.now.utc
+      Time.zone = user.timezone
+      startDate = (Time.zone.now - 7.days).utc
+      endDate = Time.zone.now.utc
       @groups = DataPoint.where(
         :user_id => user.id,
         :uploaded_at => startDate..endDate
@@ -91,8 +92,9 @@ class UserMailer < ActionMailer::Base
 
   def daily_recap_email(users)
     users.each {|user|
-      startDate = (Time.now - 1.days).utc
-      endDate = Time.now.utc
+      Time.zone = user.timezone
+      startDate = (Time.zone.now - 1.days).utc
+      endDate = Time.zone.now.utc
       @data_points = DataPoint.where(
         :user_id => user.id,
         :uploaded_at => startDate..endDate

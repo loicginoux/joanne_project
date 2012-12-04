@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :mailer_set_url_options
   before_filter :set_timezone
   helper_method :current_user
+  helper_method :getDateFromParam
+
 
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
@@ -45,6 +47,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def getDateFromParam(date)
+    dateWithoutTimezone = Time.parse(date).strftime("%d-%m-%Y %I:%M %p")
+    return Time.zone.parse(dateWithoutTimezone)
+  end
 
   def require_login
     if current_user
@@ -68,4 +74,6 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+
+
 end

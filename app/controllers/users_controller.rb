@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
+    puts Time.zone.now.strftime("%I:%M %p")
     gon.daily_calories_limit = @user.daily_calories_limit
     if @user.is(current_user)
       gon.isCurrentUserDashboard = true
