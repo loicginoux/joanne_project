@@ -63,11 +63,15 @@ class DataPointsController < ApplicationController
       if params["attachment-1"] && user
         @data_point = DataPoint.new
         @data_point.user_id = user.id
-        match = (params["Subject"]).match(/(\d)+/)
-        if match && match[0]
-          @data_point.calories = match[0]
+        if params["Subject"]
+          match = (params["Subject"]).match(/(\d)+/)
+          if match && match[0]
+            @data_point.calories = match[0]
+          else
+            @data_point.calories = 0
+          end
         else
-          @data_point.calories = 0
+            @data_point.calories = 0
         end
 
         @data_point.uploaded_at = DateTime.now
