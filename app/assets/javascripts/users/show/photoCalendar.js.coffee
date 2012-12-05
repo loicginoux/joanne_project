@@ -397,7 +397,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 
 	onSuccessAjax: (data) =>
-
+		console.log("success ajax")
+		console.log(arguments)
 		$(".modal.in").modal('hide')
 		if @activeModal && typeof @activeModal.clean == "function"
 		  @activeModal.clean()

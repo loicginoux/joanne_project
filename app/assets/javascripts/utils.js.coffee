@@ -1,3 +1,10 @@
+if (typeof console == "undefined")
+	console = {
+		log:()->{}
+	}
+
+
+
 window.UTIL = {
 	exec: (controller, action) ->
 		ns = window.foodrubix
@@ -51,6 +58,11 @@ window.UTIL = {
 		result
 
 
+	# server send a date of type
+	#  Tue Dec 04 2012 04:30:00 GMT+0000 (GMT)
+	#
+	# we need to remove it the timezone part before transforming it in a javascript date
+	#  because the js date object transform it to utc time
 	getJsDateFromServer:(serverDate)->
 		match1 = serverDate.match(/(\w)+, (\d)+ (\w)+ (\d)+ (\d)+:(\d)+:(\d)+/)
 		match2 = serverDate.match(/(\d)+-(\d)+-(\d)+T(\d)+:(\d)+:(\d)+/)

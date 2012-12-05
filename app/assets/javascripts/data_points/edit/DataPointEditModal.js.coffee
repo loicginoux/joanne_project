@@ -149,6 +149,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 					data_point : data,
 					dataType: 'json',
 					success: @master.onSuccessAjax.bind @master
+					complete: ()->
+						console.log("complete ajax")
+						console.log(arguments)
 			})
 
 		beforeSend = () ->
@@ -165,6 +168,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		form.ajaxSubmit(
 			dataType:"json"
 			success: onSuccessUpdate.bind @
+			complete: (jqXHR, textStatus)->
+						console.log("complete ajax submit")
+						console.log(jqXHR, textStatus)
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)
