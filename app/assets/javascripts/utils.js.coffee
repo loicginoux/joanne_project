@@ -72,6 +72,21 @@ window.UTIL = {
 			date = new Date(match2[0])
 		return date
 
+	setCookie: (cookieName,cookieValue,nDays) ->
+		today = new Date()
+		expire = new Date()
+		if (nDays==null || nDays==0) then nDays=1
+		expire.setTime(today.getTime() + 3600000*24*nDays)
+		document.cookie = cookieName+"="+escape(cookieValue)+ ";expires="+expire.toGMTString()
+
+	readCookie: (cookieName) ->
+		theCookie=" "+document.cookie
+		ind=theCookie.indexOf(" "+cookieName+"=")
+		if (ind==-1) then ind=theCookie.indexOf(";"+cookieName+"=")
+		if (ind==-1 || cookieName=="") then return ""
+		ind1=theCookie.indexOf(";",ind+1)
+		if (ind1==-1) then ind1=theCookie.length
+		return unescape(theCookie.substring(ind+cookieName.length+2,ind1))
 }
 
 $( document ).ready UTIL.init

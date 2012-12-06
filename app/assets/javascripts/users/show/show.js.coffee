@@ -5,7 +5,8 @@ foodrubix.users.show = () ->
 
 
 manageLoginTooltip = () ->
-	if gon.isCurrentUserDashboard && !gon.last_login_at && gon.daily_calories_limit == 0
+	if gon.isCurrentUserDashboard && !gon.last_login_at && gon.daily_calories_limit == 0 && !UTIL.readCookie("DoNotDsplayCaloriesTip")
+		UTIL.setCookie("DoNotDsplayCaloriesTip", true, 30)
 		$("#hi_current_user").popover({
 			placement:"bottom",
 			trigger: "manual",
