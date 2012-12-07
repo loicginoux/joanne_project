@@ -67,9 +67,9 @@ window.UTIL = {
 		match1 = serverDate.match(/(\w)+, (\d)+ (\w)+ (\d)+ (\d)+:(\d)+:(\d)+/)
 		match2 = serverDate.match(/(\d)+-(\d)+-(\d)+T(\d)+:(\d)+:(\d)+/)
 		if match1
-			date = new Date(match1[0])
+			date = Date.parse(match1[0])
 		else if match2
-			date = new Date(match2[0])
+			date = Date.parse(match2[0])
 		return date
 
 	setCookie: (cookieName,cookieValue,nDays) ->

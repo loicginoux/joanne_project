@@ -179,6 +179,10 @@ iframe.youtube_video {
 	border-top: 0;
 }
 
+.span10 .alert{
+	margin-left: 160px;
+}
+
 .alert{
 	margin-left: 20px;
 }

@@ -13,6 +13,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".control-group.comment":     "divTextarea"
 		".nbLikes":                   "nbLikesHTML"
 		".nbComments":                "nbCommentsHTML"
+		".comments":                  "comments"
 		".viewMode":                  "viewElements"
 		".editMode":                  "editElements"
 		".editable_img_container img":"img"
@@ -215,6 +216,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	switchMode:()->
 		@viewElements.toggleClass("hide")
 		@editElements.toggleClass("hide")
+		@comments.toggleClass("hide")
 
 	changePhoto: (e) =>
 		@fileInput.click()

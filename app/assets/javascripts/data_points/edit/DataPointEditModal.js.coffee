@@ -72,7 +72,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 	onChangePhoto: (e) =>
 		input = e.target
-		if input.files && input.files[0]
+		if input.files && input.files[0] && typeof FileReader != "undefined"
 			reader = new FileReader()
 			reader.onload = (e) ->
 				$(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");

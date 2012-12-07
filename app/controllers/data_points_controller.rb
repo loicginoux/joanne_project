@@ -78,6 +78,8 @@ class DataPointsController < ApplicationController
         @data_point.photo = params["attachment-1"]
       end
     end
+    puts ">>>>>>>>>>>>> created photo"
+    puts @data_point.inspect
     respond_to do |format|
       if @data_point.save
         # publish to facebook
@@ -107,6 +109,8 @@ class DataPointsController < ApplicationController
     if params[:data_point]["uploaded_at"]
       params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
     end
+    puts ">>>>>>>>>>>>> updated photo"
+    puts params[:data_point].inspect
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
         format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }

@@ -16,7 +16,7 @@
 			<div class="editable_img_container pull-right">
 				<img  data-original-title="{{created_at_readable}}" data-content="Calories: {{calories}}" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}" />
 				<a class="btn btn-upload" href="#">Change photo</a>
-				<input class="hide data_point_photo" id="fileInput_{{id}}" name="data_point[photo]" type="file">
+				<input class="data_point_photo" id="fileInput_{{id}}" name="data_point[photo]" type="file">
 				<div class="progress progress-striped active hide">
 				  <div class="bar" style="width: 0%;"></div>
 				</div>
