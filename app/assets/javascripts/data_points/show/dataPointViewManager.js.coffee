@@ -79,14 +79,14 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	comment: () =>
 		if @btnComment.attr("disabled")
 			return
+		@el.find(".control-group.comment").removeClass('error')
+		@el.find('.help-inline.comment').addClass('hide')
 		if @divTextarea.hasClass("hide")
 			@divTextarea.removeClass("hide")
 			@divTextarea.find("textarea").focus()
 		else
 			text = @inputComment.val()
 			if text != ""
-				@el.find(".control-group.comment").removeClass('error')
-				@el.find('.help-inline.comment').addClass('hide')
 				@btnComment.button('loading').attr("disabled", true)
 				data =
 					user_id: @userId

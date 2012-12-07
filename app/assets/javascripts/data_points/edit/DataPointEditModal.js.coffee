@@ -106,7 +106,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		# validate time
 		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
-		debugger
+
 		date = $.timePicker(timePickerId).getTime()
 		unless date
 			validated = false
@@ -142,7 +142,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
-			console.log(data.id)
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
@@ -165,7 +164,10 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		# update photo first
 		form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
+		# first we need to send the file because jquery ajax can't do it
+		# on the success function we then update the attributes
 		form.ajaxSubmit(
+			dataType:"json",
 			success: onSuccessUpdate.bind @
 			complete: (jqXHR, textStatus)->
 						console.log("complete ajax submit")
