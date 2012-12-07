@@ -106,6 +106,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		# validate time
 		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
+		debugger
 		date = $.timePicker(timePickerId).getTime()
 		unless date
 			validated = false

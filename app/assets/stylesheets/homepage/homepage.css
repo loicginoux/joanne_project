@@ -180,9 +180,23 @@ iframe.youtube_video {
 }
 
 .alert{
-	margin-left: 160px;
+	margin-left: 20px;
 }
 
+.alert a.cta{
+	padding: 10px;
+	background-color: #E96000;
+	border-radius: 6px;
+	margin-left: 20px;
+	color: white;
+	text-align: center;
+	width: 145px;
+	text-transform: uppercase;
+	border: 1px solid #DB5B02;
+	display: inline-block;
+	margin: 10px 0 0 0;
+	float: none;
+}
 
 span.important_email{
 	width: 333px;

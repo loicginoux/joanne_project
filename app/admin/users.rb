@@ -1,4 +1,6 @@
 ActiveAdmin.register User do
+	scope :unconfirmed
+
 	before_filter :only => [:show, :edit, :update, :destroy] do
 		@user = User.find_by_username(params[:id])
 	end
@@ -8,6 +10,9 @@ ActiveAdmin.register User do
 		column :email
 		column :confirmed
 		column :timezone
+		column "nb photos" do |user|
+			user.data_points.count
+		end
 		default_actions
 	end
 
@@ -17,6 +22,8 @@ ActiveAdmin.register User do
 			f.input :email
 			f.input :confirmed
 			f.input :timezone
+			f.input :password
+			f.input :password_confirmation
 		end
 		f.buttons
 	end

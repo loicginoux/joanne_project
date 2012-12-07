@@ -246,6 +246,7 @@
   }
 
   function timeStringToDate(input, settings) {
+    debugger
     if (input) {
       var array = input.split(settings.separator);
       var hours = parseFloat(array[0]);
@@ -253,11 +254,11 @@
 
       // Convert AM/PM hour to 24-hour format.
       if (!settings.show24Hours) {
-        if (hours === 12 && input.indexOf('AM') !== -1) {
+        if (hours === 12 && input.toLowerCase().indexOf('am') !== -1) {
           hours = 0;
         }
-        else if (hours !== 12 && input.indexOf('PM') !== -1) {
-          hours += 12;
+        else if (hours !== 12 && input.toLowerCase().indexOf('pm') !== -1) {
+          hours = hours + 12;
         }
       }
       var time = new Date(0, 0, 0, hours, minutes, 0);

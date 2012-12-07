@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     User.where(:confirmed => true)
   }
 
+  scope :unconfirmed, lambda{||
+    User.where(:confirmed => false)
+  }
+
   #cancan gem
   ROLES = %w[admin]
 

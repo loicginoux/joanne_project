@@ -1,12 +1,12 @@
 
 class CommentsController < ApplicationController
   before_filter :require_login
-  
+
   # GET /comments
   # GET /comments.json
   def index
     if params[:data_point_id]
-      @comments = Comment.includes(:user).where(:data_point_id => params[:data_point_id]).order("created_at DESC")
+      @comments = Comment.includes(:user).where(:data_point_id => params[:data_point_id]).order("created_at ASC")
     else
       @comments = Comment.all
     end
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
       format.json { render json: @comments }
     end
   end
-  
+
 
   # GET /comments/1
   # GET /comments/1.json

@@ -15,8 +15,6 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions
   # POST /user_sessions.json
   def create
-    puts "para user session"
-    puts params[:user_session]
     @user_session = UserSession.new(params[:user_session])
     respond_to do |format|
       if @user_session.save

@@ -75,9 +75,9 @@ class UsersController < ApplicationController
     # we register directly a new user
     elsif @user.save
       if @user.getEmailProviderUrl()
-        flash[:notice] = "Thanks for signing up.\nCheck your email at <i>#{@user.email}</i> to complete the sign-up process.\n#{ActionController::Base.helpers.link_to "Go to your email", @user.getEmailProviderUrl(), :target => '_blank', :class=>'btn btn-small'}".html_safe
+        flash[:notice] = "Thanks for signing up. Check your email at <i>#{@user.email}</i> to complete the sign-up process.</br>#{ActionController::Base.helpers.link_to "Go to your email", @user.getEmailProviderUrl(), :target => '_blank', :class=>'cta'}".html_safe
       else
-        flash[:notice] = "Thanks for signing up.\nCheck your email at <i>#{@user.email}</i> to complete the sign-up process.".html_safe
+        flash[:notice] = "Thanks for signing up. Check your email at <i>#{@user.email}</i> to complete the sign-up process.".html_safe
       end
       @user.deliver_confirm_email_instructions!
       redirect_to static_path("home")
