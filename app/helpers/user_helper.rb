@@ -6,4 +6,6 @@ module UserHelper
 	def getUsername(user)
 		link_to user.username, user_path(:username=> user.username), :class=>"username"
 	end
+
+
 end

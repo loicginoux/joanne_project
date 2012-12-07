@@ -246,7 +246,6 @@
   }
 
   function timeStringToDate(input, settings) {
-    debugger
     if (input) {
       var array = input.split(settings.separator);
       var hours = parseFloat(array[0]);
