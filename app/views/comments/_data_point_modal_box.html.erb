@@ -4,7 +4,7 @@
 			<%= getPicture(comment.user, "small") %>
 		</div>
 		<div class="span3">
-			<h5><%= getUsername(comment.user) %></h5>
+			<h5><%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.created_at)%> ago</span></h5>
 			<p><%= comment.text %></p>
 		</div>
 	</div>

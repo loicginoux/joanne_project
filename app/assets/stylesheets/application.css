@@ -180,7 +180,13 @@ div.editable_img_container{
 
 }
 
-.filesystem .modal input[type="file"]{
+.no-filesystem .modal input[type="file"]{
+top: 47%;
+left: 5px;
+position: absolute;
+}
+
+/*.filesystem .modal input[type="file"]{
 	display:none;
 }
 
@@ -188,12 +194,8 @@ div.editable_img_container{
 	display:none;
 }
 
-.no-filesystem .modal input[type="file"]{
-top: 47%;
-left: 5px;
-position: absolute;
-}
 
+*/
 /*view photo popup box
 --------------------------------*/
 

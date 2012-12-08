@@ -27,7 +27,12 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 	initialize: () ->
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
-		@uploadBtn.click @changePhoto
+		console.log(gon.browser)
+		if gon.browser == "safari"
+			@uploadBtn.addClass("hide")
+			@fileInput.removeClass("hide")
+		else
+			@uploadBtn.click @changePhoto
 		@fileInput.change @onChangePhoto
 		@saveBtn.click @validateDataPointData
 		@deleteBtn.click @removeDataPoint
@@ -42,7 +47,10 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
-		@uploadBtn.removeClass('hide')
+		if gon.browser == "safari"
+			@fileInput.removeClass('hide')
+		else
+			@uploadBtn.removeClass('hide')
 		@bar.width('0%')
 		@calories.val('')
 		# now = new Date()
@@ -156,6 +164,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		beforeSend = () ->
 			@progress.removeClass('hide')
 			@uploadBtn.addClass('hide')
+			@fileInput.addClass('hide')
 			@bar.width('0%')
 
 		uploadProgress = (event, position, total, percentComplete) ->

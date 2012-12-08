@@ -5,12 +5,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .prev": "goToPrev"
 		"click .next": "goToNext"
 		"click .today": "gotToToday"
-		"hover .image": "onHoverImage"
+		# "hover .image": "onHoverImage"
 		"click .image": "onImageClick"
 		"click .overlay .like": "like"
 		"hover .overlay .label": "changeLabelColor"
 		"shown .modal.uploadPhoto": "initEditModal"
 		"shown .modal.viewPhoto": "fetchViewModal"
+		"hidden .modal.viewPhoto": "cleanViewModal"
 		"modalRendered .viewPhoto": "initViewModal"
 
 	elements:
@@ -30,6 +31,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			el:$('.modal.uploadPhoto')
 			master: @
 		})
+
+
 
 	refresh: () ->
 		UTIL.load($('#photos'), "photos", true)
@@ -120,6 +123,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			dataSorted = @createMonthDays(dataSorted)
 		@displayPhotos(dataSorted)
 		graphic = new foodrubix.graphic(dataSorted, @period, @date)
+
+		@el.delegate(".image", "hover", @onHoverImage.bind(@))
 
 	# {month:[
 	# 	{week_number:1,
@@ -361,15 +366,15 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	onHoverImage: (e) ->
 		target = $(e.target)
 		image = target.parents('.image')
+		if !image.length then image = target
 		overlay = image.find(".overlay")
-		image.find('.edit_data_point').toggleClass 'hide'
 
 		if e.type == "mouseleave"
-			overlay.stop(true, false).animate({
+			overlay.stop().animate({
 				bottom: '-44px'
 				}, 300)
 		else
-			overlay.stop(true, false).animate({
+			overlay.stop().animate({
 				bottom: '0px'
 				}, 300)
 
@@ -385,6 +390,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			url: '/data_points/'+@idImageClicked,
 			dataType: 'script'
 		})
+
+	cleanViewModal:()=>
+		@activeModal.el.find(".modal-body").empty()
 
 	initViewModal: () ->
 		@activeModal = new foodrubix.dataPointViewManager({
