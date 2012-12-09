@@ -4,12 +4,16 @@ class DataPointsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
   def index
-    puts ">>>>>>>>>>>>> index"
-    puts params.inspect
+
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
       startDate = getDateFromParam(params[:start_date])
       endDate = getDateFromParam(params[:end_date])
-
+      puts "             "
+      puts ">>>>>>>>>>>>> index"
+      puts params.inspect
+      puts "start: #{startDate}"
+      puts "end: #{endDate}"
+      puts "             "
       @data_points = DataPoint.where(
         :user_id => params[:user_id],
         :uploaded_at => startDate..endDate
@@ -72,14 +76,20 @@ class DataPointsController < ApplicationController
             @data_point.calories = 0
           end
         else
-            @data_point.calories = 0
+          @data_point.calories = 0
         end
         @data_point.uploaded_at = Time.zone.now
         @data_point.photo = params["attachment-1"]
       end
     end
+    puts "       "
     puts ">>>>>>>>>>>>> created photo"
     puts @data_point.inspect
+    puts "user: #{@data_point.user.username}"
+    puts "time.now: #{Time.now}"
+    puts "time.zone: #{Time.zone}"
+    puts "time.zone.now: #{Time.zone.now}"
+    puts "       "
     respond_to do |format|
       if @data_point.save
         # publish to facebook
@@ -101,18 +111,29 @@ class DataPointsController < ApplicationController
   # PUT /data_points/1
   # PUT /data_points/1.json
   def update
+    puts "       "
+    puts ">>>>>>>>>>>>> updated photo"
+    puts params[:data_point].inspect
+
     @data_point = DataPoint.find(params[:id])
     # if there is no photo in parameter, we remove it to not create an empty photo
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
     if params[:data_point]["uploaded_at"]
+      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
       params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
+      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
     end
-    puts ">>>>>>>>>>>>> updated photo"
-    puts params[:data_point].inspect
+
+    puts "user: #{@data_point.user.username}"
+    puts "time.now: #{Time.now}"
+    puts "time.zone: #{Time.zone}"
+    puts "time.zone.now: #{Time.zone.now}"
+    puts "       "
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
+        puts "data point after saved: #{@data_point.inspect}"
         format.html { redirect_to @data_point, notice: 'Data point was successfully updated.' }
         format.json { render json: @data_point }
       else
