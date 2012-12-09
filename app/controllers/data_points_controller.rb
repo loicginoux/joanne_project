@@ -123,7 +123,7 @@ class DataPointsController < ApplicationController
     if params[:data_point]["uploaded_at"]
       puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
       params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
-      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
+      puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
     end
 
     puts "user: #{@data_point.user.username}"
