@@ -124,7 +124,7 @@ class DataPointsController < ApplicationController
     end
     if params[:data_point]["uploaded_at"]
       puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
-      params[:data_point]["uploaded_at"] = params[:data_point]["uploaded_at"].utc
+      params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"]).utc
       puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
     end
     puts "user: #{@data_point.user.username}"
