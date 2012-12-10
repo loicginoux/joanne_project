@@ -6,8 +6,8 @@ class DataPointsController < ApplicationController
   def index
 
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
-      startDate = getDateFromParam(params[:start_date])
-      endDate = getDateFromParam(params[:end_date])
+      startDate = Time.zone.parse(params[:start_date])
+      endDate = Time.zone.parse(params[:end_date])
       puts "             "
       puts ">>>>>>>>>>>>> index"
       puts params.inspect
@@ -92,6 +92,8 @@ class DataPointsController < ApplicationController
     puts "       "
     respond_to do |format|
       if @data_point.save
+        puts "data point after saved: #{@data_point.inspect}"
+
         # publish to facebook
         if user.canPublishOnFacebook?
           user.fb_publish(@data_point)
@@ -120,12 +122,12 @@ class DataPointsController < ApplicationController
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
-    if params[:data_point]["uploaded_at"]
-      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
-      params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
-      puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
-    end
-
+    # if params[:data_point]["uploaded_at"]
+    #   puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
+    #   params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
+    #   puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
+    # end
+    puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
     puts "user: #{@data_point.user.username}"
     puts "time.now: #{Time.now}"
     puts "time.zone: #{Time.zone}"

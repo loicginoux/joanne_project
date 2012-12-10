@@ -144,6 +144,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 	# data should have id, calories, uploaded_at
 	updateDataPoint: (e, data) =>
+		that = @
 		@saveBtn.button('loading')
 
 		# 	update data
@@ -155,10 +156,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 				url: '/data_points/'+data.id+'.json',
 				data:
 					data_point : data,
-					success: @master.onSuccessAjax.bind @master
-					complete: (jqXHR)->
-						console.log("complete ajax")
-						console.log(arguments)
+					success: that.master.onSuccessAjax.bind(that.master)
 			})
 
 		beforeSend = () ->
@@ -177,10 +175,11 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		# on the success function we then update the attributes
 		form.ajaxSubmit(
 			dataType:"json",
-			success: onSuccessUpdate.bind @
 			complete: (jqXHR, textStatus)->
 						console.log("complete ajax submit")
 						console.log(jqXHR, textStatus)
+						if jqXHR.statusText.indexOf("OK") != -1
+							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)
