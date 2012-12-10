@@ -101,7 +101,8 @@ class DataPointsController < ApplicationController
         else
           notice = 'Data point was successfully created.'
         end
-        format.html { redirect_to user_path(:username => user), notice: notice }
+        # format.html { redirect_to user_path(:username => user), notice: notice }
+        format.html { render json: @data_point}
         format.json { render json: @data_point }
       else
         format.html { render action: "new" }

@@ -324,6 +324,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 						console.log("complete ajax submit")
 						console.log(jqXHR, textStatus)
 						if jqXHR.statusText.indexOf("OK") != -1
+							console.log(arguments)
 							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
