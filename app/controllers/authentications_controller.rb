@@ -17,6 +17,8 @@ class AuthenticationsController < ApplicationController
     if authentication
       # User is already registered with application
       flash[:info] = 'Signed in successfully.'
+      #  we update his token in case of expiry
+      authentication.update_attributes(:access_token => omniauth["credentials"]["token"])
       sign_in_and_redirect(authentication.user)
 
     elsif current_user

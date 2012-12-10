@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
       :message => e.message
     }
     puts "Facebook error #{e.inspect}"
+    if e.type == "OAuthException"
+      redirect_to "https://www.facebook.com/dialog/oauth?client_id=#{FB_CONFIG[:fb_app_id]}&redirect_uri=/auth/facebbok/callback"
+    end
     redirect_to static_path('home')
   end
 
