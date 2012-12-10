@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
       :title => e.class,
       :message => e.message
     }
+    puts "Facebook error #{e.inspect}"
     redirect_to static_path('home')
   end
 
@@ -71,6 +72,8 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_back_or_default(default)
+    puts "redirect back or default: #{session[:return_to] || default}"
+
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
