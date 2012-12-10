@@ -122,12 +122,11 @@ class DataPointsController < ApplicationController
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
-    # if params[:data_point]["uploaded_at"]
-    #   puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
-    #   params[:data_point]["uploaded_at"] = getDateFromParam(params[:data_point]["uploaded_at"])
-    #   puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
-    # end
-    puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
+    if params[:data_point]["uploaded_at"]
+      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
+      params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"])
+      puts "uploaded at after server transform: #{params[:data_point]['uploaded_at']}"
+    end
     puts "user: #{@data_point.user.username}"
     puts "time.now: #{Time.now}"
     puts "time.zone: #{Time.zone}"
