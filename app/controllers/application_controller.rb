@@ -15,15 +15,18 @@ class ApplicationController < ActionController::Base
   rescue_from FbGraph::Exception, :with => :fb_graph_exception
 
   def fb_graph_exception(e)
-    flash[:error] = {
-      :title => e.class,
-      :message => e.message
-    }
+    # flash[:error] = {
+    #   :title => e.class,
+    #   :message => e.message
+    # }
+    puts "============== Facebook error =========="
     puts "Facebook error #{e.inspect}"
-    if e.type == "OAuthException"
-      redirect_to "https://www.facebook.com/dialog/oauth?client_id=#{FB_CONFIG[:fb_app_id]}&redirect_uri=/auth/facebbok/callback"
-    end
-    redirect_to static_path('home')
+    puts "error type: #{e.type}"
+    puts "error message: #{e.message}"
+    # if e.type == "OAuthException"
+    #   redirect_to "https://www.facebook.com/dialog/oauth?client_id=#{FB_CONFIG[:fb_app_id]}&redirect_uri=/auth/facebbok/callback"
+    # end
+    # redirect_to static_path('home')
   end
 
   #authentification
