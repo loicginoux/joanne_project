@@ -290,19 +290,21 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	# data should have id, calories, uploaded_at
 	updateDataPoint: (e, data) =>
+		that = @
 		@saveBtn.button('loading')
 
 		# 	update data
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
+			data.uploaded_at = data.uploaded_at.toISOString()
+			console.log(data.uploaded_at)
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
 				data:
 					data_point : data,
-					dataType: 'json'
-				success: @onSuccess.bind @
+					success: that.master.onSuccessAjax.bind(that.master)
 			})
 
 		beforeSend = () ->
@@ -317,8 +319,12 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		# update photo first
 		form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
 		form.ajaxSubmit(
-			dataType:"json"
-			success: onSuccessUpdate.bind @
+			dataType:"json",
+			complete: (jqXHR, textStatus)->
+						console.log("complete ajax submit")
+						console.log(jqXHR, textStatus)
+						if jqXHR.statusText.indexOf("OK") != -1
+							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)

@@ -151,6 +151,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
+			console.log(data.uploaded_at)
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
