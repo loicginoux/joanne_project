@@ -10,7 +10,7 @@ end
 
 desc "send daily email recap to users"
 task :send_daily_email => :environment do
-  	puts "sending daily emails: start"
+  	puts "sending daily emails: start at #{Time.now.utc}"
 	users = User.confirmed().where(:daily_email => true)
 	UserMailer.daily_recap_email(users)
 	puts "sending daily email: done"

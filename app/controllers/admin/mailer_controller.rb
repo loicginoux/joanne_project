@@ -38,6 +38,8 @@ class Admin::MailerController < ApplicationController
       )
     .order("uploaded_at ASC")
 
+    @totalDayCalories = @data_points.map(&:calories).inject(:+)
+
     render :partial => "email/daily_recap", :layout => "email"
 
   end

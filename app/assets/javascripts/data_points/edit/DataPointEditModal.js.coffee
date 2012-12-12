@@ -28,6 +28,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
 		console.log(gon.browser)
+		console.log gon.browser
 		if gon.browser == "safari"
 			@uploadBtn.addClass("hide")
 			@fileInput.removeClass("hide")

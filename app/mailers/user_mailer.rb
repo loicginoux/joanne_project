@@ -93,30 +93,32 @@ class UserMailer < ActionMailer::Base
   def daily_recap_email(users)
     users.each {|user|
       Time.zone = user.timezone
+      if Time.zone.now.hour == 2
+        endDate = Date.today.to_time_in_current_zone
+        startDate = endDate - 1.days
 
-      endDate = Date.today.to_time_in_current_zone
-      startDate = endDate - 1.days
+        @data_points = DataPoint.where(
+          :user_id => user.id,
+          :uploaded_at => startDate..endDate
+          )
+        .order("uploaded_at ASC")
 
-      @data_points = DataPoint.where(
-        :user_id => user.id,
-        :uploaded_at => startDate..endDate
-        )
-      .order("uploaded_at ASC")
+        @user = user
+        @totalDayCalories = @data_points.map(&:calories).inject(:+)
 
-      @user = user
+        puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
+        if @data_points.empty?
+          html = render :partial => "email/empty_recap", :layout => "email"
+        else
+          html = render :partial => "email/daily_recap", :layout => "email"
+        end
 
-      if @data_points.empty?
-        html = render :partial => "email/empty_recap", :layout => "email"
-      else
-        html = render :partial => "email/daily_recap", :layout => "email"
+        RestClient.post MAILGUN[:api_url]+"/messages",
+          :from => MAILGUN[:admin_mailbox],
+          :to => user.email,
+          :subject => "[FoodRubix] This is what you ate yesterday",
+          :html => html.to_str
       end
-
-      RestClient.post MAILGUN[:api_url]+"/messages",
-      :from => MAILGUN[:admin_mailbox],
-      :to => user.email,
-      :subject => "[FoodRubix] This is what you ate yesterday",
-      :html => html.to_str
-
     }
   end
 

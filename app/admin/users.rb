@@ -11,6 +11,7 @@ ActiveAdmin.register User do
 		column :email
 		column :confirmed
 		column :fb_sharing
+		column :daily_calories_limit
 		column :daily_email
 		column :weekly_email
 		column :fb_sharing
