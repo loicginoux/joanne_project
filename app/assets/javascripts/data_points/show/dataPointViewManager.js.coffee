@@ -116,14 +116,32 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@updateMasterInfo("comments")
 		@refreshComments()
 
-	updateMasterInfo: (which) =>
+	updateMasterInfo: (which, id) =>
 		if @master
 			  # body...
 			if which == "comments"
 				@master.el.find("#image_"+@id+ " span.nbComments").html(@nbComments)
-			else if which == "likes"
-				@master.el.find("#image_"+@id+ " span.nbLikes").html(@nbLikes)
-
+			else if which == "like"
+				if !id then console.log("no like id provided for master")
+				@master.el
+					.find("#image_"+@id+ " span.nbLikes")
+					.html(@nbLikes)
+					.parent(".label-info")
+					.addClass("liked")
+					.attr("like-id", id)
+					.find("i")
+					.addClass("icon-thumbs-down")
+					.removeClass("icon-thumbs-up")
+			else if which == "unlike"
+				@master.el
+					.find("#image_"+@id+ " span.nbLikes")
+					.html(@nbLikes)
+					.parent(".label-info")
+					.removeClass("liked")
+					.attr("like-id", '')
+					.find("i")
+					.removeClass("icon-thumbs-down")
+					.addClass("icon-thumbs-up")
 	like: () =>
 		if @btnLike.attr("disabled")
 			return
@@ -163,13 +181,13 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@btnLike.attr("data-like-id", data.id)
 		@nbLikes = @nbLikes+1
 		@nbLikesHTML.html(@nbLikes)
-		@updateMasterInfo("likes")
+		@updateMasterInfo("like", data.id)
 		@changeLikeState("Unlike")
 
 	onSuccessUnlike: (data, textStatus, jqXHR) =>
 		@nbLikes = @nbLikes - 1
 		@nbLikesHTML.html(@nbLikes)
-		@updateMasterInfo("likes")
+		@updateMasterInfo("unlike")
 		@changeLikeState("Like")
 
 	changeLikeState: (text) =>

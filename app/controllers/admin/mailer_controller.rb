@@ -30,8 +30,8 @@ class Admin::MailerController < ApplicationController
 
   def preview_daily()
     @user = User.find(11)
-    startDate = (Time.zone.now - 1.days).utc
-    endDate = Time.zone.now.utc
+    endDate = Date.today.to_time_in_current_zone
+    startDate = endDate - 1.days
     @data_points = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate

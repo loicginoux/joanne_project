@@ -4,11 +4,16 @@ ActiveAdmin.register User do
 	before_filter :only => [:show, :edit, :update, :destroy] do
 		@user = User.find_by_username(params[:id])
 	end
+
 	index do
 		column :id
 		column :username
 		column :email
 		column :confirmed
+		column :fb_sharing
+		column :daily_email
+		column :weekly_email
+		column :fb_sharing
 		column :timezone
 		column "nb photos" do |user|
 			user.data_points.count
