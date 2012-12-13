@@ -104,7 +104,7 @@ class UserMailer < ActionMailer::Base
         .order("uploaded_at ASC")
 
         @user = user
-        @totalDayCalories = @data_points.map(&:calories).inject(:+)
+        @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
         puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @data_points.empty?

@@ -15,5 +15,4 @@ foodrubix.common.init = () ->
 			gon.browser = "chrome"
 		else
 			gon.browser = "safari"
-	debugger
 

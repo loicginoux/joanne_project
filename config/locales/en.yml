@@ -9,3 +9,4 @@ en:
     authlogic:
       error_messages:
         login_invalid: "Only letters and numbers allowed"
+        not_confirmed: "Your account is not confirmed. Please check your email to complete the sign-up process."

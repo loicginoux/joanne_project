@@ -55,9 +55,6 @@ class DataPointsController < ApplicationController
   # POST /data_points
   # POST /data_points.json
   def create
-    puts response.headers['Content-type']
-    response.headers['Content-type'] = "application/json"
-    puts response.headers['Content-type']
     if !params[:data_point].nil?
       user = current_user
       # This is data coming from forms
@@ -92,8 +89,8 @@ class DataPointsController < ApplicationController
     puts "time.now: #{Time.now}"
     puts "time.zone: #{Time.zone}"
     puts "time.zone.now: #{Time.zone.now}"
-    puts "       "
 
+    puts "       "
     respond_to do |format|
       if @data_point.save
         puts "data point after saved: #{@data_point.inspect}"
@@ -105,7 +102,7 @@ class DataPointsController < ApplicationController
         else
           notice = 'Data point was successfully created.'
         end
-        format.html { redirect_to user_path(:username => user), notice: notice }
+        format.html { redirect_to user_path(:username => current_user) }
         format.json { render json: @data_point }
       else
         format.html { render action: "new" }
@@ -119,7 +116,6 @@ class DataPointsController < ApplicationController
   def update
     puts "       "
     puts ">>>>>>>>>>>>> updated photo"
-    puts response.headers['Content-type']
     puts params[:data_point].inspect
 
     @data_point = DataPoint.find(params[:id])
