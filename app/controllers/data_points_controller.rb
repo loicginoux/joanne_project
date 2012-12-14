@@ -28,14 +28,14 @@ class DataPointsController < ApplicationController
   end
 
   def show
-     # @data_point = DataPoint.includes(:comments => :us).where("comments.data_point_id", params[:id]).find(params[:id])
-     @data_point = DataPoint.includes(:comments => :user).find(params[:id])
-     respond_to do |format|
-        format.html # show.html.erb
-        format.js {  }
-        format.json { render :json => @data_point  }
-      end
+    # @data_point = DataPoint.includes(:comments => :us).where("comments.data_point_id", params[:id]).find(params[:id])
+    @data_point = DataPoint.includes(:comments => :user).find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js {  }
+      format.json { render :json => @data_point  }
     end
+  end
 
   # GET /data_points/new
   # GET /data_points/new.json
@@ -55,6 +55,7 @@ class DataPointsController < ApplicationController
   # POST /data_points
   # POST /data_points.json
   def create
+    fromMailgun = false
     if !params[:data_point].nil?
       user = current_user
       # This is data coming from forms
@@ -63,6 +64,7 @@ class DataPointsController < ApplicationController
       @data_point.uploaded_at = Time.zone.now
     else
       # This is data coming from mailgun
+      fromMailgun = true
       user = User.find_by_email(params["sender"].downcase)
       if params["attachment-1"] && user
         Time.zone = user.timezone
@@ -102,11 +104,13 @@ class DataPointsController < ApplicationController
         else
           notice = 'Data point was successfully created.'
         end
-        format.html { redirect_to user_path(:username => current_user) }
-        format.json { render json: @data_point }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @data_point.errors, status: :unprocessable_entity }
+        if !fromMailgun && current_user
+          format.html { redirect_to user_path(:username => current_user) }
+          format.json { render json: @data_point }
+        end
+      elsif !fromMailgun
+          format.html { render action: "new" }
+          format.json { render json: @data_point.errors, status: :unprocessable_entity }
       end
     end
   end

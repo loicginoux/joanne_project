@@ -4,7 +4,7 @@ Foodrubix::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  resources :likes
+  resources :likes, :only => [:new, :create, :destroy]
 
   resources :authentications
   resources :data_points
@@ -13,7 +13,7 @@ Foodrubix::Application.routes.draw do
   resources :password_resets
   resources :user_verifications
   resources :friendships
-  resources :comments
+  resources :comments, :except => [:show, :edit, :update]
 
   match "register" => "users#new", :as => :register
   match 'login' => "user_sessions#new", :as => :login
