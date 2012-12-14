@@ -107,6 +107,10 @@ class DataPointsController < ApplicationController
         if !fromMailgun && current_user
           format.html { redirect_to user_path(:username => current_user) }
           format.json { render json: @data_point }
+        else
+          format.html { redirect_to static_path('home') }
+          format.json { render json: @data_point }
+
         end
       elsif !fromMailgun
           format.html { render action: "new" }
