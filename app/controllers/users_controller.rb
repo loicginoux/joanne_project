@@ -13,21 +13,19 @@ class UsersController < ApplicationController
 
     @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
 
-
-
-
     # @groups = User.prepareGroups(@users, 3)
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @groups }
     end
   end
 
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
-    puts Time.zone.now.strftime("%I:%M %p")
-    gon.daily_calories_limit = @user.daily_calories_limit
-    if @user.is(current_user)
+    if @user
+      gon.daily_calories_limit = @user.daily_calories_limit
+    end
+    if @user && @user.is(current_user)
       gon.isCurrentUserDashboard = true
       gon.last_login_at = current_user.last_login_at
     else
@@ -37,10 +35,14 @@ class UsersController < ApplicationController
       if @user
           format.html # show.html.erb
           format.json { render :json => @user }
-
-
+      else
+        if current_user
+          format.html {redirect_to user_path(:username=> current_user.username), notice: 'this user does not exist'}
+        else
+          format.html {redirect_to static_path("home"), notice: 'this user does not exist'}
         end
       end
+    end
   end
 
   def new
@@ -87,7 +89,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    if current_user
+      @user = current_user
+      if current_user.username != params[:username]
+        redirect_to edit_user_path(:username=> current_user.username), notice: 'You can only edit your profile.'
+      end
+    end
   end
 
   def update

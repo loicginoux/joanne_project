@@ -1,13 +1,5 @@
 class AuthenticationsController < ApplicationController
 
-  def index
-    if current_user
-      @authentications = current_user.authentications
-    else
-      @authentications = Authentication.all
-    end
-  end
-
 
   def create
     omniauth = request.env['omniauth.auth']
@@ -51,11 +43,6 @@ class AuthenticationsController < ApplicationController
     end
   end
 
-  def destroy
-    @authentication = current_user.authentications.find(params[:id])
-    @authentication.destroy
-    flash[:notice] = "Successfully destroyed authentication."
-  end
 
   private
     def sign_in_and_redirect(user)

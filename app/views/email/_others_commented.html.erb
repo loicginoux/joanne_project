@@ -5,10 +5,10 @@
 
 
                <p>
-	Hi <%= @dataPoint.user.username.capitalize%>,
+	Hi <%= @user.username.capitalize%>,
 </p>
 <p>
-	<%= link_to @comment.user.username.capitalize, user_url(:username=> @comment.user.username)%> has commented on one of your meals.
+	<%= link_to @comment.user.username.capitalize, user_url(:username=> @comment.user.username)%> has left a comment on a photo you previously commented.
 </p>
 	<p>How exciting!</p>
 </p>

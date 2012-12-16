@@ -1,4 +1,9 @@
 ActiveAdmin.register DataPoint do
+	batch_action :delete do |selection|
+      DataPoint.find(selection).each do |dp|
+        dp.destroy
+      end
+    end
 	index do
 		column :id
 		column :user

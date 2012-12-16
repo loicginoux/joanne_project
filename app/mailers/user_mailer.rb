@@ -6,6 +6,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @reset_url = edit_password_reset_url(user.perishable_token)
     html = render :partial => "email/reset_password", :layout => "email"
+    puts "password reset email sent to: #{user.email}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => user.email,
@@ -17,6 +18,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @verification_url = user_verification_url(user.perishable_token)
     html = render :partial => "email/verify_account", :layout => "email"
+    puts "account verification email sent to: #{user.email}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => user.email,
@@ -24,16 +26,39 @@ class UserMailer < ActionMailer::Base
       :html => html.to_str
   end
 
-  def added_comment_email(dataPoint, comment)
+  # this mail is sent to the owner of a photo
+  def comment_on_your_photo_email(dataPoint, comment)
     @dataPoint = dataPoint
     @comment = comment
     @user = dataPoint.user
-    html = render :partial => "email/added_comment", :layout => "email"
+    html = render :partial => "email/comment_on_your_photo", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
-      :to =>dataPoint.user.email,
+      :to => @user.email,
       :subject => "[FoodRubix] New comment on your meal",
       :html => html.to_str
+
+    puts "new comment on your meal. email sent to: #{dataPoint.user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
+  end
+
+  # this mail is sent to the previous people who commented a photo
+  # to notify them there is a new comment
+  def others_commented_email(dataPoint, comment, users)
+    @dataPoint = dataPoint
+    @comment = comment
+    # [*users] converts one object into an array to run each against one element only
+    [*users].each {|user|
+      @user = user
+      html = render :partial => "email/others_commented", :layout => "email"
+      RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => @user.email,
+      :subject => "[FoodRubix] New comment on a meal you commented",
+      :html => html.to_str
+
+      puts "comment for previous commenters. email sent to: #{user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
+    }
+
 
   end
 
@@ -44,13 +69,13 @@ class UserMailer < ActionMailer::Base
     html = render :partial => "email/added_like", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
-      :to => dataPoint.user.email,
+      :to => @user.email,
       :subject => "[FoodRubix] #{like.user.username} liked your meal",
       :html => html.to_str
+    puts "new like email sent to: #{dataPoint.user.email}, like_id: #{like.id}, data_point_id: #{dataPoint.id}"
   end
 
   def new_follower_email(followee, follower)
-    # html = EmailController.new.new_follower.to_str
     @followee = followee
     @follower = follower
     @user = followee
@@ -60,6 +85,7 @@ class UserMailer < ActionMailer::Base
       :to => followee.email,
       :subject => "[FoodRubix] #{follower.username} is now following you",
       :html => html.to_str
+    puts "new follower email sent to: #{followee.email}, follower_id: #{follower.id}"
   end
 
   def weekly_recap_email(users)
