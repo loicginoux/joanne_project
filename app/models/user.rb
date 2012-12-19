@@ -49,11 +49,6 @@ class User < ActiveRecord::Base
      :default_url => '/assets/default_user.gif'
 
 
-  default_scope lambda{||
-    User.confirmed().active()
-    # User.where(:confirmed => true, :active => true)
-  }
-
   scope :without_user, lambda{|user|
     user ? {:conditions => ["users.id != ?", user.id]} : {}
   }
