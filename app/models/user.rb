@@ -48,6 +48,12 @@ class User < ActiveRecord::Base
      :s3_credentials => S3_CREDENTIALS,
      :default_url => '/assets/default_user.gif'
 
+
+  default_scope lambda{||
+    User.confirmed().active()
+    # User.where(:confirmed => true, :active => true)
+  }
+
   scope :without_user, lambda{|user|
     user ? {:conditions => ["users.id != ?", user.id]} : {}
   }
@@ -56,12 +62,23 @@ class User < ActiveRecord::Base
     User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
   }
 
-  scope :confirmed, lambda{||
-    User.where(:confirmed => true)
-  }
+  scope :confirmed, where(:confirmed => true)
+  scope :unconfirmed, where(:confirmed => false)
+  scope :active, where(:active => true)
+  scope :inactive, where(:active => false)
 
-  scope :unconfirmed, lambda{||
-    User.where(:confirmed => false)
+
+  # leaderboard points for each action
+  LEADERBOARD_ACTION_VALUE = {
+    :comment => 3,
+    :like => 1,
+    :data_point => 1,
+    :follow => 1,
+    :profile_photo => 5,
+    :daily_calories_limit => 5,
+    :fb_sharing => 10,
+    :hot_photo_award => 3,
+    :smart_choice_award => 5
   }
 
   #cancan gem
@@ -81,9 +98,15 @@ class User < ActiveRecord::Base
     self.confirmed
   end
 
+  def activate!
+    self.active = true
+    self.save
+  end
+
   def verify!
-      self.confirmed = true
-      self.save
+    self.confirmed = true
+    self.activate!
+    self.save
   end
 
   def deliver_password_reset_instructions!
@@ -177,5 +200,62 @@ class User < ActiveRecord::Base
     match = self.email.match /@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*)\./
     provider = match[1]
     return lookup[provider]
+  end
+
+  def assign_leaderboard_points()
+    points = 0
+    points += comments_points()
+    points += likes_points()
+    points += photo_upload_points()
+    points += followee_points()
+    points += profile_photo_points()
+    points += daily_calories_limit_points()
+    points += fb_sharing_points()
+    points += smart_choice_award_points()
+    points += hot_photo_award_points()
+    return points
+  end
+
+  def comments_points()
+    self.comments.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:comment]
+  end
+
+  def likes_points()
+    self.likes.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:like]
+  end
+
+  def followee_points()
+    self.followees.length * User::LEADERBOARD_ACTION_VALUE[:follow]
+  end
+
+  def profile_photo_points()
+    (self.picture.nil?) ? 0 : User::LEADERBOARD_ACTION_VALUE[:profile_photo]
+  end
+
+  def daily_calories_limit_points()
+    (self.daily_calories_limit == 0) ? 0 : User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+  end
+
+  def fb_sharing_points()
+    (self.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
+  end
+
+  def smart_choice_award_points()
+    self.data_points.smart_choice_awarded().length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
+  end
+
+  def hot_photo_award_points()
+    self.data_points.hot_photo_awarded().length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
+  end
+
+  def photo_upload_points()
+    # a point is awarded per photo and per day with a limit of 3 photo/point a day.
+    # we group a user photo per day,
+    # then we calculate the number of photo per day
+    # and for each day we add the points per photo. If a day has more than 3 photos, we count it as 3 points
+    self.data_points
+      .group_by(&:group_by_criteria)
+      .map {|k,v| v.length}
+      .inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
   end
 end

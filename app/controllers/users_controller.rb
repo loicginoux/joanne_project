@@ -7,16 +7,14 @@ class UsersController < ApplicationController
 
   def index
     # all but yourself and followee
-    @users = User.confirmed().without_user(current_user)
-    followee_ids = current_user.friendships.map(&:followee_id)
-    @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
+    @users = User.without_user(current_user).paginate(:per_page => 30, :page => params[:users_page])
+    # followee_ids = current_user.friendships.map(&:followee_id)
+    # @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
 
-    @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
+    # @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
 
-    # @groups = User.prepareGroups(@users, 3)
     respond_to do |format|
       format.html
-      format.json { render json: @groups }
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203140138) do
+ActiveRecord::Schema.define(:version => 20121217111457) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20121203140138) do
 
   create_table "data_points", :force => true do |t|
     t.integer  "calories"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20121203140138) do
     t.integer  "nb_comments",        :default => 0
     t.integer  "nb_likes",           :default => 0
     t.string   "description",        :default => ""
+    t.boolean  "smart_choice_award", :default => false
+    t.boolean  "hot_photo_award",    :default => false
   end
 
   create_table "friendships", :force => true do |t|
@@ -128,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20121203140138) do
     t.string   "last_login_ip"
     t.boolean  "daily_email",          :default => true
     t.boolean  "weekly_email",         :default => true
+    t.boolean  "active",               :default => false
+    t.integer  "leaderboard_points",   :default => 0
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

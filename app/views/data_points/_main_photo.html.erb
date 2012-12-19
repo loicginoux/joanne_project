@@ -1,5 +1,12 @@
 <div class="image" id="image_{{id}}" data-id="{{id}}" data-toggle="modal" data-target="#modal_view" >
 	<div class="cbm_wrap">
+		{{#ribbon}}
+		<div class="ribbon-wrapper right small">
+        	<div class="ribbon">
+            	<span>{{ribbon}}</span>
+        	</div>
+    	</div>
+    	{{/ribbon}}
 		<img class="thumb" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}"  />
 		<div class="overlay">
 			<div>

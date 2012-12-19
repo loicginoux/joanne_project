@@ -4,12 +4,20 @@ ActiveAdmin.register DataPoint do
         dp.destroy
       end
     end
+    scope :all
+    scope :hot_photo_awarded
+	scope :smart_choice_awarded
+
 	index do
 		column :id
 		column :user
 		column :calories
-		column :created_at
-		column :updated_at
+		column :award do |datapoint|
+			award = ""
+			award = "Hot Photo" if datapoint.hot_photo_award
+			award = "Smart Choice" if datapoint.smart_choice_award
+			award
+    	end
 		column :uploaded_at
 		column :photo do |datapoint|
       		getPhoto(datapoint, "thumbnail")

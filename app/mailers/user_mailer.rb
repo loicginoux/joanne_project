@@ -46,6 +46,7 @@ class UserMailer < ActionMailer::Base
   def others_commented_email(dataPoint, comment, users)
     @dataPoint = dataPoint
     @comment = comment
+    puts "users to be notified >>>>>"
     # [*users] converts one object into an array to run each against one element only
     [*users].each {|user|
       @user = user
@@ -70,7 +71,7 @@ class UserMailer < ActionMailer::Base
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => @user.email,
-      :subject => "[FoodRubix] #{like.user.username} liked your meal",
+      :subject => "[FoodRubix] #{like.user.username.capitalize} liked your meal",
       :html => html.to_str
     puts "new like email sent to: #{dataPoint.user.email}, like_id: #{like.id}, data_point_id: #{dataPoint.id}"
   end
@@ -83,7 +84,7 @@ class UserMailer < ActionMailer::Base
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => followee.email,
-      :subject => "[FoodRubix] #{follower.username} is now following you",
+      :subject => "[FoodRubix] #{follower.username.capitalize} is now following you",
       :html => html.to_str
     puts "new follower email sent to: #{followee.email}, follower_id: #{follower.id}"
   end

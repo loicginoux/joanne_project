@@ -21,6 +21,17 @@ class DataPoint < ActiveRecord::Base
   has_many :fans, :through => :likes, :source => :user
 
 
+  scope :hot_photo_awarded, lambda{||
+    DataPoint.where(:hot_photo_award => true)
+  }
+
+  scope :smart_choice_awarded, lambda{||
+    DataPoint.where(:smart_choice_award => true)
+  }
+
+  scope :same_day_as, lambda { |date|
+    DataPoint.where(:uploaded_at => date.beginning_of_day..date.end_of_day)
+  }
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:
   # attr_accessible :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at
 
@@ -30,6 +41,10 @@ class DataPoint < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def group_by_criteria
+    created_at.to_date.to_s(:db)
   end
 
 end

@@ -253,6 +253,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 					dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 					dataPoint.time_uploaded_at = date.toString('hh:mm tt')
+					dataPoint.ribbon = false
+					dataPoint.ribbon = "Smart Choice" if dataPoint.smart_choice_award
+					dataPoint.ribbon = "Hot Photo" if dataPoint.hot_photo_award
 					likeId = @userLikeImage( @userId, dataPoint)
 					if likeId
 						dataPoint.liked = "liked"
@@ -271,6 +274,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 						dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 						dataPoint.time_uploaded_at = date.toString('hh:mm tt')
+						dataPoint.ribbon = false
+						dataPoint.ribbon = "Smart Choice" if dataPoint.smart_choice_award
+						dataPoint.ribbon = "Hot Photo" if dataPoint.hot_photo_award
 						likeId = @userLikeImage( @userId, dataPoint)
 						if likeId
 							dataPoint.liked = "liked"
