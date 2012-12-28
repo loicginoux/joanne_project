@@ -149,16 +149,15 @@ class User < ActiveRecord::Base
               WHERE "u2".leaderboard_points > "u1".leaderboard_points
                 AND "u2"."confirmed" = \'t\'
                 AND "u2"."active" = \'t\'
-              ORDER BY leaderboard_points desc)+1 as "position",
+            )+1 as "position",
             (SELECT count(*)
               FROM "users" as "u3"
               WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
                 AND "u3"."confirmed" = \'t\'
                 AND "u3"."active" = \'t\'
-              ORDER BY total_leaderboard_points desc)+1 as "all_time_position"
+            )+1 as "all_time_position"
       FROM  "users" as "u1"
-      WHERE "u1".id = ?
-      ORDER BY leaderboard_points desc', self.id]).first
+      WHERE "u1".id = ?', self.id]).first
   end
 
   def apply_omniauth(omniauth)
