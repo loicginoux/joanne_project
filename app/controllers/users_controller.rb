@@ -18,8 +18,8 @@ class UsersController < ApplicationController
       .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
 
     pos = current_user.positionLeadership()
-    @current_user_position = pos.position
-    @current_user_total_position = pos.all_time_position
+    @current_user_position = pos.position.to_f
+    @current_user_total_position = pos.all_time_position.to_f
 
     @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
     @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_total_position )
