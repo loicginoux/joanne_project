@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
 
   acts_as_authentic do |c|
-    c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z]+$/)
+    c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
     c.merge_validates_length_of_password_field_options(:minimum => 6)
     c.merge_validates_length_of_password_confirmation_field_options(:minimum => 6)
   end
@@ -65,8 +65,10 @@ class User < ActiveRecord::Base
 
   # leaderboard points for each action
   LEADERBOARD_ACTION_VALUE = {
-    :comment => 3,
-    :like => 1,
+    :comment => 3, #your comment on a photo
+    :commented => 2, #someone else comment on your photo
+    :like => 1, #your like on a photo
+    :liked => 2, #someone else likes your photo
     :data_point => 1,
     :follow => 1,
     :profile_photo => 5,
@@ -137,6 +139,27 @@ class User < ActiveRecord::Base
     self.hasFacebookConnected? && self.fb_sharing
   end
 
+  def positionLeadership
+    User.find_by_sql(['
+      SELECT "u1".username,
+            "u1".leaderboard_points,
+            "u1".total_leaderboard_points,
+            (SELECT count(*)
+              FROM "users" as "u2"
+              WHERE "u2".leaderboard_points > "u1".leaderboard_points
+                AND "u2"."confirmed" = \'t\'
+                AND "u2"."active" = \'t\'
+              ORDER BY leaderboard_points desc)+1 as "position",
+            (SELECT count(*)
+              FROM "users" as "u3"
+              WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
+                AND "u3"."confirmed" = \'t\'
+                AND "u3"."active" = \'t\'
+              ORDER BY total_leaderboard_points desc)+1 as "all_time_position"
+      FROM  "users" as "u1"
+      WHERE "u1".id = ?
+      ORDER BY leaderboard_points desc', self.id]).first
+  end
 
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email']
@@ -200,7 +223,9 @@ class User < ActiveRecord::Base
   def assign_leaderboard_points()
     points = 0
     points += comments_points()
+    points += commented_points()
     points += likes_points()
+    points += liked_points()
     points += photo_upload_points()
     points += followee_points()
     points += profile_photo_points()
@@ -212,11 +237,19 @@ class User < ActiveRecord::Base
   end
 
   def comments_points()
-    self.comments.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:comment]
+    self.comments.onOthersPhoto().group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:comment]
+  end
+
+  def commented_points()
+    Comment.onOthersPhoto().whereDataPointBelongsTo(self).group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:commented]
   end
 
   def likes_points()
     self.likes.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:like]
+  end
+
+  def liked_points()
+    Like.onOthersPhoto().whereDataPointBelongsTo(self).length * User::LEADERBOARD_ACTION_VALUE[:liked]
   end
 
   def followee_points()
@@ -253,4 +286,19 @@ class User < ActiveRecord::Base
       .map {|k,v| v.length}
       .inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
   end
+
+  def addPoints(points)
+    new_points = self.leaderboard_points + points
+    new_total_points = self.total_leaderboard_points + points
+    self.update_attributes({
+      :leaderboard_points =>  new_points,
+      :total_leaderboard_points => new_total_points
+    })
+  end
+
+  def removePoints(points)
+    self.addPoints(-points)
+  end
+
+
 end

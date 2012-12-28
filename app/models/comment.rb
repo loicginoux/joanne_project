@@ -4,13 +4,11 @@ class Comment < ActiveRecord::Base
 
 	scope :onOthersPhoto, lambda{||
 		# comment that is in a photo not belonging to the commenter
-		Comment.find_by_sql('SELECT "comments".*
-			FROM "comments"
-			INNER JOIN "data_points"
-			ON "data_points"."id" = "comments"."data_point_id"
-			WHERE "comments"."user_id" != "data_points"."user_id"'
-		)
+		Comment.joins(:data_point).where('data_points.user_id != comments.user_id')
+	}
 
+	scope :whereDataPointBelongsTo, lambda{|user|
+		Comment.joins(:data_point).where('data_points.user_id = ?', user.id )
 	}
 
 	def onOwnPhoto?
@@ -18,4 +16,5 @@ class Comment < ActiveRecord::Base
 		usersDatapoint = self.data_point.user_id
 		return user == usersDatapoint
 	end
+
 end

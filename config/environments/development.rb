@@ -33,7 +33,7 @@ Foodrubix::Application.configure do
   config.assets.compress = false
 
   # serve assets from public directory
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
@@ -46,7 +46,7 @@ Foodrubix::Application.configure do
 
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://0.0.0.0:3001"
+  config.action_controller.asset_host = "http://0.0.0.0:5000"
   config.action_mailer.asset_host = config.action_controller.asset_host
 
   # email configuration

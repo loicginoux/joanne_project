@@ -1,0 +1,8 @@
+<% leaderboard_users.each_with_index do |user, index| %>
+	<%= render :partial => "leaderboard_user", :locals => {
+		:user => user,
+		:index => index,
+		:leaderboard_users => leaderboard_users,
+		:leaderboard => leaderboard
+	}%>
+<% end %>

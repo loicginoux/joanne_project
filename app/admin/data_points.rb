@@ -12,6 +12,7 @@ ActiveAdmin.register DataPoint do
 		column :id
 		column :user
 		column :calories
+		column :description
 		column :award do |datapoint|
 			award = ""
 			award = "Hot Photo" if datapoint.hot_photo_award
@@ -25,6 +26,40 @@ ActiveAdmin.register DataPoint do
 		default_actions
 	end
 
+	# show do
+	# 	panel "Photo Details" do
+	# 		attributes_table_for DataPoint do
+	# 			row("Status") { DataPoint.id }
+	# 			row("Title") { DataPoint.user }
+	# 			row("Project") { DataPoint.calories }
+	# 		end
+	# 	end
+	# 	active_admin_comments
+ #    end
+
+	show do
+		panel "Photo Details" do
+			attributes_table_for DataPoint.find(params[:id]),
+				:id,
+				:user,
+				:calories,
+				:description,
+				:smart_choice_award,
+				:hot_photo_award,
+				:created_at,
+				:updated_at,
+				:uploaded_at,
+				:photo_file_name,
+				:photo_content_type,
+				:nb_comments,
+				:nb_likes,
+				:photo do
+					 row("Photo") { getPhoto(DataPoint.find(params[:id]), "big")}
+
+				end
+        end
+
+	end
 
 
 end

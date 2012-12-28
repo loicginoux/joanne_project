@@ -80,6 +80,9 @@ gem 'newrelic_rpm'
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
 
+# more robust web server that webrick (default)
+gem 'thin'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

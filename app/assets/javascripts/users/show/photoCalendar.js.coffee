@@ -4,7 +4,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .period": "changeView"
 		"click .prev": "goToPrev"
 		"click .next": "goToNext"
-		"click .today": "gotToToday"
+		"click .today": "goToToday"
 		# "hover .image": "onHoverImage"
 		"click .image": "onImageClick"
 		"click .overlay .like": "like"
@@ -25,36 +25,37 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@period = "week"
 		@date = Date.today()
 		@userId = @el.attr("data-user")
-		@getDates("week", Date.today())
-		@getDataPoints(@onSuccessFetch)
+		@period = if (UTIL.readCookie("period")) then UTIL.readCookie("period") else "week"
+		$(".period."+@period).click()
 		@uploadModal = new foodrubix.DataPointEditModal({
 			el:$('.modal.uploadPhoto')
 			master: @
 		})
 
-
-
+	# refresh the photos on the page
 	refresh: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@getDataPoints(@onSuccessFetch)
 
 	#get start date and end date from a period and a date
 	# period is "day" or "week" or "month"
-	getDates: (period, date) ->
-		@startDate = date.clone()
-		@endDate = date.clone()
+	# date is a Date object
+	getDates: () ->
+		@startDate = @date.clone()
+		@endDate = @date.clone()
 		if @period == "day"
 			@endDate.set({hour:23, minute:59, second:59})
 		else if @period == "week"
-			@startDate.last().sunday() unless date.is().sunday()
+			@startDate.last().sunday() unless @date.is().sunday()
 			@startDate.clearTime()
-			@endDate.next().saturday() unless date.is().saturday()
+			@endDate.next().saturday() unless @date.is().saturday()
 			@endDate.set({hour:23, minute:59, second:59})
 		else if @period == "month"
 			@startDate.moveToFirstDayOfMonth().clearTime()
 			@endDate.moveToLastDayOfMonth().set({hour:23, minute:59, second:59})
 
 	#make the ajax call to get the data points
+	# for current user and between the @startDate and @endDate
 	getDataPoints: (onSuccessFetch) ->
 		$.ajax({
 			type: 'GET',
@@ -68,6 +69,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			success: onSuccessFetch.bind @
 		})
 
+	# change the views from month, week or day view
 	changeView: (e) ->
 		btn = $(e.target)
 		unless btn.hasClass('active')
@@ -77,9 +79,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			btn.addClass 'active'
 			@period = btn.attr("data-period")
 			@date = Date.today()
-			@getDates(@period, @date)
+			@getDates()
 			@getDataPoints(@onSuccessFetch)
+			UTIL.setCookie("period", @period, 30)
 
+	# go to the previous month/week/day depending on current displayed period
 	goToPrev: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
@@ -89,9 +93,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			when "week" then @date.add(-7).days()
 			when "month" then @date.add(-30).days()
 
-		@getDates(@period, @date)
+		@getDates()
 		@getDataPoints(@onSuccessFetch)
 
+	# go to the next month/week/day depending on current displayed period
 	goToNext: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
@@ -101,14 +106,15 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			when "week" then @date = @date.add(7).days()
 			when "month" then @date = @date.add(30).days()
 
-		@getDates(@period, @date)
+		@getDates()
 		@getDataPoints(@onSuccessFetch)
 
-	gotToToday: () ->
+	# display the right period which includes the day of today
+	goToToday: () ->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
 		@date = Date.today()
-		@getDates(@period, @date)
+		@getDates()
 		@getDataPoints(@onSuccessFetch)
 
 	#function to run on success of the ajax call to get data points
@@ -125,7 +131,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		graphic = new foodrubix.graphic(dataSorted, @period, @date)
 
 		@el.delegate(".image", "hover", @onHoverImage.bind(@))
+		# $(".like").tooltip()
 
+	# create the json data for displaying the month view
 	# {month:[
 	# 	{week_number:1,
 	# 	week_data:[
@@ -208,6 +216,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				first: first
 			})
 		newData
+
 	# group data by day
 	# return data sorted by date
 	# [{date: date, data:[]}]
@@ -312,6 +321,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		if gon.isCurrentUserDashboard
 			@attachDragAndDrops()
 
+	# when we drag and drop images around, we need to resize the css height of the day/week/month
 	unifyHeights: () ->
 		fn = (weekSpans)->
 			arr = weekSpans.map((i, el) ->
@@ -332,15 +342,64 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			)
 
 
-
+	# attach the drag and drop feature to move photos around
 	attachDragAndDrops:()->
 		$(".span1_7 img").imagesLoaded(@unifyHeights)
-		$(".week_view .image, .month_view .image").draggable();
+		#  for month and week view
+		$(".week_view .image, .month_view .image").draggable({zIndex: 1000});
 		$(".week_view .span1_7, .month_view tbody .span1_7").droppable(
 			hoverClass: "hoverActive",
 			drop: @onDrop.bind @
 		);
+		# for day view
+		that = @
+		$(".sortableImages").sortable(
+			axis: "y"
+			start: (e, ui)->
+        		ui.placeholder.height(ui.item.height())
+        		that.sortedItemIndex = ui.item.index()
+        	stop: @onDayDrop.bind @
+        )
 
+	#  called when we drop a photo on day view
+	onDayDrop:(event, ui)->
+		if @sortedItemIndex == ui.item.index() then return
+
+		# form the new date
+		id = ui.item.find(".image").attr("data-id")
+		nextPhotoTime = ui.item.next().find(".time").html()
+		prevPhotoTime = ui.item.prev().find(".time").html()
+
+		if nextPhotoTime
+			nextPhotoDate = this.date.clone().set({
+				hour:Date.parse(nextPhotoTime).getHours()
+				minute:Date.parse(nextPhotoTime).getMinutes()
+			})
+			datePhoto = nextPhotoDate.add(-1).minutes()
+		else if prevPhotoTime
+			prevPhotoDate = this.date.clone().set({
+				hour:Date.parse(prevPhotoTime).getHours()
+				minute:Date.parse(prevPhotoTime).getMinutes()
+			})
+			datePhoto = prevPhotoDate.add(+1).minutes()
+
+		# update date
+		if datePhoto
+			$.ajax({
+				type: "PUT",
+				url: '/data_points/'+id+'.json',
+				data:
+					data_point : {
+						id: id,
+						uploaded_at: datePhoto.toISOString()
+					},
+					dataType: 'json',
+					success: @onSuccessAjax.bind @
+			})
+
+
+
+	#  called when we drop a photo on month or week view
 	onDrop:(event, ui)->
 		# form the new date
 		id = ui.draggable.attr("data-id")
@@ -366,9 +425,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				success: @onSuccessAjax.bind @
 		})
 
+	# return true if the user 'userId' like the 'dataPoint'
 	userLikeImage: (userId, dataPoint) ->
 		return like.id for like in dataPoint.likes when like.user_id.toString() == userId
 
+	#  when hovering an image
 	onHoverImage: (e) ->
 		target = $(e.target)
 		image = target.parents('.image')
@@ -385,11 +446,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				}, 300)
 
 
-
+	#  called when we click the upload button and the modal box appears
 	initEditModal: (e) =>
 		@activeModal = @uploadModal
 		@uploadModal.initialize()
 
+	# loads the view template of a data point
+	# called when we click on a photo
 	fetchViewModal: (e) =>
 		$.ajax({
 			type: 'GET',
@@ -397,9 +460,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			dataType: 'script'
 		})
 
+	#  clear the view modal html when closing the view modal box
 	cleanViewModal:()=>
 		@activeModal.el.find(".modal-body").empty()
 
+	# called when the modal box for the view image is rendered
 	initViewModal: () ->
 		@activeModal = new foodrubix.dataPointViewManager({
 		 	el:$('.modal.in')
@@ -410,9 +475,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@idImageClicked = $(e.target).parents(".image").attr("data-id")
 
 
+	# when a photo is edited or created, we need to refresh the view to
+	# include the new photo
 	onSuccessAjax: (data) =>
-		console.log("success ajax")
-		console.log(arguments)
 		$(".modal.in").modal('hide')
 		if @activeModal && typeof @activeModal.clean == "function"
 		  @activeModal.clean()
@@ -423,7 +488,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		_.delay(fn.bind(@), 1000) #we put a delay to give time to server to update before to refresh
 
 
-
+	# like an image
 	like:(e)=>
 		el = $(e.target)
 		label = if el.hasClass("label") then el else el.parent(".label.like")
@@ -479,6 +544,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			})
 		e.stopPropagation()
 
+	# change the label color when hovering the overlay of the image
 	changeLabelColor:(e)=>
 		el = $(e.target)
 		if el.hasClass("label")

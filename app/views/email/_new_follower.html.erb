@@ -9,7 +9,7 @@
 				</p>
 				<p>Hi <%= @followee.username.capitalize%>,</p>
 				<p><%= link_to @follower.username.capitalize, user_url(:username=> @follower.username)%> is now following you.</p>
-				<p><%= link_to "Follow #{@follower.username}", team_rubix_url%>.</p>
+				<p><%= link_to "Follow #{@follower.username.capitalize}", team_rubix_url%>.</p>
             </td>
         </tr>
         <tr style="border-collapse: collapse;"><td width="580" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>

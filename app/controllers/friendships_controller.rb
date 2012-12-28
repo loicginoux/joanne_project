@@ -1,12 +1,18 @@
 class FriendshipsController < ApplicationController
   before_filter :require_login
-
+  helper_method :sort_column, :sort_direction
   # GET /friendships
   # GET /friendships.json
   def index
-    @friendships = current_user.friendships.paginate(:per_page => 30, :page => params[:page])
+    @users = current_user.friendships
+      .joins(:followee)
+      .order(sort_column + ' ' + sort_direction)
+      .map { |f| f.followee unless f.followee_id.nil?}
+      .paginate(:per_page => 10, :page => params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json {
         render json: @friendships
       }
@@ -39,4 +45,15 @@ class FriendshipsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def sort_column
+    params[:sort] || "users.leaderboard_points"
+  end
+
+  def sort_direction
+    params[:direction] || "desc"
+  end
 end
+

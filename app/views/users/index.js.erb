@@ -1,0 +1,36 @@
+<% if @update == "allTimeLeaderboard" %>
+
+	$(".total_leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
+		:leaderboard_users => @total_leaderboard_users,
+		:leaderboard => 'total_leaderboard'
+	}) %>");
+
+	// Hide link if it is last page otherwise update link
+	<% if @total_leaderboard_users.total_pages == @total_leaderboard_users.current_page %>
+	    $("#show_more_total_leaderboard_link").hide();
+	<% else %>
+	    $("#show_more_total_leaderboard_link").attr("href", "<%= users_path(:sort => sort_column, :direction => sort_direction, :total_leaderboard_page => (@total_leaderboard_users.current_page + 1)) %>");
+	<% end %>
+	<% if @isInTotalLeaderboard %>
+	    $(".current_user_total_leaderboard").hide();
+	<% end %>
+
+<% elsif @update == "leaderboard" %>
+
+	$(".leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
+		:leaderboard_users => @leaderboard_users,
+		:leaderboard => 'leaderboard'
+	}) %>");
+
+	// Hide link if it is last page otherwise update link
+	<% if @leaderboard_users.total_pages == @leaderboard_users.current_page %>
+	    $("#show_more_leaderboard_link").hide();
+	<% else %>
+	    $("#show_more_leaderboard_link").attr("href", "<%= users_path(:sort => 'leaderboard_points', :direction => 'desc', :leaderboard_page => (@leaderboard_users.current_page + 1)) %>");
+	<% end %>
+
+	<% if @isInLeaderboard %>
+	    $(".current_user_leaderboard").hide();
+	<% end %>
+
+<% end %>

@@ -72,6 +72,17 @@ window.UTIL = {
 			date = Date.parse(match2[0])
 		return date
 
+	# replace links into html a tags
+	replaceURLWithHTMLLinks: (selector) ->
+		exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+		selector.each((i)->
+			text = $(@).html()
+			text = text.replace(exp,"<a href='$1' target='_blank' >$1</a>")
+			$(@).html(text)
+		)
+
+
+
 	setCookie: (cookieName,cookieValue,nDays) ->
 		today = new Date()
 		expire = new Date()
@@ -80,12 +91,12 @@ window.UTIL = {
 		document.cookie = cookieName+"="+escape(cookieValue)+ ";expires="+expire.toGMTString()
 
 	readCookie: (cookieName) ->
-		theCookie=" "+document.cookie
-		ind=theCookie.indexOf(" "+cookieName+"=")
-		if (ind==-1) then ind=theCookie.indexOf(";"+cookieName+"=")
-		if (ind==-1 || cookieName=="") then return ""
-		ind1=theCookie.indexOf(";",ind+1)
-		if (ind1==-1) then ind1=theCookie.length
+		theCookie = " " + document.cookie
+		ind = theCookie.indexOf(" "+cookieName+"=")
+		if (ind == -1) then ind = theCookie.indexOf(";"+cookieName+"=")
+		if (ind == -1 || cookieName == "") then return ""
+		ind1= theCookie.indexOf(";",ind+1)
+		if (ind1 == -1) then ind1 = theCookie.length
 		return unescape(theCookie.substring(ind+cookieName.length+2,ind1))
 }
 

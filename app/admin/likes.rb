@@ -8,4 +8,13 @@ ActiveAdmin.register Like do
 		column :created_at
 		default_actions
 	end
+
+	form do |f|
+	  f.inputs "Like" do
+	    # add your other inputs
+	    f.input :user, :collection => User.all.map{ |user| [user.username, user.id] }
+	    f.input :data_point, :collection => DataPoint.all.map{ |dp| [dp.id, dp.id] }
+	    f.buttons
+  	end
+	end
 end

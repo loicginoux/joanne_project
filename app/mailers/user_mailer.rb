@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @verification_url = user_verification_url(user.perishable_token)
     html = render :partial => "email/verify_account", :layout => "email"
-    puts "account verification email sent to: #{user.email}"
+    puts "account verification email sent to: #{user.email} with url #{@verification_url}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => user.email,

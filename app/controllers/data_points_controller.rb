@@ -55,14 +55,8 @@ class DataPointsController < ApplicationController
   # POST /data_points.json
   def create
     fromMailgun = false
-    if !params[:data_point].nil?
-      user = current_user
-      # This is data coming from forms
-      @data_point = DataPoint.new(params[:data_point])
-      @data_point.user_id = user.id
-      @data_point.uploaded_at = Time.zone.now
-    else
-      # This is data coming from mailgun
+    # This is data coming from mailgun
+    if params[:data_point].nil?
       fromMailgun = true
       user = User.find_by_email(params["sender"].downcase)
       if params["attachment-1"] && user
@@ -82,6 +76,12 @@ class DataPointsController < ApplicationController
         @data_point.uploaded_at = Time.zone.now
         @data_point.photo = params["attachment-1"]
       end
+    # This is data coming from forms
+    else
+      user = current_user
+      @data_point = DataPoint.new(params[:data_point])
+      @data_point.user_id = user.id
+      @data_point.uploaded_at = Time.zone.now
     end
     puts "       "
     puts ">>>>>>>>>>>>> created photo"

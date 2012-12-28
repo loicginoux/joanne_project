@@ -1,4 +1,19 @@
+<div class="row" id="team-rubix">
+	<div class="span12" id="all-users">
+		<div class="cbm_wrap">
+			<div class="page-header">
+				<h3>People that inspire you.</h3>
+			</div>
+			<div class="users">
+				<% @users.each do |user| %>
+					<%= render :partial => "users/user", :locals => {:user => user}%>
+				<% end %>
+			</div>
+			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
+			<% unless @users.total_pages < 2 %>
+  				<%= link_to 'Show More', friendships_path(:sort => sort_column, :direction => sort_direction, :page => 2), :remote => true, :id => 'show_more_users_link', :class => "btn btn-small show_more"%>
+			<%end %>
 
-<h2>People that inspire you.</h2>
-
-<%= render :partial => "followees" %>
+		</div>
+	</div>
+</div>

@@ -9,4 +9,14 @@ ActiveAdmin.register Comment, :as => "photo comments" do
 		column :created_at
 		default_actions
 	end
+
+
+	form do |f|
+		f.inputs "Comment" do
+	    # add your other inputs
+		    f.input :user, :collection => User.all.map{ |user| [user.username, user.id] }
+		    f.input :data_point, :collection => DataPoint.all.map{ |dp| [dp.id, dp.id] }
+		    f.buttons
+  		end
+	end
 end

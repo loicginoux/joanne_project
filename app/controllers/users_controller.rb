@@ -4,17 +4,40 @@ class UsersController < ApplicationController
 
   layout :resolve_layout
 
+  helper_method :sort_column, :sort_direction, :nb_leaderboard_users_per_page
 
   def index
-    # all but yourself and followee
-    @users = User.confirmed().active().without_user(current_user).paginate(:per_page => 30, :page => params[:users_page])
-    # followee_ids = current_user.friendships.map(&:followee_id)
-    # @users = @users.without_followees(followee_ids).paginate(:per_page => 30, :page => params[:users_page])
+    @total_leaderboard_users = User.confirmed()
+      .active()
+      .order("total_leaderboard_points desc")
+      .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
 
-    # @followees = current_user.friendships.paginate(:per_page => 30, :page => params[:followees_page])
+    @leaderboard_users = User.confirmed()
+      .active()
+      .order("leaderboard_points desc")
+      .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
+
+    pos = current_user.positionLeadership()
+    @current_user_position = pos.position
+    @current_user_total_position = pos.all_time_position
+
+    @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
+    @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_total_position )
+
+    @latest_members = User.confirmed()
+                          .active()
+                          .limit(5)
+                          .order("created_at desc")
+
+    if params[:total_leaderboard_page]
+      @update = "allTimeLeaderboard"
+    elsif params[:leaderboard_page]
+      @update = "leaderboard"
+    end
 
     respond_to do |format|
       format.html
+      format.js
     end
   end
 
@@ -50,7 +73,7 @@ class UsersController < ApplicationController
        format.html # new.html.erb
        format.json { render json: @user }
      end
-   end
+  end
 
   def create
     params[:user][:username] = params[:user][:username].downcase
@@ -125,6 +148,18 @@ class UsersController < ApplicationController
     else
       "application"
     end
+  end
+
+  def sort_column
+    params[:sort] || "total_leaderboard_points"
+  end
+
+  def sort_direction
+    params[:direction] || "desc"
+  end
+
+  def nb_leaderboard_users_per_page
+    15
   end
 
 end

@@ -23,6 +23,18 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 	constructor: ()->
 		super
 		@id = @el.attr('data-id')
+		@ALLOWED_FILE_EXTENSIONS = [
+			"jpg",
+			"JPG",
+			"png",
+			"PNG",
+			"jpeg",
+			"JPEG",
+			"gif",
+			"GIF",
+			"TIF",
+			"tif"
+		]
 
 	initialize: () ->
 		@datePicker.datepicker()
@@ -81,7 +93,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 	onChangePhoto: (e) =>
 		input = e.target
-		if input.files && input.files[0] && typeof FileReader != "undefined"
+		fileName = @fileInput.val()
+		extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+		if input.files && input.files[0] && typeof FileReader != "undefined" && _.contains(@ALLOWED_FILE_EXTENSIONS, extension )
 			reader = new FileReader()
 			reader.onload = (e) ->
 				$(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
@@ -123,11 +137,19 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@el.find('.help-inline.time').removeClass('hide')
 
 		# validate photo
+		fileName = @fileInput.val()
 		if @isNewUploadBox
-			unless @fileInput.val()
+			unless fileName
 				validated = false
 				@el.find(".control-group.file").addClass('error')
 				@el.find('.help-inline.file').removeClass('hide')
+		if fileName
+			extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+			if !_.contains(@ALLOWED_FILE_EXTENSIONS, extension )
+				validated = false
+				@el.find(".control-group.file").addClass('error')
+				@el.find('.help-inline.fileExtension').removeClass('hide')
+
 
 		ISODate.set(
 			hour:date.getHours(),
@@ -180,8 +202,13 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			complete: (jqXHR, textStatus)->
 						console.log("complete ajax submit")
 						console.log(jqXHR, textStatus)
-						if jqXHR.statusText.indexOf("OK") != -1
+						# success
+						if jqXHR.status == 200
 							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
+						# else
+						# 	response = JSON.parse(jqXHR.responseText)
+						# 	console.log response
+
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)

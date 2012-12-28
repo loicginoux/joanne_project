@@ -1,0 +1,8 @@
+$(".users").append("<%= escape_javascript render( @users) %>");
+
+// Hide link if it is last page otherwise update link
+<% if @users.total_pages == @users.current_page %>
+    $("#show_more_users_link").hide();
+<% else %>
+    $("#show_more_users_link").attr("href", "<%= friendships_path(:sort => sort_column, :direction => sort_direction, :page => (@users.current_page + 1)) %>");
+<% end %>

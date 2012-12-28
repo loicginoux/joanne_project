@@ -1,14 +1,12 @@
-<div class="span4">
-	<div class="image pull-left">
-		<%= link_to user_path(:username=> user.username) do %>
-			<%=  image_tag user.picture.url(:small) %>
-			<%= user.username%>
-		<% end %>
-	</div>
-	<% if current_user.isFollowing(user).empty? %>
-		<%= link_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary pull-right"  %>
-	<% else %>
-		<%= link_to "Unfollow", current_user.isFollowing(user)[0], :method => :delete, :class => "btn btn-primary pull-right"  %>
-	<% end %>
 
-</div>
+<%= link_to user_path(:username=> user.username), :class => "user" do %>
+	<div class="image pull-left">
+		<%=  image_tag user.picture.url(:small) %>
+		<%= user.username%>
+	</div>
+
+	<div class="pull-right points">
+		<p><%= user.leaderboard_points%> points</p>
+		<%= render :partial => "users/follow_button", :locals => {:user => user}%>
+	</div>
+<% end %>

@@ -11,10 +11,12 @@ class LikeObserver < ActiveRecord::Observer
       UserMailer.added_like_email(dataPoint, like)
     end
 
-    # we add leaderboard points to the user who liked
-    new_points = like.user.leaderboard_points + User::LEADERBOARD_ACTION_VALUE[:like]
-    like.user.update_attributes(:leaderboard_points => new_points) unless like.user.is(dataPoint.user)
-
+    unless like.user.is(dataPoint.user)
+      # we add leaderboard points to the user who liked
+      like.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:like])
+      # we add leaderboard points to the photo's owner
+      like.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:liked])
+    end
   end
 
   def after_destroy(like)
@@ -22,9 +24,12 @@ class LikeObserver < ActiveRecord::Observer
     dataPoint = DataPoint.find(like.data_point_id)
     dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes-1)
 
-    # we remove leaderboard points to the user who liked
-    new_points = like.user.leaderboard_points - User::LEADERBOARD_ACTION_VALUE[:like]
-    like.user.update_attributes(:leaderboard_points => new_points) unless like.user.is(dataPoint.user)
+    unless like.user.is(dataPoint.user)
+      # we remove leaderboard points to the user who liked
+      like.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:like])
+      # we remove leaderboard points to the photo's owner
+      like.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:liked])
+    end
   end
 
 end

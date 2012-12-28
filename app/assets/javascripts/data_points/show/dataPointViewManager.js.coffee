@@ -14,6 +14,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".nbLikes":                   "nbLikesHTML"
 		".nbComments":                "nbCommentsHTML"
 		".comments":                  "comments"
+		".commentText":               "commentTexts"
 		".viewMode":                  "viewElements"
 		".editMode":                  "editElements"
 		".editable_img_container img":"img"
@@ -44,6 +45,8 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@userId = $("body").attr("data-user")
 		@nbLikes = parseInt(@nbLikesHTML.text())
 		@nbComments = parseInt(@nbCommentsHTML.text())
+		$(".likers").tooltip()
+		@replaceCommentsLinks()
 
 	refreshLike: () =>
 		$.ajax({
@@ -70,6 +73,11 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			data:
 				data_point_id: @id
 		})
+
+
+	replaceCommentsLinks:()->
+		UTIL.replaceURLWithHTMLLinks(@commentTexts)
+
 
 	onEnter: (e) =>
 
@@ -286,11 +294,19 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@el.find('.help-inline.time').removeClass('hide')
 
 		# validate photo
+		fileName = @fileInput.val()
 		if @isNewUploadBox
-			unless @fileInput.val()
+			unless fileName
 				validated = false
 				@el.find(".control-group.file").addClass('error')
 				@el.find('.help-inline.file').removeClass('hide')
+		if fileName
+			extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+			if !_.contains(@ALLOWED_FILE_EXTENSIONS, extension )
+				validated = false
+				@el.find(".control-group.file").addClass('error')
+				@el.find('.help-inline.fileExtension').removeClass('hide')
+
 
 		ISODate.set(
 			hour:date.getHours(),

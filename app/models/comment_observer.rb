@@ -18,17 +18,31 @@ class CommentObserver < ActiveRecord::Observer
     # we update the number of comments for the datapoint
     dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments+1)
 
-    # we add leaderboard points to the commenter
-    new_points = comment.user.leaderboard_points + User::LEADERBOARD_ACTION_VALUE[:comment]
-    comment.user.update_attributes(:leaderboard_points => new_points ) unless comment.user.is(dataPoint.user)
+    #previous comments from same commenter
+    previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
+    puts ">>>> #{previousComments.length}"
+
+    if !comment.user.is(dataPoint.user) && previousComments.length <= 1
+      # we add leaderboard points to the commenter
+      comment.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:comment])
+      # we add leaderboard points to the photo's owner
+      comment.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:commented])
+    end
   end
 
   def after_destroy(comment)
     dataPoint = DataPoint.find(comment.data_point_id)
     # we update the number of comments for the datapoint
     dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments-1)
-    # we remove leaderboard points to the commenter
-    new_points = comment.user.leaderboard_points - User::LEADERBOARD_ACTION_VALUE[:comment]
-    comment.user.update_attributes(:leaderboard_points => new_points ) unless comment.user.is(dataPoint.user)
+
+    previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
+
+    if !comment.user.is(dataPoint.user) && previousComments.length < 1
+      # we remove leaderboard points to the commenter
+      comment.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:comment])
+      # we remove leaderboard points to the photo's owner
+      comment.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:commented])
+
+    end
   end
 end

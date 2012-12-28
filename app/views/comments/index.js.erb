@@ -1,1 +1,3 @@
 $('.comments').html('<%= escape_javascript render("data_point_modal_box") %>');
+
+UTIL.replaceURLWithHTMLLinks($('.commentText'))

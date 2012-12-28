@@ -7,11 +7,15 @@
 	<div class="row">
 	{{#data}}
 		<div class="span3">
-		{{#data_points}}
-			<%= render "data_points/main_photo" %>			
-		{{/data_points}}
-		{{^data_points}}
-		{{/data_points}}
+		<ul class="sortableImages">
+			{{#data_points}}
+				<li>
+					<%= render "data_points/main_photo" %>
+				</li>
+			{{/data_points}}
+			{{^data_points}}
+			{{/data_points}}
+		</ul>
 		</div>
 		<div class="span9">
 			<div id="dayGraphicContainer"></div>
