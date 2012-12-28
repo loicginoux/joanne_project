@@ -13,6 +13,10 @@ group :production do
   gem 'pg'
 end
 
+group :staging do
+  gem 'pg'
+end
+
 group :test do
   gem 'sqlite3'
   #better fixtures

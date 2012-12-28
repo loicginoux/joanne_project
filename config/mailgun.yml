@@ -2,3 +2,8 @@ development:
     api_key: "key-6ut1qpxcjpbwsbs9jpueza6imr4hlrj8"
     api_url: "https://api:key-6ut1qpxcjpbwsbs9jpueza6imr4hlrj8@api.mailgun.net/v2/devfoodrubix.mailgun.org"
     admin_mailbox: "foodrubix@devfoodrubix.mailgun.org"
+
+staging:
+    api_key: "key-6ut1qpxcjpbwsbs9jpueza6imr4hlrj8"
+    api_url: "https://api:key-6ut1qpxcjpbwsbs9jpueza6imr4hlrj8@api.mailgun.net/v2/devfoodrubix.mailgun.org"
+    admin_mailbox: "foodrubix@devfoodrubix.mailgun.org"

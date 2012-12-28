@@ -1,7 +1,7 @@
-if Rails.env == "production"
+if Rails.env == "production" || Rails.env == "staging"
   # set credentials from ENV hash
-  S3_CREDENTIALS = { :access_key_id => ENV['AWS_ACCESS_KEY_ID'], 
-    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'], 
+  S3_CREDENTIALS = { :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
     :bucket => ENV["S3_BUCKET_NAME"]}
 else
   # get credentials from YML file
