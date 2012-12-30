@@ -7,7 +7,11 @@ class FriendshipObserver < ActiveRecord::Observer
 	end
 
 	def after_destroy(record)
-		record.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:follow])
-		record.followee.removePoints(User::LEADERBOARD_ACTION_VALUE[:followed])
+		if record.user
+			record.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:follow])
+		end
+		if record.followee
+			record.followee.removePoints(User::LEADERBOARD_ACTION_VALUE[:followed])
+		end
 	end
 end
