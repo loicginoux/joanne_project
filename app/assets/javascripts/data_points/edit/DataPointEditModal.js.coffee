@@ -72,7 +72,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@descrVal.val("")
 		@saveBtn.button('reset')
 		@controlGroups.removeClass('error')
-		@inlineHelps.addClass('hide')
+		@inlineHelps.not(".fileExtension").addClass('hide')
 
 	clean: () =>
 		if @isNewUploadBox
@@ -109,7 +109,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		#remove all previous error
 		@controlGroups.removeClass('error')
-		@inlineHelps.addClass('hide')
+		@inlineHelps.not(".fileExtension").addClass('hide')
 
 		# validate calories
 		calories = @calories.val()

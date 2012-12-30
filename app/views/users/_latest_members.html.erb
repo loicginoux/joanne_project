@@ -7,7 +7,7 @@
 		<%= link_to user_path(:username=> user.username), :class => "user" do %>
 		<div class="image pull-left">
 			<%=  image_tag user.picture.url(:small) %>
-			<%= user.username%>
+			<span class="username"><%= user.username%><span>
 		</div>
 		<div class="pull-right ago">
 			<p><%= time_ago_in_words(user.created_at)%> ago</p>

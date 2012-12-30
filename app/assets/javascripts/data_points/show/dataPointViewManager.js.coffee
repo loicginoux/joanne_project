@@ -267,7 +267,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		#remove all previous error
 		@controlGroups.removeClass('error')
-		@inlineHelps.addClass('hide')
+		@inlineHelps.not(".fileExtension").addClass('hide')
 
 		# validate calories
 		calories = @calories.val()
