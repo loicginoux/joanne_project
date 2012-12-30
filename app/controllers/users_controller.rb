@@ -4,13 +4,13 @@ class UsersController < ApplicationController
 
   layout :resolve_layout
 
-  helper_method :sort_column, :sort_direction, :nb_leaderboard_users_per_page
+  helper_method :sort_column, :sort_direction, :nb_total_leaderboard_users_per_page, :nb_leaderboard_users_per_page
 
   def index
     @total_leaderboard_users = User.confirmed()
       .active()
       .order("total_leaderboard_points desc")
-      .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
+      .paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
 
     @leaderboard_users = User.confirmed()
       .active()
@@ -18,11 +18,11 @@ class UsersController < ApplicationController
       .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
 
     pos = current_user.positionLeadership()
-    @current_user_position = pos.position.to_f
-    @current_user_total_position = pos.all_time_position.to_f
+    @current_user_position = pos.position.to_i
+    @current_user_total_position = pos.all_time_position.to_i
 
     @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
-    @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_total_position )
+    @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
 
     @latest_members = User.confirmed()
                           .active()
@@ -159,7 +159,10 @@ class UsersController < ApplicationController
   end
 
   def nb_leaderboard_users_per_page
-    15
+    10
   end
 
+  def nb_total_leaderboard_users_per_page
+    15
+  end
 end

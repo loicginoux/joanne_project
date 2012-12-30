@@ -358,11 +358,17 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			start: (e, ui)->
         		ui.placeholder.height(ui.item.height())
         		that.sortedItemIndex = ui.item.index()
+        		ui.item.parent("ul").addClass "hoverActive"
         	stop: @onDayDrop.bind @
+        	over: (e, ui)->
+        		console.log ui.item
+        		# ui.item.find(".image").addClass("hoverActive")
         )
 
 	#  called when we drop a photo on day view
 	onDayDrop:(event, ui)->
+		ui.item.parent("ul").removeClass "hoverActive"
+
 		if @sortedItemIndex == ui.item.index() then return
 
 		# form the new date

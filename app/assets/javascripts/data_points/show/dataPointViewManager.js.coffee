@@ -305,7 +305,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			if !_.contains(@ALLOWED_FILE_EXTENSIONS, extension )
 				validated = false
 				@el.find(".control-group.file").addClass('error')
-				@el.find('.help-inline.fileExtension').removeClass('hide')
+				# @el.find('.help-inline.fileExtension').removeClass('hide')
 
 
 		ISODate.set(

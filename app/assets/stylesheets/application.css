@@ -15,16 +15,11 @@
  *= require timePicker.css
  *= require icon.css
  *= require image_ribbon.css
+ *= require bootstrap.overwrite.css
 
 */
 
 
-
-
-
-.center{
-	text-align: center;
-}
 
 
 
@@ -73,6 +68,12 @@ background-color: #EEE;
 	height:35px;
 	padding: 13px 14px 0;
 	margin-bottom:0;
+	font-weight: bold;
+}
+
+.leaderboard .points,
+#all-users .points{
+	color: #E96000;
 	font-weight: bold;
 }
 .leaderboard .points,
@@ -128,13 +129,17 @@ background-color: #EEE;
 	height: 100px;
 }
 
-.dayView .cbm_wrap{
-	width: 175px;
-	height: 175px;
+.dayView .sortableImages{
+	padding: 5px 0;
+	margin: 0 0 9px 20px;
+}
+
+.dayView .sortableImages.hoverActive{
+ background-color: #E96000;
 }
 
 .cbm_wrap {
-	background: url('/assets/loading.gif') no-repeat 50% 50%;
+	background: white url('/assets/loading.gif') no-repeat 50% 50%;
 	display: block;
 	padding: 10px;
 	margin:3px;
@@ -155,9 +160,7 @@ position: relative;
 	overflow:hidden;
 	cursor: pointer;
 }
-.dayView .image{
-	width:200px;
-}
+
 .image .overlay{
 	position: absolute;
 	right: 0px;

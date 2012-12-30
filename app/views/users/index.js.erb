@@ -2,7 +2,8 @@
 
 	$(".total_leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
 		:leaderboard_users => @total_leaderboard_users,
-		:leaderboard => 'total_leaderboard'
+		:leaderboard => 'total_leaderboard',
+		:users_per_page => nb_total_leaderboard_users_per_page
 	}) %>");
 
 	// Hide link if it is last page otherwise update link
@@ -19,7 +20,8 @@
 
 	$(".leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
 		:leaderboard_users => @leaderboard_users,
-		:leaderboard => 'leaderboard'
+		:leaderboard => 'leaderboard',
+		:users_per_page => nb_leaderboard_users_per_page
 	}) %>");
 
 	// Hide link if it is last page otherwise update link

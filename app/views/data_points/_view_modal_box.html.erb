@@ -22,7 +22,7 @@
 					</div>
 					<div>
 						<span class="help-inline clear file hide">Please upload a photo</span>
-						<span class="help-inline clear fileExtension hide">File extension is invalid</span>
+						<span class="help-inline clear fileExtension">Format supported: jpg, png, gif, tiff</span>
 					</div>
 				</div>
 			</form>
@@ -105,12 +105,12 @@
 				</div>
 
 
-				<a href="#" class="btn btn-primary btn-comment viewMode" data-loading-text="Commenting...">
-					<i class="icon-white icon-comment"></i> Comment
+				<a href="#" class="btn btn-comment viewMode" data-loading-text="Commenting...">
+					<i class="icon-comment"></i> Comment
 				</a>
 				<%if current_user.like(@data_point).nil? %>
-				<a href="#" class="btn btn-primary btn-like viewMode" data-action="Like">
-					<i class="icon-white icon-thumbs-up"></i>
+				<a href="#" class="btn btn-like viewMode" data-action="Like">
+					<i class="icon-thumbs-up"></i>
 					<span> Like</span>
 				</a>
 				<%else%>

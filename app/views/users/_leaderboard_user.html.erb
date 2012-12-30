@@ -4,7 +4,7 @@
 			<% if defined? current_user_position %>
 				<%= current_user_position %>
 			<% else %>
-				<%= ((leaderboard_users.current_page * nb_leaderboard_users_per_page) - (nb_leaderboard_users_per_page - 1)) + index %>
+				<%= ((leaderboard_users.current_page * users_per_page) - (users_per_page - 1)) + index %>
 			<% end %>
 		</div>
 

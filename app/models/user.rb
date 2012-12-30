@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
     User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
   }
 
+
   scope :confirmed, where(:confirmed => true)
   scope :unconfirmed, where(:confirmed => false)
   scope :active, where(:active => true)
@@ -70,7 +71,8 @@ class User < ActiveRecord::Base
     :like => 1, #your like on a photo
     :liked => 2, #someone else likes your photo
     :data_point => 1,
-    :follow => 1,
+    :follow => 1, #you follow someone
+    :followed => 2, #someone follows you
     :profile_photo => 5,
     :daily_calories_limit => 5,
     :fb_sharing => 10,
@@ -125,6 +127,10 @@ class User < ActiveRecord::Base
 
   def followers_friendship
     Friendship.where(:followee_id => self.id)
+  end
+
+  def followers
+    Friendship.where(:followee_id => self.id).map { |f| f.user }
   end
 
   def isFollowing(followee)
@@ -227,6 +233,7 @@ class User < ActiveRecord::Base
     points += liked_points()
     points += photo_upload_points()
     points += followee_points()
+    points += follower_points()
     points += profile_photo_points()
     points += daily_calories_limit_points()
     points += fb_sharing_points()
@@ -253,6 +260,10 @@ class User < ActiveRecord::Base
 
   def followee_points()
     self.followees.length * User::LEADERBOARD_ACTION_VALUE[:follow]
+  end
+
+  def follower_points()
+    self.followers.length * User::LEADERBOARD_ACTION_VALUE[:followed]
   end
 
   def profile_photo_points()

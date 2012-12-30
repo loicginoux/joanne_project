@@ -29,6 +29,7 @@ class DataPointsController < ApplicationController
 
   def show
     @data_point = DataPoint.includes(:comments => :user).find(params[:id])
+    @user = @data_point.user
     respond_to do |format|
       format.html # show.html.erb
       format.js {  }

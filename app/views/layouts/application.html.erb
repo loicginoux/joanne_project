@@ -62,7 +62,7 @@
 					<ul class="nav pull-right">
 
 						<% if current_user %>
-							<% if @user && !@user.is(current_user) %>
+							<% if @user && !@user.is(current_user)%>
 								<%= getPicture(@user, 'small') %>
 								<h3  id="hi_current_user"><%= @user.username%>'s diary</h3>
 							<%else%>
