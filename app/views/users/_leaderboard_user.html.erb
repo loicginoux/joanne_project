@@ -1,11 +1,13 @@
 <div>
 	<%= link_to user_path(:username=> user.username), :class => "user" do %>
 		<div class="rank pull-left well">
-			<% if defined? current_user_position %>
-				<%= current_user_position %>
-			<% else %>
-				<%= ((leaderboard_users.current_page * users_per_page) - (users_per_page - 1)) + index %>
-			<% end %>
+			<span>
+				<% if defined? current_user_position %>
+					<%= current_user_position %>
+				<% else %>
+					<%= ((leaderboard_users.current_page * users_per_page) - (users_per_page - 1)) + index %>
+				<% end %>
+			</span>
 		</div>
 
 		<div class="image pull-left">

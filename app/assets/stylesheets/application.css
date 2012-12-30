@@ -65,10 +65,16 @@ background-color: #EEE;
 }
 
 .leaderboard .rank{
-	height:35px;
-	padding: 13px 14px 0;
+	height:36px;
+	padding: 13px 0 0;
 	margin-bottom:0;
 	font-weight: bold;
+	width: 45px;
+}
+
+.leaderboard .rank span{
+	display: table;
+	margin: 0 auto;
 }
 
 .leaderboard .points,
