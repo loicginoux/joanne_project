@@ -1,0 +1,59 @@
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+  <tbody>
+    <tr>
+      <td width="320" valign="top" align="left" style="border-collapse:collapse">
+        <%= render :partial => "email/style/points_limiter_2_col",  %>
+        <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
+
+          Monthly Leaderboard
+
+        </h2>
+        <%= render :partial => "email/style/points_limiter_2_col",  %>
+
+        <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+          <tbody>
+            <% @leaderboard_users.each_with_index do |user, index| %>
+              <tr height="60px">
+                <td width="25px"> <%= index + 1 %>.</td>
+                <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>
+                <td><%= link_to user.username, user_url(:username=> user.username) %> </td>
+                <td style="text-align:right; color: #e96000;font-weight: bold;"><%= user.leaderboard_points %> points</td>
+              </tr>
+            <% end %>
+
+
+          </tbody>
+        </table>
+
+      </td>
+      <td style="border-collapse:collapse">&nbsp;</td>
+      <td width="320" valign="top" align="left" style="border-collapse:collapse">
+
+
+        <%= render :partial => "email/style/points_limiter_2_col",  %>
+
+        <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
+          Slackerboard
+        </h2>
+
+        <%= render :partial => "email/style/points_limiter_2_col",  %>
+
+        <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+          <tbody>
+            <% @slackerboard_users.each do |user| %>
+              <tr height="60px">
+                <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>
+                <td><%= link_to user.username, user_url(:username=> user.username) %> </td>
+              </tr>
+            <% end %>
+
+
+          </tbody>
+        </table>
+
+
+      </td>
+    </tr>
+
+  </tbody>
+</table>

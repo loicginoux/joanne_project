@@ -28,8 +28,8 @@ Foodrubix::Application.routes.draw do
   match 'following' => 'friendships#index', :as => :following
 
   namespace :admin do
-    resources :users
     match 'mailer(/:action(/:id(.:format)))' => 'mailer#:action'
+    match 'mailer/index' => 'mailer#index'
 
   end
 

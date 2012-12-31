@@ -1,21 +1,53 @@
 class Admin::MailerController < ApplicationController
 
-  def preview_added_comment()
+  def index
+    render :partial => "email/index" , :layout => "email"
+
+  end
+
+  def preview_comment_your_photo()
     @dataPoint = DataPoint.last
     @comment = Comment.last
-    @user = User.find(11)
-    render :partial => "email/added_comment", :layout => "email"
+    @user = current_user
+    render :partial => "email/comment_on_your_photo", :layout => "email"
+  end
+
+  def preview_others_comment()
+    @dataPoint = DataPoint.last
+    @comment = Comment.last
+    @user = current_user
+    render :partial => "email/others_commented", :layout => "email"
+  end
+
+  def preview_like()
+    @dataPoint = DataPoint.last
+    @like = Like.last
+    @user = current_user
+    render :partial => "email/added_like", :layout => "email"
+  end
+
+  def preview_follower()
+    @followee = current_user
+    @follower = User.last
+    @user = current_user
+
+    render :partial => "email/new_follower", :layout => "email"
   end
 
   def preview_verify_account()
-    @user = User.find(11)
+    @user = current_user
     @verification_url = user_verification_url(@user.perishable_token)
     render :partial => "email/verify_account", :layout => "email"
 
   end
 
+  def preview_reset_password()
+    @user = current_user
+    @reset_url = edit_password_reset_url(@user.perishable_token)
+    render :partial => "email/reset_password", :layout => "email"
+  end
   def preview_empty()
-    @user = User.find(11)
+    @user = current_user
     startDate = (Time.zone.now - 1.days).utc
     endDate = Time.zone.now.utc
     @data_points = DataPoint.where(
@@ -29,7 +61,7 @@ class Admin::MailerController < ApplicationController
   end
 
   def preview_daily()
-    @user = User.find(11)
+    @user = current_user
     endDate = Date.today.to_time_in_current_zone
     startDate = endDate - 1.days
     @data_points = DataPoint.where(
@@ -37,6 +69,12 @@ class Admin::MailerController < ApplicationController
       :uploaded_at => startDate..endDate
       )
     .order("uploaded_at ASC")
+    @leaderboard_users = User.confirmed()
+      .active()
+      .order("leaderboard_points desc")
+      .limit(5)
+
+    @slackerboard_users = User.who_did_not_upload_in_last_24_hours().limit(10)
 
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
@@ -45,7 +83,7 @@ class Admin::MailerController < ApplicationController
   end
 
   def preview_weekly()
-    @user = User.find(11)
+    @user = current_user
     startDate = (Time.zone.now - 7.days).utc
     endDate = Time.zone.now.utc
     @groups = DataPoint.where(

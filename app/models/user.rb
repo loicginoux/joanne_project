@@ -63,6 +63,9 @@ class User < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
 
+  scope :who_uploaded_in_last_24_hours, joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", 1.day.ago)
+
+  scope :who_did_not_upload_in_last_24_hours, active().confirmed().where("id NOT IN (?)", User.who_uploaded_in_last_24_hours.map(&:id).join(","))
 
   # leaderboard points for each action
   LEADERBOARD_ACTION_VALUE = {

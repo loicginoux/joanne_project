@@ -1,25 +1,31 @@
 
-<layout label="Text only">
-    <table width="580" cellpadding="0" cellspacing="0" border="0">
-        <tbody><tr style="border-collapse: collapse;">
-            <td width="580" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
-                <p align="left" style="font-size: 18px; line-height: 24px; color: #434343; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">This is what you ate yesterday</p>
-                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+    <tbody>
+        <tr style="border-collapse: collapse;">
+            <td width="100%" style="border-collapse: collapse; font-family: sans-serif;">
+                <p align="left" style="font-size: 18px; line-height: 24px; color: #434343; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: sans-serif;">This is what you ate yesterday</p>
+                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">
                     Total calories for the day:
-                    <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);"><%= @totalDayCalories%> cal</span>
+                    <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);">
+                        <%= @totalDayCalories%> cal
+                    </span>
                 </p>
                 <% if @user.daily_calories_limit > 0 && @user.daily_calories_limit >= @totalDayCalories%>
-                    <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">You stayed within your daily calorie limit of <%= @user.daily_calories_limit %> calories. Way to go!
-                    </p>
+                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">You stayed within your daily calorie limit of <%= @user.daily_calories_limit %> calories. Way to go!
+                </p>
                 <% elsif @user.daily_calories_limit > 0 && @user.daily_calories_limit < @totalDayCalories%>
-                    <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
-                    You went over your daily calorie goal of <%= @user.daily_calories_limit %> calories. Don't be sad. Try again tomorrow!</p>
+                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">
+                    You went over your daily calorie goal of <%= @user.daily_calories_limit %> calories. Don't be sad. Try again tomorrow!
+                </p>
                 <%end%>
             </td>
         </tr>
-        <tr style="border-collapse: collapse;"><td width="580" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
-    </tbody></table>
-</layout>
+        <tr style="border-collapse: collapse;">
+            <td width="580" height="10" style="border-collapse: collapse; font-family: sans-serif;">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
 
@@ -27,19 +33,27 @@
 
 <!-- start of image row -->
 <% @data_points.each_slice(3) do |group| %>
-    <% if group.length == 3 %>
-    <table width="580" cellpadding="0" cellspacing="0" border="0">
-    <% elsif  group.length == 2%>
-    <table width="380" cellpadding="0" cellspacing="0" border="0">
-    <% elsif  group.length == 1%>
-    <table width="180" cellpadding="0" cellspacing="0" border="0">
-    <%end%>
-        <tbody>
-            <tr style="border-collapse: collapse;">
-                        <%= render :partial => "email/data_point", :collection => group, :as => :data_point %>
-            </tr>
-        </tbody>
-    </table>
+<% if group.length == 3 %>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+<% elsif  group.length == 2%>
+<table width="475" cellpadding="0" cellspacing="0" border="0">
+<% elsif  group.length == 1%>
+<table width="237" cellpadding="0" cellspacing="0" border="0">
+<%end%>
+            <tbody>
+                <tr style="border-collapse: collapse;">
+                    <%= render :partial => "email/data_point", :collection => group, :as => :data_point %>
+                </tr>
+            </tbody>
+</table>
+
+
+
 <!-- end of images -->
 <% end %>
+
+<%= render :partial => "email/style/limiter" %>
+
+<%= render :partial => "email/leaderboard" %>
+
 

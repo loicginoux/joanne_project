@@ -1,29 +1,30 @@
-<td width="180" valign="top" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
-    <table width="180" cellpadding="0" cellspacing="0" border="0">
+<td width="200" valign="top" style="border-collapse: collapse; font-family: sans-serif;">
+    <table width="200" cellpadding="0" cellspacing="0" border="0">
         <tbody><tr style="border-collapse: collapse;">
-            <td width="180" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+            <td width="200" style="border-collapse: collapse; font-family: sans-serif;">
                 <%= link_to data_point_url(data_point) do%>
-                    <%= image_tag "http://s3.amazonaws.com/"+S3_CREDENTIALS[:bucket]+"/photos/"+data_point.id.to_s+"/medium.jpg",  :style => "width:180px; outline: none; text-decoration: none; display: block;", :alt => "a meal", :width => 180, :border => 0%>
+                    <%= image_tag "http://s3.amazonaws.com/"+S3_CREDENTIALS[:bucket]+"/photos/"+data_point.id.to_s+"/medium.jpg",  :style => "width:200px; outline: none; text-decoration: none; display: block;", :alt => "a meal", :width => 200, :border => 0%>
                 <%end%>
-
             </td>
         </tr>
-        <tr style="border-collapse: collapse;"><td width="180" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+        <tr style="border-collapse: collapse;"><td width="200" height="10" style="border-collapse: collapse; font-family: sans-serif;"></td></tr>
         <tr style="border-collapse: collapse;">
-            <td width="60" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
-                <div align="center" style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+            <td width="60" height="10" style="border-collapse: collapse; font-family: sans-serif;">
+                <div align="center" style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: sans-serif;">
                     <div>
                         <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);"><%= data_point.calories%> cal</span>
-                        <!-- <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);"><%= data_point.comments.count%> comments</span>
-                        <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);"><%= data_point.likes.count%> Likes</span> -->
+
                     </div>
                 </div>
             </td>
 
 
         </tr>
-        <tr style="border-collapse: collapse;"><td width="180" height="10" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td></tr>
+        <tr style="border-collapse: collapse;"><td width="200" height="10" style="border-collapse: collapse; font-family: sans-serif;"></td></tr>
     </tbody></table>
 </td>
 
-<td width="20" style="border-collapse: collapse; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"></td>
+
+<% if data_point_counter != 2 %>
+    <td width="37" style="border-collapse: collapse; font-family: sans-serif;"></td>
+<% end %>
