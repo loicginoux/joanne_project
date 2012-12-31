@@ -13,7 +13,7 @@
         <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
           <tbody>
             <% @leaderboard_users.each_with_index do |user, index| %>
-              <tr height="60px">
+              <tr height="60px" style="font-family:sans-serif;">
                 <td width="25px"> <%= index + 1 %>.</td>
                 <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>
                 <td><%= link_to user.username, user_url(:username=> user.username) %> </td>
@@ -41,7 +41,7 @@
         <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
           <tbody>
             <% @slackerboard_users.each do |user| %>
-              <tr height="60px">
+              <tr height="60px" style="font-family:sans-serif;">
                 <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>
                 <td><%= link_to user.username, user_url(:username=> user.username) %> </td>
               </tr>

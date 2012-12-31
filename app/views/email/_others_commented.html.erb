@@ -7,7 +7,7 @@
 
                 <p>Hi <%= @user.username.capitalize%>,</p>
                 <p><%= link_to @comment.user.username.capitalize, user_url(:username=> @comment.user.username)%> has left a comment on a photo you previously commented. How exciting!</p>
-                <p>Read the coment <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.</p>
+                <p>Read the comment <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.</p>
 
             </td>
         </tr>
