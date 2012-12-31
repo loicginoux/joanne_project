@@ -17,4 +17,7 @@ class Comment < ActiveRecord::Base
 		return user == usersDatapoint
 	end
 
+	def self.col_list
+    	Comment.column_names.collect {|c| "comments.#{c}"}.join(",")
+  	end
 end

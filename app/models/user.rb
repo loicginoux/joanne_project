@@ -252,12 +252,16 @@ class User < ActiveRecord::Base
     return points
   end
 
+
+
   def comments_points()
-    self.comments.onOthersPhoto().group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:comment]
+    # self.comments.onOthersPhoto().group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:comment]
+    self.comments.onOthersPhoto().group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
   end
 
   def commented_points()
-    Comment.onOthersPhoto().whereDataPointBelongsTo(self).group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:commented]
+    # Comment.onOthersPhoto().whereDataPointBelongsTo(self).group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:commented]
+    Comment.onOthersPhoto().whereDataPointBelongsTo(self).group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:commented]
   end
 
   def likes_points()
