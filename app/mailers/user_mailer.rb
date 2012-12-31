@@ -90,6 +90,14 @@ class UserMailer < ActionMailer::Base
   end
 
   def weekly_recap_email(users)
+    @leaderboard_users = User.confirmed()
+      .active()
+      .order("leaderboard_points desc")
+      .limit(5)
+
+    @slackerboard_users = User.who_did_not_upload_in_last_24_hours()
+      .limit(5)
+
     users.each {|user|
       Time.zone = user.timezone
       startDate = (Time.zone.now - 7.days).utc
