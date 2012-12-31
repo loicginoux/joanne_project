@@ -56,6 +56,13 @@ class Admin::MailerController < ApplicationController
       )
     .order("uploaded_at ASC")
 
+    @leaderboard_users = User.confirmed()
+      .active()
+      .order("leaderboard_points desc")
+      .limit(5)
+
+    @slackerboard_users = User.who_did_not_upload_in_last_24_hours().limit(10)
+
     render :partial => "email/empty_recap", :layout => "email"
 
   end
