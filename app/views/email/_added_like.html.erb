@@ -7,13 +7,10 @@
 	Hi <%= @dataPoint.user.username.capitalize%>,
 </p>
 <p>
-	<%= link_to @like.user.username.capitalize, user_url(:username=> @like.user.username)%> liked your meal.
+	<%= link_to @like.user.username.capitalize, user_url(:username=> @like.user.username)%> liked your meal. Nice one!
 </p>
 <p>
-	Nice one!
-</p>
-<p>
-	View it <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.
+	Find out which photo <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.
 </p>
 
 

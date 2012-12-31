@@ -8,12 +8,10 @@
 	Hi <%= @dataPoint.user.username.capitalize%>,
 </p>
 <p>
-	<%= link_to @comment.user.username.capitalize, user_url(:username=> @comment.user.username)%> left a comment on one of your meals.
-</p>
-	<p>How exciting!</p>
+	<%= link_to @comment.user.username.capitalize, user_url(:username=> @comment.user.username)%> left a comment on one of your meals. How exciting!
 </p>
 <p>
-	View it <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.
+	Read the coment <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.
 </p>
 
             </td>
