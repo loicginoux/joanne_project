@@ -118,6 +118,14 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_recap_email(users)
+    @leaderboard_users = User.confirmed()
+      .active()
+      .order("leaderboard_points desc")
+      .limit(5)
+
+    @slackerboard_users = User.who_did_not_upload_in_last_24_hours()
+      .limit(5)
+
     users.each {|user|
       Time.zone = user.timezone
       if Time.zone.now.hour == 2
@@ -131,6 +139,9 @@ class UserMailer < ActionMailer::Base
         .order("uploaded_at ASC")
 
         @user = user
+
+
+
         @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
         puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
