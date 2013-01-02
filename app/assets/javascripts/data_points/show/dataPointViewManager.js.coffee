@@ -215,14 +215,20 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		          type: "DELETE",
 		          url: '/data_points/'+@id+'.json',
 		          dataType: dataType,
-		          success: @onSuccess.bind @
+		          success: @onSuccessDelete.bind @
 		})
 
-	onSuccess:(e) ->
+	onSuccessDelete:(e) ->
 		if @master
 			@master.onSuccessAjax(e)
 		else
 			window.location.href = "/"+@el.attr("data-username")
+
+	onSuccessUpdate:(e) ->
+		if @master
+			@master.onSuccessAjax(e)
+		else
+			window.location.reload()
 
 	startEditing: () ->
 		@switchMode()
@@ -338,7 +344,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 				url: '/data_points/'+data.id+'.json',
 				data:
 					data_point : data,
-					success: that.onSuccess.bind(that)
+					success: that.onSuccessUpdate.bind(that)
 			})
 
 		beforeSend = () ->
