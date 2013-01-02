@@ -7,5 +7,5 @@ production:
     secret_access_key: "370ed9b4d13d5f96ead27997ca738e9b"
 
 staging:
-    fb_app_id: '445409062150241'
-    secret_access_key: "997dc180be8d351ff126d4a97009c26e"
+    fb_app_id: '512684788771414'
+    secret_access_key: "54d22a7ee3c2e96aa3ab352dce67f0e6"
