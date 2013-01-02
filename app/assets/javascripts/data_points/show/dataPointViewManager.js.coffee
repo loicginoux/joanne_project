@@ -342,9 +342,9 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
+				success: that.onSuccessUpdate.bind(that)
 				data:
-					data_point : data,
-					success: that.onSuccessUpdate.bind(that)
+					data_point : data
 			})
 
 		beforeSend = () ->
