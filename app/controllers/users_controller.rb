@@ -7,15 +7,14 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction, :nb_total_leaderboard_users_per_page, :nb_leaderboard_users_per_page
 
   def index
-    @total_leaderboard_users = User.confirmed()
-      .active()
-      .order("total_leaderboard_points desc")
+    @total_leaderboard_users = User.total_leaderboard()
       .paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
 
-    @leaderboard_users = User.confirmed()
-      .active()
-      .order("leaderboard_points desc")
+    @leaderboard_users = User.monthly_leaderboard()
       .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
+
+    @slackerboard_users = User.slackerboard()
+      # .paginate(:per_page => 10, :page => params[:slackerboard_page])
 
     pos = current_user.positionLeadership()
     @current_user_position = pos.position.to_i
@@ -159,7 +158,7 @@ class UsersController < ApplicationController
   end
 
   def nb_leaderboard_users_per_page
-    10
+    15
   end
 
   def nb_total_leaderboard_users_per_page

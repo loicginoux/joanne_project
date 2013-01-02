@@ -9,7 +9,7 @@
 		<%elsif current_user.isFollowing(@user).empty? %>
 			<%= link_to "Follow", friendships_path(:followee => @user.id), :method => :post, :class => "btn btn-primary"  %>
 		<% else %>
-			<%= link_to "Unfollow", current_user.isFollowing(@user)[0], :method => :delete, :class => "btn btn-primary"  %>
+			<%= link_to "Unfollow", current_user.isFollowing(@user)[0], :method => :delete, :class => "btn"  %>
 		<%end%>
 
 	</div>

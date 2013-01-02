@@ -338,7 +338,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 				url: '/data_points/'+data.id+'.json',
 				data:
 					data_point : data,
-					success: that.master.onSuccessAjax.bind(that.master)
+					success: that.onSuccess.bind(that)
 			})
 
 		beforeSend = () ->

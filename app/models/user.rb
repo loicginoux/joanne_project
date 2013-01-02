@@ -65,13 +65,28 @@ class User < ActiveRecord::Base
 
   scope :who_uploaded_in_last_24_hours, joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", 1.day.ago)
 
-  scope :who_did_not_upload_in_last_24_hours, lambda { ||
+  scope :slackerboard, lambda { ||
+    # users who didn;t upload anything in last 24 hours
     users = User.who_uploaded_in_last_24_hours
     if users.empty?
       User.active().confirmed()
     else
-      User.active().confirmed().where("id NOT IN (?)", User.who_uploaded_in_last_24_hours.map(&:id).join(","))
+      User.active().confirmed().where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
     end
+  }
+
+  scope :monthly_leaderboard, lambda { ||
+    User.confirmed()
+      .active()
+      .where("username != 'joanne'")
+      .order("leaderboard_points desc")
+  }
+
+  scope :total_leaderboard, lambda { ||
+    User.confirmed()
+      .active()
+      .where("username != 'joanne'")
+      .order("total_leaderboard_points desc")
   }
 
   # leaderboard points for each action

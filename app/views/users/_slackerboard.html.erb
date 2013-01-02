@@ -1,0 +1,16 @@
+<div id="latest-members">
+	<div class="page-header">
+		<h3>Slackerboard</h3>
+		<p class="leaderboard-info">If you don't post any photo for the whole day, you will be added here.</p>
+	</div>
+	<% @slackerboard_users.each do |user| %>
+	<div class="member">
+		<%= link_to user_path(:username=> user.username), :class => "user" do %>
+		<div class="image pull-left">
+			<%=  image_tag user.picture.url(:small) %>
+			<span class="username"><%= user.username%><span>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+</div>

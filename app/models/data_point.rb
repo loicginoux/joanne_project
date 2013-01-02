@@ -44,7 +44,7 @@ class DataPoint < ActiveRecord::Base
   end
 
   def listOfFans()
-    self.fans.map(&:username).to_sentence
+    self.fans.map{|dp| dp.username.capitalize}.to_sentence
   end
 
   def group_by_criteria

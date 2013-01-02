@@ -29,7 +29,7 @@ class DataPointObserver < ActiveRecord::Observer
       if data_point.smart_choice_award && !data_point.smart_choice_award_was
         points += User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
         # we notify the photo owner
-        UserMailer.smart_choice_award_email(dataPoint)
+        # UserMailer.smart_choice_award_email(data_point)
 
       elsif !data_point.smart_choice_award && data_point.smart_choice_award_was
         points -= User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]

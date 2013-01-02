@@ -1,40 +1,53 @@
 <div class="row" id="team-rubix">
 	<div class="span6" id="all-users">
-		<div class="cbm_wrap">
-			<div class="users">
-				<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @total_leaderboard_users,
-					:section_title =>"All-Time Leaderboard",
-					:isInLeaderboard => @isInTotalLeaderboard,
-					:leaderboard => "total_leaderboard",
-					:current_user_position => @current_user_total_position,
-					:users_per_page => nb_total_leaderboard_users_per_page
-				}%>
+		<div class="row">
+			<div class="span6">
+				<div class="cbm_wrap">
+					<div class="users">
+						<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @total_leaderboard_users,
+							:section_title =>"All-Time Leaderboard",
+							:isInLeaderboard => @isInTotalLeaderboard,
+							:leaderboard => "total_leaderboard",
+							:current_user_position => @current_user_total_position,
+							:users_per_page => nb_total_leaderboard_users_per_page
+						}%>
+					</div>
+					<%= render :partial => "info_modal_all_time_leaderboard" %>
+				</div>
 			</div>
-			<%= render :partial => "info_modal_all_time_leaderboard" %>
+		</div>
+		</br>
+		<div class="row">
+			<div class="span6">
+				<div class="cbm_wrap">
+					<%= render :partial => "slackerboard"%>
+				</div>
+
+			</div>
 		</div>
 	</div>
 	<div class="span6">
 		<div class="row">
 			<div class="span6">
-			<div class="cbm_wrap">
-				<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @leaderboard_users,
-					:section_title =>"Monthly Leaderboard",
-					:isInLeaderboard => @isInLeaderboard,
-					:leaderboard => "leaderboard",
-					:current_user_position => @current_user_position,
-					:users_per_page => nb_leaderboard_users_per_page
+				<div class="cbm_wrap">
+					<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @leaderboard_users,
+						:section_title =>"Monthly Leaderboard",
+						:isInLeaderboard => @isInLeaderboard,
+						:leaderboard => "leaderboard",
+						:current_user_position => @current_user_position,
+						:users_per_page => nb_leaderboard_users_per_page
 
-				}%>
-			</div>
+					}%>
+				</div>
 			</div>
 		</div>
 		<br/>
 		<div class="row">
 			<div class="span6">
-			<div class="cbm_wrap">
-				<%= render :partial => "latest_members"%>
-			</div>
-			<%= render :partial => "info_modal_leaderboard" %>
+				<div class="cbm_wrap">
+					<%= render :partial => "latest_members"%>
+				</div>
+				<%= render :partial => "info_modal_leaderboard" %>
 
 			</div>
 		</div>

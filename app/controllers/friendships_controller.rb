@@ -8,7 +8,7 @@ class FriendshipsController < ApplicationController
       .joins(:followee)
       .order(sort_column + ' ' + sort_direction)
       .map { |f| f.followee unless f.followee_id.nil?}
-      .paginate(:per_page => 10, :page => params[:page])
+      .paginate(:per_page => 15, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

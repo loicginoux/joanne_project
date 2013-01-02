@@ -2,28 +2,32 @@ class UserObserver < ActiveRecord::Observer
 	observe :user
 	def before_save(user)
 		# we update the leaderboard points of the user
-		new_points = user.leaderboard_points
+		if !user.leaderboard_points_changed? && !user.total_leaderboard_points_changed? && !user.updated_at_changed? && !user.last_request_at_changed?
+			points = 0
 
-		if user.picture_updated_at_changed? && user.picture_updated_at_was.nil?
-			user.addPoints(User::LEADERBOARD_ACTION_VALUE[:profile_photo])
-		end
-
-		if user.fb_sharing_changed?
-			if user.fb_sharing && !user.fb_sharing_was
-				user.addPoints(User::LEADERBOARD_ACTION_VALUE[:fb_sharing])
-			elsif !user.fb_sharing && user.fb_sharing_was
-				user.removePoints(User::LEADERBOARD_ACTION_VALUE[:fb_sharing])
+			if user.picture_updated_at_changed? && user.picture_updated_at_was.nil?
+				points += User::LEADERBOARD_ACTION_VALUE[:profile_photo]
 			end
-		end
 
-		if user.daily_calories_limit_changed?
-			if user.daily_calories_limit > 0 && user.daily_calories_limit_was == 0
-				user.addPoints(User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit])
-			elsif user.daily_calories_limit == 0 && user.daily_calories_limit_was > 0
-				user.removePoints(User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit])
+			if user.fb_sharing_changed?
+				if user.fb_sharing && !user.fb_sharing_was
+					points += User::LEADERBOARD_ACTION_VALUE[:fb_sharing]
+				elsif !user.fb_sharing && user.fb_sharing_was
+					points -= User::LEADERBOARD_ACTION_VALUE[:fb_sharing]
+				end
 			end
+
+			if user.daily_calories_limit_changed?
+				if user.daily_calories_limit > 0 && user.daily_calories_limit_was == 0
+					points += User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+				elsif user.daily_calories_limit == 0 && user.daily_calories_limit_was > 0
+					points -= User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+				end
+			end
+			user.leaderboard_points += points
+			user.total_leaderboard_points += points
+
 		end
-		user.leaderboard_points = new_points unless new_points == user.leaderboard_points
 	end
 
 	def after_destroy(user)
