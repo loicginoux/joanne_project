@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
 
     @slackerboard_users = User.slackerboard()
-      # .paginate(:per_page => 10, :page => params[:slackerboard_page])
+      .paginate(:per_page => 10, :page => params[:slackerboard_page])
 
     pos = current_user.positionLeadership()
     @current_user_position = pos.position.to_i
@@ -25,13 +25,15 @@ class UsersController < ApplicationController
 
     @latest_members = User.confirmed()
                           .active()
-                          .limit(5)
+                          .limit(10)
                           .order("created_at desc")
 
     if params[:total_leaderboard_page]
       @update = "allTimeLeaderboard"
     elsif params[:leaderboard_page]
       @update = "leaderboard"
+    elsif params[:slackerboard_page]
+      @update = "slackerboard"
     end
 
     respond_to do |format|

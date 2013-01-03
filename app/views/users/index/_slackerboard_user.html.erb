@@ -1,0 +1,10 @@
+<div class="member">
+	<%= link_to user_path(:username=> user.username), :class => "user" do %>
+	<div class="image pull-left">
+		<%=  image_tag user.picture.url(:small) %>
+		<span class="username">
+			<%= user.username%>
+		<span>
+	</div>
+	<% end %>
+</div>

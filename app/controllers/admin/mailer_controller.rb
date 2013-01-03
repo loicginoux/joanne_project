@@ -56,12 +56,9 @@ class Admin::MailerController < ApplicationController
       )
     .order("uploaded_at ASC")
 
-    @leaderboard_users = User.confirmed()
-      .active()
-      .order("leaderboard_points desc")
-      .limit(5)
+    @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.who_did_not_upload_in_last_24_hours().limit(10)
+    @slackerboard_users = User.slackerboard().limit(20)
 
     render :partial => "email/empty_recap", :layout => "email"
 
@@ -76,12 +73,10 @@ class Admin::MailerController < ApplicationController
       :uploaded_at => startDate..endDate
       )
     .order("uploaded_at ASC")
-    @leaderboard_users = User.confirmed()
-      .active()
-      .order("leaderboard_points desc")
-      .limit(5)
 
-    @slackerboard_users = User.who_did_not_upload_in_last_24_hours().limit(10)
+    @leaderboard_users = User.monthly_leaderboard().limit(20)
+
+    @slackerboard_users = User.slackerboard().limit(20)
 
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
@@ -90,13 +85,9 @@ class Admin::MailerController < ApplicationController
   end
 
   def preview_weekly()
-    @leaderboard_users = User.confirmed()
-      .active()
-      .order("leaderboard_points desc")
-      .limit(5)
+    @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.who_did_not_upload_in_last_24_hours()
-      .limit(5)
+    @slackerboard_users = User.slackerboard().limit(20)
 
     @user = current_user
     startDate = (Time.zone.now - 7.days).utc

@@ -1,0 +1,24 @@
+<%= form_for @user, :html => { :class => "form-horizontal", :multipart => true } do |f| %>
+	<fieldset>
+		<div class="control-group">
+				<div class="control-group editable_img_container file">
+					<div class="controls">
+						<div class="pic">
+							<%= getPicture(@user, "medium") %>
+						</div>
+						<a class="btn btn-upload" href="#">Upload photo</a>
+						<input class="hide user_picture" id="fileInput" name="user[picture]" type="file">
+						<div class="progress progress-striped active hide">
+						  <div class="bar" style="width: 0%;"></div>
+						</div>
+						<div>
+							<span class="help-inline clear file hide">Please upload a photo</span>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Update</button>
+		</div>
+	</fieldset>
+<% end %>

@@ -1,0 +1,15 @@
+<div id="latest-members">
+	<div class="page-header">
+		<h3>Slackerboard</h3>
+		<p class="leaderboard-info">If you don't post any photo for the whole day, you will be added here.</p>
+	</div>
+	<div class="slackerboard_users">
+		<%= render :partial => "users/index/slackerboard_users", :locals => {:slackerboard_users => slackerboard_users}%>
+	</div>
+
+	<!-- Show link only if there are more than one page and pass page and sorting parameters -->
+	<% unless slackerboard_users.total_pages < 2 %>
+		<%= link_to 'Show More', users_path(:sort => "username", :direction => "desc" , :slackerboard_page => 2), :remote => true, :id => 'show_more_slackerboard_link', :class => "btn btn-small show_more"%>
+	<%end %>
+
+</div>

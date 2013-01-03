@@ -1,0 +1,66 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Breakfast photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:data_point] %> pt.</td>
+    </tr>
+    <tr>
+      <td>Lunch photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:data_point] %> pt.</td>
+    </tr>
+    <tr>
+      <td>Dinner photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:data_point] %> pt.</td>
+    </tr>
+    <tr>
+      <td>Following someone *</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:follow] %> pt. / user followed</td>
+    </tr>
+    <tr>
+      <td>Someone follows you *</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:followed] %> pts. / follower</td>
+    </tr>
+    <tr>
+      <td>Liking someone else's photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:like] %> pt. / image</td>
+    </tr>
+    <tr>
+      <td>Someone likes your photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:liked] %> pts. / like</td>
+    </tr>
+    <tr>
+      <td>Commenting on someone else's photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:comment] %> pts. / image</td>
+    </tr>
+    <tr>
+      <td>Someone comments on your photo</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:commented] %> pts. / image</td>
+    </tr>
+    <tr>
+      <td>Winning a Hot Photo Award</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:hot_photo_award] %> pts. / image</td>
+    </tr>
+    <tr>
+      <td>Winning a Smart Choice Award</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:smart_choice_award] %> pts. / image</td>
+    </tr>
+    <tr>
+      <td>Setting daily calorie goal *</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit] %> pts.</td>
+    </tr>
+    <tr>
+      <td>Adding a profile photo *</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:profile_photo] %> pts.</td>
+    </tr>
+    <tr>
+      <td>Enabling Facebook social sharing *</td>
+      <td><%= User::LEADERBOARD_ACTION_VALUE[:fb_sharing] %> pts.</td>
+    </tr>
+  </tbody>
+</table>

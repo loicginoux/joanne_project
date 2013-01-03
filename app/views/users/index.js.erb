@@ -1,6 +1,6 @@
 <% if @update == "allTimeLeaderboard" %>
 
-	$(".total_leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
+	$(".total_leaderboard_users").append("<%= escape_javascript(render :partial => 'users/index/leaderboard_users', :locals => {
 		:leaderboard_users => @total_leaderboard_users,
 		:leaderboard => 'total_leaderboard',
 		:users_per_page => nb_total_leaderboard_users_per_page
@@ -16,9 +16,19 @@
 	    $(".current_user_total_leaderboard").hide();
 	<% end %>
 
+<% elsif @update == "slackerboard" %>
+	$(".slackerboard_users").append("<%= escape_javascript(render :partial => 'users/index/slackerboard_users') %>");
+
+	// Hide link if it is last page otherwise update link
+	<% if @slackerboard_users.total_pages == @slackerboard_users.current_page %>
+	    $("#show_more_slackerboard_link").hide();
+	<% else %>
+	    $("#show_more_slackerboard_link").attr("href", "<%= users_path(:sort => 'username', :direction => 'desc', :slackerboard_page => (@slackerboard_users.current_page + 1)) %>");
+	<% end %>
+
 <% elsif @update == "leaderboard" %>
 
-	$(".leaderboard_users").append("<%= escape_javascript(render :partial => 'leaderboard_users', :locals => {
+	$(".leaderboard_users").append("<%= escape_javascript(render :partial => 'users/index/leaderboard_users', :locals => {
 		:leaderboard_users => @leaderboard_users,
 		:leaderboard => 'leaderboard',
 		:users_per_page => nb_leaderboard_users_per_page

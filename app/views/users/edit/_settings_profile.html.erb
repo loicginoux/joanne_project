@@ -1,0 +1,91 @@
+
+<br />
+<div class="row">
+	<div class="span10">
+		<% if session[:omniauth] %>
+		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Complete your registration</strong>
+			<p>You have been authenticated via Facebook. Please complete your registration below.</p>
+			<p><b>IMPORTANT! </b> If you're planning to send in photos using your phone, please create an account using the <b>SAME</b> email address.</p>
+		</div>
+		<% end %>
+
+		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+
+		<fieldset>
+			<div class="control-group <% if @user.errors[:username].present? %>error<%end%>">
+				<div class="controls">
+					<%= label_tag :username %>
+					<% if session[:omniauth] %>
+					<%= f.text_field :username, :class => "input-xlarge", :value => session[:omniauth][:username].gsub('.', ''), :placeholder=> "Username" %>
+					<% else %>
+					<%= f.text_field :username, :class => "input-xlarge" , :placeholder=> "Username"  %>
+					<%end%>
+					<% if @user.errors[:username].present? %>
+					<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+					<%end%>
+				</div>
+			</div>
+			<div class="control-group <% if @user.errors[:email].present? %>error<%end%>">
+				<div class="controls">
+					<%= label_tag :email%>
+					<% if session[:omniauth] %>
+					<%= f.text_field :email, :class => "input-xlarge", :value => session[:omniauth][:email], :placeholder=> "Email"  %>
+					<% else %>
+					<%= f.text_field :email, :class => "input-xlarge", :placeholder=> "Email"  %>
+					<%end%>
+					<% if @user.errors[:email].present? %>
+					<span class="help-inline"><%= @user.errors[:email].join(", ")%></span>
+					<%end%>
+					<span class="help-inline hide important_email">
+						<div>
+							<b>IMPORTANT! </b> If you're planning to send in photos using your phone, please create an account using the <b>SAME</b> email address.
+						</div>
+					</span>
+				</div>
+			</div>
+			<div class="control-group <% if @user.errors[:password].present? %>error<%end%>">
+				<div class="controls">
+					<%= label_tag :password %>
+					<%= f.password_field :password, :class => "input-xlarge", :placeholder=> "Password"   %>
+					<% if @user.errors[:password].present? %>
+					<span class="help-inline"><%= @user.errors[:password].join(", ")%></span>
+					<%end%>
+				</div>
+			</div>
+			<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
+				<div class="controls">
+          			<%= label_tag :password_confirmation %>
+					<%= f.password_field :password_confirmation, :class => "input-xlarge" , :placeholder=> "Password confirmation"  %>
+					<% if @user.errors[:password_confirmation].present? %>
+					<span class="help-inline"><%= @user.errors[:password_confirmation].join(", ")%></span>
+					<%end%>
+				</div>
+			</div>
+
+			<%= f.hidden_field :timezone %>
+
+
+
+			<div class="form-actions">
+				<% if current_user%>
+				<button type="submit" class="btn btn-primary">Update</button>
+				<%else%>
+				<button type="submit" class="btn btn-primary">Create account</button>
+				<% if !session[:omniauth] %>
+				or
+				<a href="/auth/facebook" class="auth_provider">
+					<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
+				</a>
+				<!-- or
+				<a href="/auth/twitter" class="auth_provider">
+				<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
+			</a> -->
+			<%end%>
+			<%end%>
+		</div>
+	</fieldset>
+	<% end %>
+</div><!-- span6 -->
+</div><!-- row -->

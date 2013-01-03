@@ -4,7 +4,7 @@
 			<div class="span6">
 				<div class="cbm_wrap">
 					<div class="users">
-						<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @total_leaderboard_users,
+						<%= render :partial => "users/index/leaderboard", :locals => {:leaderboard_users => @total_leaderboard_users,
 							:section_title =>"All-Time Leaderboard",
 							:isInLeaderboard => @isInTotalLeaderboard,
 							:leaderboard => "total_leaderboard",
@@ -12,7 +12,7 @@
 							:users_per_page => nb_total_leaderboard_users_per_page
 						}%>
 					</div>
-					<%= render :partial => "info_modal_all_time_leaderboard" %>
+					<%= render :partial => "users/index/info_modal_all_time_leaderboard" %>
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="span6">
 				<div class="cbm_wrap">
-					<%= render :partial => "slackerboard"%>
+					<%= render :partial => "users/index/slackerboard", :locals => {:slackerboard_users => @slackerboard_users }%>
 				</div>
 
 			</div>
@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="span6">
 				<div class="cbm_wrap">
-					<%= render :partial => "leaderboard", :locals => {:leaderboard_users => @leaderboard_users,
+					<%= render :partial => "users/index/leaderboard", :locals => {:leaderboard_users => @leaderboard_users,
 						:section_title =>"Monthly Leaderboard",
 						:isInLeaderboard => @isInLeaderboard,
 						:leaderboard => "leaderboard",
@@ -45,9 +45,9 @@
 		<div class="row">
 			<div class="span6">
 				<div class="cbm_wrap">
-					<%= render :partial => "latest_members"%>
+					<%= render :partial => "users/index/latest_members"%>
 				</div>
-				<%= render :partial => "info_modal_leaderboard" %>
+				<%= render :partial => "users/index/info_modal_leaderboard" %>
 
 			</div>
 		</div>

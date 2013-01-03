@@ -69,9 +69,9 @@ class User < ActiveRecord::Base
     # users who didn;t upload anything in last 24 hours
     users = User.who_uploaded_in_last_24_hours
     if users.empty?
-      User.active().confirmed()
+      User.active().confirmed().order("username desc")
     else
-      User.active().confirmed().where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
+      User.active().confirmed().order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
     end
   }
 
