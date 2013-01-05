@@ -200,16 +200,16 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		form.prop('method', 'POST').ajaxSubmit(
 			dataType:"json",
 			complete: (jqXHR, textStatus)->
-						console.log("complete ajax submit")
-						console.log(jqXHR, textStatus, jqXHR.status)
-						console.log(jqXHR.status)
-						console.log(textStatus)
-						# success
-						if jqXHR.status == 200
-							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
-					 	else
-							response = JSON.parse(jqXHR.responseText)
-							console.log response
+				console.log("complete ajax submit")
+				console.log(jqXHR, textStatus, jqXHR.status)
+				console.log(jqXHR.status)
+				console.log(textStatus)
+				# success
+				if jqXHR.status == 200
+					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
+				else
+					response = JSON.parse(jqXHR.responseText)
+					console.log response
 
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
