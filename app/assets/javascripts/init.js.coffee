@@ -10,7 +10,7 @@ foodrubix.common.init = () ->
 	if typeof gon == "undefined"
 		window.gon = {}
 	gon.browser = ""
-	ie = /MSIE ([0-9]{1,}[\.0-9]{0,})/.exec(ua)
+	ie = /msie ([0-9]{1,}[\.0-9]{0,})/.exec(ua)
 	if (ua.indexOf('safari')!=-1)
 		if (ua.indexOf('chrome')  > -1)
 			gon.browser = "chrome"
