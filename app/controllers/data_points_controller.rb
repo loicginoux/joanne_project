@@ -93,30 +93,47 @@ class DataPointsController < ApplicationController
     puts "time.zone.now: #{Time.zone.now}"
 
     puts "       "
-    respond_to do |format|
-      if @data_point.save
-        puts "data point after saved: #{@data_point.inspect}"
 
-        # publish to facebook
-        if user.canPublishOnFacebook?
-          user.fb_publish(@data_point)
-          notice = 'Data point was successfully created and shared on Facebook.'
-        else
-          notice = 'Data point was successfully created.'
-        end
-        if !fromMailgun && current_user
-          format.html { redirect_to user_path(:username => current_user) }
-          format.json { render json: @data_point }
-        else
-          format.html { redirect_to static_path('home') }
-          format.json { render json: @data_point }
+    if @data_point.save
+      puts "data point after saved: #{@data_point.inspect}"
 
-        end
-      elsif !fromMailgun
-          format.html { render action: "new" }
-          format.json { render json: @data_point.errors, status: :unprocessable_entity }
+      # publish to facebook
+      if user.canPublishOnFacebook?
+        user.fb_publish(@data_point)
       end
+
+      if !fromMailgun && current_user
+        render :json => @data_point
+      end
+
+    elsif !fromMailgun
+      render :json => @data_point.errors
     end
+
+    # respond_to do |format|
+    #   if @data_point.save
+    #     puts "data point after saved: #{@data_point.inspect}"
+
+    #     # publish to facebook
+    #     if user.canPublishOnFacebook?
+    #       user.fb_publish(@data_point)
+    #       notice = 'Data point was successfully created and shared on Facebook.'
+    #     else
+    #       notice = 'Data point was successfully created.'
+    #     end
+    #     if !fromMailgun && current_user
+    #       format.html { redirect_to user_path(:username => current_user) }
+    #       format.json { render json: @data_point }
+    #     else
+    #       format.html { redirect_to static_path('home') }
+    #       format.json { render json: @data_point }
+
+    #     end
+    #   elsif !fromMailgun
+    #       format.html { render action: "new" }
+    #       format.json { render json: @data_point.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /data_points/1
