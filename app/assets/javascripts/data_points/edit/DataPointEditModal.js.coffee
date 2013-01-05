@@ -205,7 +205,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 				console.log(jqXHR.status)
 				console.log(textStatus)
 				# success
-				if jqXHR.status == 200
+				if jqXHR.status == 200 || jqXHR.status == 0
 					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 
 			beforeSend: beforeSend.bind @

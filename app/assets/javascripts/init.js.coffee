@@ -20,11 +20,5 @@ foodrubix.common.init = () ->
 		gon.browser = "IE"
 		gon.browserVersion = ie[1]
 
-	# http://bartwullems.blogspot.com.es/2012/02/ajax-request-returns-status-0.html
-	#  happening in ie
-	$(document).ajaxError((e, jqxhr, settings, exception) ->
-  		if (jqxhr.readyState == 0 || jqxhr.status == 0)
-  			console.log("skip ajax error code 0")
-			return
-    )
+
 
