@@ -39,15 +39,17 @@
 
 					}%>
 				</div>
+				<%= render :partial => "users/index/info_modal_leaderboard" %>
+
+
 			</div>
 		</div>
 		<br/>
 		<div class="row">
 			<div class="span6">
 				<div class="cbm_wrap">
-					<%= render :partial => "users/index/latest_members"%>
+					<%= render :partial => "users/index/latest_members", :locals => {:latest_members => @latest_members }%>
 				</div>
-				<%= render :partial => "users/index/info_modal_leaderboard" %>
 
 			</div>
 		</div>

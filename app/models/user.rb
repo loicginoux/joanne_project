@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
     User.confirmed()
       .active()
       .where("username != 'joanne'")
+      .where("username != 'loknackie'")
       .order("leaderboard_points desc")
   }
 
@@ -86,6 +87,7 @@ class User < ActiveRecord::Base
     User.confirmed()
       .active()
       .where("username != 'joanne'")
+      .where("username != 'loknackie'")
       .order("total_leaderboard_points desc")
   }
 

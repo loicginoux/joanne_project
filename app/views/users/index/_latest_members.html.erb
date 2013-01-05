@@ -1,19 +1,14 @@
 <div id="latest-members">
 	<div class="page-header">
 		<h3>Latest Members</h3>
+		<p class="leaderboard-info">Welcome to the FoodRubix family!</p>
 	</div>
-	<% @latest_members.each do |user| %>
-	<div class="member">
-		<%= link_to user_path(:username=> user.username), :class => "user" do %>
-		<div class="image pull-left">
-			<%=  image_tag user.picture.url(:small) %>
-			<span class="username"><%= user.username%><span>
-		</div>
-		<div class="pull-right ago">
-			<p><%= time_ago_in_words(user.created_at)%> ago</p>
-			<%= render :partial => "users/index/follow_button", :locals => {:user => user}%>
-		</div>
-		<% end %>
+	<div class="latest_member_users">
+		<%= render :partial => "users/index/latest_members_users", :locals => {:latest_members => latest_members}%>
 	</div>
-	<% end %>
+
+		<!-- Show link only if there are more than one page and pass page and sorting parameters -->
+	<% unless latest_members.total_pages < 2 %>
+		<%= link_to 'Show More', users_path(:sort => "created_at", :direction => "desc" , :latest_member_page => 2), :remote => true, :id => 'show_more_latest_member_link', :class => "btn btn-small show_more"%>
+	<%end %>
 </div>

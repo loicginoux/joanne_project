@@ -41,7 +41,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@timePicker.timePicker({show24Hours: false})
 		console.log(gon.browser)
 		console.log gon.browser
-		if gon.browser == "safari"
+		if gon.browser == "safari" || gon.browser == "IE"
 			@uploadBtn.addClass("hide")
 			@fileInput.removeClass("hide")
 		else
@@ -60,7 +60,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
-		if gon.browser == "safari"
+		if gon.browser == "safari" || gon.browser == "IE"
 			@fileInput.removeClass('hide')
 		else
 			@uploadBtn.removeClass('hide')

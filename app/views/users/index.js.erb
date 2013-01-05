@@ -45,4 +45,13 @@
 	    $(".current_user_leaderboard").hide();
 	<% end %>
 
+<% elsif @update == "latestMembers" %>
+	$(".latest_member_users").append("<%= escape_javascript(render :partial => 'users/index/latest_members_users') %>");
+
+	// Hide link if it is last page otherwise update link
+	<% if @latest_members.total_pages == @latest_members.current_page %>
+	    $("#show_more_latest_member_link").hide();
+	<% else %>
+	    $("#show_more_latest_member_link").attr("href", "<%= users_path(:sort => 'created_at', :direction => 'desc', :latest_member_page => (@latest_members.current_page + 1)) %>");
+	<% end %>
 <% end %>

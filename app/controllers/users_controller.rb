@@ -7,34 +7,54 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction, :nb_total_leaderboard_users_per_page, :nb_leaderboard_users_per_page
 
   def index
-    @total_leaderboard_users = User.total_leaderboard()
-      .paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
-
-    @leaderboard_users = User.monthly_leaderboard()
-      .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
-
-    @slackerboard_users = User.slackerboard()
-      .paginate(:per_page => 10, :page => params[:slackerboard_page])
-
-    pos = current_user.positionLeadership()
-    @current_user_position = pos.position.to_i
-    @current_user_total_position = pos.all_time_position.to_i
-
-    @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
-    @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
-
-    @latest_members = User.confirmed()
-                          .active()
-                          .limit(10)
-                          .order("created_at desc")
-
     if params[:total_leaderboard_page]
       @update = "allTimeLeaderboard"
     elsif params[:leaderboard_page]
       @update = "leaderboard"
     elsif params[:slackerboard_page]
       @update = "slackerboard"
+    elsif params[:latest_member_page]
+      @update = "latestMembers"
     end
+
+
+    if @update.nil? || @update == "allTimeLeaderboard"
+      pos = current_user.positionLeadership()
+      @total_leaderboard_users = User.total_leaderboard()
+        .paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
+
+      @current_user_total_position = pos.all_time_position.to_i
+      @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
+
+    end
+
+    if @update.nil? || @update = "leaderboard"
+      @leaderboard_users = User.monthly_leaderboard()
+        .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
+      if pos.nil?
+        pos = current_user.positionLeadership()
+      end
+      @current_user_position = pos.position.to_i
+      @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
+    end
+
+    if @update.nil? || @update = "slackerboard"
+      @slackerboard_users = User.slackerboard()
+        .paginate(:per_page => 15, :page => params[:slackerboard_page])
+    end
+
+    if @update.nil? || @update = "latestMembers"
+      @latest_members = User.confirmed()
+        .active()
+        .order("created_at desc")
+        .paginate(:per_page => 15, :page => params[:latest_member_page])
+    end
+
+
+
+
+
+
 
     respond_to do |format|
       format.html
@@ -78,6 +98,7 @@ class UsersController < ApplicationController
 
   def create
     params[:user][:username] = params[:user][:username].downcase
+    params[:user][:email] = params[:user][:email].downcase
     puts params[:user]
     @user = User.new(params[:user])
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled

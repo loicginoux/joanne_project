@@ -1,0 +1,3 @@
+<% @latest_members.each do |user| %>
+	<%= render :partial => "users/index/latest_member_user", :locals => { :user => user}%>
+<% end %>

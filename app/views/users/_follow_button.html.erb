@@ -1,7 +1,0 @@
-<% unless current_user.is(user) %>
-	<% if current_user.isFollowing(user).empty?%>
-		<%= button_to "Follow", friendships_path(:followee => user.id), :method => :post, :class => "btn btn-primary"  %>
-	<% else %>
-		<%= button_to "Unfollow", current_user.isFollowing(user)[0], :method => :delete, :class => "btn"  %>
-	<% end %>
-<% end %>
