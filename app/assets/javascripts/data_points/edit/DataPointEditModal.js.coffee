@@ -202,8 +202,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			complete: (jqXHR, textStatus)->
 				console.log("complete ajax submit")
 				console.log(jqXHR, jqXHR.status, textStatus)
-				console.log(jqXHR.responseText)
-				console.log(JSON.parse(jqXHR.responseText))
 				# success
 				if jqXHR.status == 200 || jqXHR.status == 0
 					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
