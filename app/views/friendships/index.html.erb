@@ -6,7 +6,7 @@
 			</div>
 			<div class="users">
 				<% @users.each do |user| %>
-					<%= render :partial => "users/user", :locals => {:user => user}%>
+					<%= render :partial => "users/index/user", :locals => {:user => user}%>
 				<% end %>
 			</div>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
