@@ -197,7 +197,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
 		# first we need to send the file because jquery ajax can't do it
 		# on the success function we then update the attributes
-		form.ajaxSubmit(
+		form.prop('method', 'POST').ajaxSubmit(
 			dataType:"json",
 			complete: (jqXHR, textStatus)->
 						console.log("complete ajax submit")
