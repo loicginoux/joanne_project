@@ -9,9 +9,9 @@
 
 					<div class="control-group editable_img_container pull-right file">
 						<div class="controls">
-							<img src="" />
+							<img src="" class="photoPreview" />
 							<a class="btn btn-upload" href="#">Upload photo</a>
-							<input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file">
+							<!-- <input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file"> -->
 							<div class="progress progress-striped active hide">
 							  <div class="bar" style="width: 0%;"></div>
 							</div>
@@ -67,9 +67,13 @@
 			</div>
 		</fieldset>
 
-<iframe id="ifu" name="ifu" class="buttonFileHidden" src="/hiddenFileInput">
-
-</iframe>
+		<!-- this is used when uploading the file for a datapoint
+		we use a hidden iframe containing this code to be able to manipulate a file file input with javascript
+		see: http://stackoverflow.com/questions/9396411/ie-javascript-form-submit-with-file-input
+		other solution could have been
+		https://github.com/malsup/form/issues/139#issuecomment-4881899
+		 -->
+		<iframe id="ifu" name="ifu" class="buttonFileHidden " src="/data_points/fileInputForm"></iframe>
 
 
 	</div>

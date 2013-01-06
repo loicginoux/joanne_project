@@ -3,7 +3,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 	elements:
 		"#photos":                 "photos"
 		"img":                     "img"
-		# ".data_point_photo":       "fileInput"
 		".progress":               "progress"
 		".progress .bar":          'bar'
 		"#data_point_calories":    "calories"
@@ -19,6 +18,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		".btn-cancel":             "cancelBtn"
 		".alert-delete":           "deleteMessage"
 		"#data_point_description": "descrVal"
+		".photoPreview": 		   "photoPreviewImg"
 
 	constructor: ()->
 		super
@@ -37,6 +37,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		]
 
 	initialize: () ->
+		# the one inside the iframe, see why in comment /views/pages/hiddenFileInput.html.erb
 		@fileInput = $("#ifu").contents().find("#fileInput")
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
@@ -59,7 +60,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@clearNewUpload()
 
 
-	clearNewUpload: () ->
+	clean: () =>
 		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
@@ -72,17 +73,10 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		@bar.width('0%')
 		@calories.val('')
-		# now = new Date()
-		# @uploaded_at.val(now.toString("MM-dd-yyyy"))
-		# @timePicker.val(now.toString('hh:mm tt'))
 		@descrVal.val("")
 		@saveBtn.button('reset')
 		@controlGroups.removeClass('error')
 		@inlineHelps.not(".fileExtension").addClass('hide')
-
-	clean: () =>
-		if @isNewUploadBox
-			@clearNewUpload()
 		@uploadBtn.unbind "click"
 		@fileInput.unbind "change"
 		@saveBtn.unbind "click"
@@ -106,7 +100,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			reader = new FileReader()
 			reader.onload = (e) ->
 				# $(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
-				$("#uploadForm img").attr('src', e.target.result).parent().css("height", "auto");
+				$(".photoPreview").attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
 
 	validateDataPointData: (e) =>
@@ -194,7 +188,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		beforeSend = () ->
 			@progress.removeClass('hide')
 			@uploadBtn.addClass('hide')
-			@fileInput.addClass('hide')
 			@bar.width('0%')
 
 		uploadProgress = (event, position, total, percentComplete) ->
@@ -202,7 +195,6 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@bar.width(percentVal)
 
 		# update photo first
-		# form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
 		form =  $("#ifu").contents().find("form")
 		# first we need to send the file because jquery ajax can't do it
 		# on the success function we then update the attributes
@@ -212,23 +204,11 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 				console.log("complete ajax submit")
 				console.log(jqXHR, jqXHR.status, textStatus)
 				# success
+				# status == 0 is for our friend IE
 				if jqXHR.status == 200 || jqXHR.status == 0
 					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)
-
-	showConfirmDeleteBox: () =>
-		@deleteMessage.removeClass('hide')
-
-	removeDataPoint: (e) =>
-		@deleteBtn.button('loading')
-
-		$.ajax({
-		          type: "DELETE",
-		          url: '/data_points/'+@id+'.json',
-		          dataType: 'json',
-		          success: @master.onSuccessAjax.bind @master
-		})
 

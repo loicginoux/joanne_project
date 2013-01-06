@@ -18,7 +18,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".viewMode":                  "viewElements"
 		".editMode":                  "editElements"
 		".editable_img_container img":"img"
-		".data_point_photo":          "fileInput"
+		# ".data_point_photo":          "fileInput"
 		".progress":                  "progress"
 		".progress .bar":             'bar'
 		"#data_point_calories":       "calories"
@@ -39,12 +39,24 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	constructor: ()->
 		super
+		@ALLOWED_FILE_EXTENSIONS = [
+			"jpg",
+			"JPG",
+			"png",
+			"PNG",
+			"jpeg",
+			"JPEG",
+			"gif",
+			"GIF",
+			"TIF",
+			"tif"
+		]
 
 	init: () ->
 		@id = @el.find(".info").attr('data-id')
 		@userId = $("body").attr("data-user")
-		@nbLikes = parseInt(@nbLikesHTML.text())
-		@nbComments = parseInt(@nbCommentsHTML.text())
+		@nbLikes = parseInt(@nbLikesHTML.text()) || 0
+		@nbComments = parseInt(@nbCommentsHTML.text()) || 0
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
 
@@ -187,7 +199,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	onSuccessLike: (data, textStatus, jqXHR) =>
 
 		@btnLike.attr("data-like-id", data.id)
-		@nbLikes = if isNaN(@nbLikes) then 1 else @nbLikes+1
+		@nbLikes = @nbLikes+1
 		@nbLikesHTML.html(@nbLikes)
 		@updateMasterInfo("like", data.id)
 		@changeLikeState("Unlike")
@@ -232,6 +244,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	startEditing: () ->
 		@switchMode()
+		@fileInput = @el.find("#ifu_"+@id).contents().find("#fileInput_"+@id)
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
 		@uploadBtn.click @changePhoto
@@ -239,10 +252,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@saveBtn.click @validateDataPointData
 		@deleteBtn.click @removeDataPoint
 		@btnConfirmDelete.click @showConfirmDeleteBox
-		@cancelBtn.click @clean
-		@isNewUploadBox = (@el.attr('id') == "new_upload")
-		if @isNewUploadBox
-			@clearNewUpload()
+
 
 
 	switchMode:()->
@@ -259,16 +269,19 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	onChangePhoto: (e) =>
 		input = e.target
-		if input.files && input.files[0]
+		that = this
+		fileName = @fileInput.val()
+		extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+		if input.files && input.files[0] && typeof FileReader != "undefined" && _.contains(@ALLOWED_FILE_EXTENSIONS, extension )
 			reader = new FileReader()
 			reader.onload = (e) ->
-				$(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
+				that.img.attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
 
 	validateDataPointData: (e) =>
 		validated = true
 
-		if !parseInt(@id) && !@isNewUploadBox
+		if !parseInt(@id)
 			throw "no id for update modal box"
 
 		#remove all previous error
@@ -292,7 +305,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@el.find('.help-inline.date').removeClass('hide')
 
 		# validate time
-		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
+		timePickerId = "#timePicker_"+@id
 		date = $.timePicker(timePickerId).getTime()
 		unless date
 			validated = false
@@ -301,11 +314,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		# validate photo
 		fileName = @fileInput.val()
-		if @isNewUploadBox
-			unless fileName
-				validated = false
-				@el.find(".control-group.file").addClass('error')
-				@el.find('.help-inline.file').removeClass('hide')
 		if fileName
 			extension = fileName.substring(fileName.lastIndexOf('.') + 1);
 			if !_.contains(@ALLOWED_FILE_EXTENSIONS, extension )
@@ -323,7 +331,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@updateDataPoint(e, {
 				id:@id
 				calories: calories
-				uploaded_at: ISODate,
+				uploaded_at: ISODate.toISOString(),
 				description: @descrVal.val()
 			})
 
@@ -337,7 +345,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
 			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
 				data.id = response.id
-			data.uploaded_at = data.uploaded_at.toISOString()
+			# data.uploaded_at = data.uploaded_at.toISOString()
 			console.log(data.uploaded_at)
 			$.ajax({
 				type: "PUT",
@@ -357,15 +365,15 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@bar.width(percentVal)
 
 		# update photo first
-		form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
-		form.ajaxSubmit(
+		$("#ifu_"+@id).contents().find("form").prop('method', 'PUT').ajaxSubmit(
 			dataType:"json",
 			complete: (jqXHR, textStatus)->
-						console.log("complete ajax submit")
-						console.log(jqXHR, textStatus)
-						if jqXHR.statusText.indexOf("OK") != -1
-							console.log(arguments)
-							onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
+				console.log("complete ajax submit")
+				console.log(jqXHR, jqXHR.status, textStatus)
+				# success
+				# status == 0 is for our friend IE
+				if jqXHR.status == 200 || jqXHR.status == 0
+					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
 			beforeSend: beforeSend.bind @
 			uploadProgress: uploadProgress.bind @
 		)

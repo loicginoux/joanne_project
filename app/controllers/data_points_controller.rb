@@ -185,6 +185,14 @@ class DataPointsController < ApplicationController
     end
   end
 
+  # GET /data_points/fileInputForm/(:id)
+  def getFileUploadForm
+    if params[:id]
+      @id = params[:id]
+    end
+    render :action => "fileInputForm" , :layout => false
+  end
+
   def check_for_cancel
     unless params[:cancel].blank?
       redirect_to user_path(:username => current_user)

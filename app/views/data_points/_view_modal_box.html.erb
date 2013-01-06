@@ -16,7 +16,7 @@
 				<div class="editable_img_container">
 					<%= getPhoto(@data_point, "big")%>
 					<a class="btn btn-upload" href="#">Change photo</a>
-					<input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file">
+					<!-- <input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file"> -->
 					<div class="progress progress-striped active hide">
 						<div class="bar" style="width: 0%;"></div>
 					</div>
@@ -27,6 +27,15 @@
 					</div>
 				</div>
 			</form>
+
+			<!-- this is used when uploading the file for a datapoint
+			we use a hidden iframe containing this code to be able to manipulate a file file input with javascript
+			see: http://stackoverflow.com/questions/9396411/ie-javascript-form-submit-with-file-input
+			other solution could have been
+			https://github.com/malsup/form/issues/139#issuecomment-4881899
+			 -->
+			<iframe id="ifu_<%= @data_point.id%>" name="ifu" class="buttonFileHidden hide" src="/data_points/fileInputForm/<%= @data_point.id%>"></iframe>
+
 		</div>
 	</div>
 	<div class="span5 info" data-id="<%= @data_point.id%>">

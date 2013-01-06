@@ -20,17 +20,15 @@ class UsersController < ApplicationController
 
     if @update.nil? || @update == "allTimeLeaderboard"
       pos = current_user.positionLeadership()
-      @total_leaderboard_users = User.total_leaderboard()
-        .paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
+      @total_leaderboard_users = User.total_leaderboard().paginate(:per_page => nb_total_leaderboard_users_per_page, :page => params[:total_leaderboard_page])
 
       @current_user_total_position = pos.all_time_position.to_i
       @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
 
     end
 
-    if @update.nil? || @update = "leaderboard"
-      @leaderboard_users = User.monthly_leaderboard()
-        .paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
+    if @update.nil? || @update == "leaderboard"
+      @leaderboard_users = User.monthly_leaderboard().paginate(:per_page => nb_leaderboard_users_per_page, :page => params[:leaderboard_page])
       if pos.nil?
         pos = current_user.positionLeadership()
       end
@@ -38,16 +36,12 @@ class UsersController < ApplicationController
       @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
     end
 
-    if @update.nil? || @update = "slackerboard"
-      @slackerboard_users = User.slackerboard()
-        .paginate(:per_page => 15, :page => params[:slackerboard_page])
+    if @update.nil? || @update == "slackerboard"
+      @slackerboard_users = User.slackerboard().paginate(:per_page => 15, :page => params[:slackerboard_page])
     end
 
-    if @update.nil? || @update = "latestMembers"
-      @latest_members = User.confirmed()
-        .active()
-        .order("created_at desc")
-        .paginate(:per_page => 15, :page => params[:latest_member_page])
+    if @update.nil? || @update == "latestMembers"
+      @latest_members = User.confirmed().active().order("created_at desc").paginate(:per_page => 15, :page => params[:latest_member_page])
     end
 
 

@@ -6,6 +6,8 @@ class PagesController < HighVoltage::PagesController
       case params[:id]
       when 'home'
         'home'
+      when "fileInputForm"
+        'empty'
       else
         'application'
       end
