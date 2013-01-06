@@ -22,6 +22,7 @@ Foodrubix::Application.routes.draw do
   match 'confirm' => "user_verification#show", :as => :confirm
   match 'upload' => "data_points#new", :as => :upload
   match 'home'  => 'pages#show', :id => 'home', :as => "home", :format => false
+  match 'hiddenFileInput'  => 'pages#show', :id => 'hiddenFileInput', :as => "hiddenFileInput", :format => false
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider/failure', to: redirect('/login')
   match 'team_rubix' => 'users#index', :as => :team_rubix

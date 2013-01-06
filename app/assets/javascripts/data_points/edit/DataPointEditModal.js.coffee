@@ -3,7 +3,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 	elements:
 		"#photos":                 "photos"
 		"img":                     "img"
-		".data_point_photo":       "fileInput"
+		# ".data_point_photo":       "fileInput"
 		".progress":               "progress"
 		".progress .bar":          'bar'
 		"#data_point_calories":    "calories"
@@ -37,15 +37,18 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		]
 
 	initialize: () ->
+		@fileInput = $("#ifu").contents().find("#fileInput")
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
-		console.log(gon.browser)
-		console.log gon.browser
-		if gon.browser == "safari" || gon.browser == "IE"
-			@uploadBtn.addClass("hide")
-			@fileInput.removeClass("hide")
-		else
-			@uploadBtn.click @changePhoto
+
+		# if gon.browser == "safari" || gon.browser == "IE"
+		# 	@uploadBtn.addClass("hide")
+		# 	@fileInput.removeClass("hide")
+		# else
+		# 	@uploadBtn.click @changePhoto
+		@uploadBtn.click @changePhoto
+
+
 		@fileInput.change @onChangePhoto
 		@saveBtn.click @validateDataPointData
 		@deleteBtn.click @removeDataPoint
@@ -60,10 +63,13 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
-		if gon.browser == "safari" || gon.browser == "IE"
-			@fileInput.removeClass('hide')
-		else
-			@uploadBtn.removeClass('hide')
+
+		# if gon.browser == "safari" || gon.browser == "IE"
+		# 	@fileInput.removeClass('hide')
+		# else
+		# 	@uploadBtn.removeClass('hide')
+		@uploadBtn.removeClass('hide')
+
 		@bar.width('0%')
 		@calories.val('')
 		# now = new Date()
@@ -85,6 +91,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@cancelBtn.unbind "click"
 
 	changePhoto: (e) =>
+
 		@fileInput.click()
 		e.stopPropagation()
 		e.preventDefault()
@@ -98,7 +105,8 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		if input.files && input.files[0] && typeof FileReader != "undefined" && _.contains(@ALLOWED_FILE_EXTENSIONS, extension )
 			reader = new FileReader()
 			reader.onload = (e) ->
-				$(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
+				# $(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
+				$("#uploadForm img").attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
 
 	validateDataPointData: (e) =>
@@ -194,7 +202,8 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@bar.width(percentVal)
 
 		# update photo first
-		form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
+		# form = if @isNewUploadBox then $("#uploadForm") else $("#uploadForm_"+data.id);
+		form =  $("#ifu").contents().find("form")
 		# first we need to send the file because jquery ajax can't do it
 		# on the success function we then update the attributes
 		form.prop('method', 'POST').ajaxSubmit(

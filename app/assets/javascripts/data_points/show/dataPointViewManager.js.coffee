@@ -187,7 +187,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	onSuccessLike: (data, textStatus, jqXHR) =>
 
 		@btnLike.attr("data-like-id", data.id)
-		@nbLikes = @nbLikes+1
+		@nbLikes = if isNaN(@nbLikes) then 1 else @nbLikes+1
 		@nbLikesHTML.html(@nbLikes)
 		@updateMasterInfo("like", data.id)
 		@changeLikeState("Unlike")
