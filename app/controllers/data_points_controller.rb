@@ -103,7 +103,9 @@ class DataPointsController < ApplicationController
       end
 
       if !fromMailgun && current_user
-        render :json => @data_point
+        # set content type even if it's json because f... IE doesn't recognized json and prompt
+        # download window when returning json
+        render :json => @data_point, :content_type => 'text/plain'
       end
 
     elsif !fromMailgun
