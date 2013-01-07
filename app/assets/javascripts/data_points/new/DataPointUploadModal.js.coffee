@@ -60,7 +60,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@clearNewUpload()
 
 
-	clean: () =>
+	clearNewUpload: () ->
 		@img.attr('src','').parent().height("200px")
 		@fileInput.val('')
 		@progress.addClass('hide')
@@ -77,6 +77,9 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		@saveBtn.button('reset')
 		@controlGroups.removeClass('error')
 		@inlineHelps.not(".fileExtension").addClass('hide')
+
+	clean: () =>
+		@clearNewUpload()
 		@uploadBtn.unbind "click"
 		@fileInput.unbind "change"
 		@saveBtn.unbind "click"
@@ -106,8 +109,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 	validateDataPointData: (e) =>
 		validated = true
 
-		if !parseInt(@id) && !@isNewUploadBox
-			throw "no id for update modal box"
+
 
 		#remove all previous error
 		@controlGroups.removeClass('error')
@@ -130,7 +132,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 			@el.find('.help-inline.date').removeClass('hide')
 
 		# validate time
-		timePickerId = if @isNewUploadBox then "#timePicker" else "#timePicker_"+@id
+		timePickerId =  "#timePicker"
 
 		date = $.timePicker(timePickerId).getTime()
 		unless date
@@ -140,17 +142,16 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 
 		# validate photo
 		fileName = @fileInput.val()
-		if @isNewUploadBox
-			unless fileName
-				validated = false
-				@el.find(".control-group.file").addClass('error')
-				@el.find('.help-inline.file').removeClass('hide')
 		if fileName
 			extension = fileName.substring(fileName.lastIndexOf('.') + 1);
 			if !_.contains(@ALLOWED_FILE_EXTENSIONS, extension )
 				validated = false
 				@el.find(".control-group.file").addClass('error')
 				# @el.find('.help-inline.fileExtension').removeClass('hide')
+		else
+			validated = false
+			@el.find(".control-group.file").addClass('error')
+			@el.find('.help-inline.file').removeClass('hide')
 
 
 		ISODate.set(
