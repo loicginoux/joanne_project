@@ -343,10 +343,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		# 	update data
 		onSuccessUpdate = (response, textStatus, jqXHR) ->
-			if !data.id #in case this is a new upload we need to precise the id from the first ajax request
-				data.id = response.id
-			# data.uploaded_at = data.uploaded_at.toISOString()
-			console.log(data.uploaded_at)
 			$.ajax({
 				type: "PUT",
 				url: '/data_points/'+data.id+'.json',
@@ -365,19 +361,22 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@bar.width(percentVal)
 
 		# update photo first
-		form = $("#ifu_"+@id).contents().find("form")
-		form.attr('method', 'PUT').ajaxSubmit(
-			dataType:"json",
-			complete: (jqXHR, textStatus)->
-				console.log("complete ajax submit")
-				console.log(jqXHR, jqXHR.status, textStatus)
-				# success
-				# status == 0 is for our friend IE
-				if jqXHR.status == 200 || jqXHR.status == 0
-					onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
-			beforeSend: beforeSend.bind @
-			uploadProgress: uploadProgress.bind @
-		)
+		if @fileInput.val()
+			form = $("#ifu_"+@id).contents().find("form")
+			form.attr('method', 'PUT').ajaxSubmit(
+				dataType:"json",
+				complete: (jqXHR, textStatus)->
+					console.log("complete ajax submit")
+					console.log(jqXHR, jqXHR.status, textStatus)
+					# success
+					# status == 0 is for our friend IE
+					if jqXHR.status == 200 || jqXHR.status == 0
+						onSuccessUpdate(JSON.parse(jqXHR.responseText), textStatus, jqXHR)
+				beforeSend: beforeSend.bind @
+				uploadProgress: uploadProgress.bind @
+			)
+		else
+			onSuccessUpdate()
 
 	showConfirmDeleteBox: () =>
 		@deleteMessage.removeClass('hide')
