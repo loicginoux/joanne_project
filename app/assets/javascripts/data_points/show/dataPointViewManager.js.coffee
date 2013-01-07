@@ -329,8 +329,8 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		if validated
 			@updateDataPoint(e, {
-				id:@id
-				calories: calories
+				id:@id,
+				calories: parseInt(calories),
 				uploaded_at: ISODate.toISOString(),
 				description: @descrVal.val()
 			})

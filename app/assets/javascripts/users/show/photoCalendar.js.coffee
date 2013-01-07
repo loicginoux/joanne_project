@@ -27,7 +27,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@userId = @el.attr("data-user")
 		@period = if (UTIL.readCookie("period")) then UTIL.readCookie("period") else "week"
 		$(".period."+@period).click()
-		@uploadModal = new foodrubix.DataPointEditModal({
+		@uploadModal = new foodrubix.DataPointUploadModal({
 			el:$('.modal.uploadPhoto')
 			master: @
 		})

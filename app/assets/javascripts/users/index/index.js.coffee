@@ -1,0 +1,4 @@
+foodrubix.users.index = () ->
+
+
+

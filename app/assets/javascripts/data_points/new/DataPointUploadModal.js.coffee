@@ -1,4 +1,4 @@
-class foodrubix.DataPointEditModal	extends Spine.Controller
+class foodrubix.DataPointUploadModal	extends Spine.Controller
 
 	elements:
 		"#photos":                 "photos"
@@ -162,7 +162,7 @@ class foodrubix.DataPointEditModal	extends Spine.Controller
 		if validated
 			@updateDataPoint(e, {
 				id:@id,
-				calories: calories,
+				calories: parseInt(calories),
 				uploaded_at: ISODate.toISOString(),
 				description:  @descrVal.val()
 			})
