@@ -366,7 +366,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		# update photo first
 		form = $("#ifu_"+@id).contents().find("form")
-		form.ajaxSubmit(
+		form.attr('method', 'PUT').ajaxSubmit(
 			dataType:"json",
 			complete: (jqXHR, textStatus)->
 				console.log("complete ajax submit")
