@@ -73,9 +73,9 @@ class UsersController < ApplicationController
           format.json { render :json => @user }
       else
         if current_user
-          format.html {redirect_to user_path(:username=> current_user.username), notice: 'this user does not exist'}
+          format.html {redirect_to user_path(:username=> current_user.username)}
         else
-          format.html {redirect_to static_path("home"), notice: 'this user does not exist'}
+          format.html {redirect_to static_path("home")}
         end
       end
     end
