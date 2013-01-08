@@ -53,4 +53,7 @@ Foodrubix::Application.configure do
   config.action_mailer.default_url_options = { :host => config.action_controller.asset_host }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
+  # logs in thin server
+  config.middleware.use Rails::Rack::LogTailer
+
 end

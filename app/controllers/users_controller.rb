@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     end
 
     if @update.nil? || @update == "latestMembers"
-      @latest_members = User.confirmed().active().order("created_at desc").paginate(:per_page => 15, :page => params[:latest_member_page])
+      @latest_members = User.latest_members().paginate(:per_page => 15, :page => params[:latest_member_page])
     end
 
 

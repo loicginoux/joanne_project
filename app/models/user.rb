@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
     c.merge_validates_length_of_password_field_options(:minimum => 6)
     c.merge_validates_length_of_password_confirmation_field_options(:minimum => 6)
+    c.perishable_token_valid_for = 1.hours
   end
 
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
@@ -49,47 +50,28 @@ class User < ActiveRecord::Base
      :default_url => '/assets/default_user.gif'
 
 
-  scope :without_user, lambda{|user|
-    user ? {:conditions => ["users.id != ?", user.id]} : {}
-  }
-
-  scope :without_followees, lambda{|followee_ids|
-    User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty?
-  }
-
-
+  scope :without_user, lambda{|user| user ? {:conditions => ["users.id != ?", user.id]} : {} }
+  scope :without_followees, lambda{|followee_ids| User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty? }
   scope :confirmed, where(:confirmed => true)
   scope :unconfirmed, where(:confirmed => false)
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
-
+  scope :latest_members, confirmed().active().order("created_at desc").where("username != 'joanne'").where("username != 'loknackie'")
+  scope :monthly_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("leaderboard_points desc")
+  scope :total_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("total_leaderboard_points desc")
   scope :who_uploaded_in_last_24_hours, joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", 1.day.ago)
-
   scope :slackerboard, lambda { ||
     # users who didn;t upload anything in last 24 hours
     users = User.who_uploaded_in_last_24_hours
     if users.empty?
-      User.active().confirmed().order("username desc")
+      User.active().confirmed().where("username != 'joanne'").where("username != 'loknackie'").order("username desc")
     else
-      User.active().confirmed().order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
+      User.active().confirmed().where("username != 'joanne'").where("username != 'loknackie'").order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
     end
   }
 
-  scope :monthly_leaderboard, lambda { ||
-    User.confirmed()
-      .active()
-      .where("username != 'joanne'")
-      .where("username != 'loknackie'")
-      .order("leaderboard_points desc")
-  }
 
-  scope :total_leaderboard, lambda { ||
-    User.confirmed()
-      .active()
-      .where("username != 'joanne'")
-      .where("username != 'loknackie'")
-      .order("total_leaderboard_points desc")
-  }
+
 
   # leaderboard points for each action
   LEADERBOARD_ACTION_VALUE = {

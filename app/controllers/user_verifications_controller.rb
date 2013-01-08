@@ -15,8 +15,12 @@ class UserVerificationsController < ApplicationController
   def load_user_using_perishable_token
     @user = User.find_using_perishable_token(params[:id])
     unless @user
-      flash[:notice] = "We're sorry, but we could not locate your account. "
-      redirect_to static_path("home")
+      pendingUser = User.where(:perishable_token => params[:id]).first
+      puts ">>>>>>>>>>"
+      puts pendingUser
+      pendingUser.destroy() if pendingUser
+      flash[:notice] = "We're sorry, but you verified your account too late. you had one hour to verify it. Please restart the registration process."
+      redirect_to register_path
     end
   end
 end
