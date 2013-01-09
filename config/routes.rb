@@ -18,7 +18,9 @@ Foodrubix::Application.routes.draw do
   resources :comments, :except => [:show, :edit, :update]
   resources :likes, :only => [:new, :create, :destroy]
 
-  match "register" => "users#new", :as => :register
+  match "register" => "users#new",:via => :get, :as => :register
+  match "register" => "users#create",:via => :post, :as => :register
+  match "register" => "users#create",:via => :put
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'lost_password' => "password_resets#new", :as => :lost_password
@@ -43,13 +45,16 @@ Foodrubix::Application.routes.draw do
                           :as => "edit_user",
                           :via => :get
 
+  match ":username/edit", :to => "users#update",
+                          :via => :put
+
   match ":username",:to => "users#show",
                     :as => "user",
                     :via => :get
 
-  match ":username",:to => "users#update",
-                    :as => "user",
-                    :via => :put
+  # match ":username",:to => "users#update",
+  #                   :as => "user",
+  #                   :via => :put
 
   match ":username",:to => "users#destroy",
                     :as => "user",
