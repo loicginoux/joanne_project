@@ -1,4 +1,4 @@
-$(".users").append("<%= escape_javascript render( @users) %>");
+$(".users").append("<%= escape_javascript(render :partial => 'users') %>");
 
 // Hide link if it is last page otherwise update link
 <% if @users.total_pages == @users.current_page %>

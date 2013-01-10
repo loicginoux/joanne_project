@@ -1,4 +1,4 @@
-foodrubix.users.new = () ->
+foodrubix.users.new = foodrubix.users.create = () ->
 	$("#user_email").focus(()->
 		$(".important_email").removeClass("hide")
 	)

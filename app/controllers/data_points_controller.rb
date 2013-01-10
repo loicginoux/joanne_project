@@ -109,7 +109,12 @@ class DataPointsController < ApplicationController
       end
 
     elsif !fromMailgun
+      puts "data point not saved, errors: #{@data_point.errors.inspect}"
       render :json => @data_point.errors
+
+    elsif fromMailgun
+      # mailgun expect a 200 response, so we need to send him something
+      render :text => ""
     end
 
     # respond_to do |format|

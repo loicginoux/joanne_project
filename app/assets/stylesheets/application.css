@@ -418,6 +418,10 @@ border-left-width: 1px;
 	float: left;
 	margin-top: 10px;
 }
+
+.navbar .user_menu_icon{
+	margin-top: 5px
+}
 /* footer
 
 the rest of the rules are for always stick the footer at bottom
@@ -459,3 +463,5 @@ footer {
 div#wolframAlphaWidget47689.WolframAlphaWidgetLarge{
 	width:380px;
 }
+
+

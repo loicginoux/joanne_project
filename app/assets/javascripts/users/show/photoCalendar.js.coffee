@@ -468,12 +468,12 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 	#  clear the view modal html when closing the view modal box
 	cleanViewModal:()=>
-		@activeModal.el.find(".modal-body").empty()
+		@activeModal.release()
 
 	# called when the modal box for the view image is rendered
 	initViewModal: () ->
 		@activeModal = new foodrubix.dataPointViewManager({
-		 	el:$('.modal.in')
+		 	el:$('.modal.in .modal-body').children()
 		 	master: @
 		})
 
@@ -487,7 +487,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		$(".modal.in").modal('hide')
 		if @activeModal && typeof @activeModal.clean == "function"
 		  @activeModal.clean()
-		@activeModal = ""
+		@activeModal.release()
 		UTIL.load($('#photos'), "photos", true)
 		fn = ()->
 			@refresh()
