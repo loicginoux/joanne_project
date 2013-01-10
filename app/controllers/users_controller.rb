@@ -41,20 +41,15 @@ class UsersController < ApplicationController
     end
 
     if @update.nil? || @update == "latestMembers"
-      @latest_members = User.confirmed().active().order("created_at desc").paginate(:per_page => 15, :page => params[:latest_member_page])
+      @latest_members = User.latest_members().paginate(:per_page => 15, :page => params[:latest_member_page])
     end
-
-
-
-
-
-
 
     respond_to do |format|
       format.html
       format.js
     end
   end
+
 
   def show
     @user = User.first(:conditions => {:username=> params[:username]})
@@ -84,6 +79,7 @@ class UsersController < ApplicationController
   def new
      @user = User.new
      @user.data_points.build
+     @url = register_path
      respond_to do |format|
        format.html # new.html.erb
        format.json { render json: @user }
@@ -91,10 +87,14 @@ class UsersController < ApplicationController
   end
 
   def create
+
     params[:user][:username] = params[:user][:username].downcase
     params[:user][:email] = params[:user][:email].downcase
     puts params[:user]
+    @user = User.new
+    @user.data_points.build
     @user = User.new(params[:user])
+    @url = register_path
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
     if session[:omniauth]
       @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid], :username => session[:omniauth][:username] , :access_token => session[:omniauth][:access_token])
@@ -121,13 +121,14 @@ class UsersController < ApplicationController
       @user.deliver_confirm_email_instructions!
       redirect_to static_path("home")
     else
-      render :action => 'new'
+      render
     end
   end
 
   def edit
     if current_user
       @user = current_user
+      @url = edit_user_path(:username=> current_user.username)
       if current_user.username != params[:username]
         redirect_to edit_user_path(:username=> current_user.username), notice: 'You can only edit your profile.'
       end
@@ -136,6 +137,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    @url = edit_user_path(:username=> current_user.username)
     if @user.update_attributes(params[:user])
       redirect_to edit_user_path(:username=> @user.username), notice: 'Successfully updated profile.'
     else

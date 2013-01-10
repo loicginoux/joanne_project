@@ -1,0 +1,3 @@
+<% @users.each do |user| %>
+	<%= render :partial => "users/index/user", :locals => {:user => user}%>
+<% end %>

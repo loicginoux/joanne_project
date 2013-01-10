@@ -1,9 +1,0 @@
-<div class="span4">
-	<div class="image pull-left">
-		<%= link_to user_path(:username=> friendship.followee.username) do %>
-			<%=  image_tag friendship.followee.picture.url(:small) %>
-    		<%= friendship.followee.username%>
-		<% end %>
-	</div>
-	<%= link_to "Unfollow", friendship, :method => :delete, :class => "btn pull-right"  %>
-</div>

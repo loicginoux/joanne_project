@@ -290,7 +290,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 		# validate calories
 		calories = @calories.val()
-		unless parseInt calories
+		if isNaN(parseInt(calories)) || parseInt(calories) < 0
 			validated = false
 			@el.find(".control-group.calories").addClass('error')
 			@el.find('.help-inline.calories').removeClass('hide')

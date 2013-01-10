@@ -1,56 +1,61 @@
 <div class="row">
 	<div class="span10">
 		<%= form_for @user_session, :html => { :class => "form-horizontal" } do |f| %>
-	   	<% if @user_session.errors.any? %>
-				<div class="alert alert-error">
-						<% @user_session.errors.full_messages.each do |msg| %>
-							<p><%= msg %></p>
-						<% end %>
-				</div>
+		<% if @user_session.errors.any? %>
+		<div class="alert alert-error">
+			<% @user_session.errors.full_messages.each do |msg| %>
+				<p><%= msg %></p>
 			<% end %>
-			<fieldset>
-				<!-- username -->
-				<div class="control-group <% if @user_session.errors[:username].present? %>error<%end%>">
+		</div>
+		<% end %>
+		<fieldset>
+			<!-- username -->
+			<div class="control-group <% if @user_session.errors[:username].present? %>error<%end%>">
 
-          <div class="controls">
-          			<%= label_tag :username %>
-				    <%= f.text_field :username, :class => "input-xlarge", :placeholder => "Username"  %>
-						<% if @user_session.errors[:username].present? %>
-							<span class="help-inline"><%= @user_session.errors[:username].join(", ")%></span>
-						<%end%>
-          </div>
-        </div>
-				<!-- password -->
-				<div class="control-group <% if @user_session.errors[:password].present? %>error<%end%>">
-
-          <div class="controls">
-					<%= label_tag :password %>
-				    <%= f.password_field :password, :class => "input-xlarge", :placeholder => "Password"   %>
-						<% if @user_session.errors[:password].present? %>
-							<span class="help-inline"><%= @user_session.errors[:password].join(", ")%></span>
-						<%end%>
-          </div>
-        </div>
-				<div class="control-group">
-					<div class="controls">
-          	<%= link_to "Lost password?", lost_password_path %>
-					</div>
+				<div class="controls">
+					<%= label_tag :username %>
+					<%= f.text_field :username, :class => "input-xlarge", :placeholder => "Username"  %>
+					<% if @user_session.errors[:username].present? %>
+					<span class="help-inline"><%= @user_session.errors[:username].join(", ")%></span>
+					<%end%>
 				</div>
-			 	<div class="form-actions">
-				  <%= f.submit "Log in", :class => "btn btn-primary"  %>
-					or
-					<a href="/auth/facebook" class="auth_provider">
-				  		<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
-					</a>
+			</div>
+			<!-- password -->
+			<div class="control-group <% if @user_session.errors[:password].present? %>error<%end%>">
+
+				<div class="controls">
+					<%= label_tag :password %>
+					<%= f.password_field :password, :class => "input-xlarge", :placeholder => "Password"   %>
+					<% if @user_session.errors[:password].present? %>
+					<span class="help-inline"><%= @user_session.errors[:password].join(", ")%></span>
+					<%end%>
+				</div>
+			</div>
+			<!-- remmember me -->
+			<div class="control-group">
+				<div class="controls">
+					<%= link_to "Lost password?", lost_password_path, :class => "lost_password" %>
+					<label class="checkbox">
+        			<%= f.check_box :remember_me   %> Remember me
+      				</label>
+				</div>
+			</div>
+
+			<div class="form-actions">
+				<%= f.submit "Log in", :class => "btn btn-primary"  %>
+				or
+				<a href="/auth/facebook" class="auth_provider">
+					<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
+				</a>
 					<!-- or
 					<a href="/auth/twitter" class="auth_provider">
 				  		<%= image_tag "twitter_login.jpg", :alt => "Twitter", :height => "28px" %>
-					</a> -->
-        </div>
-			</fieldset>
-		<% end %>
-  </div><!-- span6 -->
-</div><!-- row -->
+				  	</a> -->
+				  </div>
+				</fieldset>
+				<% end %>
+			</div><!-- span6 -->
+		</div><!-- row -->
 
 
 

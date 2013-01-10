@@ -11,7 +11,7 @@
 		</div>
 		<% end %>
 
-		<%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+		<%= form_for @user, :url => @url, :html => { :class => "form-horizontal" } do |f| %>
 
 		<fieldset>
 			<div class="control-group <% if @user.errors[:username].present? %>error<%end%>">
