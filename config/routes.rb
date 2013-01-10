@@ -52,9 +52,9 @@ Foodrubix::Application.routes.draw do
                     :as => "user",
                     :via => :get
 
-  # match ":username",:to => "users#update",
-  #                   :as => "user",
-  #                   :via => :put
+  match ":username",:to => "users#update",
+                    :as => "user",
+                    :via => :put
 
   match ":username",:to => "users#destroy",
                     :as => "user",
