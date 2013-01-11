@@ -54,6 +54,10 @@ module Foodrubix
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # avoid issue on initialisation of heroku
+    # http://blog.nathanhumbert.com/2012/01/rails-32-on-heroku-tip.html
+    config.assets.initialize_on_precompile = false
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
