@@ -234,41 +234,55 @@ class User < ActiveRecord::Base
     return lookup[provider]
   end
 
-  def assign_leaderboard_points()
+  def assign_leaderboard_points(monthly = false)
     points = 0
-    points += comments_points()
-    points += commented_points()
-    points += likes_points()
-    points += liked_points()
-    points += photo_upload_points()
+    points += comments_points(monthly)
+    points += commented_points(monthly)
+    points += likes_points(monthly)
+    points += liked_points(monthly)
+    points += photo_upload_points(monthly)
     points += followee_points()
     points += follower_points()
     points += profile_photo_points()
     points += daily_calories_limit_points()
     points += fb_sharing_points()
-    points += smart_choice_award_points()
-    points += hot_photo_award_points()
+    points += smart_choice_award_points(monthly)
+    points += hot_photo_award_points(monthly)
     return points
   end
 
 
 
-  def comments_points()
-    # self.comments.onOthersPhoto().group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:comment]
-    self.comments.onOthersPhoto().group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
+  def comments_points(montly = false)
+    myComments = self.comments
+    if monthly
+      myComments = myComments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    myComments.onOthersPhoto().group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
   end
 
-  def commented_points()
-    # Comment.onOthersPhoto().whereDataPointBelongsTo(self).group("data_point_id").length * User::LEADERBOARD_ACTION_VALUE[:commented]
-    Comment.onOthersPhoto().whereDataPointBelongsTo(self).group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:commented]
+  def commented_points(montly = false)
+    comments = Comment.onOthersPhoto().whereDataPointBelongsTo(self)
+    if monthly
+      comments = comments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    comments.group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:commented]
   end
 
-  def likes_points()
+  def likes_points(montly = false)
+    likes = self.likes.onOthersPhoto()
+    if montly
+      likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
     self.likes.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:like]
   end
 
-  def liked_points()
-    Like.onOthersPhoto().whereDataPointBelongsTo(self).length * User::LEADERBOARD_ACTION_VALUE[:liked]
+  def liked_points(montly = false)
+    likes = Like.onOthersPhoto().whereDataPointBelongsTo(self)
+    if monthly
+      likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    likes.length * User::LEADERBOARD_ACTION_VALUE[:liked]
   end
 
   def followee_points()
@@ -291,28 +305,38 @@ class User < ActiveRecord::Base
     (self.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
   end
 
-  def smart_choice_award_points()
-    self.data_points.smart_choice_awarded().length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
+  def smart_choice_award_points(montly = false)
+    dp = self.data_points.smart_choice_awarded()
+    if monthly
+      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    dp.length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
   end
 
-  def hot_photo_award_points()
-    self.data_points.hot_photo_awarded().length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
+  def hot_photo_award_points(montly = false)
+    dp = self.data_points.hot_photo_awarded()
+    if monthly
+      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    dp.length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
   end
 
-  def photo_upload_points()
+  def photo_upload_points(montly = false)
     # a point is awarded per photo and per day with a limit of 3 photo/point a day.
     # we group a user photo per day,
     # then we calculate the number of photo per day
     # and for each day we add the points per photo. If a day has more than 3 photos, we count it as 3 points
-    self.data_points
-      .group_by(&:group_by_criteria)
-      .map {|k,v| v.length}
-      .inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
+    dp = self.data_points
+    if monthly
+      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+    end
+    dp.group_by(&:group_by_criteria).map {|k,v| v.length}.inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
   end
 
   def addPoints(points)
     new_points = self.leaderboard_points + points
     new_total_points = self.total_leaderboard_points + points
+    puts "#{points} points added to #{self.username}, pass from #{self.leaderboard_points} to #{new_points} points (total: from #{self.total_leaderboard_points} to #{new_total_points})"
     self.update_attributes({
       :leaderboard_points =>  new_points,
       :total_leaderboard_points => new_total_points

@@ -15,6 +15,7 @@
 //= require ./all/google_analytics
 //= require ./init
 //= require ./utils
+//= require ./user_sessions/new
 
 //= require_tree ./users/new
 //= require_tree ./homepage

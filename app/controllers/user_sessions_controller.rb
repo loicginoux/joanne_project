@@ -16,16 +16,15 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions.json
   def create
     @user_session = UserSession.new(params[:user_session])
-    respond_to do |format|
-      if @user_session.save
-        user = User.first(:conditions => {:username=> @user_session.username.downcase})
-        format.html { redirect_back_or_default(user_path(:username=> user.username))  }
-        format.json { render json: @user_session, status: :created, location: @user_session }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user_session.errors, status: :unprocessable_entity }
-      end
+    if @user_session.save
+      user = User.first(:conditions => {:username=> @user_session.username.downcase})
+      redirect_back_or_default(user_path(:username=> user.username))
+    else
+      puts "login failed: #{@user_session.inspect}"
+      puts "errors: #{@user_session.errors.inspect}"
+      render
     end
+
   end
 
 

@@ -23,7 +23,9 @@
 					<%= f.text_field :username, :class => "input-xlarge" , :placeholder=> "Username"  %>
 					<%end%>
 					<% if @user.errors[:username].present? %>
-					<span class="help-inline"><%= @user.errors[:username].join(", ")%></span>
+							<span class="help-inline">
+								<%= @user.errors[:username][0]%>
+							</span><br/>
 					<%end%>
 				</div>
 			</div>
@@ -36,7 +38,10 @@
 					<%= f.text_field :email, :class => "input-xlarge", :placeholder=> "Email"  %>
 					<%end%>
 					<% if @user.errors[:email].present? %>
-					<span class="help-inline"><%= @user.errors[:email].join(", ")%></span>
+						<span class="help-inline">
+							<%= @user.errors[:email][0] %>
+						</span>
+						<br/>
 					<%end%>
 					<span class="help-inline hide important_email">
 						<div>
@@ -50,8 +55,12 @@
 					<%= label_tag :password %>
 					<%= f.password_field :password, :class => "input-xlarge", :placeholder=> "Password"   %>
 					<% if @user.errors[:password].present? %>
-					<span class="help-inline"><%= @user.errors[:password].join(", ")%></span>
+							<span class="help-inline">
+								<%= @user.errors[:password][0] %>
+							</span>
+							<br/>
 					<%end%>
+
 				</div>
 			</div>
 			<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
@@ -59,8 +68,12 @@
           			<%= label_tag :password_confirmation %>
 					<%= f.password_field :password_confirmation, :class => "input-xlarge" , :placeholder=> "Password confirmation"  %>
 					<% if @user.errors[:password_confirmation].present? %>
-					<span class="help-inline"><%= @user.errors[:password_confirmation].join(", ")%></span>
+							<span class="help-inline">
+								<%= @user.errors[:password_confirmation][0] %>
+							</span>
+							<br/>
 					<%end%>
+
 				</div>
 			</div>
 

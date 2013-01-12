@@ -33,7 +33,7 @@ Foodrubix::Application.configure do
   config.assets.compress = false
 
   # serve assets from public directory
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Expands the lines which load the assets
   config.assets.debug = true

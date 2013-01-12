@@ -23,14 +23,16 @@
   	{{#week_data}}
         <td class="span1_7 {{#first_of_week}}first{{/first_of_week}}" data-date="{{date_drop}}">
           <div class="day_date"><b>{{day_date}}</b></div>
+          <ul class="sortableImages">
         		{{#current_month}}
-  				{{#data_points}}
-  					<%= render "data_points/main_photo" %>
-  				{{/data_points}}
-  				{{^data_points}}
+      				{{#data_points}}
+      					<%= render "data_points/main_photo" %>
+      				{{/data_points}}
+      				{{^data_points}}
 
-  				{{/data_points}}
-  			{{/current_month}}
+      				{{/data_points}}
+        {{/current_month}}
+          </ul>
   			{{#other_month}}
 
   			{{/other_month}}

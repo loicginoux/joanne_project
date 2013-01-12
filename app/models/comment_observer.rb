@@ -20,7 +20,6 @@ class CommentObserver < ActiveRecord::Observer
 
     #previous comments from same commenter
     previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
-    puts ">>>> #{previousComments.length}"
 
     if !comment.user.is(dataPoint.user) && previousComments.length <= 1
       # we add leaderboard points to the commenter

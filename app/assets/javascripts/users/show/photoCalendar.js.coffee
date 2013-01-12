@@ -9,7 +9,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .image": "onImageClick"
 		"click .overlay .like": "like"
 		"hover .overlay .label": "changeLabelColor"
-		"shown .modal.uploadPhoto": "initEditModal"
+
+		"shown .modal.uploadPhoto": "initUploadModal"
+		"hidden .modal.uploadPhoto": "cleanUploadModal"
+
 		"shown .modal.viewPhoto": "fetchViewModal"
 		"hidden .modal.viewPhoto": "cleanViewModal"
 		"modalRendered .viewPhoto": "initViewModal"
@@ -328,7 +331,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	            return $(el).outerHeight()
 	        )
 	        max = Math.max.apply(null, arr)
-	        weekSpans.css('height', max)
+			if (weekSpans.find(".sortableImages").children().length)
+				sortableImagesHeight = max-18
+			else
+				sortableImagesHeight = 20
+			weekSpans.find(".sortableImages").css("height",sortableImagesHeight).end().eq(0).parent().css('height', max+10)
 
 		weekSpans = $('.week_view .span1_7')
 		# week view
@@ -341,54 +348,116 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				fn(weekSpans)
 			)
 
+	# Determines if the passed element is overflowing its bounds,
+	# either vertically or horizontally.
+	# Will temporarily modify the "overflow" style to detect this
+	# if necessary.
+	checkOverflow: (el)->
+		curOverflow = el.style.overflow
+		if ( !curOverflow || curOverflow == "visible" )
+			el.style.overflow = "hidden"
+		isOverflowing = el.clientWidth < el.scrollWidth  || el.clientHeight < el.scrollHeight
+		el.style.overflow = curOverflow
+		isOverflowing
 
 	# attach the drag and drop feature to move photos around
 	attachDragAndDrops:()->
 		$(".span1_7 img").imagesLoaded(@unifyHeights)
-		#  for month and week view
-		$(".week_view .image, .month_view .image").draggable({zIndex: 1000});
-		$(".week_view .span1_7, .month_view tbody .span1_7").droppable(
-			hoverClass: "hoverActive",
-			drop: @onDrop.bind @
-		);
-		# for day view
 		that = @
-		$(".sortableImages").sortable(
-			axis: "y"
-			start: (e, ui)->
-        		ui.placeholder.height(ui.item.height())
-        		that.sortedItemIndex = ui.item.index()
-        		ui.item.parent("ul").addClass "hoverActive"
-        	stop: @onDayDrop.bind @
-        	over: (e, ui)->
-        		console.log ui.item
-        		# ui.item.find(".image").addClass("hoverActive")
-        )
+		# overflow is used when the images overflow the height of the week height
+		overflow = false
+		# canResize is used to tell to resize the day when went out from
+		canResize = false
+		# the number of pixel we resise at
+		canResizeAt = 0
+		placeHolderHeight = 0
+		# which element to resize after going out of a connected list
+		elemOutResize = ""
+		$(".sortableImages").sortable({
+			connectWith: ".sortableImages",
+			start: (e, ui)-> # when we start drag and drop
+				placeHolderHeight = ui.item.height()
+				ui.placeholder.height(placeHolderHeight)
+				that.sortedItemIndex = ui.item.index()
+				that.sortedDayFrom = ui.item.parent()
+				ui.item.parent("ul").addClass "hoverActive"
+			# out and over are only use in week and month view where we use connected lists
+			out: (e, ui)-> # when going out of a connected list
+				# that.log "out", $(e.target).parent().index()
+				# overflow is set while going over a connected list
+				if overflow
+					# we could resize here but in some case it doesn't work,
+					# so I resize on over
+					canResize = true
+					# that.log "out of overflow"
+					target = $(e.target)
+					targetHeight = target.height()
+					canResizeAt = targetHeight - placeHolderHeight
+					parentTr = target.parent().parent("tr")
+					if parentTr.length
+						elemOutResize = parentTr.find(".sortableImages")
+					else
+						elemOutResize = $(".sortableImages")
+			over: (e, ui)-> # when going over a connected list
+				# that.log "over", $(e.target).parent().index()
+				$(".sortableImages").removeClass "hoverActive"
+				target = $(e.target)
+				target.addClass "hoverActive"
+				# the element to resize "elemToResize" depends on the week or month view
+				parentTr = target.parent().parent("tr")
+				if parentTr.length
+						elemToResize = parentTr.find(".sortableImages")
+					else
+						elemToResize = $(".sortableImages")
+				# this is set up on the "out" event
+				if canResize
+					# we resize the element we go out from
+					elemOutResize.height( canResizeAt )
+				# if when dragging over the content overflow the height
+				# we need to adjust the height of the week
+				if that.checkOverflow(e.target)
+					overflow = true
+					that.log "overflow"
+					targetHeight = target.height()
+					elemToResize.height(targetHeight + placeHolderHeight )
+				else
+					overflow = false
+				return true
+			stop: @onDrop.bind @
+		})
 
 	#  called when we drop a photo on day view
-	onDayDrop:(event, ui)->
-		ui.item.parent("ul").removeClass "hoverActive"
+	onDrop:(event, ui)->
+		recipient = $(".hoverActive")
+		recipient.removeClass "hoverActive"
 
-		if @sortedItemIndex == ui.item.index() then return
+		if @sortedItemIndex == ui.item.index() && recipient.is(@sortedDayFrom) then return
 
 		# form the new date
-		id = ui.item.find(".image").attr("data-id")
-		nextPhotoTime = ui.item.next().find(".time").html()
-		prevPhotoTime = ui.item.prev().find(".time").html()
+		id = ui.item.attr("data-id") | ui.item.find(".image").attr("data-id")
+		nextPhotoTime = ui.item.next().find(".time").text()
+		prevPhotoTime = ui.item.prev().find(".time").text()
+		recipientDay = if (recipient.parent().attr("data-date")) then new Date(recipient.parent().attr("data-date")) else @date
 
 		if nextPhotoTime
-			nextPhotoDate = this.date.clone().set({
+			nextPhotoDate = recipientDay.set({
 				hour:Date.parse(nextPhotoTime).getHours()
 				minute:Date.parse(nextPhotoTime).getMinutes()
 			})
 			datePhoto = nextPhotoDate.add(-1).minutes()
 		else if prevPhotoTime
-			prevPhotoDate = this.date.clone().set({
+			prevPhotoDate = recipientDay.set({
 				hour:Date.parse(prevPhotoTime).getHours()
 				minute:Date.parse(prevPhotoTime).getMinutes()
 			})
 			datePhoto = prevPhotoDate.add(+1).minutes()
-
+		else
+			timeVal = ui.item.find(".time").text()
+			time = Date.parse(timeVal, 'hh:mm tt')
+			datePhoto = recipientDay.set({
+				hour:time.getHours(),
+				minute:time.getMinutes()
+			})
 		# update date
 		if datePhoto
 			$.ajax({
@@ -405,31 +474,31 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 
 
-	#  called when we drop a photo on month or week view
-	onDrop:(event, ui)->
-		# form the new date
-		id = ui.draggable.attr("data-id")
-		el = $(event.target)
-		dateDrop = el.attr("data-date");
-		date = Date.parse(dateDrop,"M-d-yyyy")
-		timeVal = ui.draggable.find(".time").text()
-		time = Date.parse(timeVal, 'hh:mm tt')
-		date.set(
-			hour:time.getHours(),
-			minute:time.getMinutes()
-			)
-		# update date
-		$.ajax({
-			type: "PUT",
-			url: '/data_points/'+id+'.json',
-			data:
-				data_point : {
-					id: id,
-					uploaded_at: date.toISOString()
-				},
-				dataType: 'json',
-				success: @onSuccessAjax.bind @
-		})
+	# #  called when we drop a photo on month or week view
+	# onDrop:(event, ui)->
+	# 	# form the new date
+	# 	id = ui.draggable.attr("data-id")
+	# 	el = $(event.target)
+	# 	dateDrop = el.attr("data-date");
+	# 	date = Date.parse(dateDrop,"M-d-yyyy")
+	# 	timeVal = ui.draggable.find(".time").text()
+	# 	time = Date.parse(timeVal, 'hh:mm tt')
+	# 	date.set(
+	# 		hour:time.getHours(),
+	# 		minute:time.getMinutes()
+	# 		)
+	# 	# update date
+	# 	$.ajax({
+	# 		type: "PUT",
+	# 		url: '/data_points/'+id+'.json',
+	# 		data:
+	# 			data_point : {
+	# 				id: id,
+	# 				uploaded_at: date.toISOString()
+	# 			},
+	# 			dataType: 'json',
+	# 			success: @onSuccessAjax.bind @
+	# 	})
 
 	# return true if the user 'userId' like the 'dataPoint'
 	userLikeImage: (userId, dataPoint) ->
@@ -453,9 +522,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 
 	#  called when we click the upload button and the modal box appears
-	initEditModal: (e) =>
+	initUploadModal: (e) =>
 		@activeModal = @uploadModal
 		@uploadModal.initialize()
+
+	#  called when we close the upload modal box
+	cleanUploadModal: (e) =>
+		@uploadModal.clean()
 
 	# loads the view template of a data point
 	# called when we click on a photo
@@ -485,9 +558,11 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	# include the new photo
 	onSuccessAjax: (data) =>
 		$(".modal.in").modal('hide')
-		if @activeModal && typeof @activeModal.clean == "function"
-		  @activeModal.clean()
-		@activeModal.release()
+		if @activeModal
+			if typeof @activeModal.clean == "function"
+				@activeModal.clean()
+			else
+				@activeModal.release()
 		UTIL.load($('#photos'), "photos", true)
 		fn = ()->
 			@refresh()

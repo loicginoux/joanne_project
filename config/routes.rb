@@ -21,7 +21,11 @@ Foodrubix::Application.routes.draw do
   match "register" => "users#new",:via => :get, :as => :register
   match "register" => "users#create",:via => :post, :as => :register
   match "register" => "users#create",:via => :put
-  match 'login' => "user_sessions#new", :as => :login
+
+  match 'login' => "user_sessions#new", :as => :login, :via => :get
+  match 'login' => "user_sessions#create", :via => :post, :as => :login
+  match 'login' => "user_sessions#create", :via => :put
+
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'lost_password' => "password_resets#new", :as => :lost_password
   match 'confirm' => "user_verification#show", :as => :confirm

@@ -9,10 +9,11 @@
 		<div class="span1_7 {{#first}}first{{/first}}" data-date="{{date_drop}}">
 		<h5 class="pagination-centered">{{day_date}}</h5>
 		<br/>
+		<ul class="sortableImages">
 		{{#data_points}}
 			<%= render "data_points/main_photo" %>
 		{{/data_points}}
-
+		</ul>
 		{{^data_points}}
 			<div class="image">
 				<p class="pagination-centered"></p>

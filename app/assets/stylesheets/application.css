@@ -132,20 +132,20 @@ background-color: #EEE;
 /*images
 --------------------------------*/
 
+ul.sortableImages{
+	margin: 0;
+}
 .week_view .cbm_wrap,
 .month_view .cbm_wrap{
 	width: 100px;
 	height: 100px;
 }
 
-.dayView .sortableImages{
+.day_view .sortableImages{
 	padding: 5px 0;
 	margin: 0 0 9px 20px;
 }
 
-.dayView .sortableImages.hoverActive{
- background-color: #E96000;
-}
 
 .cbm_wrap {
 	background: white url('/assets/loading.gif') no-repeat 50% 50%;
@@ -208,6 +208,18 @@ position: relative;
 }
 
 
+/*user show (month, week and day view)
+--------------------------------*/
+#graphicContainer{
+	margin-top: 20px;
+}
+
+.hoverActive{
+	background-color: #E96000;
+	border-radius: 4px;
+
+}
+
 /* month view table
 --------------------------------*/
 .month_view .table tbody tr:hover td,
@@ -260,11 +272,7 @@ width: 100%;
   margin-left: 80px;
 }
 
-.week_view .hoverActive, .month_view .table tbody tr td.hoverActive {
-	background-color: #E96000;
-	border-radius: 4px;
 
-}
 
 /*update data point modal box
 --------------------------------*/
