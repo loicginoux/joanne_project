@@ -14,7 +14,7 @@ Foodrubix::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
+  # compile your assets during runtime
   config.assets.compile = false
 
   # Generate digests for assets URLs
