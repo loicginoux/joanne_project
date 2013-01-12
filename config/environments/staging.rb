@@ -43,16 +43,16 @@ Foodrubix::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "www.calm-gorge-1213.herokuapp.com"
-  config.action_mailer.asset_host = "http://www.calm-gorge-1213.herokuapp.com"
+  config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
+  config.action_mailer.asset_host = "http://calm-gorge-1213.herokuapp.com"
 
   # email configuration
   config.action_mailer.default_url_options = {
-    :host => "www.calm-gorge-1213.herokuapp.com",
+    :host => "calm-gorge-1213.herokuapp.com",
     :only_path => false
   }
   Rails.application.routes.default_url_options = {
-    :host => "www.calm-gorge-1213.herokuapp.com"
+    :host => "calm-gorge-1213.herokuapp.com"
   }
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
