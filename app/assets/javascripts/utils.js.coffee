@@ -72,6 +72,10 @@ window.UTIL = {
 			date = Date.parse(match2[0])
 		return date
 
+	# remove the offset
+	prepareForServer: (date) ->
+		date.toString("ddd MMM dd yyyy HH:mm:ss")
+
 	# replace links into html a tags
 	replaceURLWithHTMLLinks: (selector) ->
 		exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig

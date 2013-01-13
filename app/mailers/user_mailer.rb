@@ -100,28 +100,33 @@ class UserMailer < ActionMailer::Base
 
     users.each {|user|
       Time.zone = user.timezone
-      startDate = (Time.zone.now - 7.days).utc
-      endDate = Time.zone.now.utc
-      @groups = DataPoint.where(
-        :user_id => user.id,
-        :uploaded_at => startDate..endDate
-      )
-      .order("uploaded_at ASC")
-      .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
+      if Time.zone.now.monday? && Time.zone.now.hour == 2
+        # startDate = (Time.zone.now - 7.days).utc
+        # endDate = Time.zone.now.utc
+        endDate = DateTime.parse((Date.today).to_s)
+        startDate = DateTime.parse((endDate - 7.days).to_s)
 
-      @user = user
-      logger.debug @groups
-      if @groups.empty?
-        html = render :partial => "email/empty_recap", :layout => "email"
-      else
-        html = render :partial => "email/weekly_recap", :layout => "email"
+        @groups = DataPoint.where(
+          :user_id => user.id,
+          :uploaded_at => startDate..endDate
+        )
+        .order("uploaded_at ASC")
+        .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
+
+        @user = user
+        puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
+        if @groups.empty?
+          html = render :partial => "email/empty_recap", :layout => "email"
+        else
+          html = render :partial => "email/weekly_recap", :layout => "email"
+        end
+
+        RestClient.post MAILGUN[:api_url]+"/messages",
+        :from => MAILGUN[:admin_mailbox],
+        :to => user.email,
+        :subject => "[FoodRubix] This is what you ate this week",
+        :html => html.to_str
       end
-
-      RestClient.post MAILGUN[:api_url]+"/messages",
-      :from => MAILGUN[:admin_mailbox],
-      :to => user.email,
-      :subject => "[FoodRubix] This is what you ate this week",
-      :html => html.to_str
     }
   end
 
@@ -133,8 +138,9 @@ class UserMailer < ActionMailer::Base
     users.each {|user|
       Time.zone = user.timezone
       if Time.zone.now.hour == 2
-        endDate = Date.today.to_time_in_current_zone
-        startDate = endDate - 1.days
+        # this removes the offset that can't be done with the Date object
+        endDate = DateTime.parse(Date.today.to_s)
+        startDate = DateTime.parse((endDate - 1.days).to_s)
 
         @data_points = DataPoint.where(
           :user_id => user.id,

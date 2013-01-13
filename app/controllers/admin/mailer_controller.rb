@@ -48,8 +48,10 @@ class Admin::MailerController < ApplicationController
   end
   def preview_empty()
     @user = current_user
-    startDate = (Time.zone.now - 1.days).utc
-    endDate = Time.zone.now.utc
+    # this removes the offset that can't be done with the Date object
+    endDate = DateTime.parse(Date.today.to_s)
+    startDate = DateTime.parse((endDate - 1.days).to_s)
+
     @data_points = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate
@@ -66,8 +68,10 @@ class Admin::MailerController < ApplicationController
 
   def preview_daily()
     @user = current_user
-    endDate = Date.today.to_time_in_current_zone
-    startDate = endDate - 1.days
+    # this removes the offset that can't be done with the Date object
+    endDate = DateTime.parse(Date.today.to_s)
+    startDate = DateTime.parse((endDate - 1.days).to_s)
+
     @data_points = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate
@@ -90,8 +94,8 @@ class Admin::MailerController < ApplicationController
     @slackerboard_users = User.slackerboard().limit(20)
 
     @user = current_user
-    startDate = (Time.zone.now - 7.days).utc
-    endDate = Time.zone.now.utc
+    endDate = DateTime.parse((Date.today).to_s)
+    startDate = DateTime.parse((endDate - 7.days).to_s)
     @groups = DataPoint.where(
       :user_id => @user.id,
       :uploaded_at => startDate..endDate

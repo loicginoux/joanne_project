@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :mailer_set_url_options
-  before_filter :set_timezone
+  # before_filter :set_timezone
   helper_method :current_user
   helper_method :getDateFromParam
 
@@ -54,10 +54,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def getDateFromParam(date)
-    dateWithoutTimezone = Time.parse(date).strftime("%d-%m-%Y %I:%M %p")
-    return Time.zone.parse(dateWithoutTimezone)
-  end
+  # def getDateFromParam(date)
+  #   dateWithoutTimezone = Time.parse(date).strftime("%d-%m-%Y %I:%M %p")
+  #   return Time.zone.parse(dateWithoutTimezone)
+  # end
 
   def require_login
     if current_user

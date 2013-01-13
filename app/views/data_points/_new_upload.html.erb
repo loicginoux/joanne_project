@@ -10,7 +10,7 @@
 					<div class="control-group editable_img_container pull-right file">
 						<div class="controls">
 							<img class="photoPreview" />
-							<a class="btn btn-upload" href="#">Upload photo</a>
+							<a class="btn btn-upload" href="javascript:void(0)">Upload photo</a>
 							<!-- <input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file"> -->
 							<div class="progress progress-striped active hide">
 							  <div class="bar" style="width: 0%;"></div>
@@ -37,8 +37,8 @@
 					<div class="control-group date">
 						<label class="control-label">Date</label>
 						<div class="controls">
-							<div class="input-append date datePicker" data-date="<%= Time.zone.now.strftime("%m-%d-%Y")%>" data-date-format="mm-dd-yyyy">
-								<input size="16" type="text" id="data_point_uploaded_at" name="data_point[uploaded_at]" value="<%= Time.zone.now.strftime("%m-%d-%Y")%>">
+							<div class="input-append date datePicker" data-date="" data-date-format="mm-dd-yyyy">
+								<input size="16" type="text" id="data_point_uploaded_at" name="data_point[uploaded_at]" value="">
 								<span class="add-on"><i class="icon-th"></i></span>
 								<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
 
@@ -51,7 +51,7 @@
 				<label class="control-label">Time</label>
 				<div class="controls">
 					<input class="timePicker" id="timePicker" name="data_point[time]" type="text"
-					 value="<%= Time.zone.now.strftime("%I:%M %p")%>">
+					 value="">
 					<span class="help-inline time hide">Please enter a correct time (HH:mm AM/PM)</span>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
-		<a href="#" class="btn btn-primary btn-save btn-new-upload" data-loading-text="Uploading...">Upload</a>
+		<a href="javascript:void(0)" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
+		<a href="javascript:void(0)" class="btn btn-primary btn-save btn-new-upload" data-loading-text="Uploading...">Upload</a>
 	</div>
 </div>

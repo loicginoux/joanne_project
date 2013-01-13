@@ -64,8 +64,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			type: 'GET',
 			url: '/data_points.json',
 			data: {
-				start_date : @startDate.toISOString() ,
-				end_date : @endDate.toISOString(),
+				start_date : UTIL.prepareForServer(@startDate) ,
+				end_date : UTIL.prepareForServer(@endDate),
 				user_id: @userId
 			},
 			dataType: 'json',
@@ -86,31 +86,25 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			@getDataPoints(@onSuccessFetch)
 			UTIL.setCookie("period", @period, 30)
 
-	# go to the previous month/week/day depending on current displayed period
-	goToPrev: () ->
+
+	goTo:(multiple)->
 		UTIL.load($('#photos'), "photos", true)
 		@graphic.empty()
 
 		switch @period
-			when "day" then @date.add(-1).days()
-			when "week" then @date.add(-7).days()
-			when "month" then @date.add(-30).days()
+			when "day" then @date.add(1*multiple).days()
+			when "week" then @date.add(7*multiple).days()
+			when "month" then @date.add(30*multiple).days()
 
 		@getDates()
 		@getDataPoints(@onSuccessFetch)
+
+	# go to the previous month/week/day depending on current displayed period
+	goToPrev: () -> @goTo(-1)
 
 	# go to the next month/week/day depending on current displayed period
-	goToNext: () ->
-		UTIL.load($('#photos'), "photos", true)
-		@graphic.empty()
+	goToNext: () -> @gotTo(1)
 
-		switch @period
-			when "day" then @date = @date.add(1).days()
-			when "week" then @date = @date.add(7).days()
-			when "month" then @date = @date.add(30).days()
-
-		@getDates()
-		@getDataPoints(@onSuccessFetch)
 
 	# display the right period which includes the day of today
 	goToToday: () ->
@@ -226,7 +220,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	groupDataByDay: (data) ->
 		dataSorted = []
 		for point in data
-			date = UTIL.getJsDateFromServer(point.uploaded_at)
+			@log point.uploaded_at
+			# date = UTIL.getJsDateFromServer(point.uploaded_at)
+			date = Date.parse(point.uploaded_at)
+			@log date
 			date.clearTime()
 			if dataSorted == []
 				dataSorted.push({
@@ -261,7 +258,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				for dataPoint in day.data_points
 					dataPoint.img_path = dataPoint.id + "/medium.jpg"
 					# we remove the timezone part of the date
-					date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
+					# date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
+					date = Date.parse(dataPoint.uploaded_at)
 					dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 					dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 					dataPoint.time_uploaded_at = date.toString('hh:mm tt')
@@ -282,7 +280,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				for day in week.week_data
 					for dataPoint in day.data_points
 						dataPoint.img_path = dataPoint.id + "/medium.jpg"
-						date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
+						# date = UTIL.getJsDateFromServer(dataPoint.uploaded_at)
+						date = Date.parse(dataPoint.uploaded_at)
 						dataPoint.uploaded_at_readable = date.toString('hh:mm tt')
 						dataPoint.uploaded_at_editable = date.toString('MM-dd-yyyy')
 						dataPoint.time_uploaded_at = date.toString('hh:mm tt')
@@ -466,7 +465,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				data:
 					data_point : {
 						id: id,
-						uploaded_at: datePhoto.toISOString()
+						uploaded_at: UTIL.prepareForServer(datePhoto)
 					},
 					dataType: 'json',
 					success: @onSuccessAjax.bind @

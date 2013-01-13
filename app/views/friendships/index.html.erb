@@ -5,9 +5,7 @@
 				<h3>People that inspire you.</h3>
 			</div>
 			<div class="users">
-				<% @users.each do |user| %>
-					<%= render :partial => "users/index/user", :locals => {:user => user}%>
-				<% end %>
+				<%= render :partial => "users" %>
 			</div>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
 			<% unless @users.total_pages < 2 %>

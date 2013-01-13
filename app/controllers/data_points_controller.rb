@@ -6,8 +6,10 @@ class DataPointsController < ApplicationController
   def index
 
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
-      startDate = Time.zone.parse(params[:start_date])
-      endDate = Time.zone.parse(params[:end_date])
+      # startDate = Time.zone.parse(params[:start_date])
+      startDate = DateTime.parse(params[:start_date])
+      # endDate = Time.zone.parse(params[:end_date])
+      endDate = DateTime.parse(params[:end_date])
       puts "             "
       puts ">>>>>>>>>>>>> index"
       puts params.inspect
@@ -74,7 +76,8 @@ class DataPointsController < ApplicationController
         else
           @data_point.calories = 0
         end
-        @data_point.uploaded_at = Time.zone.now
+        puts params["Date"]
+        @data_point.uploaded_at = params["Date"] | Time.zone.now
         @data_point.photo = params["attachment-1"]
       end
     # This is data coming from forms
@@ -84,15 +87,15 @@ class DataPointsController < ApplicationController
       @data_point.user_id = user.id
       @data_point.uploaded_at = Time.zone.now
     end
-    puts "       "
+    # puts "       "
     puts ">>>>>>>>>>>>> created photo"
     puts @data_point.inspect
     puts "user: #{@data_point.user.username}"
-    puts "time.now: #{Time.now}"
-    puts "time.zone: #{Time.zone}"
-    puts "time.zone.now: #{Time.zone.now}"
+    # puts "time.now: #{Time.now}"
+    # puts "time.zone: #{Time.zone}"
+    # puts "time.zone.now: #{Time.zone.now}"
 
-    puts "       "
+    # puts "       "
 
     if @data_point.save
       puts "data point after saved: #{@data_point.inspect}"
@@ -116,31 +119,6 @@ class DataPointsController < ApplicationController
       # mailgun expect a 200 response, so we need to send him something
       render :text => ""
     end
-
-    # respond_to do |format|
-    #   if @data_point.save
-    #     puts "data point after saved: #{@data_point.inspect}"
-
-    #     # publish to facebook
-    #     if user.canPublishOnFacebook?
-    #       user.fb_publish(@data_point)
-    #       notice = 'Data point was successfully created and shared on Facebook.'
-    #     else
-    #       notice = 'Data point was successfully created.'
-    #     end
-    #     if !fromMailgun && current_user
-    #       format.html { redirect_to user_path(:username => current_user) }
-    #       format.json { render json: @data_point }
-    #     else
-    #       format.html { redirect_to static_path('home') }
-    #       format.json { render json: @data_point }
-
-    #     end
-    #   elsif !fromMailgun
-    #       format.html { render action: "new" }
-    #       format.json { render json: @data_point.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PUT /data_points/1
@@ -155,15 +133,15 @@ class DataPointsController < ApplicationController
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
-    if params[:data_point]["uploaded_at"]
-      puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
-      params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"])
-      puts "uploaded at parsed: #{params[:data_point]['uploaded_at']}"
-    end
-    puts "user: #{@data_point.user.username}"
-    puts "time.now: #{Time.now}"
-    puts "time.zone: #{Time.zone}"
-    puts "time.zone.now: #{Time.zone.now}"
+    # if params[:data_point]["uploaded_at"]
+    #   puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
+    #   params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"])
+    #   puts "uploaded at parsed: #{params[:data_point]['uploaded_at']}"
+    # end
+    # puts "user: #{@data_point.user.username}"
+    # puts "time.now: #{Time.now}"
+    # puts "time.zone: #{Time.zone}"
+    # puts "time.zone.now: #{Time.zone.now}"
     puts "       "
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])

@@ -39,8 +39,11 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 	initialize: () ->
 		# the one inside the iframe, see why in comment /views/pages/hiddenFileInput.html.erb
 		@fileInput = $("#ifu").contents().find("#fileInput")
-		@datePicker.datepicker()
-		@timePicker.timePicker({show24Hours: false})
+		now = new Date()
+		day = now.toString("MM-dd-yyyy")
+		time = now.toString("hh:mm tt")
+		@datePicker.attr("data-date", day).find("input").val(day).end().datepicker()
+		@timePicker.val(time).timePicker({show24Hours: false})
 
 		# if gon.browser == "safari" || gon.browser == "IE"
 		# 	@uploadBtn.addClass("hide")
@@ -158,12 +161,11 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 			hour:date.getHours(),
 			minute:date.getMinutes()
 		)
-
 		if validated
 			@updateDataPoint(e, {
 				id:@id,
 				calories: parseInt(calories),
-				uploaded_at: ISODate.toISOString(),
+				uploaded_at: UTIL.prepareForServer(ISODate)
 				description:  @descrVal.val()
 			})
 

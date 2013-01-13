@@ -9,13 +9,13 @@
 				<div class="alert alert-block alert-error alert-delete fade in hide">
 					<h4 class="alert-heading">Are you sure you want to delete?</h4>
 					<p>
-						<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">Delete</a>
-						<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+						<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="javascript:void(0)">Delete</a>
+						<a class="btn" href="javascript:void(0)" data-dismiss="modal">Cancel</a>
 					</p>
 				</div>
 				<div class="editable_img_container">
 					<%= getPhoto(@data_point, "big")%>
-					<a class="btn btn-upload" href="#">Change photo</a>
+					<a class="btn btn-upload" href="javascript:void(0)">Change photo</a>
 					<!-- <input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file"> -->
 					<div class="progress progress-striped active hide">
 						<div class="bar" style="width: 0%;"></div>
@@ -93,7 +93,7 @@
 			<%if @data_point.nb_likes > 0 %>
 				<p>
 					<i class="icon-thumbs-up"></i>
-					<a href="#" class="likers" rel="tooltip" title="<%= @data_point.listOfFans()%>">
+					<a href="javascript:void(0)" class="likers" rel="tooltip" title="<%= @data_point.listOfFans()%>">
 						<span class="nbLikes"><%= @data_point.nb_likes%></span> <%if @data_point.nb_likes == 1 %>person<% else %>people<% end%>
 					</a> <%if @data_point.nb_likes == 1 %>likes<% else %>like<% end%> this
 				</p>
@@ -115,36 +115,36 @@
 				</div>
 
 
-				<a href="#" class="btn btn-comment viewMode" data-loading-text="Commenting...">
+				<a href="javascript:void(0)" class="btn btn-comment viewMode" data-loading-text="Commenting...">
 					<i class="icon-comment"></i> Comment
 				</a>
 				<%if current_user.like(@data_point).nil? %>
-				<a href="#" class="btn btn-like viewMode" data-action="Like">
+				<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Like">
 					<i class="icon-thumbs-up"></i>
 					<span> Like</span>
 				</a>
 				<%else%>
-				<a href="#" class="btn btn-like viewMode" data-action="Unlike" data-like-id="<%=current_user.like(@data_point).id%>" >
+				<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Unlike" data-like-id="<%=current_user.like(@data_point).id%>" >
 					<i class="icon-thumbs-down"></i>
 					<span> Unlike</span>
 				</a>
 				<%end%>
 				<% if @data_point.isOwner(current_user) %>
-				<a href="#" class="btn btn-primary btn-edit viewMode" >
+				<a href="javascript:void(0)" class="btn btn-primary btn-edit viewMode" >
 					<i class="icon-white icon-pencil"></i> Edit
 				</a>
 				<%end%>
 			</div>
 			<% if @data_point.isOwner(current_user) %>
 			<div class="editMode hide">
-				<a href="#" class="btn btn-cancel">
+				<a href="javascript:void(0)" class="btn btn-cancel">
 					Cancel
 				</a>
 
-				<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="#">
+				<a class="btn btn-danger btn-delete" data-loading-text="Deleting..." href="javascript:void(0)">
 					<i class="icon-white icon-trash"></i> Delete
 				</a>
-				<a href="#" class="btn btn-primary btn-save" data-loading-text="Saving...">
+				<a href="javascript:void(0)" class="btn btn-primary btn-save" data-loading-text="Saving...">
 					Save changes
 				</a>
 			</div>
