@@ -47,12 +47,12 @@ class ApplicationController < ActionController::Base
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
-  def set_timezone
-    # current_user.time_zone #=> 'Central Time (US & Canada)'
-    if current_user
-      Time.zone = current_user.timezone || 'Central Time (US & Canada)'
-    end
-  end
+  # def set_timezone
+  #   # current_user.time_zone #=> 'Central Time (US & Canada)'
+  #   if current_user
+  #     Time.zone = current_user.timezone || 'Central Time (US & Canada)'
+  #   end
+  # end
 
   # def getDateFromParam(date)
   #   dateWithoutTimezone = Time.parse(date).strftime("%d-%m-%Y %I:%M %p")

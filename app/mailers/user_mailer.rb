@@ -90,13 +90,9 @@ class UserMailer < ActionMailer::Base
   end
 
   def weekly_recap_email(users)
-    @leaderboard_users = User.confirmed()
-      .active()
-      .order("leaderboard_points desc")
-      .limit(20)
+    @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.who_did_not_upload_in_last_24_hours()
-      .limit(20)
+    @slackerboard_users = User.slackerboard().limit(20)
 
     users.each {|user|
       Time.zone = user.timezone
