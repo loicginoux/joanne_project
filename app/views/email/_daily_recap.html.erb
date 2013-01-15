@@ -52,6 +52,14 @@
 <!-- end of images -->
 <% end %>
 
+<% unless @hot_photo.nil? && @smart_choice_photo.nil?  %>
+
+<%= render :partial => "email/style/limiter" %>
+
+<%= render :partial => "email/awards" %>
+
+<% end %>
+
 <%= render :partial => "email/style/limiter" %>
 
 <%= render :partial => "email/leaderboard" %>

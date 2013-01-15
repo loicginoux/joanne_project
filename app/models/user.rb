@@ -253,7 +253,7 @@ class User < ActiveRecord::Base
 
 
 
-  def comments_points(montly = false)
+  def comments_points(monthly = false)
     myComments = self.comments
     if monthly
       myComments = myComments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
     myComments.onOthersPhoto().group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
   end
 
-  def commented_points(montly = false)
+  def commented_points(monthly = false)
     comments = Comment.onOthersPhoto().whereDataPointBelongsTo(self)
     if monthly
       comments = comments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
@@ -269,15 +269,15 @@ class User < ActiveRecord::Base
     comments.group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:commented]
   end
 
-  def likes_points(montly = false)
+  def likes_points(monthly = false)
     likes = self.likes.onOthersPhoto()
-    if montly
+    if monthly
       likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
     self.likes.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:like]
   end
 
-  def liked_points(montly = false)
+  def liked_points(monthly = false)
     likes = Like.onOthersPhoto().whereDataPointBelongsTo(self)
     if monthly
       likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
@@ -305,7 +305,7 @@ class User < ActiveRecord::Base
     (self.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
   end
 
-  def smart_choice_award_points(montly = false)
+  def smart_choice_award_points(monthly = false)
     dp = self.data_points.smart_choice_awarded()
     if monthly
       dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
@@ -313,7 +313,7 @@ class User < ActiveRecord::Base
     dp.length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
   end
 
-  def hot_photo_award_points(montly = false)
+  def hot_photo_award_points(monthly = false)
     dp = self.data_points.hot_photo_awarded()
     if monthly
       dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
@@ -321,7 +321,7 @@ class User < ActiveRecord::Base
     dp.length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
   end
 
-  def photo_upload_points(montly = false)
+  def photo_upload_points(monthly = false)
     # a point is awarded per photo and per day with a limit of 3 photo/point a day.
     # we group a user photo per day,
     # then we calculate the number of photo per day

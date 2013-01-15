@@ -84,6 +84,8 @@ class Admin::MailerController < ApplicationController
 
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
+    @hot_photo = DataPoint.from_yesterday().hot_photo_awarded().last
+    @smart_choice_photo = DataPoint.from_yesterday().smart_choice_awarded().last
     render :partial => "email/daily_recap", :layout => "email"
 
   end
