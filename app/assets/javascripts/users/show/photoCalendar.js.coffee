@@ -103,7 +103,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	goToPrev: () -> @goTo(-1)
 
 	# go to the next month/week/day depending on current displayed period
-	goToNext: () -> @gotTo(1)
+	goToNext: () -> @goTo(1)
 
 
 	# display the right period which includes the day of today

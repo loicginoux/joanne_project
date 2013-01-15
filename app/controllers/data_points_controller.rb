@@ -89,8 +89,8 @@ class DataPointsController < ApplicationController
     end
     # puts "       "
     puts ">>>>>>>>>>>>> created photo"
-    puts @data_point.inspect
-    puts "user: #{@data_point.user.username}"
+    # puts @data_point.inspect
+    # puts "user: #{@data_point.user.username}"
     # puts "time.now: #{Time.now}"
     # puts "time.zone: #{Time.zone}"
     # puts "time.zone.now: #{Time.zone.now}"
