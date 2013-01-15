@@ -255,6 +255,7 @@ class User < ActiveRecord::Base
 
   def comments_points(monthly = false)
     myComments = self.comments
+
     if monthly
       myComments = myComments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
