@@ -76,8 +76,11 @@ class DataPointsController < ApplicationController
         else
           @data_point.calories = 0
         end
-        puts params["Date"]
-        @data_point.uploaded_at = params["Date"] | Time.zone.now
+        if params["Date"]
+          @data_point.uploaded_at = params["Date"]
+        else
+          @data_point.uploaded_at = Time.zone.now
+        end
         @data_point.photo = params["attachment-1"]
       end
     # This is data coming from forms
