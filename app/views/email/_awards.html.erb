@@ -7,10 +7,10 @@
           <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">Smart Choice Award</h2>
           <%= render :partial => "email/style/points_limiter_2_col",  %>
 
-           <%= image_tag "http://s3.amazonaws.com/#{S3_CREDENTIALS[:bucket]}/photos/#{@smart_choice_photo.id.to_s}/medium.jpg", :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"
+           <%= link_to image_tag("http://s3.amazonaws.com/#{S3_CREDENTIALS[:bucket]}/photos/#{@smart_choice_photo.id.to_s}/medium.jpg", :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"), data_point_url(@smart_choice_photo)
               %>
 
-          <p style="font-size: 15px;width:320px; line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <strong><%= @smart_choice_photo.user.username %></strong> on winning the <strong>Smart Choice Award</strong>.</p>
+          <p style="font-size: 15px;width:320px; line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <%= link_to @smart_choice_photo.user.username.capitalize, user_url(:username=> @smart_choice_photo.user.username)%> on winning the <strong>Smart Choice Award</strong>.</p>
           <p style="font-size: 15px; width:320px;line-height: 24px; color: #434343; font-family: sans-serif;">Keep up the healthy choices!</p>
 
 
@@ -27,9 +27,9 @@
 
           <%= render :partial => "email/style/points_limiter_2_col",  %>
 
-              <%= image_tag "http://s3.amazonaws.com/#{S3_CREDENTIALS[:bucket]}/photos/#{@hot_photo.id.to_s}/medium.jpg", :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"
+              <%= link_to image_tag("http://s3.amazonaws.com/#{S3_CREDENTIALS[:bucket]}/photos/#{@hot_photo.id.to_s}/medium.jpg", :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"), data_point_url(@hot_photo)
               %>
-          <p style="font-size: 15px; width:320px;line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <strong><%= @hot_photo.user.username %></strong> winning the <strong>Hot Photo Award</strong>.</p>
+          <p style="font-size: 15px; width:320px;line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <strong><%= link_to @hot_photo.user.username.capitalize, user_url(:username=> @hot_photo.user.username) %> winning the <strong>Hot Photo Award</strong>.</p>
           <p style="font-size: 15px;width:320px; line-height: 24px; color: #434343; font-family: sans-serif;">Hot Photo Award is given to the most artistic photo of the day. Keep up the good work!</p>
 
         </td>
