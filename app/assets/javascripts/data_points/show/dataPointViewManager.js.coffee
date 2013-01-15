@@ -245,13 +245,16 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	startEditing: () ->
 		@switchMode()
 		@fileInput = @el.find("#ifu_"+@id).contents().find("#fileInput_"+@id)
+		now = new Date()
+		day = now.toString("MM-dd-yyyy")
+		time = now.toString("hh:mm tt")
 		@datePicker.datepicker()
 		@timePicker.timePicker({show24Hours: false})
-		@uploadBtn.click @changePhoto
-		@fileInput.change @onChangePhoto
-		@saveBtn.click @validateDataPointData
-		@deleteBtn.click @removeDataPoint
-		@btnConfirmDelete.click @showConfirmDeleteBox
+		@uploadBtn.unbind("click").click @changePhoto
+		@fileInput.unbind("change").change @onChangePhoto
+		@saveBtn.unbind("click").click @validateDataPointData
+		@deleteBtn.unbind("click").click @removeDataPoint
+		@btnConfirmDelete.unbind("click").click @showConfirmDeleteBox
 
 
 
@@ -331,7 +334,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@updateDataPoint(e, {
 				id:@id,
 				calories: parseInt(calories),
-				uploaded_at: ISODate.toISOString(),
+				uploaded_at: UTIL.prepareForServer(ISODate),
 				description: @descrVal.val()
 			})
 
