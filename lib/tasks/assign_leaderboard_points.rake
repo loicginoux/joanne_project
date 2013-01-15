@@ -1,8 +1,9 @@
 desc "assign leader board points"
 task :assign_leaderboard_points => :environment do
   	User.all.each{ |user|
-  		points = user.assign_leaderboard_points()
-  		user.update_attributes(:leaderboard_points => points, :total_leaderboard_points => points )
+      points = user.assign_leaderboard_points()
+  		monthly_points = user.assign_leaderboard_points(true)
+  		user.update_attributes(:leaderboard_points => monthly_points, :total_leaderboard_points => points )
   	}
 end
 

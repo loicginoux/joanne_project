@@ -61,7 +61,8 @@ class Admin::MailerController < ApplicationController
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
     @slackerboard_users = User.slackerboard().limit(20)
-
+    @hot_photo = DataPoint.from_yesterday().hot_photo_awarded().last
+    @smart_choice_photo = DataPoint.from_yesterday().smart_choice_awarded().last
     render :partial => "email/empty_recap", :layout => "email"
 
   end

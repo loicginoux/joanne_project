@@ -146,7 +146,8 @@ class UserMailer < ActionMailer::Base
 
         @user = user
 
-
+        @hot_photo = DataPoint.from_yesterday().hot_photo_awarded().last
+        @smart_choice_photo = DataPoint.from_yesterday().smart_choice_awarded().last
 
         @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
