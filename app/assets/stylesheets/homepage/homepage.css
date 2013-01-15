@@ -213,9 +213,10 @@ span.important_email div{
 }
 
 .lost_password{
-	margin-right: 95px
+	margin-right: 105px
 }
 
 label.checkbox{
-	margin-right: 10px
+	margin-right: 10px;
+	width: 90px;
 }
