@@ -28,7 +28,7 @@ module Foodrubix
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Etc/UTC'
+    config.time_zone = 'Etc/UTC'
 
     # config.active_record.default_timezone determines whether to use
     # Time.local (if set to :local) or Time.utc (if set to :utc) when pulling

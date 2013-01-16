@@ -12,7 +12,6 @@ class DataPointsController < ApplicationController
       endDate = DateTime.parse(params[:end_date])
       puts "             "
       puts ">>>>>>>>>>>>> index"
-      puts params.inspect
       puts "start: #{startDate}"
       puts "end: #{endDate}"
       puts "             "
