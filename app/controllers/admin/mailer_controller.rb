@@ -61,8 +61,10 @@ class Admin::MailerController < ApplicationController
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
     @slackerboard_users = User.slackerboard().limit(20)
-    @hot_photo = DataPoint.from_yesterday().hot_photo_awarded().last
-    @smart_choice_photo = DataPoint.from_yesterday().smart_choice_awarded().last
+    @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
+
+    @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
+
     render :partial => "email/empty_recap", :layout => "email"
 
   end
@@ -85,8 +87,10 @@ class Admin::MailerController < ApplicationController
 
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
-    @hot_photo = DataPoint.from_yesterday().hot_photo_awarded().last
-    @smart_choice_photo = DataPoint.from_yesterday().smart_choice_awarded().last
+    @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
+
+    @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
+
     render :partial => "email/daily_recap", :layout => "email"
 
   end
