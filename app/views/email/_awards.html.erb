@@ -29,7 +29,7 @@
 
               <%= link_to image_tag("http://s3.amazonaws.com/#{S3_CREDENTIALS[:bucket]}/photos/#{@hot_photo.id.to_s}/medium.jpg", :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"), data_point_url(@hot_photo)
               %>
-          <p style="font-size: 15px; width:320px;line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <%= link_to @hot_photo.user.username.capitalize, user_url(:username=> @hot_photo.user.username) %> winning the <strong>Hot Photo Award</strong>.</p>
+          <p style="font-size: 15px; width:320px;line-height: 24px; color: #434343; font-family: sans-serif;">Congrats <%= link_to @hot_photo.user.username.capitalize, user_url(:username=> @hot_photo.user.username) %> on winning the <strong>Hot Photo Award</strong>.</p>
           <p style="font-size: 15px;width:320px; line-height: 24px; color: #434343; font-family: sans-serif;">Hot Photo Award is given to the most artistic photo of the day. Keep up the good work!</p>
 
         </td>
