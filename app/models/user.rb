@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
      :path => ":attachment/:id/:style.:extension",
      :s3_credentials => S3_CREDENTIALS,
      :default_url => '/assets/default_user.gif'
-     :convert_options => { :all => "-auto-orient" },
+     :source_file_options =>  {:all => '-auto-orient'}
      :s3_permissions => :public_read
 
 

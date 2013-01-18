@@ -14,7 +14,7 @@ class DataPoint < ActiveRecord::Base
     :bucket => S3_CREDENTIALS[:bucket],
     :path => ":attachment/:id/:style.:extension",
     :s3_credentials => S3_CREDENTIALS,
-    :convert_options => { :all => "-auto-orient" },
+    :source_file_options =>  {:all => '-auto-orient'}
     :s3_permissions => :public_read
 
   belongs_to :user
