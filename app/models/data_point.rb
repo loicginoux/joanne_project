@@ -5,15 +5,17 @@ class DataPoint < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
 
   has_attached_file :photo,
-    :styles => {
-      :thumbnail => ["50x50#",:jpg],
-      :medium => ["220x220#",:jpg],
-      :big => ["380x380#",:jpg]
+  :styles => {
+    :thumbnail => ["50x50#",:jpg],
+    :medium => ["220x220#",:jpg],
+    :big => ["380x380#",:jpg]
     },
     :storage => :s3,
     :bucket => S3_CREDENTIALS[:bucket],
     :path => ":attachment/:id/:style.:extension",
-    :s3_credentials => S3_CREDENTIALS
+    :s3_credentials => S3_CREDENTIALS,
+    :convert_options => { :all => "-auto-orient" },
+    :s3_permissions => :public_read
 
   belongs_to :user
   has_many :comments, :dependent => :destroy
@@ -32,19 +34,19 @@ class DataPoint < ActiveRecord::Base
 
   def isOwner(user)
     if user
-       user.id == self.user.id
-    else
-      false
-    end
+     user.id == self.user.id
+   else
+    false
   end
+end
 
-  def listOfFans()
-    self.fans.map{|dp| dp.username.capitalize}.to_sentence
-  end
+def listOfFans()
+  self.fans.map{|dp| dp.username.capitalize}.to_sentence
+end
 
-  def group_by_criteria
-    created_at.to_date.to_s(:db)
-  end
+def group_by_criteria
+  created_at.to_date.to_s(:db)
+end
 
 end
 
