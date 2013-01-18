@@ -43,12 +43,12 @@ class User < ActiveRecord::Base
        :small => ["50x50#",:jpg],
        :medium => ["200x200#",:jpg]
      },
+     :convert_options => { :all => '-auto-orient' },
      :storage => :s3,
      :bucket => S3_CREDENTIALS[:bucket],
      :path => ":attachment/:id/:style.:extension",
      :s3_credentials => S3_CREDENTIALS,
-     :default_url => '/assets/default_user.gif'
-     :source_file_options =>  {:all => '-auto-orient'}
+     :default_url => '/assets/default_user.gif',
      :s3_permissions => :public_read
 
 

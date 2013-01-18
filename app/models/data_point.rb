@@ -9,13 +9,13 @@ class DataPoint < ActiveRecord::Base
     :thumbnail => ["50x50#",:jpg],
     :medium => ["220x220#",:jpg],
     :big => ["380x380#",:jpg]
-    },
-    :storage => :s3,
-    :bucket => S3_CREDENTIALS[:bucket],
-    :path => ":attachment/:id/:style.:extension",
-    :s3_credentials => S3_CREDENTIALS,
-    :source_file_options =>  {:all => '-auto-orient'}
-    :s3_permissions => :public_read
+  },
+  :convert_options => { :all => '-auto-orient' },
+  :storage => :s3,
+  :bucket => S3_CREDENTIALS[:bucket],
+  :path => ":attachment/:id/:style.:extension",
+  :s3_credentials => S3_CREDENTIALS,
+  :s3_permissions => :public_read
 
   belongs_to :user
   has_many :comments, :dependent => :destroy
