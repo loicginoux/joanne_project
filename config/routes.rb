@@ -31,6 +31,8 @@ Foodrubix::Application.routes.draw do
   match 'confirm' => "user_verification#show", :as => :confirm
   match 'upload' => "data_points#new", :as => :upload
   match 'home'  => 'pages#show', :id => 'home', :as => "home", :format => false
+  match 'terms_of_services'  => 'pages#show', :id => 'terms_of_services', :as => "terms_of_services", :format => false
+  match 'privacy'  => 'pages#show', :id => 'privacy', :as => "privacy", :format => false
   # match 'fileInputForm'  => 'pages#show', :id => 'fileInputForm', :as => "fileInputForm", :format => false
 
   match '/auth/:provider/callback' => 'authentications#create'

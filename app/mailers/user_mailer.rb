@@ -96,7 +96,7 @@ class UserMailer < ActionMailer::Base
 
     users.each {|user|
       Time.zone = user.timezone
-      if Time.zone.now.monday? && Time.zone.now.hour == 2
+      if Time.zone.now.monday? && Time.zone.now.hour == 7
         # startDate = (Time.zone.now - 7.days).utc
         # endDate = Time.zone.now.utc
         endDate = DateTime.parse((Date.today).to_s)
@@ -133,7 +133,7 @@ class UserMailer < ActionMailer::Base
 
     users.each {|user|
       Time.zone = user.timezone
-      if Time.zone.now.hour == 2
+      if Time.zone.now.hour == 7
         # this removes the offset that can't be done with the Date object
         endDate = DateTime.parse(Date.today.to_s)
         startDate = DateTime.parse((endDate - 1.days).to_s)
