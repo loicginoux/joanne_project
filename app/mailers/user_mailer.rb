@@ -1,6 +1,17 @@
 require 'rest_client'
 
 class UserMailer < ActionMailer::Base
+  def image_upload_not_working(email, user, attachment)
+    @user = user
+    @email = email
+    @attachment = attachment
+    html = render :partial => "email/image_upload_not_working", :layout => "email"
+    RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => email,
+      :subject => "[FoodRubix] Uploading didn't work",
+      :html => html.to_str
+  end
 
   def reset_password_email(user)
     @user = user

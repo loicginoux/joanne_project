@@ -65,6 +65,7 @@ class DataPointsController < ApplicationController
         Time.zone = user.timezone
         @data_point = DataPoint.new
         @data_point.user_id = user.id
+        # calories in subject
         if params["Subject"]
           match = (params["Subject"]).match(/(\d)+/)
           if match && match[0]
@@ -75,20 +76,27 @@ class DataPointsController < ApplicationController
         else
           @data_point.calories = 0
         end
+        # description of photo is in mail body
+        @data_point.description = params["stripped-text"] if params["stripped-text"]
+
+        # date of photo
         if params["Date"]
           @data_point.uploaded_at = params["Date"]
         else
           @data_point.uploaded_at = Time.zone.now
         end
         @data_point.photo = params["attachment-1"]
+      else
+        # no attachment or no user
+        UserMailer.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
       end
     # This is data coming from forms
-    else
-      user = current_user
-      @data_point = DataPoint.new(params[:data_point])
-      @data_point.user_id = user.id
-      @data_point.uploaded_at = Time.zone.now
-    end
+  else
+    user = current_user
+    @data_point = DataPoint.new(params[:data_point])
+    @data_point.user_id = user.id
+    @data_point.uploaded_at = Time.zone.now
+  end
     # puts "       "
     puts ">>>>>>>>>>>>> created photo"
     # puts @data_point.inspect
