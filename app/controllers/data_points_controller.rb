@@ -91,12 +91,12 @@ class DataPointsController < ApplicationController
         UserMailer.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
       end
     # This is data coming from forms
-  else
-    user = current_user
-    @data_point = DataPoint.new(params[:data_point])
-    @data_point.user_id = user.id
-    @data_point.uploaded_at = Time.zone.now
-  end
+    else
+      user = current_user
+      @data_point = DataPoint.new(params[:data_point])
+      @data_point.user_id = user.id
+      @data_point.uploaded_at = Time.zone.now
+    end
     # puts "       "
     puts ">>>>>>>>>>>>> created photo"
     # puts @data_point.inspect
@@ -107,7 +107,7 @@ class DataPointsController < ApplicationController
 
     # puts "       "
 
-    if @data_point.save
+    if @data_point && @data_point.save
       puts "data point after saved: #{@data_point.inspect}"
 
       # publish to facebook

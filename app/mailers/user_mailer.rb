@@ -6,6 +6,7 @@ class UserMailer < ActionMailer::Base
     @email = email
     @attachment = attachment
     html = render :partial => "email/image_upload_not_working", :layout => "email"
+    puts "image upload didn't work: #{email}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => email,
