@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require ./all/google_analytics
+//= require ./all/bootstrap/bootstrap
 //= require ./init
 //= require ./utils
 //= require ./user_sessions/new

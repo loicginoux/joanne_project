@@ -86,6 +86,7 @@ class DataPointsController < ApplicationController
           @data_point.uploaded_at = Time.zone.now
         end
         @data_point.photo = params["attachment-1"]
+        puts ">>>>>>>>>>>>> created photo from mailgun"
       else
         # no attachment or no user
         UserMailer.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
@@ -93,19 +94,16 @@ class DataPointsController < ApplicationController
     # This is data coming from forms
     else
       user = current_user
-      @data_point = DataPoint.new(params[:data_point])
-      @data_point.user_id = user.id
-      @data_point.uploaded_at = Time.zone.now
+      if params[:data_point][:id]
+        @data_point = DataPoint.find(params[:data_point][:id]).duplicate(params[:data_point][:uploaded_at])
+      else
+        @data_point = DataPoint.new(params[:data_point])
+        @data_point.user_id = user.id
+        @data_point.uploaded_at = Time.zone.now
+        puts ">>>>>>>>>>>>> created photo from form"
+      end
     end
-    # puts "       "
-    puts ">>>>>>>>>>>>> created photo"
-    # puts @data_point.inspect
-    # puts "user: #{@data_point.user.username}"
-    # puts "time.now: #{Time.now}"
-    # puts "time.zone: #{Time.zone}"
-    # puts "time.zone.now: #{Time.zone.now}"
 
-    # puts "       "
 
     if @data_point && @data_point.save
       puts "data point after saved: #{@data_point.inspect}"

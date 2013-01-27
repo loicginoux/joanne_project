@@ -361,6 +361,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 	# attach the drag and drop feature to move photos around
 	attachDragAndDrops:()->
+
 		$(".span1_7 img").imagesLoaded(@unifyHeights)
 		that = @
 		# overflow is used when the images overflow the height of the week height
@@ -372,14 +373,24 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		placeHolderHeight = 0
 		# which element to resize after going out of a connected list
 		elemOutResize = ""
+		# this is for the copy option
+		@ctrlDown = false
+		ctrlKey = 17
+		cmdKey = 91
+
 		$(".sortableImages").sortable({
 			connectWith: ".sortableImages",
+			helper: "clone",
 			start: (e, ui)-> # when we start drag and drop
 				placeHolderHeight = ui.item.height()
 				ui.placeholder.height(placeHolderHeight)
 				that.sortedItemIndex = ui.item.index()
 				that.sortedDayFrom = ui.item.parent()
 				ui.item.parent("ul").addClass "hoverActive"
+				console.log that.ctrlDown
+				if that.ctrlDown
+					$(ui.item).show()
+					that.copyItem = true
 			# out and over are only use in week and month view where we use connected lists
 			out: (e, ui)-> # when going out of a connected list
 				# that.log "out", $(e.target).parent().index()
@@ -425,11 +436,28 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			stop: @onDrop.bind @
 		})
 
+		# if we keep control or command while dragging we copy the photo
+		$(document)
+		.unbind("keydown.copy")
+		.unbind("keyup.copy")
+		.bind("keydown.copy", (e)->
+			if (e.keyCode == ctrlKey || e.keyCode == cmdKey)
+				that.ctrlDown = true
+				# if ctrl or cmd is down, this is a copy of photo
+				$( ".sortableImages" ).sortable( "option", "helper", "clone" );
+    )
+    .bind("keyup.copy", (e)->
+    	if (e.keyCode == ctrlKey || e.keyCode == cmdKey)
+    		that.ctrlDown = false
+    		# if ctrl or cmd is up, dragging is to move the photo
+    		$( ".sortableImages" ).sortable( "option", "helper", "original" );
+    )
+
 	#  called when we drop a photo on day view
 	onDrop:(event, ui)->
+		that = @
 		recipient = $(".hoverActive")
 		recipient.removeClass "hoverActive"
-
 		if @sortedItemIndex == ui.item.index() && recipient.is(@sortedDayFrom) then return
 
 		# form the new date
@@ -457,47 +485,38 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				hour:time.getHours(),
 				minute:time.getMinutes()
 			})
-		# update date
+
+
 		if datePhoto
-			$.ajax({
-				type: "PUT",
-				url: '/data_points/'+id+'.json',
-				data:
-					data_point : {
-						id: id,
-						uploaded_at: UTIL.prepareForServer(datePhoto)
-					},
-					dataType: 'json',
-					success: @onSuccessAjax.bind @
-			})
-
-
-
-	# #  called when we drop a photo on month or week view
-	# onDrop:(event, ui)->
-	# 	# form the new date
-	# 	id = ui.draggable.attr("data-id")
-	# 	el = $(event.target)
-	# 	dateDrop = el.attr("data-date");
-	# 	date = Date.parse(dateDrop,"M-d-yyyy")
-	# 	timeVal = ui.draggable.find(".time").text()
-	# 	time = Date.parse(timeVal, 'hh:mm tt')
-	# 	date.set(
-	# 		hour:time.getHours(),
-	# 		minute:time.getMinutes()
-	# 		)
-	# 	# update date
-	# 	$.ajax({
-	# 		type: "PUT",
-	# 		url: '/data_points/'+id+'.json',
-	# 		data:
-	# 			data_point : {
-	# 				id: id,
-	# 				uploaded_at: date.toISOString()
-	# 			},
-	# 			dataType: 'json',
-	# 			success: @onSuccessAjax.bind @
-	# 	})
+			if @copyItem
+				# create new photo
+				UTIL.load($('#photos'), "photos", true)
+				$.ajax({
+					type: "POST",
+					url: '/data_points.json',
+					success: () ->
+						that.onSuccessAjax()
+					data:
+						data_point : {
+							id: id,
+							uploaded_at: UTIL.prepareForServer(datePhoto)
+						},
+						dataType: 'json'
+				})
+			else
+				# update date
+				$.ajax({
+					type: "PUT",
+					url: '/data_points/'+id+'.json',
+					success: () ->
+						that.onSuccessAjax.bind that
+					data:
+						data_point : {
+							id: id,
+							uploaded_at: UTIL.prepareForServer(datePhoto)
+						},
+						dataType: 'json'
+				})
 
 	# return true if the user 'userId' like the 'dataPoint'
 	userLikeImage: (userId, dataPoint) ->
@@ -635,6 +654,5 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			el.parent(".label")
 				.toggleClass("label-info")
 				.toggleClass("label-important")
-
 
 

@@ -77,6 +77,37 @@
 				</div>
 			</div>
 
+			<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
+				<div class="controls">
+          <%= label_tag "What is your goal in joining this challenge?" %>
+					<%= f.text_area :joining_goal, :class => "input-xlarge", :rows => 3  %>
+					<% if @user.errors[:joining_goal].present? %>
+							<span class="help-inline">
+								<%= @user.errors[:joining_goal][0] %>
+							</span>
+							<br/>
+					<%end%>
+
+				</div>
+			</div>
+
+	<!-- 		<div class="control-group <% if @user.errors[:password_confirmation].present? %>error<%end%>">
+				<div class="controls">
+          <%= label_tag "What level of coaching intensity would suit you the best?" %>
+					<div class="progress progress-info progress-striped">
+  					<div class="bar" style="width: 10%"></div>
+					</div>
+
+					 <div class="btn-group" data-toggle="buttons-radio">
+					  <button type="button" class="btn btn-primaryq">Low</button>
+					  <button type="button" class="btn btn-primaryq">Medium</button>
+					  <button type="button" class="btn btn-primaryq">High</button>
+					</div>
+				</div>
+			</div>
+ -->
+
+
 			<%= f.hidden_field :timezone %>
 
 
