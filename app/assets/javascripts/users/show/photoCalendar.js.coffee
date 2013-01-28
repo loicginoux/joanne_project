@@ -119,16 +119,19 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	onSuccessFetch: (data) ->
 		#display loading gif
 		UTIL.load($('#photos'), "photos", false)
-		dataSorted = @groupDataByDay(data)
-		if @period == "week"
-			dataSorted = @createWeekDays(dataSorted)
-		else if @period == "month"
-			dataSorted = @createMonthDays(dataSorted)
-		@displayPhotos(dataSorted)
-		graphic = new foodrubix.graphic(dataSorted, @period, @date)
+		if !data.length && Date.today().between(@startDate, @endDate) && gon.isCurrentUserDashboard
+			$(".emptyState").removeClass("hide")
+		else
+			$(".emptyState").addClass("hide")
+			dataSorted = @groupDataByDay(data)
+			if @period == "week"
+				dataSorted = @createWeekDays(dataSorted)
+			else if @period == "month"
+				dataSorted = @createMonthDays(dataSorted)
+			@displayPhotos(dataSorted)
+			graphic = new foodrubix.graphic(dataSorted, @period, @date)
 
-		@el.delegate(".image", "hover", @onHoverImage.bind(@))
-		# $(".like").tooltip()
+			@el.delegate(".image", "hover", @onHoverImage.bind(@))
 
 	# create the json data for displaying the month view
 	# {month:[
