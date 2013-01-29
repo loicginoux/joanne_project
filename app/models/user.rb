@@ -34,9 +34,11 @@ class User < ActiveRecord::Base
 
   has_many :data_points, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_one :preference, :dependent => :destroy
 
   accepts_nested_attributes_for :data_points
   accepts_nested_attributes_for :authentications
+  accepts_nested_attributes_for :preference
 
   has_attached_file :picture,
      :styles => {
@@ -153,7 +155,7 @@ class User < ActiveRecord::Base
   end
 
   def canPublishOnFacebook?
-    self.hasFacebookConnected? && self.fb_sharing
+    self.hasFacebookConnected? && self.preference.fb_sharing
   end
 
   def positionLeadership
@@ -194,7 +196,6 @@ class User < ActiveRecord::Base
         puts "self.picture"
         puts self.picture
       end
-      self.fb_sharing = true
     when 'twitter'
       # fetch extra user info from twitter
     end
@@ -301,11 +302,11 @@ class User < ActiveRecord::Base
   end
 
   def daily_calories_limit_points()
-    (self.daily_calories_limit == 0) ? 0 : User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+    (self.preference.daily_calories_limit == 0) ? 0 : User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
   end
 
   def fb_sharing_points()
-    (self.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
+    (self.preference.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
   end
 
   def smart_choice_award_points(monthly = false)

@@ -17,11 +17,15 @@
 			<li data-content="emails">
 				<a href="javascript:void(0)">Email Recap</a>
 			</li>
+			<li data-content="coaching">
+				<a href="javascript:void(0)">Coaching Intensity</a>
+			</li>
 		</ul>
 	</div>
 	<div id="profile" class="content span9"><%= render 'users/edit/settings_profile' %></div>
 	<div id="picture" class="content span9 hide"><%= render 'users/edit/settings_picture' %></div>
-	<div id="social" class="content span9 hide"><%= render 'users/edit/settings_social' %></div>
-	<div id="preferences" class="content span9 hide"><%= render 'users/edit/settings_preferences' %></div>
-	<div id="emails" class="content span9 hide"><%= render 'users/edit/settings_emails' %></div>
+	<div id="social" class="content span9 hide"><%= render 'preferences/edit/social_sharing' %></div>
+	<div id="preferences" class="content span9 hide"><%= render 'preferences/edit/daily_calory_limit' %></div>
+	<div id="emails" class="content span9 hide"><%= render 'preferences/edit/email_recap' %></div>
+	<div id="coaching" class="content span9 hide"><%= render 'preferences/edit/coaching_intensity_form' %></div>
 </div>

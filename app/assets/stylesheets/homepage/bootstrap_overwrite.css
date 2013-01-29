@@ -1,0 +1,25 @@
+.btn-primary{
+	background-color: #E96000;
+}
+
+.btn-primary {
+  background-color: #E96000;
+  background-image: -moz-linear-gradient(top, #E96000, #d06000);
+  background-image: -ms-linear-gradient(top, #E96000, #d06000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#E96000), to(#d06000));
+  background-image: -webkit-linear-gradient(top, #E96000, #d06000);
+  background-image: -o-linear-gradient(top, #E96000, #d06000);
+  background-image: linear-gradient(top, #E96000, #d06000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E96000', endColorstr='#d06000', GradientType=0);
+  border-color: #888888 #888888 #626262;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #E96000;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+background-color: #d06000;
+}

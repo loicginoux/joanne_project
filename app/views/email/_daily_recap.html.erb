@@ -10,12 +10,12 @@
                         <%= @totalDayCalories%> cal
                     </span>
                 </p>
-                <% if @user.daily_calories_limit > 0 && @user.daily_calories_limit >= @totalDayCalories%>
-                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">You stayed within your daily calorie limit of <%= @user.daily_calories_limit %> calories. Way to go!
+                <% if @user.preference.daily_calories_limit > 0 && @user.preference.daily_calories_limit >= @totalDayCalories%>
+                <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">You stayed within your daily calorie limit of <%= @user.preference.daily_calories_limit %> calories. Way to go!
                 </p>
-                <% elsif @user.daily_calories_limit > 0 && @user.daily_calories_limit < @totalDayCalories%>
+                <% elsif @user.preference.daily_calories_limit > 0 && @user.preference.daily_calories_limit < @totalDayCalories%>
                 <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">
-                    You went over your daily calorie goal of <%= @user.daily_calories_limit %> calories. Don't be sad. Try again tomorrow!
+                    You went over your daily calorie goal of <%= @user.preference.daily_calories_limit %> calories. Don't be sad. Try again tomorrow!
                 </p>
                 <%end%>
             </td>

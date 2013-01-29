@@ -219,11 +219,10 @@ label.checkbox{
 	text-align: left;
 }
 
-/*.progress{
-	width: 270px;
-	float: left;
-	margin: 10px 175px 0;
-}*/
+.form-horizontal .btn-group{
+	display: inline-block;
+	margin-bottom: 0;
+}
 /*
 FOOTER
 */

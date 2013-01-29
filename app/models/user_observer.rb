@@ -9,21 +9,6 @@ class UserObserver < ActiveRecord::Observer
 				points += User::LEADERBOARD_ACTION_VALUE[:profile_photo]
 			end
 
-			if user.fb_sharing_changed?
-				if user.fb_sharing && !user.fb_sharing_was
-					points += User::LEADERBOARD_ACTION_VALUE[:fb_sharing]
-				elsif !user.fb_sharing && user.fb_sharing_was
-					points -= User::LEADERBOARD_ACTION_VALUE[:fb_sharing]
-				end
-			end
-
-			if user.daily_calories_limit_changed?
-				if user.daily_calories_limit > 0 && user.daily_calories_limit_was == 0
-					points += User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
-				elsif user.daily_calories_limit == 0 && user.daily_calories_limit_was > 0
-					points -= User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
-				end
-			end
 			user.leaderboard_points += points
 			user.total_leaderboard_points += points
 

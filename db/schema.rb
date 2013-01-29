@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130126153118) do
+ActiveRecord::Schema.define(:version => 20130128152332) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -95,6 +95,16 @@ ActiveRecord::Schema.define(:version => 20130126153118) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "preferences", :force => true do |t|
+    t.integer "user_id"
+    t.text    "joining_goal"
+    t.string  "coaching_intensity"
+    t.boolean "fb_sharing",           :default => false
+    t.integer "daily_calories_limit", :default => 0
+    t.boolean "daily_email",          :default => true
+    t.boolean "weekly_email",         :default => true
+  end
+
   create_table "user_sessions", :force => true do |t|
     t.string   "username"
     t.string   "password"
@@ -133,7 +143,6 @@ ActiveRecord::Schema.define(:version => 20130126153118) do
     t.boolean  "active",                   :default => false
     t.integer  "leaderboard_points",       :default => 0
     t.integer  "total_leaderboard_points", :default => 0
-    t.text     "joining_goal"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

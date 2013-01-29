@@ -11,6 +11,7 @@ Foodrubix::Application.routes.draw do
   resources :authentications, :only => [:create]
   resources :data_points
   resources :users
+  resources :preferences, :only => [:edit, :update]
   resources :user_sessions, :only => [:create, :destroy]
   resources :password_resets
   resources :user_verifications

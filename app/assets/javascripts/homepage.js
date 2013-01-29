@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require ./all/google_analytics
 //= require ./all/bootstrap/bootstrap
+//= require_tree ./all/spine
 //= require ./init
 //= require ./utils
 //= require ./user_sessions/new

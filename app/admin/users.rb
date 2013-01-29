@@ -17,11 +17,18 @@ ActiveAdmin.register User do
 		end
 		column :confirmed
 		column :active
-		column :fb_sharing
-		column :daily_calories_limit
-		column :daily_email
-		column :weekly_email
-		column :fb_sharing
+		column "fb sharing" do |u|
+			u.preference.fb_sharing
+		end
+		column "daily calories limit" do |u|
+			u.preference.daily_calories_limit
+		end
+		column "daily email" do |u|
+			u.preference.daily_email
+		end
+		column "weekly email" do |u|
+			u.preference.weekly_email
+		end
 		column :timezone
 
 		default_actions
@@ -33,16 +40,12 @@ ActiveAdmin.register User do
 			f.input :email
 			f.input :confirmed
 			f.input :active
-			f.input :daily_calories_limit
-			f.input :daily_email
-			f.input :weekly_email
 			f.input :timezone
 			f.input :password
 			f.input :password_confirmation
 		end
 		f.buttons
 	end
-
 
 
 	show do |user|
@@ -55,14 +58,21 @@ ActiveAdmin.register User do
 			row :created_at
 			row :updated_at
 			row :confirmed
-			row :fb_sharing
-
+			row "fb_sharing" do |u|
+				u.preference.fb_sharing
+			end
 			row :timezone
-			row :daily_calories_limit
+			row "daily calories limit" do |u|
+				u.preference.daily_calories_limit
+			end
 			row :login_count
 			row :failed_login_count
-			row :daily_email
-			row :weekly_email
+			row "daily email" do |u|
+				u.preference.daily_email
+			end
+			row "weekly email" do |u|
+				u.preference.weekly_email
+			end
 			row :active
 			row :leaderboard_points
 			row :total_leaderboard_points

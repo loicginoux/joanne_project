@@ -52,9 +52,9 @@ class UsersController < ApplicationController
 
 
   def show
-    @user = User.first(:conditions => {:username=> params[:username]})
+    @user = User.includes(:preference).first(:conditions => {:username=> params[:username]})
     if @user
-      gon.daily_calories_limit = @user.daily_calories_limit
+      gon.daily_calories_limit = @user.preference.daily_calories_limit
     end
     if @user && @user.is(current_user)
       gon.isCurrentUserDashboard = true
@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   def new
      @user = User.new
      @user.data_points.build
+     @user.build_preference
      @url = register_path
      respond_to do |format|
        format.html # new.html.erb
@@ -128,6 +129,7 @@ class UsersController < ApplicationController
   def edit
     if current_user
       @user = current_user
+      @preference = current_user.preference
       @url = edit_user_path(:username=> current_user.username)
       if current_user.username != params[:username]
         redirect_to edit_user_path(:username=> current_user.username), notice: 'You can only edit your profile.'

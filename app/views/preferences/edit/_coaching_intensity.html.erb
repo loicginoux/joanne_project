@@ -1,0 +1,16 @@
+<div class="control-group">
+	<div class="controls coaching_intensity">
+		<%= label_tag "What level of coaching intensity would suit you the best?" %>
+		<div class="btn-group" data-toggle="buttons-radio">
+			<button type="button" class="btn " data-id = "low">Low</button>
+			<button type="button" class="btn " data-id = "medium">Medium</button>
+			<button type="button" class="btn " data-id = "high">High</button>
+		</div>
+		<div class="helps">
+			<span class="help-inline low clear hide">I ate a donut, and I'm proud. Leave me alone.</span>
+			<span class="help-inline medium clear hide">I ate a donut. Remind me about my health goals but just once.</span>
+			<span class="help-inline high clear hide">I ate a donut. Remind me about my health goals and give me a grief.</span>
+		</div>
+		<%= f.text_field :coaching_intensity, :class => "hide" %>
+	</div>
+</div>
