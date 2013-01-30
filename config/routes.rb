@@ -16,7 +16,7 @@ Foodrubix::Application.routes.draw do
   resources :password_resets
   resources :user_verifications
   resources :friendships, :only => [:index, :create, :destroy]
-  resources :comments, :except => [:show, :edit, :update]
+  resources :comments, :except => [:show, :edit]
   resources :likes, :only => [:new, :create, :destroy]
 
   match "register" => "users#new",:via => :get, :as => :register

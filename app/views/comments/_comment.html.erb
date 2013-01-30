@@ -1,10 +1,26 @@
-<div class="row comment">
+<div class="row comment <% if  comment.user.is(current_user)%>own<% end %>" data-id="<%= comment.id %>">
 	<div class="span1">
 		<%= getPicture(comment.user, "small") %>
 	</div>
 	<div class="span3">
-		<h5><%= getUsername(comment.user) %></h5>
-		<p class="commentText"><%= comment.text %></p>
+		<% if  comment.user.is(current_user)%>
+			<div class="edit hide">
+				<textarea><%= comment.text %></textarea>
+				<span>Press escape to cancel.</span>
+			</div>
+		<% end %>
+		<div class="view">
+			<h5>
+				<div class="pull-right icons">
+					<a href="javascript:void(0)" class="icon startEdit">
+						<i class="icon-pencil"></i>
+					</a>
+					<a href="javascript:void(0)" class="icon delete">
+						<i class="icon icon-remove"></i>
+					</a>
+				</div>
+				<%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.updated_at)%> ago</span></h5>
+			<p class="commentText"><%= comment.text %></p>
+		</div>
 	</div>
 </div>
-

@@ -33,7 +33,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	events:
 		"click .btn-like":    "like"
 		"click .btn-comment": "comment"
-		"keypress textarea":  "onEnter"
+		"keyup .viewMode textarea":  "onEnter"
 		"click .btn-edit":    "startEditing"
 		"click .btn-cancel":  "switchMode"
 
@@ -59,6 +59,10 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@nbComments = parseInt(@nbCommentsHTML.text()) || 0
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
+		commentController = new foodrubix.CommentListController({
+			el: $(".comments"),
+			master: @
+			})
 
 	refreshLike: () =>
 		$.ajax({
@@ -131,10 +135,13 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@btnComment.button('reset').attr("disabled", false).removeClass("disabled")
 		@inputComment.val("")
 		@divTextarea.addClass("hide")
-		@nbComments = @nbComments+1
+		@updateNumberComments(1)
+		@refreshComments()
+
+	updateNumberComments: (nbCom) ->
+		@nbComments = @nbComments+nbCom
 		@nbCommentsHTML.html(@nbComments)
 		@updateMasterInfo("comments")
-		@refreshComments()
 
 	updateMasterInfo: (which, id) =>
 		if @master

@@ -377,6 +377,26 @@ position: absolute;
 	margin-top:10px;
 }
 
+.comment .icons{
+	display:none;
+}
+
+.comment .icon:hover{
+	background-color: #e6e6e6;
+}
+
+.comment .edit textarea{
+	margin-bottom: 0
+}
+
+.comment .edit span{
+	font-size: 85%;
+}
+
+.comment.own:hover .icons{
+	display:inline;
+}
+
 a.username{
 	text-transform: capitalize;
 }

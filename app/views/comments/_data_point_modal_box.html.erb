@@ -1,12 +1,3 @@
 <% @comments.each do |comment| %>
-	<div class="row comment">
-		<div class="span1">
-			<%= getPicture(comment.user, "small") %>
-		</div>
-		<div class="span3">
-			<h5><%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.created_at)%> ago</span></h5>
-			<p class="commentText"><%= comment.text %></p>
-		</div>
-	</div>
-
+	<%= render :partial => "comment", :locals => {:comment => comment} %>
 <% end %>
