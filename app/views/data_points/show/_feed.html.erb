@@ -8,7 +8,7 @@
 				<%=  image_tag feed.photo.url(:medium) %>
 			</div>
 		<% end %>
-		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user) %> - <%= feed.calories%> Cal. - <span class="muted"><%= time_ago_in_words(feed.uploaded_at)%> ago</span></p>
+		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user, "highlight") %> - <%= feed.calories%> Cal. - <span class="muted"><%= time_ago_in_words(feed.uploaded_at)%> ago</span></p>
 		<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => feed}  %>
 		<%= render :partial => "comments/nbCommentThis", :locals	=> {:data_point => feed}  %>
 	</div>

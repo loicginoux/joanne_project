@@ -223,10 +223,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	groupDataByDay: (data) ->
 		dataSorted = []
 		for point in data
-			@log point.uploaded_at
 			# date = UTIL.getJsDateFromServer(point.uploaded_at)
 			date = Date.parse(point.uploaded_at)
-			@log date
 			date.clearTime()
 			if dataSorted == []
 				dataSorted.push({

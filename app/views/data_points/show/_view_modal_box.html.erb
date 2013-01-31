@@ -1,7 +1,9 @@
 <div class="row">
 	<div class="span5">
-		<div class="viewMode cbm_wrap">
-			<%= getPhoto(@data_point, "big")%>
+		<div class="viewMode">
+			<div class="cbm_wrap">
+				<%= getPhoto(@data_point, "big")%>
+			</div>
 		</div>
 		<div class="editMode hide">
 			<form id="uploadForm_<%= @data_point.id%>" action="/data_points/<%= @data_point.id%>" method="PUT" enctype="multipart/form-data">
@@ -14,7 +16,9 @@
 					</p>
 				</div>
 				<div class="editable_img_container">
-					<%= getPhoto(@data_point, "big")%>
+					<div class="cbm_wrap">
+						<%= getPhoto(@data_point, "big")%>
+					</div>
 					<a class="btn btn-upload" href="javascript:void(0)">Change photo</a>
 					<!-- <input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file"> -->
 					<div class="progress progress-striped active hide">

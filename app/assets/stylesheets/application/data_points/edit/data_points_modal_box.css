@@ -4,6 +4,8 @@
 
 div.editable_img_container{
 	position:relative;
+	height: 380px;
+
 }
 
 .editable_img_container .controls{
