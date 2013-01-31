@@ -1,0 +1,22 @@
+/*user show (month, week and day view)
+--------------------------------*/
+#graphicContainer{
+	padding-top: 20px;
+}
+
+.hoverActive{
+	background-color: #E96000;
+	border-radius: 4px;
+}
+.emptyState{
+height: 50px;
+margin: 100px 130px 0 0;
+}
+
+.emptyState blockquote{
+	margin-top: 50px
+}
+
+.emptyState img{
+	margin-left: 50px
+}

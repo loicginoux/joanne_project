@@ -1,0 +1,34 @@
+/* footer
+
+the rest of the rules are for always stick the footer at bottom
+see this tuto:
+http://www.cssreset.com/how-to-keep-footer-at-bottom-of-page-with-css/
+--------------------------------*/
+body, html {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+
+
+.container.content {
+	padding:10px;
+	padding-bottom:150px;
+}
+
+
+footer {
+	background: url("../../assets/homepage/footer-bg.png") repeat;
+	width: 100%;
+	height: 100px;
+	text-align: right;
+	margin-top:	50px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}

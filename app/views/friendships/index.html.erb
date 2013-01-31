@@ -1,8 +1,16 @@
 <div class="row" id="team-rubix">
-	<div class="span6" id="all-users">
+	<div class="span8 feeds">
 		<div class="cbm_wrap">
 			<div class="page-header">
-				<h3>People that inspire you.</h3>
+				<h3>What everyone else is eating</h3>
+			</div>
+			<%= render :partial => "data_points/index/feeds"  %>
+		</div>
+	</div>
+	<div class="span4" id="all-users">
+		<div class="cbm_wrap">
+			<div class="page-header">
+				<h3>People that inspire you</h3>
 			</div>
 			<div class="users">
 				<%= render :partial => "users" %>

@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span5">
-		<div class="viewMode">
+		<div class="viewMode cbm_wrap">
 			<%= getPhoto(@data_point, "big")%>
 		</div>
 		<div class="editMode hide">
@@ -92,16 +92,12 @@
 			<p>Date: <%= @data_point.uploaded_at.strftime("%m-%d-%Y %I:%M %P")%> </p>
 			<%if @data_point.nb_likes > 0 %>
 				<p>
-					<i class="icon-thumbs-up"></i>
-					<a href="javascript:void(0)" class="likers" rel="tooltip" title="<%= @data_point.listOfFans()%>">
-						<span class="nbLikes"><%= @data_point.nb_likes%></span> <%if @data_point.nb_likes == 1 %>person<% else %>people<% end%>
-					</a> <%if @data_point.nb_likes == 1 %>likes<% else %>like<% end%> this
+					<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => @data_point}  %>
 				</p>
 			<% end %>
 			<%if @data_point.nb_comments > 0 %>
 				<p>
-					<i class="icon-comment"></i>
-					<span class="nbComments"><%= @data_point.nb_comments%></span> <%if @data_point.nb_comments == 1 %>comment<% else %>comments<% end%>
+					<%= render :partial => "comments/nbCommentThis", :locals	=> {:data_point => @data_point}  %>
 				</p>
 			<% end %>
 		</div>
@@ -109,26 +105,13 @@
 			<div class="viewMode">
 				<div class="control-group comment hide">
 					<div class="controls">
-						<textarea class="input-comment" placeholder="Add your comment..."></textarea>
+						<textarea class="newComment" placeholder="Add your comment..."></textarea>
 						<span class="help-inline comment hide">Please enter a comment</span>
 					</div>
 				</div>
 
-
-				<a href="javascript:void(0)" class="btn btn-comment viewMode" data-loading-text="Commenting...">
-					<i class="icon-comment"></i> Comment
-				</a>
-				<%if current_user.like(@data_point).nil? %>
-				<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Like">
-					<i class="icon-thumbs-up"></i>
-					<span> Like</span>
-				</a>
-				<%else%>
-				<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Unlike" data-like-id="<%=current_user.like(@data_point).id%>" >
-					<i class="icon-thumbs-down"></i>
-					<span> Unlike</span>
-				</a>
-				<%end%>
+				<%= render :partial => "comments/button"  %>
+				<%= render :partial => "likes/button", :locals => { :data_point => @data_point}  %>
 				<% if @data_point.isOwner(current_user) %>
 				<a href="javascript:void(0)" class="btn btn-primary btn-edit viewMode" >
 					<i class="icon-white icon-pencil"></i> Edit
@@ -151,7 +134,7 @@
 			<%end%>
 
 		</form>
-		<div class="comments">
+		<div class="comments" data-data-point="<%= @data_point.id%>">
 			<%= render @data_point.comments %>
 		</div>
 

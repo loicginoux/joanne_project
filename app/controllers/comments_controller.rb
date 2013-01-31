@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
   def index
     @comments = nil
     if params[:data_point_id]
+      @data_point_id = params[:data_point_id]
       @comments = Comment.includes(:user).where(:data_point_id => params[:data_point_id]).order("created_at ASC")
     end
     respond_to do |format|

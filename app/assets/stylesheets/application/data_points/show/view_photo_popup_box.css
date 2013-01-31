@@ -1,0 +1,64 @@
+/*view photo popup box
+--------------------------------*/
+
+.modal.viewPhoto{
+	width:840px;
+	margin-left: -425px;
+	overflow: hidden;
+}
+
+.modal.viewPhoto .span5{
+	width:370px;
+	float: left;
+	margin-left:20px;
+}
+
+.modal.viewPhoto .span3{
+	width: 220px;
+	float: left;
+	margin-left: 5px;
+}
+
+.modal.viewPhoto .span1{
+	width: 60px;
+	float: left;
+	margin-left: 20px;
+}
+
+.viewPhoto form{
+	margin: 10px 0 10px 0;
+}
+
+.modal.viewPhoto .info{
+	overflow-y: auto;
+	height:380px;
+}
+
+.row.comment{
+	margin-top:10px;
+	overflow: auto;
+}
+
+.comment .icons{
+	display:none;
+}
+
+.comment .icon:hover{
+	background-color: #e6e6e6;
+}
+
+.comment .edit textarea{
+	margin-bottom: 0
+}
+
+.comment .edit span{
+	font-size: 85%;
+}
+
+.comment.own:hover .icons{
+	display:inline;
+}
+
+a.username{
+	text-transform: capitalize;
+}

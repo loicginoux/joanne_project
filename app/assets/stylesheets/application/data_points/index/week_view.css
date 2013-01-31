@@ -1,0 +1,12 @@
+/*week view layout
+--------------------------------*/
+
+.week_view .span1_7 {
+  width: 125px;
+  margin-top: 10px;
+  margin-left: 0;
+}
+
+.week_view .span1_7.first {
+  margin-left: 80px;
+}

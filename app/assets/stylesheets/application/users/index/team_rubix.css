@@ -1,0 +1,106 @@
+/* team rubix
+--------------------------------*/
+#team-rubix .cbm_wrap{
+	background: white;
+	height: 1%;
+	overflow: hidden
+}
+
+#team-rubix a.user{
+height: 50px;
+display: block;
+	margin-bottom: 5px;
+	margin-left: 0
+}
+
+#team-rubix a.user:hover{
+background-color: #EEE;
+}
+
+#team-rubix a.user .btn{
+	display:none;
+}
+
+#team-rubix a.user:hover .btn{
+	display:inline;
+}
+
+#team-rubix a.user:hover p{
+	display:none;
+}
+
+.leaderboard a.user:hover .points,
+#all-users a.user:hover .points,
+#latest-members a.user:hover .ago{
+	padding-top: 12px;
+}
+
+#team-rubix form{
+	margin: 0;
+}
+
+.leaderboard .rank{
+	height:35px;
+	padding: 13px 0 0;
+	margin-bottom:0;
+	font-weight: bold;
+	width: 45px;
+}
+
+.leaderboard .rank span{
+	display: table;
+	margin: 0 auto;
+}
+
+.leaderboard .points,
+#all-users .points{
+	color: #E96000;
+	font-weight: bold;
+}
+.leaderboard .points,
+#all-users .points,
+#latest-members .ago{
+	padding: 15px 5px 0 0;
+}
+
+#team-rubix .btn.follow{
+	width: 80px;
+}
+
+#latest-members .member{
+	width: 100%
+}
+
+#team-rubix .show_more{
+	width: 96%
+}
+
+.user-list .span4{
+	background-color: #EEE;
+	margin-bottom: 10px;
+	padding: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.user-list .btn{
+	margin-top:10px;
+}
+
+.dots{
+	background: url("/assets/3_dots.png") 0 0 no-repeat;
+	height: 42px;
+	left: 45%;
+	position: relative;
+	margin: 5px 0;
+}
+
+.leaderboard-info{
+	margin-bottom: 0;
+	margin-top: 5px;
+}
+
+.user span.username{
+	margin-left: 10px;
+}

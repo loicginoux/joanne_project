@@ -1,9 +1,9 @@
 window.foodrubix =
-
 	common: {}
 	users: {}
 	data_points: {}
 	user_sessions: {}
+	friendships: {}
 
 foodrubix.common.init = () ->
 	ua = navigator.userAgent.toLowerCase()

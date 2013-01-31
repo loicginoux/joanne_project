@@ -1,0 +1,34 @@
+<div class="feed">
+	<div class="pull-left">
+			<%= getPicture(feed.user, "small") %>
+	</div>
+	<div class="photo pull-left">
+		<%= link_to data_point_path(feed.id) do %>
+			<div class="cbm_wrap">
+				<%=  image_tag feed.photo.url(:medium) %>
+			</div>
+		<% end %>
+		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user) %> - <%= feed.calories%> Cal. - <span class="muted"><%= time_ago_in_words(feed.uploaded_at)%> ago</span></p>
+		<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => feed}  %>
+		<%= render :partial => "comments/nbCommentThis", :locals	=> {:data_point => feed}  %>
+	</div>
+	<div class="content">
+		<% unless feed.description.empty? %>
+			<p>
+				<%= feed.description %>
+			</p>
+		<% end %>
+		<div class="control-group comment hide">
+			<div class="controls">
+				<textarea class="newComment" placeholder="Add your comment..."></textarea>
+				<span class="help-inline comment hide">Please enter a comment</span>
+			</div>
+		</div>
+		<%= render :partial => "comments/button"  %>
+		<%= render :partial => "likes/button", :locals => { :data_point => feed}  %>
+		<div class="comments" data-data-point="<%= feed.id%>">
+			<%= render :partial => "comments/data_point_modal_box", :locals => {:comments => feed.comments}  %>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>

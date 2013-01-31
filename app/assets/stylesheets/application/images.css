@@ -1,0 +1,81 @@
+
+/*images
+--------------------------------*/
+.user_pic img, .user img{
+	border-radius: 3px;
+}
+
+ul.sortableImages{
+	margin: 0;
+}
+.week_view .cbm_wrap,
+.month_view .cbm_wrap{
+	width: 100px;
+	height: 100px;
+}
+
+.day_view .sortableImages{
+	padding: 5px 0;
+	margin: 0 0 9px 20px;
+}
+
+
+.cbm_wrap {
+	background: white url('/assets/loading.gif') no-repeat 50% 50%;
+	display: block;
+	padding: 10px;
+	margin:3px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 1px 4px
+	rgba(0, 0, 0, 0.3), 0 0 40px
+	rgba(0, 0, 0, 0.1) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.img_wrapper{
+position: relative;
+}
+
+.image{
+	position:relative;
+	overflow:hidden;
+	cursor: pointer;
+}
+
+.image .overlay{
+	position: absolute;
+	right: 0px;
+	height: 44px;
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	text-align: left;
+	bottom: -44px;
+
+}
+
+.image .overlay div{
+	clear: both;
+}
+.image .overlay span.label{
+	font-size: 10px;
+	font-weight: normal;
+	float: right;
+	margin: 2px 1px;
+	background-color: #E96000;
+}
+
+.image .overlay span.label:hover{
+	background-color: white;
+	color: #E96000;
+}
+
+.edit_data_point{
+	position:absolute;
+	top:0;
+	right:0;
+	background-color: white;
+	width:15px;
+	height:15px;
+	cursor:pointer;
+}

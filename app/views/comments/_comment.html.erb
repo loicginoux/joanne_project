@@ -2,7 +2,7 @@
 	<div class="span1">
 		<%= getPicture(comment.user, "small") %>
 	</div>
-	<div class="span3">
+	<div class="commentInfo">
 		<% if  comment.user.is(current_user)%>
 			<div class="edit hide">
 				<textarea><%= comment.text %></textarea>

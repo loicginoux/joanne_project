@@ -10,6 +10,12 @@ class FriendshipsController < ApplicationController
       .map { |f| f.followee unless f.followee_id.nil?}
       .paginate(:per_page => 15, :page => params[:page])
 
+
+    @feeds = DataPoint.joins(:user)
+      .order("uploaded_at desc")
+      .where("users.id IN ("+@users.map(&:id).join(",")+")")
+      .paginate(:per_page => 15, :page => params[:feed_page])
+
     respond_to do |format|
       format.html # index.html.erb
       format.js

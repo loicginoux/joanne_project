@@ -17,6 +17,7 @@
 //= require utils
 
 //= require_tree ./comments
+//= require_tree ./friendships
 //= require_tree ./users
 //= require_tree ./data_points
 //= require_tree ./user_sessions

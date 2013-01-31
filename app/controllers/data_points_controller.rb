@@ -184,7 +184,7 @@ class DataPointsController < ApplicationController
     if params[:id]
       @id = params[:id]
     end
-    render :action => "fileInputForm" , :layout => false
+    render :partial => "data_points/create/fileInputForm" , :layout => false
   end
 
   def check_for_cancel

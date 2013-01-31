@@ -1,0 +1,47 @@
+/* Nav bar
+--------------------------------*/
+.navbar .container .brand{
+	padding: 5px 20px 0;
+}
+
+.brand img {
+	width: 200px;
+	margin: 4px 0 0 0;
+}
+
+.navbar .container .nav{
+	padding-bottom: 0;
+}
+
+.navbar .container .nav>li>a{
+	padding: 15px 12px 0;
+}
+
+.navbar .container .dropdown a.dropdown-toggle{
+	padding-top:25px;
+}
+.navbar .container .dropdown-menu{
+	top:110%;
+}
+.nav_icon{
+	width: 35px;
+	padding-bottom: 15px;
+}
+
+#hi_current_user{
+	font-size: 18px;
+	text-shadow: none;
+	text-transform: uppercase;
+	padding: 25px 12px 0;
+	display: inline-block;
+	color: black;
+}
+
+.navbar .user_pic{
+	float: left;
+	margin-top: 10px;
+}
+
+.navbar .user_menu_icon{
+	margin-top: 5px
+}

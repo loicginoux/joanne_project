@@ -1,0 +1,11 @@
+<%if current_user.like(data_point).nil? %>
+	<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Like">
+		<i class="icon-thumbs-up"></i>
+		<span> Like</span>
+	</a>
+<%else%>
+	<a href="javascript:void(0)" class="btn btn-like viewMode" data-action="Unlike" data-like-id="<%=current_user.like(data_point).id%>" >
+		<i class="icon-thumbs-down"></i>
+		<span> Unlike</span>
+	</a>
+<%end%>

@@ -1,0 +1,39 @@
+/* month view table
+--------------------------------*/
+.month_view .table tbody tr:hover td,
+.month_view .table tbody tr:hover th {
+  background-color: white;
+}
+table.calendar_table th.span1_7{
+	width: 132px;
+	margin: 2px 0;
+	margin-left: 0;
+	padding:0;
+	text-align: center;
+}
+
+
+table.calendar_table td.span1_7{
+	width: 132px;
+	margin-top: 0;
+	margin-left: 0;
+	padding:0;
+}
+
+table.calendar_table td.span1_7 .day_date{
+	text-align: center
+}
+table.calendar_table tbody.scrollable td.span1_7{
+	width: 132px;
+
+}
+
+
+
+table.calendar_table tbody.scrollable{
+display: block;
+height: 400px;
+overflow: auto;
+width: 100%;
+}
+
