@@ -1,8 +1,21 @@
-$(".users").append("<%= escape_javascript(render :partial => 'users') %>");
+<% if @update == "users" %>
+	$(".users").append("<%= escape_javascript(render :partial => 'users') %>");
 
-// Hide link if it is last page otherwise update link
-<% if @users.total_pages == @users.current_page %>
-    $("#show_more_users_link").hide();
-<% else %>
-    $("#show_more_users_link").attr("href", "<%= friendships_path(:sort => sort_column, :direction => sort_direction, :page => (@users.current_page + 1)) %>");
+	// Hide link if it is last page otherwise update link
+	<% if @users.total_pages == @users.current_page %>
+	    $("#show_more_users_link").hide();
+	<% else %>
+	    $("#show_more_users_link").attr("href", "<%= friendships_path(:sort => sort_column, :direction => sort_direction, :user_page => (@users.current_page + 1)) %>");
+	<% end %>
+
+
+<% elsif @update == "feeds" %>
+	$(".feedList").append("<%= escape_javascript(render :partial => 'data_points/index/feeds') %>");
+
+	// Hide link if it is last page otherwise update link
+	<% if @feeds.total_pages == @feeds.current_page %>
+	    $("#show_more_feeds_link").hide();
+	<% else %>
+	    $("#show_more_feeds_link").attr("href", "<%= friendships_path(:feed_page => (@feeds.current_page + 1)) %>");
+	<% end %>
 <% end %>

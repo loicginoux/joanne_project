@@ -4,17 +4,25 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
+    if params[:user_page]
+      @update = "users"
+    elsif params[:feed_page]
+      @update = "feeds"
+    end
+
     @users = current_user.friendships
       .joins(:followee)
       .order(sort_column + ' ' + sort_direction)
       .map { |f| f.followee unless f.followee_id.nil?}
-      .paginate(:per_page => 15, :page => params[:page])
+      .paginate(:per_page => 15, :page => params[:user_page])
 
+
+    userIds = (@users.empty?) ? "NULL" : userIds = @users.map(&:id).join(",")
 
     @feeds = DataPoint.joins(:user)
       .order("uploaded_at desc")
-      .where("users.id IN ("+@users.map(&:id).join(",")+")")
-      .paginate(:per_page => 15, :page => params[:feed_page])
+      .where("users.id IN ("+userIds+")")
+      .paginate(:per_page => 10, :page => params[:feed_page])
 
     respond_to do |format|
       format.html # index.html.erb
