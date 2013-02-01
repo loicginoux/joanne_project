@@ -31,4 +31,5 @@ class foodrubix.feeds extends Spine.Controller
 
 	stopLoading:() ->
 		@loading = false
+		console.log("stop loading")
 		UTIL.load($('.feedLoading'), "feedL", false)
