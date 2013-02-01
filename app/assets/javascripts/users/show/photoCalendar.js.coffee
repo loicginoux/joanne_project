@@ -21,6 +21,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"#photos": "photos"
 		"#graphicContainer": "graphic"
 		".period": "periodButtons"
+		".emptyState": "emptyState"
 
 	constructor: ()->
 		super
@@ -120,9 +121,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		#display loading gif
 		UTIL.load($('#photos'), "photos", false)
 		if !data.length && Date.today().between(@startDate, @endDate) && gon.isCurrentUserDashboard
-			$(".emptyState").removeClass("hide")
+			@emptyState.removeClass("hide")
 		else
-			$(".emptyState").addClass("hide")
+			@emptyState.addClass("hide")
 			dataSorted = @groupDataByDay(data)
 			if @period == "week"
 				dataSorted = @createWeekDays(dataSorted)
@@ -388,7 +389,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				that.sortedItemIndex = ui.item.index()
 				that.sortedDayFrom = ui.item.parent()
 				ui.item.parent("ul").addClass "hoverActive"
-				console.log that.ctrlDown
+				console.log "that.ctrlDown:", that.ctrlDown
+				that.copyItem = false
 				if that.ctrlDown
 					$(ui.item).show()
 					that.copyItem = true
@@ -487,11 +489,10 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				minute:time.getMinutes()
 			})
 
-
 		if datePhoto
+			UTIL.load($('#photos'), "photos", true)
 			if @copyItem
 				# create new photo
-				UTIL.load($('#photos'), "photos", true)
 				$.ajax({
 					type: "POST",
 					url: '/data_points.json',
@@ -510,7 +511,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 					type: "PUT",
 					url: '/data_points/'+id+'.json',
 					success: () ->
-						that.onSuccessAjax.bind that
+						that.onSuccessAjax()
 					data:
 						data_point : {
 							id: id,
@@ -583,6 +584,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			else
 				@activeModal.release()
 		UTIL.load($('#photos'), "photos", true)
+		@graphic.empty()
+		@emptyState.addClass("hide")
 		fn = ()->
 			@refresh()
 		_.delay(fn.bind(@), 1000) #we put a delay to give time to server to update before to refresh
