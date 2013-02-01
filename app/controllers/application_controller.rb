@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     if current_user
       gon.current_user_email = current_user.email
       gon.current_user_created_at = current_user.created_at.to_i
-      gon.current_user_username = current_user.username
+      gon.current_user_username = current_user.username.capitalize
       gon.current_user_id = current_user.id
 
     else
