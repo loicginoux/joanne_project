@@ -25,3 +25,7 @@
 .feed .commentText{
 	margin-bottom: 0;
 }
+.feed .description{
+	font-size: 15px;
+	margin-bottom: 9px;
+}

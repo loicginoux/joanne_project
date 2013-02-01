@@ -9,7 +9,8 @@
 			</div>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
 			<% unless @feeds.total_pages < 2 %>
-  				<%= link_to 'Show More', friendships_path(:feed_page => 2), :remote => true, :id => 'show_more_feeds_link', :class => "btn btn-small show_more"%>
+				<div class="feedLoading"></div>
+  			<%= link_to 'Show More', friendships_path(:feed_page => 2), :remote => true, :id => 'show_more_feeds_link', :class => "btn btn-small show_more hide"%>
 			<%end %>
 
 		</div>
