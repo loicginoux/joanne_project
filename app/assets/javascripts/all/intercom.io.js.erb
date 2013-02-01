@@ -1,4 +1,4 @@
-<% if Rails.env == "production" %>
+<% if Rails.env == "production" || Rails.env == "staging" %>
 
 var intercomSettings = {
 	app_id: 'oxkhdxqk',
@@ -6,6 +6,7 @@ var intercomSettings = {
     created_at: gon.current_user_created_at,
     name: gon.current_user_username,
     user_id: gon.current_user_id
+    environment: "<%= Rails.env %>"
 };
 
 (function() {
