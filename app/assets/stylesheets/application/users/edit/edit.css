@@ -3,3 +3,12 @@
 div#wolframAlphaWidget47689.WolframAlphaWidgetLarge{
 	width:380px;
 }
+
+.userPic a.btn-upload{
+	left:27%;
+}
+
+.user_pic img{
+	width: 100%
+
+}

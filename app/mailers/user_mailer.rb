@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => email,
-      :subject => "[FoodRubix] Uploading didn't work",
+      :subject => "[FoodRubix] Wrong email used to upload a photo",
       :html => html.to_str
   end
 
