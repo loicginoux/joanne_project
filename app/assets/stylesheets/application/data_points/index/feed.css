@@ -20,6 +20,9 @@
 
 .feed .commentInfo{
 	margin-left: 80px;
+	width: 275px;
+	float: left;
+	margin-left: 10px;
 }
 
 .feed .commentText{
