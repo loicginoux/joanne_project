@@ -338,13 +338,15 @@ class User < ActiveRecord::Base
   end
 
   def addPoints(points)
-    new_points = self.leaderboard_points + points
-    new_total_points = self.total_leaderboard_points + points
-    puts "#{points} points added to #{self.username}, pass from #{self.leaderboard_points} to #{new_points} points (total: from #{self.total_leaderboard_points} to #{new_total_points})"
-    self.update_attributes({
-      :leaderboard_points =>  new_points,
-      :total_leaderboard_points => new_total_points
-    })
+    unless points == 0
+      new_points = self.leaderboard_points + points
+      new_total_points = self.total_leaderboard_points + points
+      puts "#{points} points added to #{self.username}, pass from #{self.leaderboard_points} to #{new_points} points (total: from #{self.total_leaderboard_points} to #{new_total_points})"
+      self.update_attributes({
+        :leaderboard_points =>  new_points,
+        :total_leaderboard_points => new_total_points
+      })
+    end
   end
 
   def removePoints(points)

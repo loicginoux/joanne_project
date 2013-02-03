@@ -44,7 +44,8 @@ class foodrubix.CommentListController extends Spine.Controller
 				comment:
 					text: textareaVal
 		})
-		commentEl.find(".commentText").html(textareaVal)
+		commentEl.unfocus()
+			.find(".commentText").html(textareaVal)
 		@cancelEditing(e)
 
 	onkeyUp:(e)->
@@ -66,8 +67,10 @@ class foodrubix.CommentListController extends Spine.Controller
 
 	cancelEditing:(e)->
 		commentEl = @getEl e
-		commentEl.find(".view").removeClass("hide")
-		commentEl.find(".edit").addClass("hide")
+
+		commentEl.unfocus()
+			.find(".view").removeClass("hide").end()
+			.find(".edit").addClass("hide")
 
 	delete: (e)->
 		id = @getId(e)
