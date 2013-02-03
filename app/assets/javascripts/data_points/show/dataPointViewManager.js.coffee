@@ -109,7 +109,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			@divTextarea.removeClass("hide")
 			@divTextarea.find("textarea").focus()
 		else
-			text = @inputComment.val()
+			text = @inputComment.blur().val()
 			if text != ""
 				@btnComment.button('loading').attr("disabled", true)
 				data =

@@ -36,7 +36,7 @@ class foodrubix.CommentListController extends Spine.Controller
 	stopEditing:(e)->
 		id = @getId(e)
 		commentEl = @getEl e
-		textareaVal = commentEl.find("textarea").val()
+		textareaVal = commentEl.find("textarea").blur().val()
 		$.ajax({
 			type: "PUT",
 			url: '/comments/'+id+'.json'
@@ -44,31 +44,34 @@ class foodrubix.CommentListController extends Spine.Controller
 				comment:
 					text: textareaVal
 		})
-		commentEl.unfocus()
-			.find(".commentText").html(textareaVal)
+		commentEl.find(".commentText").html(textareaVal)
 		@cancelEditing(e)
 
 	onkeyUp:(e)->
 		if e.keyCode == 27 #echap
+			e.stopPropagation()
+			e.preventDefault()
 			return false
 
 	onkeyDown:(e)->
 		if e.keyCode == 27 #echap
 			@cancelEditing(e)
-			e.stopPropagation()
 			e.preventDefault()
+			e.stopPropagation()
 			return false
 
 		if e.keyCode == 13 #enter
 			@stopEditing(e)
 			e.preventDefault()
+			return false
 
 
 
 	cancelEditing:(e)->
 		commentEl = @getEl e
 
-		commentEl.unfocus()
+		commentEl
+			.find("textarea").blur().end()
 			.find(".view").removeClass("hide").end()
 			.find(".edit").addClass("hide")
 
