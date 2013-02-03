@@ -3,6 +3,7 @@ class foodrubix.CommentListController extends Spine.Controller
 		"click .startEdit": "startEditing"
 		"click .delete": "delete"
 		"keydown textarea": "onkeyDown"
+		"keyup textarea": "onkeyUp"
 
 
 	getId:(e)->
@@ -46,12 +47,21 @@ class foodrubix.CommentListController extends Spine.Controller
 		commentEl.find(".commentText").html(textareaVal)
 		@cancelEditing(e)
 
+	onkeyUp:(e)->
+		if e.keyCode == 27 #echap
+			return false
+
 	onkeyDown:(e)->
 		if e.keyCode == 27 #echap
 			@cancelEditing(e)
+			e.stopPropagation()
+			e.preventDefault()
+			return false
+
 		if e.keyCode == 13 #enter
 			@stopEditing(e)
 			e.preventDefault()
+
 
 
 	cancelEditing:(e)->
