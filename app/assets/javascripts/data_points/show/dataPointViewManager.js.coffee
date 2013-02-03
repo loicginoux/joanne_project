@@ -33,7 +33,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	events:
 		"click .btn-like":    "like"
 		"click .btn-comment": "comment"
-		"keyup textarea.newComment":  "onEnter"
+		"keydown textarea.newComment":  "onEnter"
 		"click .btn-edit":    "startEditing"
 		"click .btn-cancel":  "switchMode"
 
@@ -98,6 +98,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	onEnter: (e) =>
 		if e.keyCode == 13  #enter
 			@comment()
+			e.preventDefault()
 
 	comment: () =>
 		if @btnComment.attr("disabled")

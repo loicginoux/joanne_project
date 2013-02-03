@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
     if monthly
       myComments = myComments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
-    myComments.onOthersPhoto().group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
+    myComments.group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
   end
 
   def commented_points(monthly = false)
@@ -278,7 +278,7 @@ class User < ActiveRecord::Base
     if monthly
       likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
-    self.likes.onOthersPhoto().length * User::LEADERBOARD_ACTION_VALUE[:like]
+    likes.length * User::LEADERBOARD_ACTION_VALUE[:like]
   end
 
   def liked_points(monthly = false)
@@ -312,7 +312,7 @@ class User < ActiveRecord::Base
   def smart_choice_award_points(monthly = false)
     dp = self.data_points.smart_choice_awarded()
     if monthly
-      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
     dp.length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
   end
@@ -320,7 +320,7 @@ class User < ActiveRecord::Base
   def hot_photo_award_points(monthly = false)
     dp = self.data_points.hot_photo_awarded()
     if monthly
-      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
     dp.length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
   end
@@ -332,7 +332,7 @@ class User < ActiveRecord::Base
     # and for each day we add the points per photo. If a day has more than 3 photos, we count it as 3 points
     dp = self.data_points
     if monthly
-      dp = dp.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
+      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
     end
     dp.group_by(&:group_by_criteria).map {|k,v| v.length}.inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
   end

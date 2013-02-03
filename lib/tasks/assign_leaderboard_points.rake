@@ -19,6 +19,7 @@ task :reset_leaderboard_points => :environment do
           user.daily_calories_limit_points() +
           user.fb_sharing_points()
         user.update_attributes(:leaderboard_points => points )
+        puts "resetting monthly points to #{user.username} (#{user.id}): #{points} "
       }
     end
 

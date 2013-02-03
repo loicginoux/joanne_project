@@ -114,7 +114,7 @@ ActiveAdmin.register User do
 					user.smart_choice_award_points(true)
 				end
 				row :hot_photo_award_points do |user|
-					user.comments_points(true)
+					user.hot_photo_award_points(true)
 				end
 			end
 		end
@@ -155,7 +155,7 @@ ActiveAdmin.register User do
 					user.smart_choice_award_points()
 				end
 				row :hot_photo_award_points do |user|
-					user.comments_points()
+					user.hot_photo_award_points()
 				end
 			end
 		end

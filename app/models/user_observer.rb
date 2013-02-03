@@ -9,8 +9,7 @@ class UserObserver < ActiveRecord::Observer
 				points += User::LEADERBOARD_ACTION_VALUE[:profile_photo]
 			end
 
-			user.leaderboard_points += points
-			user.total_leaderboard_points += points
+			user.addPoints(points)
 
 		end
 	end

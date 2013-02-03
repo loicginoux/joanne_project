@@ -45,7 +45,7 @@ class DataPointObserver < ActiveRecord::Observer
       end
     end
 
-    data_point.user.addPoints(points)
+    data_point.user.addPoints(points) unless points == 0
 
   end
 
