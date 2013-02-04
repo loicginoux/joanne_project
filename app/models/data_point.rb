@@ -57,7 +57,11 @@ class DataPoint < ActiveRecord::Base
   end
 
   def group_by_criteria
-    uploaded_at.to_date.to_s(:db)
+    if uploaded_at.nil?
+      created_at.to_date.to_s(:db)
+    else
+      uploaded_at.to_date.to_s(:db)
+    end
   end
 
 end
