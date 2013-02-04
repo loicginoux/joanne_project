@@ -79,7 +79,7 @@ class DataPointsController < ApplicationController
         # description of photo is in mail body
         if params["stripped-text"]
           match = (params["stripped-text"]).match(/"(.*?)"/)
-          @data_point.description = params["stripped-text"].match(/"(.*?)"/)[0]  if (match && match[0])
+          @data_point.description = params["stripped-text"].match(/"(.*?)"/)[1]  if (match && match[1])
         end
 
         # date of photo

@@ -5,7 +5,7 @@
 	<% if @users.total_pages == @users.current_page %>
 	    $("#show_more_users_link").hide();
 	<% else %>
-	    $("#show_more_users_link").attr("href", "<%= friendships_path(:sort => sort_column, :direction => sort_direction, :user_page => (@users.current_page + 1)) %>");
+	    $("#show_more_users_link").attr("href", "<%= friendships_path(:sort => 'users.leaderboard_points', :direction => 'desc', :user_page => (@users.current_page + 1)) %>");
 	<% end %>
 
 

@@ -61,8 +61,8 @@ class User < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
   scope :latest_members, confirmed().active().order("created_at desc").where("username != 'joanne'").where("username != 'loknackie'")
-  scope :monthly_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("leaderboard_points desc")
-  scope :total_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("total_leaderboard_points desc")
+  scope :monthly_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("leaderboard_points desc, username asc")
+  scope :total_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("total_leaderboard_points desc, username asc")
   scope :who_uploaded_in_last_24_hours, joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", 1.day.ago)
   scope :slackerboard, lambda { ||
     # users who didn;t upload anything in last 24 hours

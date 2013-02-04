@@ -436,7 +436,8 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				else
 					overflow = false
 				return true
-			stop: @onDrop.bind @
+			stop: (e,ui) ->
+				that.onDrop(e,ui)
 		})
 
 		# if we keep control or command while dragging we copy the photo
@@ -467,7 +468,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		id = ui.item.attr("data-id") | ui.item.find(".image").attr("data-id")
 		nextPhotoTime = ui.item.next().find(".time").text()
 		prevPhotoTime = ui.item.prev().find(".time").text()
-		recipientDay = if (recipient.parent().attr("data-date")) then new Date(recipient.parent().attr("data-date")) else @date
+		recipientDay = if (recipient.parent().attr("data-date")) then Date.parse(recipient.parent().attr("data-date")) else @date
 
 		if nextPhotoTime
 			nextPhotoDate = recipientDay.set({

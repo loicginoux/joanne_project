@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   before_filter :require_login
-  helper_method :sort_column, :sort_direction
+
   # GET /friendships
   # GET /friendships.json
   def index
@@ -12,7 +12,7 @@ class FriendshipsController < ApplicationController
 
     @users = current_user.friendships
       .joins(:followee)
-      .order(sort_column + ' ' + sort_direction)
+      .order("users.leaderboard_points desc, users.username asc")
       .map { |f| f.followee unless f.followee_id.nil?}
       .paginate(:per_page => 15, :page => params[:user_page])
 
@@ -60,14 +60,5 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  private
-
-  def sort_column
-    params[:sort] || "users.leaderboard_points"
-  end
-
-  def sort_direction
-    params[:direction] || "desc"
-  end
 end
 
