@@ -60,7 +60,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
 		commentController = new foodrubix.CommentListController({
-			el: $(".comments"),
+			el: @el.find(".comments"),
 			master: @
 			})
 

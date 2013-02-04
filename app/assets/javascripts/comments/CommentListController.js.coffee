@@ -77,6 +77,7 @@ class foodrubix.CommentListController extends Spine.Controller
 
 	delete: (e)->
 		id = @getId(e)
+
 		$.ajax({
 			type: "delete",
 			url: '/comments/'+id+'.json'

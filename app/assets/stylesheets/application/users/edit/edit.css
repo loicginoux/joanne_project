@@ -8,7 +8,7 @@ div#wolframAlphaWidget47689.WolframAlphaWidgetLarge{
 	left:27%;
 }
 
-.user_pic img{
-	width: 100%
-
+.editable_img_container .user_pic img{
+	width: 100%;
+	height: 100%
 }
