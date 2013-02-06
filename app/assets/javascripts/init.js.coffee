@@ -19,6 +19,9 @@ foodrubix.common.init = () ->
 	else if (ie)
 		gon.browser = "IE"
 		gon.browserVersion = ie[1]
-
+	else if (ua.indexOf('firefox')!=-1)
+		gon.browser = "firefox"
+	else if (ua.indexOf('opera')!=-1)
+		gon.browser = "opera"
 
 

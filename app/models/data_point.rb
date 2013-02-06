@@ -32,6 +32,12 @@ class DataPoint < ActiveRecord::Base
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:
   # attr_accessible :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at
 
+  # issue about encoding file
+  # https://github.com/thoughtbot/paperclip/issues/301
+  def image=(image)
+    self.image.assign image.tempfile
+  end
+
   def isOwner(user)
     if user
       user.id == self.user.id

@@ -54,7 +54,8 @@ gem 'omniauth-twitter'
 gem "high_voltage"
 
 #file management
-gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 3.1.3"
+gem "cocaine", "= 0.3.2"
 # file storage amazon s3
 gem 'aws-s3'
 gem 'aws-sdk'
