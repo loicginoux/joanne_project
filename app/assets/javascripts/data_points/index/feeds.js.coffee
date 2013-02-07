@@ -65,7 +65,7 @@ class foodrubix.feeds extends Spine.Controller
 			else
 				UTIL.load($('.feedLoading'), "feedL", true)
 				@loading = true
-				@title.html("What people I'm following is eating")
+				@title.html("What people I'm following are eating")
 				@fetchFeeds("friendsFeeds")
 				UTIL.setCookie("feedList", "friends", 30)
 

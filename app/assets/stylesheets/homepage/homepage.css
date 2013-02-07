@@ -160,13 +160,58 @@ iframe.youtube_video {
 }
 
 /* login and register ----------------------------------------------------*/
+.control-group{
+	text-align:left;
+}
 
+.form-horizontal .control-group input[type="text"],
+.form-horizontal .control-group input[type="password"],
+.form-horizontal .control-group textarea{
+	margin-left: 175px
+}
 .controls label{
 	float: left;
-	margin: 0 175px 2px;
+	margin: 0 165px 2px 175px;
 	color: black;
 }
 
+.controls .btn-group{
+	margin-left:175px
+}
+.coaching_intensity .btn-group{
+	float:left;
+	margin-bottom:15px
+}
+.coaching_intensity .btn-group .btn{
+	width:70px;
+	padding: 6px 10px;
+}
+
+.coaching_intensity .helps{
+	margin-left: 10px;
+	float: left;
+	width:250px;
+
+}
+
+.coaching_intensity .helps .help-inline{
+	color:black;
+	padding-left:0;
+	margin-left:0;
+	margin-right:50px
+}
+
+.coaching_intensity .helps .low{
+	margin-top: 63px;
+}
+
+.coaching_intensity .helps .high{
+	margin-top: 0;
+}
+
+.coaching_intensity .helps .medium{
+	margin-top: 30px;
+}
 
 .form-actions{
 	background-color: transparent;
@@ -207,7 +252,8 @@ span.important_email div{
 }
 
 .lost_password{
-	margin-right: 105px
+margin-right: 165px;
+float: right;
 }
 
 label.checkbox{

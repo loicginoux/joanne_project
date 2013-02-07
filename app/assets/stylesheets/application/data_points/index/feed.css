@@ -36,3 +36,8 @@
 	font-size: 15px;
 	margin-bottom: 9px;
 }
+
+.feed .ribbon-wrapper.right .ribbon {
+	top: 25px;
+	right: -65px;
+}
