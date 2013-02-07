@@ -5,7 +5,7 @@
 	<div class="photo pull-left">
 		<%= link_to data_point_path(feed.id) do %>
 			<div class="cbm_wrap">
-				<%=  image_tag feed.photo.url(:medium) %>
+				<%= getPhoto(feed, "medium" ) %>
 			</div>
 		<% end %>
 		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user, "highlight") %> - <%= feed.calories%> Cal. - <span class="muted"><%= time_ago_in_words(feed.uploaded_at)%> ago</span></p>

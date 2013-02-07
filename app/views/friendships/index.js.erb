@@ -9,14 +9,26 @@
 	<% end %>
 
 
-<% elsif @update == "feeds" %>
+<% elsif @update == "everyoneFeeds" %>
+// append feeds
 	$(".feedList").append("<%= escape_javascript(render :partial => 'data_points/index/feeds') %>");
 	// notify the feeds controller that feeds have been loaded
 	window.Spine.trigger('feeds:loaded')
-	// Hide link if it is last page otherwise update link
-	<% if @feeds.total_pages == @feeds.current_page %>
-	    $("#show_more_feeds_link").remove();
-	<% else %>
-	    $("#show_more_feeds_link").attr("href", "<%= friendships_path(:feed_page => (@feeds.current_page + 1)) %>");
+	// empty show more buttons
+	$(".show_more_btns").empty()
+	// if show more is necessary, add it to the page
+	<% if @feeds.total_pages >= 2 && (@feeds.total_pages != @feeds.current_page) %>
+		$(".show_more_btns").append('<%= link_to "Show More", friendships_path(:everyone_feed_page => (@feeds.current_page + 1)), :remote => true, :id => "show_more_feeds_link", :class => "btn btn-small show_more hide"%>')
+	<% end %>
+
+<% elsif @update == "friendsFeeds" %>
+	$(".feedList").append("<%= escape_javascript(render :partial => 'data_points/index/feeds') %>");
+	// notify the feeds controller that feeds have been loaded
+	window.Spine.trigger('feeds:loaded')
+	// empty show more buttons
+	$(".show_more_btns").empty()
+
+	<% if @feeds.total_pages >= 2 && (@feeds.total_pages != @feeds.current_page) %>
+	    $(".show_more_btns").append('<%= link_to "Show More", friendships_path(:friends_feed_page => (@feeds.current_page + 1)), :remote => true, :id => "show_more_feeds_link", :class => "btn btn-small show_more hide"%>')
 	<% end %>
 <% end %>

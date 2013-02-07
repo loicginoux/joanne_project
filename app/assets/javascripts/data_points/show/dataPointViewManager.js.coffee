@@ -64,22 +64,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			master: @
 			})
 
-	refreshLike: () =>
-		$.ajax({
-			type: "GET"
-			url: '/likes'
-			dataType: 'json'
-			data:
-				data_point_id: @id
-				user_id: @userId
-			success: @ongetLikeState.bind @
-		})
-
-	ongetLikeState: (data) =>
-		if data.length
-			@likeId = data[0].id
-			@changeLikeState("Liked")
-
 
 	refreshComments: () =>
 		$.ajax({
@@ -168,6 +152,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 					.find("i")
 					.removeClass("icon-thumbs-down")
 					.addClass("icon-thumbs-up")
+
 	like: () =>
 		if @btnLike.attr("disabled")
 			return
@@ -179,7 +164,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			$.ajax({
 				type: "POST"
 				url: '/likes.json'
-				success: @onSuccessLike.bind @
+				success: @onSuccessLike
 				dataType: 'json'
 				data:
 					like :
@@ -192,7 +177,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			$.ajax({
 				type: "DELETE"
 				url: '/likes/'+likeId+'.json'
-				success: @onSuccessUnlike.bind @
+				success: @onSuccessUnlike
 				dataType: 'json'
 			})
 
@@ -203,7 +188,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 
 	onSuccessLike: (data, textStatus, jqXHR) =>
-
 		@btnLike.attr("data-like-id", data.id)
 		@nbLikes = @nbLikes+1
 		@nbLikesHTML.html(@nbLikes)
@@ -233,7 +217,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		          type: "DELETE",
 		          url: '/data_points/'+@id+'.json',
 		          dataType: dataType,
-		          success: @onSuccessDelete.bind @
+		          success: @onSuccessDelete
 		})
 
 	onSuccessDelete:(e) ->

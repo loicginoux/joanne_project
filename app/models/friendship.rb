@@ -1,4 +1,6 @@
 class Friendship < ActiveRecord::Base
+
+	attr_accessor :noMailTriggered
 	belongs_to :user
 	belongs_to :followee, :class_name => 'User'
 	validate :cannot_follow_same_user_twice

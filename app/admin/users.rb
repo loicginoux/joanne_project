@@ -43,6 +43,8 @@ ActiveAdmin.register User do
 			f.input :timezone
 			f.input :password
 			f.input :password_confirmation
+			f.input :first_friend, :hint=> "if checked, you will be automatically added to users as their first friend"
+			f.input :hidden, :hint=> "if checked, you will be hidden from the leaderboard"
 		end
 		f.buttons
 	end
@@ -76,6 +78,8 @@ ActiveAdmin.register User do
 			row :active
 			row :leaderboard_points
 			row :total_leaderboard_points
+			row :hidden
+			row :first_friend
 		end
 
 		panel "Monthly leaderboard" do

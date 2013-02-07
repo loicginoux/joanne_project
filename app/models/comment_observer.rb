@@ -22,10 +22,11 @@ class CommentObserver < ActiveRecord::Observer
     previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
 
     if !comment.user.is(dataPoint.user) && previousComments.length <= 1
+      isOnCurrentMonth = (comment.created_at >= Date.today.beginning_of_month())
       # we add leaderboard points to the commenter
-      comment.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:comment])
+      comment.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:comment], isOnCurrentMonth)
       # we add leaderboard points to the photo's owner
-      comment.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:commented])
+      comment.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:commented], isOnCurrentMonth)
     end
   end
 
@@ -37,10 +38,11 @@ class CommentObserver < ActiveRecord::Observer
     previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
 
     if !comment.user.is(dataPoint.user) && previousComments.length < 1
+      isOnCurrentMonth = (comment.created_at >= Date.today.beginning_of_month())
       # we remove leaderboard points to the commenter
-      comment.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:comment])
+      comment.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:comment], isOnCurrentMonth)
       # we remove leaderboard points to the photo's owner
-      comment.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:commented])
+      comment.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:commented], isOnCurrentMonth)
 
     end
   end

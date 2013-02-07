@@ -60,17 +60,18 @@ class User < ActiveRecord::Base
   scope :unconfirmed, where(:confirmed => false)
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
-  scope :latest_members, confirmed().active().order("created_at desc").where("username != 'joanne'").where("username != 'loknackie'")
-  scope :monthly_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("leaderboard_points desc, username asc")
-  scope :total_leaderboard, confirmed().active().where("username != 'joanne'").where("username != 'loknackie'").order("total_leaderboard_points desc, username asc")
+  scope :visible, where(:hidden => false)
+  scope :latest_members, confirmed().active().order("created_at desc").visible()
+  scope :monthly_leaderboard, confirmed().active().visible().order("leaderboard_points desc, username asc")
+  scope :total_leaderboard, confirmed().active().visible().order("total_leaderboard_points desc, username asc")
   scope :who_uploaded_in_last_24_hours, joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", 1.day.ago)
   scope :slackerboard, lambda { ||
     # users who didn;t upload anything in last 24 hours
     users = User.who_uploaded_in_last_24_hours
     if users.empty?
-      User.active().confirmed().where("username != 'joanne'").where("username != 'loknackie'").order("username desc")
+      User.active().confirmed().visible().order("username desc")
     else
-      User.active().confirmed().where("username != 'joanne'").where("username != 'loknackie'").order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
+      User.active().confirmed().visible().order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
     end
   }
 
@@ -337,9 +338,11 @@ class User < ActiveRecord::Base
     dp.group_by(&:group_by_criteria).map {|k,v| v.length}.inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
   end
 
-  def addPoints(points)
+  def addPoints(points, onMonthlyLeaderboard = true)
     unless points == 0
-      new_points = self.leaderboard_points + points
+      # we remove points on current month only if onMonthlyLeaderboard
+      new_points = (onMonthlyLeaderboard) ? self.leaderboard_points + points : self.leaderboard_points
+
       new_total_points = self.total_leaderboard_points + points
       puts "#{points} points added to #{self.username}, pass from #{self.leaderboard_points} to #{new_points} points (total: from #{self.total_leaderboard_points} to #{new_total_points})"
       self.update_attributes({
@@ -349,8 +352,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def removePoints(points)
-    self.addPoints(-points)
+  def removePoints(points, onMonthlyLeaderboard = true)
+    self.addPoints(-points, onMonthlyLeaderboard)
   end
 
 

@@ -18,6 +18,7 @@ body, html {
 
 .container.content {
 	padding:10px;
+	padding-top:90px;
 	padding-bottom:150px;
 }
 

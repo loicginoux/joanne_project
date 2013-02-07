@@ -4,32 +4,44 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
+    @update = params[:update]
     if params[:user_page]
       @update = "users"
-    elsif params[:feed_page]
-      @update = "feeds"
+    elsif params[:everyone_feed_page]
+      @update = "everyoneFeeds"
+    elsif params[:friends_feed_page]
+      @update = "friendsFeeds"
     end
 
-    @users = current_user.friendships
+    if @update.nil? || @update == "users" || @update == "friendsFeeds"
+      @users = current_user.friendships
       .joins(:followee)
       .order("users.leaderboard_points desc, users.username asc")
       .map { |f| f.followee unless f.followee_id.nil?}
       .paginate(:per_page => 15, :page => params[:user_page])
-
-
-    userIds = (@users.empty?) ? "NULL" : userIds = @users.map(&:id).join(",")
-
-    @feeds = DataPoint.joins(:user)
+    end
+    if @update == "friendsFeeds"
+      userIds = (@users.empty?) ? "NULL" : userIds = @users.map(&:id).join(",")
+      @feeds = DataPoint.joins(:user)
       .order("uploaded_at desc")
       .where("users.id IN ("+userIds+")")
-      .paginate(:per_page => 10, :page => params[:feed_page])
+      .paginate(:per_page => 10, :page => params[:friends_feed_page])
+
+    end
+    if @update == "everyoneFeeds"
+      @feeds = DataPoint.includes(:user)
+      .order("uploaded_at desc")
+      .paginate(:per_page => 10, :page => params[:everyone_feed_page])
+
+    end
+
+
+
 
     respond_to do |format|
       format.html # index.html.erb
       format.js
-      format.json {
-        render json: @friendships
-      }
+      format.json
     end
   end
 

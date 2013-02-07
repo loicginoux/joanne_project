@@ -2,17 +2,22 @@
 	<div class="span8 feeds">
 		<div class="cbm_wrap">
 			<div class="page-header">
+				<div class="pull-right">
+					<div class="btn-group" data-toggle="buttons-radio">
+						<button type="button" class="btn listToggler everyone">Everyone</button>
+						<button type="button" class="btn listToggler friends">Friends</button>
+					</div>
+				</div>
 				<h3>What everyone else is eating</h3>
 			</div>
 			<div class="feedList">
-			<%= render :partial => "data_points/index/feeds"  %>
+
 			</div>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
-			<% unless @feeds.total_pages < 2 %>
-				<div class="feedLoading"></div>
-  			<%= link_to 'Show More', friendships_path(:feed_page => 2), :remote => true, :id => 'show_more_feeds_link', :class => "btn btn-small show_more hide"%>
-			<%end %>
+			<div class="feedLoading"></div>
+  		<div class="show_more_btns">
 
+  		</div>
 		</div>
 	</div>
 	<div class="span4" id="all-users">

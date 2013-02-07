@@ -1,7 +1,7 @@
 class FriendshipObserver < ActiveRecord::Observer
 	observe :friendship
 	def after_create(record)
-		UserMailer.new_follower_email(record.followee, record.user)
+		UserMailer.new_follower_email(record.followee, record.user) unless record.noMailTriggered
 		record.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:follow])
 		record.followee.addPoints(User::LEADERBOARD_ACTION_VALUE[:followed])
 	end

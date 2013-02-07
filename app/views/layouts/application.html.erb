@@ -23,7 +23,7 @@
 >
 
 <div id="wrapper">
-	<div class="navbar">
+	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 				<% if current_user %>
@@ -42,8 +42,8 @@
 								<%end%>
 							</li>
 							<li>
-								<%= link_to(following_path) do%>
-									Following
+								<%= link_to(feed_path, :user_page => 1) do%>
+									Feed
 									<%=image_tag("following.svg", :class=> "nav_icon") %>
 								<%end%>
 							<li>

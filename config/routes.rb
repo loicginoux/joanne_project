@@ -39,7 +39,7 @@ Foodrubix::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider/failure', to: redirect('/login')
   match 'team_rubix' => 'users#index', :as => :team_rubix
-  match 'following' => 'friendships#index', :as => :following
+  match 'feed' => 'friendships#index', :as => :feed
 
   namespace :admin do
     match 'mailer(/:action(/:id(.:format)))' => 'mailer#:action'

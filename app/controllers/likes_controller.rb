@@ -82,9 +82,9 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     if current_user.is(@like.user)
       @like.destroy
-    end
-    respond_to do |format|
-      format.json { head :no_content }
+      render :json => {:status => "deleted", :id => params[:id]}, :status => :ok
+    else
+      render :json => {:status => "permission error", :id => params[:id]}, :status => :ok
     end
   end
 end

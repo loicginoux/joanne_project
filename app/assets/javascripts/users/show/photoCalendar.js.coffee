@@ -5,7 +5,6 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		"click .prev": "goToPrev"
 		"click .next": "goToNext"
 		"click .today": "goToToday"
-		# "hover .image": "onHoverImage"
 		"click .image": "onImageClick"
 		"click .overlay .like": "like"
 		"hover .overlay .label": "changeLabelColor"
@@ -132,7 +131,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			@displayPhotos(dataSorted)
 			graphic = new foodrubix.graphic(dataSorted, @period, @date)
 
-			@el.delegate(".image", "hover", @onHoverImage.bind(@))
+			@el.delegate(".image", "mouseenter mouseleave", @onHoverImage.bind(@))
 
 	# create the json data for displaying the month view
 	# {month:[

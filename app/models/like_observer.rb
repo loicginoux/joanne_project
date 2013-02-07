@@ -12,10 +12,11 @@ class LikeObserver < ActiveRecord::Observer
     end
 
     unless like.user.is(dataPoint.user)
+      isOnCurrentMonth = (like.created_at >= Date.today.beginning_of_month())
       # we add leaderboard points to the user who liked
-      like.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:like])
+      like.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:like], isOnCurrentMonth)
       # we add leaderboard points to the photo's owner
-      like.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:liked])
+      like.data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:liked], isOnCurrentMonth)
     end
   end
 
@@ -25,10 +26,11 @@ class LikeObserver < ActiveRecord::Observer
     dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes-1)
 
     unless like.user.is(dataPoint.user)
+      isOnCurrentMonth = (like.created_at >= Date.today.beginning_of_month())
       # we remove leaderboard points to the user who liked
-      like.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:like])
+      like.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:like], isOnCurrentMonth)
       # we remove leaderboard points to the photo's owner
-      like.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:liked])
+      like.data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:liked], isOnCurrentMonth)
     end
   end
 
