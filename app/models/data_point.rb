@@ -27,7 +27,9 @@ class DataPoint < ActiveRecord::Base
   scope :smart_choice_awarded, where(:smart_choice_award => true)
   scope :from_yesterday, where(:uploaded_at => (DateTime.now.beginning_of_day - 1.day)..(DateTime.now.end_of_day - 1.day))
   scope :same_day_as, lambda { |date|
-    DataPoint.where(:uploaded_at => date.beginning_of_day..date.end_of_day)
+    if date
+      DataPoint.where(:uploaded_at => date.beginning_of_day..date.end_of_day)
+    end
   }
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:
   # attr_accessible :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at
