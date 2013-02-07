@@ -43,8 +43,8 @@ ActiveAdmin.register User do
 			f.input :timezone
 			f.input :password
 			f.input :password_confirmation
-			f.input :first_friend, :hint=> "if checked, you will be automatically added to users as their first friend"
-			f.input :hidden, :hint=> "if checked, you will be hidden from the leaderboard"
+			f.input :first_friend, :label=> "if checked, you will be automatically added to users as their first friend"
+			f.input :hidden, :label=> "if checked, you will be hidden from the leaderboard"
 		end
 		f.buttons
 	end
