@@ -1,4 +1,5 @@
 class DataPoint < ActiveRecord::Base
+  attr_accessor :noObserver
   validates :calories, :presence => true, :numericality => { :only_integer => true }
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than=>3.megabyte

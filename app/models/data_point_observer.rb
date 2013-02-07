@@ -9,6 +9,7 @@ class DataPointObserver < ActiveRecord::Observer
   end
 
   def after_update(data_point)
+
     points = 0
     beg_of_month = Date.today.beginning_of_month()
     isOnCurrentMonth = (data_point.uploaded_at >= beg_of_month)
@@ -57,13 +58,14 @@ class DataPointObserver < ActiveRecord::Observer
 
   def after_destroy(data_point)
     # we remove leaderboard points to the uploader if he has less than 3 image during the day
-    # nbDataPointSameDay =  data_point.user.data_points.same_day_as(data_point.uploaded_at).length
-    nbDataPointSameDay =  1
-    points = 0
-    points += User::LEADERBOARD_ACTION_VALUE[:data_point] unless nbDataPointSameDay > 3
-    points += User::LEADERBOARD_ACTION_VALUE[:smart_choice_award] if data_point.smart_choice_award
-    points += User::LEADERBOARD_ACTION_VALUE[:hot_photo_award] if data_point.hot_photo_award
-    isOnCurrentMonth = (data_point.uploaded_at >= Date.today.beginning_of_month())
-    data_point.user.removePoints(points, isOnCurrentMonth)
+    unless data_point.noObserver
+      nbDataPointSameDay =  data_point.user.data_points.same_day_as(data_point.uploaded_at).length
+      points = 0
+      points += User::LEADERBOARD_ACTION_VALUE[:data_point] unless nbDataPointSameDay > 3
+      points += User::LEADERBOARD_ACTION_VALUE[:smart_choice_award] if data_point.smart_choice_award
+      points += User::LEADERBOARD_ACTION_VALUE[:hot_photo_award] if data_point.hot_photo_award
+      isOnCurrentMonth = (data_point.uploaded_at >= Date.today.beginning_of_month())
+      data_point.user.removePoints(points, isOnCurrentMonth)
+    end
   end
 end
