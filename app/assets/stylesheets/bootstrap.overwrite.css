@@ -33,3 +33,28 @@ background-color: #d06000;
 .help-inline{
   padding-left: 0;
 }
+
+.btn-group-vertical {
+display: inline-block;
+}
+
+.btn-group-vertical > .btn:first-child {
+-webkit-border-radius: 4px 4px 0 0;
+-moz-border-radius: 4px 4px 0 0;
+border-radius: 4px 4px 0 0;
+}
+
+.btn-group-vertical > .btn {
+display: block;
+float: none;
+max-width: 100%;
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+}
+
+.btn-group-vertical > .btn:last-child {
+-webkit-border-radius: 0 0 4px 4px;
+-moz-border-radius: 0 0 4px 4px;
+border-radius: 0 0 4px 4px;
+}

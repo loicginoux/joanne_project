@@ -12,3 +12,29 @@ div#wolframAlphaWidget47689.WolframAlphaWidgetLarge{
 	width: 100%;
 	height: 100%
 }
+
+.coaching_intensity .btn-group{
+	float:left;
+}
+.coaching_intensity .btn-group .btn{
+	width:70px;
+}
+
+.coaching_intensity .helps{
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.coaching_intensity .helps .low{
+	margin-top: 5px;
+}
+
+
+.coaching_intensity .helps .medium{
+	margin-top: 35px;
+}
+
+
+.coaching_intensity .helps .high{
+	margin-top: 60px;
+}

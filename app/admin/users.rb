@@ -2,7 +2,9 @@ ActiveAdmin.register User do
 	scope :all
 	scope :unconfirmed
 	scope :inactive
-
+	scope :joined, :default => true do |users|
+		users.includes [:preference]
+	end
 	before_filter :only => [:show, :edit, :update, :destroy] do
 		@user = User.find_by_username(params[:id])
 	end
@@ -15,18 +17,21 @@ ActiveAdmin.register User do
 		column "nb photos" do |user|
 			user.data_points.count
 		end
+		column "coaching level", :sortable => "preferences.coaching_intensity" do |u|
+			u.preference.coaching_intensity
+		end
 		column :confirmed
 		column :active
-		column "fb sharing" do |u|
+		column "fb sharing", :sortable => "preferences.fb_sharing" do |u|
 			u.preference.fb_sharing
 		end
-		column "daily calories limit" do |u|
+		column "daily calories limit", :sortable => "preferences.daily_calories_limit" do |u|
 			u.preference.daily_calories_limit
 		end
-		column "daily email" do |u|
+		column "daily email", :sortable => "preferences.daily_email"  do |u|
 			u.preference.daily_email
 		end
-		column "weekly email" do |u|
+		column "weekly email", :sortable => "preferences.weekly_email" do |u|
 			u.preference.weekly_email
 		end
 		column :timezone
@@ -78,6 +83,9 @@ ActiveAdmin.register User do
 			row :active
 			row :leaderboard_points
 			row :total_leaderboard_points
+			row "coaching level" do |u|
+				u.preference.coaching_intensity
+			end
 			row :hidden
 			row :first_friend
 		end
