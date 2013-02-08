@@ -30,6 +30,8 @@ class DataPoint < ActiveRecord::Base
   scope :same_day_as, lambda { |date|
     if date
       DataPoint.where(:uploaded_at => date.beginning_of_day..date.end_of_day)
+    else
+      []
     end
   }
   # if you are using attr_accessible to protect certain attributes, you will need to allow these:
