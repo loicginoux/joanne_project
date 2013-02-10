@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
       gon.current_user_created_at = current_user.created_at.to_i
       gon.current_user_username = current_user.username.capitalize
       gon.current_user_id = current_user.id
+      gon.current_user_coaching_intensity = current_user.preference.coaching_intensity
 
     else
       store_location
