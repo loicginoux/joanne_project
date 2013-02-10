@@ -4,9 +4,11 @@
 		<%=  image_tag user.picture.url(:small) %>
 		<%= user.username%>
 	</div>
+		 <div class="pull-right points">
+			<% unless (user.first_friend || user.hidden) %>
+				<p><%= user.leaderboard_points%> points</p>
+			<% end %>
+			<%= render :partial => "users/index/follow_button", :locals => {:user => user}%>
+		</div>
 
-	<div class="pull-right points">
-		<p><%= user.leaderboard_points%> points</p>
-		<%= render :partial => "users/index/follow_button", :locals => {:user => user}%>
-	</div>
 <% end %>
