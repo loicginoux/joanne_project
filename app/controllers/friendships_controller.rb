@@ -35,10 +35,6 @@ class FriendshipsController < ApplicationController
 
     end
 
-    puts "=============="
-    puts @update
-    puts @feeds
-
     respond_to do |format|
       format.html # index.html.erb
       format.js

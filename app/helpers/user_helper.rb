@@ -7,5 +7,11 @@ module UserHelper
 		link_to user.username, user_path(:username=> user.username), :class=>"username "+className
 	end
 
+	def getOffset(user)
+		Time.zone = user.timezone
+    offset = Time.zone.now.utc_offset
+    Time.zone = Rails.application.config.time_zone
+		return offset
+	end
 
 end
