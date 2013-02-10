@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     end
 
     if @update.nil? || @update == "slackerboard"
-      @slackerboard_users = User.slackerboard().paginate(:per_page => 15, :page => params[:slackerboard_page])
+      @slackerboard_users = current_user.slackerboard().paginate(:per_page => 15, :page => params[:slackerboard_page])
     end
 
     if @update.nil? || @update == "latestMembers"

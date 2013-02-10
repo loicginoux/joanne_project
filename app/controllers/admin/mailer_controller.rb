@@ -60,7 +60,7 @@ class Admin::MailerController < ApplicationController
 
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.slackerboard().limit(20)
+    @slackerboard_users = current_user.slackerboard().limit(20)
     @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
 
     @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
@@ -83,7 +83,7 @@ class Admin::MailerController < ApplicationController
 
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.slackerboard().limit(20)
+    @slackerboard_users = current_user.slackerboard().limit(20)
 
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
@@ -98,7 +98,7 @@ class Admin::MailerController < ApplicationController
   def preview_weekly()
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.slackerboard().limit(20)
+    @slackerboard_users = current_user.slackerboard().limit(20)
 
     @user = current_user
     endDate = DateTime.parse((Date.today).to_s)

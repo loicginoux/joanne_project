@@ -114,6 +114,8 @@ class UserMailer < ActionMailer::Base
         endDate = DateTime.parse((Date.today).to_s)
         startDate = DateTime.parse((endDate - 7.days).to_s)
 
+        @slackerboard_users = user.slackerboard().limit(20)
+
         @groups = DataPoint.where(
           :user_id => user.id,
           :uploaded_at => startDate..endDate

@@ -64,19 +64,6 @@ class User < ActiveRecord::Base
   scope :latest_members, confirmed().active().order("created_at desc").visible()
   scope :monthly_leaderboard, confirmed().active().visible().order("leaderboard_points desc, username asc")
   scope :total_leaderboard, confirmed().active().visible().order("total_leaderboard_points desc, username asc")
-  scope :who_uploaded_in_last_24_hours, lambda{ ||
-    offset = (current_user) ? getOffset(current_user) : 0
-    User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", Time.now - (offset).seconds)
-  }
-  scope :slackerboard, lambda { ||
-    # users who didn;t upload anything in last 24 hours
-    users = User.who_uploaded_in_last_24_hours
-    if users.empty?
-      User.active().confirmed().visible().order("username desc")
-    else
-      User.active().confirmed().visible().order("username desc").where("id NOT IN ("+User.who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
-    end
-  }
 
 
 
@@ -358,6 +345,26 @@ class User < ActiveRecord::Base
   def removePoints(points, onMonthlyLeaderboard = true)
     self.addPoints(-points, onMonthlyLeaderboard)
   end
+
+  def timezone_offset()
+    Time.zone = self.timezone
+    offset = Time.zone.now.utc_offset
+    Time.zone = Rails.application.config.time_zone
+    return offset
+  end
+
+  # returns all users that haven't uploaded anything in the last 24 hours
+  # this is not in scope because the "last 24 hours" depends on the user who request it and his timezone
+  def slackerboard()
+    offset = self.timezone_offset()
+    users_who_uploaded_in_last_24_hours = User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", Time.now + (offset).seconds - 1.day)
+    if users_who_uploaded_in_last_24_hours.empty?
+      User.active().confirmed().visible().order("username desc")
+    else
+      User.active().confirmed().visible().order("username desc").where("id NOT IN ("+users_who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
+    end
+  end
+
 
 
 end
