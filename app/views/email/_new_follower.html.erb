@@ -10,10 +10,11 @@
                 </p>
                 <p>Hi <%= @followee.username.capitalize%>,</p>
                 <p>
-                    <%= link_to @follower.username.capitalize, user_url(:username=> @follower.username)%> is now following you.
-                </p>
-                <p>
-                    <%= link_to "Follow #{@follower.username.capitalize}", team_rubix_url%>.
+                    <%= link_to @follower.username.capitalize, user_url(:username=> @follower.username)%><% if @user.isFollowing(@follower).empty? %> is now following you.
+                            <p>
+                                <%= link_to "Follow #{@follower.username.capitalize}", follow_user_url(@follower.username)%>.
+                            </p>
+                        <% else %> has followed you back. One more reason to eat better - someone's watching you and cheering you on!<% end %>
                 </p>
             </td>
         </tr>

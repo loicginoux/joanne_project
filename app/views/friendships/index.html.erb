@@ -29,7 +29,7 @@
 				<%= render :partial => "users" %>
 			</div>
 			<% if @users.length <= 1 %>
-			<p><i class="icon-info-sign"></i> Don't be a loner. <a class="highlight" href="<%= team_rubix_path %>">Follow a few people</a> to fill this empty space to get inspired instantly.</p>
+			<p class="alone"><i class="icon-info-sign"></i> Don't be a loner. <a class="highlight" href="<%= team_rubix_path %>">Follow a few people</a> to fill this empty space, and get inspired instantly!</p>
 			<% end %>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->
 			<% unless @users.total_pages < 2 %>

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
      :bucket => S3_CREDENTIALS[:bucket],
      :path => ":attachment/:id/:style.:extension",
      :s3_credentials => S3_CREDENTIALS,
-     :default_url => '/assets/default_user.gif',
+     :default_url => '/assets/default_user_:style.gif',
      :s3_permissions => :public_read
 
 

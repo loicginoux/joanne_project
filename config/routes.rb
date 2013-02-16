@@ -10,7 +10,9 @@ Foodrubix::Application.routes.draw do
     :as => "fileUploadForm"
   resources :authentications, :only => [:create]
   resources :data_points
-  resources :users
+  resources :users do
+    get :follow, :on => :member
+  end
   resources :preferences, :only => [:edit, :update]
   resources :user_sessions, :only => [:create, :destroy]
   resources :password_resets
@@ -50,6 +52,10 @@ Foodrubix::Application.routes.draw do
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/
   match ":username/edit", :to => "users#edit",
                           :as => "edit_user",
+                          :via => :get
+
+  match ":username/follow", :to => "users#follow",
+                          :as => "follow_user",
                           :via => :get
 
   match ":username/edit", :to => "users#update",

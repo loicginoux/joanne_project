@@ -47,13 +47,15 @@ class FriendshipsController < ApplicationController
   # POST /friendships.json
   def create
     @friendship = current_user.friendships.build(:followee_id => params[:followee])
-     if @friendship.save
-       flash[:notice] = "Added friend."
-       redirect_to team_rubix_path
-     else
-       flash[:notice] = "Unable to add friend."
-       redirect_to team_rubix_path
-     end
+    followee = User.select(:username).find(params[:followee])
+    redirect = (params[:redirect_to]) ? params[:redirect_to] : user_path(:username=> followee.username)
+    if @friendship.save
+      flash[:notice] = "You're now following #{followee.username.capitalize}. You'll see what #{followee.username.capitalize} is eating under the Feed page."
+      redirect_to redirect
+    else
+      flash[:notice] = "Unable to add friend."
+      redirect_to redirect
+    end
   end
 
 
@@ -62,9 +64,9 @@ class FriendshipsController < ApplicationController
   def destroy
     @friendship = Friendship.find(params[:id])
     @friendship.destroy
-
+    redirect = (params[:redirect_to]) ? params[:redirect_to] : users_path
     respond_to do |format|
-      format.html { redirect_to users_path }
+      format.html { redirect_to redirect }
       format.json { head :no_content }
     end
   end

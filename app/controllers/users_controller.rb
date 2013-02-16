@@ -157,6 +157,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow
+    @followee = User.where(:username => params[:username]).first
+    puts @followee.inspect
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
 
   def resolve_layout

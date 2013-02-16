@@ -6,6 +6,10 @@
 	overflow: hidden
 }
 
+.alone{
+	margin-top: 20px;
+}
+
 #team-rubix a.user{
 height: 50px;
 display: block;
