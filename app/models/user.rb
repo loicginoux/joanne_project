@@ -357,7 +357,7 @@ class User < ActiveRecord::Base
   # this is not in scope because the "last 24 hours" depends on the user who request it and his timezone
   def slackerboard()
     offset = self.timezone_offset()
-    users_who_uploaded_in_last_24_hours = User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", Time.now + (offset).seconds - 1.day)
+    users_who_uploaded_in_last_24_hours = User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", (Time.now  + (offset).seconds).beginning_of_day - 1.day)
     if users_who_uploaded_in_last_24_hours.empty?
       User.active().confirmed().visible().order("username desc")
     else
