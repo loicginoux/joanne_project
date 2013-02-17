@@ -58,3 +58,14 @@ border-radius: 0;
 -moz-border-radius: 0 0 4px 4px;
 border-radius: 0 0 4px 4px;
 }
+
+
+/*nav bar */
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar-fixed-top .container, .navbar-fixed-bottom .container {
+width: auto;
+}
