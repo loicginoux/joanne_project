@@ -1,4 +1,4 @@
-require 'heroku/command'
+require "heroku/command/base"
 require 'aws/s3'
 
 namespace :heroku do
