@@ -29,7 +29,7 @@
 				<%= render :partial => "users" %>
 			</div>
 			<% if @users.length <= 1 %>
-			<p class="alone"><i class="icon-info-sign"></i> Don't be a loner. Follow a few people to fill this empty space, and get inspired instantly!</p>
+			<p class="alone"><i class="icon-info-sign"></i> Don't be a loner. Follow a few people to fill this empty space, and get inspired instantly by clicking on their profile photos!</p>
 			<%= link_to "Who can I follow?", team_rubix_path, :class=> "btn btn-primary" %>
 			<% end %>
 			<!-- Show link only if there are more than one page and pass page and sorting parameters -->

@@ -14,6 +14,13 @@
 			<%=  image_tag user.picture.url(:small) %>
 			<span class="username"><%= user.username%></span>
 		</div>
+		<% if leaderboard == "total_leaderboard" %>
+			<div class="winner-ribbons pull-left">
+				<% user.leaderboard_prices.last(3).each do |price| %>
+					<%= image_tag "month_winner_ribbon.svg", :title => price.name, :style => "width:40px", :class=> "winner-ribbon" %>
+				<% end %>
+			</div>
+		<% end %>
 
 		<div class="pull-right points">
 			<p><%= user[leaderboard+"_points"]%> points</p>

@@ -9,8 +9,16 @@ end
 
 desc "reset monthly leader board points"
 task :reset_leaderboard_points => :environment do
+
+
     # first of each month
     if Date.today == Date.today.at_beginning_of_month
+      winner = User.monthly_leaderboard().first
+      price = LeaderboardPrice.new(
+        :user_id => winner.id,
+        :name => "Winner #{(Date.today - 1.month).strftime("%B %Y")}"
+      )
+      price.save()
       User.all.each{ |user|
         points = 0
         points += user.followee_points() +

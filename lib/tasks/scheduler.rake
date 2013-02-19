@@ -3,7 +3,7 @@
 # at 2am on Monday for all users depending on their timezone
 desc "send weekly email recap to users"
 task :send_weekly_email => :environment do
-  	puts "sending weekly emails: start at #{Time.now.utc}"
+  puts "sending weekly emails: start at #{Time.now.utc}"
 	users = User.includes(:preference).confirmed().active().where("preferences.weekly_email" => true)
 	UserMailer.weekly_recap_email(users)
 	puts "sending weekly emails: done"
