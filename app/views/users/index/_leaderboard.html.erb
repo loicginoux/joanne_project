@@ -1,9 +1,12 @@
-<div class="leaderboard">
+<div class="<%= leaderboard %>">
 	<div class="page-header">
+		<div class="diet-filter pull-right">
+		<%= select_tag "test", options_for_select( [["Filter by...", ""], ["All diets", ""]]| Array[*Preference::DIETS.collect {|v,i| [v,Preference::DIETS.index(v)] }])  %>
+		</div>
 		<h3><%= section_title %></h3>
 		<p class="leaderboard-info"><a href="#info_<%= leaderboard%>" data-toggle="modal">How are points calculated?</a> </p>
 	</div>
-	<div class="<%= leaderboard%>_users">
+	<div class="<%= leaderboard%>_users users">
 		<%= render :partial => "users/index/leaderboard_users", :locals => {:leaderboard_users => leaderboard_users,
 			:leaderboard => leaderboard,
 			:users_per_page => users_per_page

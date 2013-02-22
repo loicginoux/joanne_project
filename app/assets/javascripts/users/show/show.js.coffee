@@ -10,8 +10,8 @@ manageLoginTooltip = () ->
 		$("#hi_current_user").popover({
 			placement:"bottom",
 			trigger: "manual",
-			title: "TIP"
-			content: "Visit the Settings menu to set up your daily calorie goal and enable Facebook sharing. Do it now before you forget!"
+			title: "TIP!"
+			content: "Visit the Settings menu to enter your goal (5 pts.), set your daily calorie limit (5 pts.) and enable Facebook sharing (10 pts.). Do it now before you forget!"
 		})
 		$('#hi_current_user').popover('show')
 		$(".popover.bottom").css("left", "-=100")

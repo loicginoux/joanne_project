@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218172708) do
+ActiveRecord::Schema.define(:version => 20130219094347) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20130218172708) do
     t.integer "daily_calories_limit", :default => 0
     t.boolean "daily_email",          :default => true
     t.boolean "weekly_email",         :default => true
+    t.string  "diet"
+    t.text    "eating_habits"
   end
 
   create_table "user_sessions", :force => true do |t|

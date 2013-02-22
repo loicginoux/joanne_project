@@ -12,6 +12,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".newComment":                "inputComment"
 		".control-group.comment":     "divTextarea"
 		".nbLikes":                   "nbLikesHTML"
+		".people":                   "peopleHTML"
 		".nbComments":                "nbCommentsHTML"
 		".comments":                  "comments"
 		".commentText":               "commentTexts"
@@ -190,13 +191,17 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	onSuccessLike: (data, textStatus, jqXHR) =>
 		@btnLike.attr("data-like-id", data.id)
 		@nbLikes = @nbLikes+1
+		peopleHTML =  if (@nbLikes == 1) then  "person" else "people"
 		@nbLikesHTML.html(@nbLikes)
+		@peopleHTML.html(peopleHTML)
 		@updateMasterInfo("like", data.id)
 		@changeLikeState("Unlike")
 
 	onSuccessUnlike: (data, textStatus, jqXHR) =>
 		@nbLikes = @nbLikes - 1
+		peopleHTML = if (@nbLikes == 1 || @nbLikes == 0 ) then "person" else "people"
 		@nbLikesHTML.html(@nbLikes)
+		@peopleHTML.html(peopleHTML)
 		@updateMasterInfo("unlike")
 		@changeLikeState("Like")
 

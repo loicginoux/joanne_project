@@ -5,9 +5,13 @@ class Preference < ActiveRecord::Base
 		:fb_sharing,
   	:daily_calories_limit,
 		:daily_email,
-    :weekly_email
+    :weekly_email,
+    :diet,
+    :eating_habits
 
-   belongs_to :user
+  belongs_to :user
 
-   validates :daily_calories_limit, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
+  DIETS = ["Low carb", "Weight Watchers","Jenny Craig","Nutrisystem","Paleo","Vegetarian","Vegan","Volumetrics","Raw foods","Other","I eat everything"]
+
+  validates :daily_calories_limit, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 end

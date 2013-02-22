@@ -10,7 +10,7 @@
 	<% if @total_leaderboard_users.total_pages == @total_leaderboard_users.current_page %>
 	    $("#show_more_total_leaderboard_link").hide();
 	<% else %>
-	    $("#show_more_total_leaderboard_link").attr("href", "<%= users_path(:sort => sort_column, :direction => sort_direction, :total_leaderboard_page => (@total_leaderboard_users.current_page + 1)) %>");
+	    $("#show_more_total_leaderboard_link").show().attr("href", "<%= users_path(:diet => @diet, :total_leaderboard_page => (@total_leaderboard_users.current_page + 1)) %>");
 	<% end %>
 	<% if @isInTotalLeaderboard %>
 	    $(".current_user_total_leaderboard").hide();
@@ -23,7 +23,7 @@
 	<% if @slackerboard_users.total_pages == @slackerboard_users.current_page %>
 	    $("#show_more_slackerboard_link").hide();
 	<% else %>
-	    $("#show_more_slackerboard_link").attr("href", "<%= users_path(:sort => 'username', :direction => 'desc', :slackerboard_page => (@slackerboard_users.current_page + 1)) %>");
+	    $("#show_more_slackerboard_link").show().attr("href", "<%= users_path(:sort => 'username', :direction => 'desc', :slackerboard_page => (@slackerboard_users.current_page + 1)) %>");
 	<% end %>
 
 <% elsif @update == "leaderboard" %>

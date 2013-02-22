@@ -10,3 +10,11 @@ foodrubix.users.new = foodrubix.users.create = () ->
 		el: $(".coaching_intensity"),
 		input: $("#user_preference_attributes_coaching_intensity")
 	})
+
+	caracterCounterController = new foodrubix.CaracterCounterController({
+		el: $(".eating-habits"),
+		input: $("#user_preference_attributes_eating_habits"),
+		counter: $(".caraterCounter"),
+		limit: 130,
+		submitButton: $(".form-actions .btn-primary")
+	})

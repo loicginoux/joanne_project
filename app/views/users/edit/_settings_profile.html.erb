@@ -78,16 +78,23 @@
 			</div>
 
 			<%= f.fields_for :preference do |pref_f| %>
-				<div class="control-group">
-					<div class="controls">
-	          <%= label_tag "What is your goal in joining this challenge?" %>
-						<%= pref_f.text_area :joining_goal, :class => "input-xlarge", :rows => 3  %>
+				<!-- only in register form -->
+				<% if @user.id %>
+					<div class="control-group">
+						<div class="controls">
+							<%= label_tag "What is your goal in joining this challenge? (This will be kept private)" %>
+							<%= pref_f.text_area :joining_goal, :class => "input-xlarge", :rows => 3  %>
+						</div>
 					</div>
-				</div>
+				<%else%>
 
-				<% unless @user.id %>
+					<%= render :partial => "preferences/edit/diet",  :locals => {:f => pref_f}%>
+					<%= render :partial => "preferences/edit/eating_habits",  :locals => {:f => pref_f}%>
 					<%= render :partial => "preferences/edit/coaching_intensity",  :locals => {:f => pref_f}%>
+
 				<%end%>
+
+
 			<% end %>
 
 			<%= f.hidden_field :timezone %>

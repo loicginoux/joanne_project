@@ -1,4 +1,4 @@
 <i class="icon-thumbs-up"></i>
 <a href="javascript:void(0)" class="likers" rel="tooltip" title="<%= data_point.listOfFans()%>">
-	<span class="nbLikes"><%= data_point.nb_likes%></span> <%if data_point.nb_likes == 1 %>person<% else %>people<% end%>
+	<span class="nbLikes"><%= data_point.nb_likes%></span> <span class="people"><%if data_point.nb_likes == 1 %>person<% else %>people<% end%></span>
 </a> <%if data_point.nb_likes == 1 %>likes<% else %>like<% end%> this

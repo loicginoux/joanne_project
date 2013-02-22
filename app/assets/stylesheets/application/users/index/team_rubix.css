@@ -10,62 +10,97 @@
 	margin-top: 20px;
 }
 
-#team-rubix a.user{
-height: 50px;
-display: block;
-	margin-bottom: 5px;
-	margin-left: 0
+#team-rubix .user{
+	min-height: 60px;
+	display: block;
+	padding: 5px 0;
+	margin-left: 0;
+	position: relative;
+	border-bottom: 1px solid #e8e8e8;
 }
 
-#team-rubix a.user:hover{
-background-color: #EEE;
-}
 
-#team-rubix a.user .btn{
+
+#team-rubix .user .follow{
 	display:none;
 }
 
-#team-rubix a.user:hover .btn{
-	display:inline;
+#team-rubix .points {
+	margin: 8px;
 }
 
-#team-rubix a.user:hover p{
-	display:none;
+#team-rubix .user .content{
+	margin: 0 90px 0 65px;
 }
+
+
+#team-rubix .user .avatar{
+	position: absolute;
+	top:5px;
+	left: 0;
+}
+
+#team-rubix .user .username{
+	color: #333;
+	font-weight: bold;
+	margin-bottom: 0;
+	height: 20px;
+	float:left;
+}
+
+#team-rubix .user .winner-ribbons{
+	margin-left: 10px
+}
+#team-rubix .user .winner-ribbons img{
+
+}
+#team-rubix .user .diet{
+	font-size: 11px
+}
+
+#team-rubix .user .intro{
+	font: italic 13px/18px Georgia,"Times New Roman",serif;
+	clear: both;
+}
+
 
 .leaderboard a.user:hover .points,
+.total_leaderboard a.user:hover .points,
 #all-users a.user:hover .points,
 #latest-members a.user:hover .ago{
 	padding-top: 12px;
 }
 
+
+#team-rubix .user:hover .follow{
+	display:inline;
+}
+
+#team-rubix .user:hover{
+	background-color: #EEE;
+	text-decoration: none;
+}
+
+#team-rubix .user a:hover{
+	text-decoration: none;
+}
+
+#team-rubix .user:hover .username{
+	text-decoration: underline;
+	color: #E96000;
+}
+
+
+#team-rubix .user:hover .points p{
+	display:none;
+}
+
+
 #team-rubix form{
 	margin: 0;
 }
 
-.leaderboard .rank{
-	height:35px;
-	padding: 13px 0 0;
-	margin-bottom:0;
-	font-weight: bold;
-	width: 45px;
-}
 
-.leaderboard .rank span{
-	display: table;
-	margin: 0 auto;
-}
-
-.leaderboard .points,
-#all-users .points{
-	color: #E96000;
-	font-weight: bold;
-}
-.leaderboard .points,
-#all-users .points,
-#latest-members .ago{
-	padding: 15px 5px 0 0;
-}
 
 #team-rubix .btn.follow{
 	width: 80px;
@@ -107,4 +142,9 @@ background-color: #EEE;
 
 .user span.username{
 	margin-left: 10px;
+}
+
+.diet-filter select{
+	width:auto;
+	margin-top:12px;
 }

@@ -166,14 +166,24 @@ iframe.youtube_video {
 
 .form-horizontal .control-group input[type="text"],
 .form-horizontal .control-group input[type="password"],
+.form-horizontal .control-group select,
 .form-horizontal .control-group textarea,
 .form-horizontal .control-group .help-inline{
 	margin-left: 175px
 }
+
+.form-horizontal .control-group select{
+width: 278px;
+}
+
 .controls label{
 	float: left;
 	margin: 0 165px 2px 175px;
 	color: black;
+}
+
+.controls label.secondary{
+	color: rgb(136, 136, 136);
 }
 
 .controls .btn-group{

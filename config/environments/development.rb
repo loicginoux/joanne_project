@@ -54,6 +54,6 @@ Foodrubix::Application.configure do
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
   # logs in thin server
-  config.middleware.use Rails::Rack::LogTailer
+  # config.middleware.use Rails::Rack::LogTailer
 
 end

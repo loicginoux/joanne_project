@@ -153,7 +153,6 @@ class DataPointsController < ApplicationController
     # puts "time.now: #{Time.now}"
     # puts "time.zone: #{Time.zone}"
     # puts "time.zone.now: #{Time.zone.now}"
-    puts "       "
     respond_to do |format|
       if @data_point.update_attributes(params[:data_point])
         puts "data point after saved: #{@data_point.inspect}"

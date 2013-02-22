@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
   scope :inactive, where(:active => false)
   scope :visible, where(:hidden => false)
   scope :latest_members, confirmed().active().order("created_at desc").visible()
-  scope :monthly_leaderboard, confirmed().active().visible().order("leaderboard_points desc, username asc")
-  scope :total_leaderboard, confirmed().active().visible().order("total_leaderboard_points desc, username asc")
+  scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
+  scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
 
 
 
