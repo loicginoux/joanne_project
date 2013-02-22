@@ -143,14 +143,16 @@ class UserMailer < ActionMailer::Base
   def daily_recap_email(users)
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.slackerboard().limit(20)
 
     users.each {|user|
+
       Time.zone = user.timezone
       if Time.zone.now.hour == 7
         # this removes the offset that can't be done with the Date object
         endDate = DateTime.parse(Date.today.to_s)
         startDate = DateTime.parse((endDate - 1.days).to_s)
+
+        @slackerboard_users = user.slackerboard().limit(20)
 
         @data_points = DataPoint.where(
           :user_id => user.id,
