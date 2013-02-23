@@ -16,7 +16,7 @@ Foodrubix::Application.configure do
   config.gzip_compression = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # caching
   config.cache_store = :dalli_store
