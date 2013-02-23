@@ -17,9 +17,6 @@ Foodrubix::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
- # Generate digests for assets URLs
-  config.assets.digest = true
-
   # caching
   config.cache_store = :dalli_store
   config.static_cache_control = "public, max-age=2592000"
@@ -58,7 +55,9 @@ Foodrubix::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
+  # config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
+  config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+
   config.action_mailer.asset_host = "http://calm-gorge-1213.herokuapp.com"
 
   # email configuration

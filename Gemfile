@@ -93,6 +93,8 @@ gem 'dalli'
 
 gem 'cache_digests'
 
+gem "asset_sync"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
