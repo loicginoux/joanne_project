@@ -26,7 +26,9 @@
 				<h3>People that inspire you</h3>
 			</div>
 			<div class="users">
-				<%= render :partial => "users" %>
+				<% @users.each do |user| %>
+					<%= render :partial => "users/index/user", :locals => {:user => user}%>
+				<% end %>
 			</div>
 			<% if @users.length <= 1 %>
 			<p class="alone"><i class="icon-info-sign"></i> Don't be a loner. Follow a few people to fill this empty space, and get inspired instantly by clicking on their profile photos!</p>

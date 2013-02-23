@@ -1,0 +1,23 @@
+<% cache control_buttons do %>
+	<div class="row">
+		<div class="span3">
+			<div class="btn-group btn-control">
+				<button class="btn period day" data-period="day">Day</button>
+				<button class="btn period week" data-period = "week">Week</button>
+				<button class="btn period month" data-period = "month" >Month</button>
+			</div>
+		</div>
+		<div class="span3">
+			<div class="btn-group btn-control">
+				<a class="btn prev" href="javascript:void(0)"><i class="icon-chevron-left"></i></a>
+				<button class="btn today">Today</button>
+				<a class="btn next" href="javascript:void(0)"><i class="icon-chevron-right"></i></a>
+			</div>
+			<div class="hide">
+				<input type="text" class="date-period" />
+				<input type="text" class="date-start" />
+				<input type="text" class="date-end" />
+			</div>
+		</div>
+	</div>
+<% end %>

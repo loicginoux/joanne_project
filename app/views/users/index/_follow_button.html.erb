@@ -1,3 +1,4 @@
+
 <% unless current_user.is(user) %>
 	<% if current_user.isFollowing(user).empty?%>
 		<%= button_to "Follow", friendships_path(:followee => user.id, :redirect_to => request.protocol + request.host_with_port + request.fullpath), :method => :post, :class => "btn btn-primary follow", :onclick => "$(this).attr('disabled', true).parents('form').submit(); return false;"  %>
