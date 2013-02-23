@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   layout "home"
-  caches_action :new
+  caches_action :new, :layout => false
 
   # GET /user_sessions/new
   # GET /user_sessions/new.json

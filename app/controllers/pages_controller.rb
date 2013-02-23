@@ -1,7 +1,7 @@
 class PagesController < HighVoltage::PagesController
   layout :layout_for_page
 
-  caches_action :show, :cache_path => Proc.new { |c| c.params }
+  caches_action :show, :layout => false, :cache_path => Proc.new { |c| c.params }
 
   protected
     def layout_for_page
