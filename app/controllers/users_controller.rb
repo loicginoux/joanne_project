@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction, :nb_total_leaderboard_users_per_page, :nb_leaderboard_users_per_page
 
-  caches_page :new
+  caches_action :new
+
   def index
     if params[:total_leaderboard_page]
       @update = "allTimeLeaderboard"

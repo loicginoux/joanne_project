@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
-
-  caches_page :new
   layout "home"
+  caches_action :new
+
   # GET /user_sessions/new
   # GET /user_sessions/new.json
   def new

@@ -104,8 +104,6 @@ class UserMailer < ActionMailer::Base
   def weekly_recap_email(users)
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = User.slackerboard().limit(20)
-
     users.each {|user|
       Time.zone = user.timezone
       if Time.zone.now.monday? && Time.zone.now.hour == 7
