@@ -13,6 +13,7 @@ Foodrubix::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
+  config.gzip_compression = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
@@ -45,7 +46,11 @@ Foodrubix::Application.configure do
   # See everything in the log (default is :info)
   config.log_level = :debug
 
+  # logs in unicorn server
   config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get(
+    ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
+  )
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 

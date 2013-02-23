@@ -63,7 +63,10 @@ Foodrubix::Application.configure do
   config.action_mailer.default_url_options = { :host => config.action_controller.asset_host }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
-  # logs in thin server
-  # config.middleware.use Rails::Rack::LogTailer
+  # logs in unicorn server
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get(
+    ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
+  )
 
 end
