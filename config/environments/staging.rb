@@ -21,6 +21,7 @@ Foodrubix::Application.configure do
   # caching
   config.cache_store = :dalli_store
   config.static_cache_control = "public, max-age=2592000"
+
   config.action_dispatch.rack_cache = {
     :metastore    => Dalli::Client.new,
     :entitystore  => 'file:tmp/cache/rack/body',
@@ -92,7 +93,7 @@ Foodrubix::Application.configure do
 
   #because of bug on heroku about precompliling assets
   #https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
-  config.assets.initialize_on_precompile = false
+  config.assets.initialize_on_precompile = true
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
