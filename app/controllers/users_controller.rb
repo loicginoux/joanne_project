@@ -218,6 +218,6 @@ class UsersController < ApplicationController
   end
 
   def nb_total_leaderboard_users_per_page
-    2
+    15
   end
 end
