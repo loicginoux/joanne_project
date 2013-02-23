@@ -93,7 +93,7 @@ Foodrubix::Application.configure do
 
   #because of bug on heroku about precompliling assets
   #https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
-  config.assets.initialize_on_precompile = true
+  config.assets.initialize_on_precompile = false
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

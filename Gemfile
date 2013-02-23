@@ -35,6 +35,8 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'turbo-sprockets-rails3'
+  gem "asset_sync"
 end
 
 gem 'jquery-rails'
@@ -96,7 +98,7 @@ gem 'dalli'
 
 gem 'cache_digests'
 
-gem "asset_sync"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
