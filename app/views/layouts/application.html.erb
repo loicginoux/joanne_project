@@ -16,116 +16,101 @@
 
 	<%= csrf_meta_tags %>
 </head>
-<body data-controller="<%= controller_name %>" data-action="<%= action_name %>"
-	<% if current_user %>
-		data-user="<%= current_user.id %>"
-	<%end%>
->
+<body data-controller="<%= controller_name %>" data-action="<%= action_name %>" <% if current_user %>data-user="<%= current_user.id %>"<%end%>>
 
-<div id="wrapper">
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<% if current_user %>
+	<div id="wrapper">
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+
 					<%= link_to image_tag('foodRubix_logo_beta.svg'), root_path, :class => 'brand'%>
-				<% else %>
-					<%= link_to image_tag('foodRubix_logo_beta.svg'), static_path("home"), :class => 'brand'%>
-				<% end %>
-				<div class="nav-collapse">
-					<ul class="nav">
 
-						<% if current_user %>
-							<li>
-								<%= link_to(user_path(:username=> current_user.username)) do%>
+					<div class="nav-collapse">
+						<ul class="nav">
+
+							<% if current_user %>
+								<li>
+									<%= link_to(user_path(:username=> current_user.username)) do%>
 									My Diary
 									<%=image_tag("diary.svg", :class=> "nav_icon")%>
-								<%end%>
-							</li>
-							<li>
-								<%= link_to(feed_path, :user_page => 1) do%>
-									Feed
-									<%=image_tag("following.svg", :class=> "nav_icon") %>
-								<%end%>
-							<li>
-								<%= link_to(team_rubix_path) do%>
-									Team Rubix
-									<%=image_tag("team.svg", :class=> "nav_icon") %>
-								<%end%>
-							</li>
-						<%else%>
-							<li class="<%="active" if request.fullpath == page_path("home")%>">
-								<%= link_to t(:home), static_path("home")%>
-							</li>
-
-						<%end%>
-					</ul>
-					<ul class="nav pull-right">
-
-						<% if current_user %>
-							<% if @user && !@user.is(current_user)%>
-								<%= getPicture(@user, 'small') %>
-								<h3  id="hi_current_user"><%= @user.username%>'s diary</h3>
-							<%else%>
-								<%= getPicture(current_user, 'small') %>
-								<li class="dropdown">
-									<a href="javascript:void(0)" id="hi_current_user" class="dropdown-toggle" data-toggle="dropdown">Go <%= current_user.username%><b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li>
-											<%= link_to(edit_user_path(current_user)) do%>
-											<i class="icon-cog user_menu_icon"></i>
-											Settings
-											<%end%>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<%= link_to(logout_path) do%>
-											<i class="icon-off user_menu_icon"></i>
-											Log out
-											<%end%>
-										</li>
-									</ul>
+									<%end%>
 								</li>
+								<li>
+									<%= link_to(feed_path, :user_page => 1) do%>
+										Feed
+										<%=image_tag("following.svg", :class=> "nav_icon") %>
+									<%end%>
+								</li>
+								<li>
+									<%= link_to(team_rubix_path) do%>
+										Team Rubix
+										<%=image_tag("team.svg", :class=> "nav_icon") %>
+									<%end%>
+								</li>
+
 							<%end%>
-						<% else %>
-						<li><%= link_to "Sign up", register_path %></li>
-						<li class="divider-vertical"></li>
-						<li><%= link_to "Log in", login_path %></li>
-						<% end %>
+							</ul>
+							<ul class="nav pull-right">
 
-					</ul>
-				</div><!-- /.nav-collapse -->
-			</div> <!-- container -->
-		</div><!-- /navbar-inner -->
-	</div><!-- navbar -->
+								<% if @user && !@user.is(current_user)%>
+									<%= getPicture(@user, 'small') %>
+									<h3  id="hi_current_user"><%= @user.username%>'s diary</h3>
+								<%else%>
+									<%= getPicture(current_user, 'small') %>
+									<li class="dropdown">
+										<a href="javascript:void(0)" id="hi_current_user" class="dropdown-toggle" data-toggle="dropdown">Go <%= current_user.username%><b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li>
+												<%= link_to(edit_user_path(current_user)) do%>
+												<i class="icon-cog user_menu_icon"></i>
+												Settings
+												<%end%>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<%= link_to(logout_path) do%>
+												<i class="icon-off user_menu_icon"></i>
+												Log out
+												<%end%>
+											</li>
+										</ul>
+									</li>
+								<%end%>
 
-	<div class="container content">
-		<% if flash[:alert] %>
-		<div class="alert alert-error">
-			<button type="button" class="close" data-dismiss="alert">×</button>
-			<p class="flash-error"><%= flash[:alert] %></p>
+							</ul>
+						</div><!-- /.nav-collapse -->
+					</div> <!-- container -->
+				</div><!-- /navbar-inner -->
+			</div><!-- navbar -->
+
+			<div class="container content">
+				<% if flash[:alert] %>
+				<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<p class="flash-error"><%= flash[:alert] %></p>
+				</div>
+				<% end %>
+
+				<% if flash[:notice] %>
+				<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<p class="flash-error"><%= flash[:notice] %></p>
+				</div>
+				<% end %>
+
+				<%= yield %>
+
+
+			</div>
+			<footer class="<% if controller_name == "users" && action_name == "show"%><%else%>absolute<%end%>">
+				<div class='footer'>
+
+				</div>
+			</footer>
+
+			<script id="loading_tmpl" type="text/html">
+			<%= render "data_points/loading" %>
+			</script>
 		</div>
-		<% end %>
-
-		<% if flash[:notice] %>
-		<div class="alert alert-info">
-			<button type="button" class="close" data-dismiss="alert">×</button>
-			<p class="flash-error"><%= flash[:notice] %></p>
-		</div>
-		<% end %>
-
-		<%= yield %>
-
-
-	</div>
-	<footer class="<% if controller_name == "users" && action_name == "show"%><%else%>absolute<%end%>">
-		<div class='footer'>
-
-		</div>
-	</footer>
-
-	<script id="loading_tmpl" type="text/html">
-		<%= render "data_points/loading" %>
-	</script>
-</div>
-</body>
-</html>
+	</body>
+	</html>
