@@ -46,7 +46,7 @@ class UsersController < ApplicationController
       # filter by diet
       @diet = params[:diet]
       if (@diet && @diet != "")
-        userList = userList.where(:"preferences.diet" => Preference::DIETS[params[:diet]] )
+        userList = userList.where(:"preferences.diet" => Preference::DIETS[params[:diet].to_i] )
         # don't show current user position
         @isInLeaderboard = true
       end

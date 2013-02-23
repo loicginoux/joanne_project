@@ -55,7 +55,8 @@
 
 }
 #team-rubix .user .diet{
-	font-size: 11px
+	font-size: 11px;
+	clear: both;
 }
 
 #team-rubix .user .intro{

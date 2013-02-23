@@ -6,6 +6,7 @@ class foodrubix.LeaderboardController extends Spine.Controller
 		".users" : "users"
 
 	changeDiet:	(e) ->
+		@log e
 		that = @
 		data = {}
 		data.update = @list

@@ -1,10 +1,17 @@
-<div class="member">
-	<%= link_to user_path(:username=> user.username), :class => "user" do %>
-	<div class="image pull-left">
-		<%=  image_tag user.picture.url(:small) %>
-		<span class="username">
-			<%= user.username%>
-		<span>
+<div class="user">
+	<div class="pull-right points">
+		<%= render :partial => "users/index/follow_button", :locals => {:user => user}%>
 	</div>
+	<%= link_to user_path(:username=> user.username) do %>
+		<div class="content">
+				<%=  image_tag user.picture.url(:small), {:class=>"avatar"} %>
+				<div class="pull-left">
+					<p class="username">
+						<%= user.username.capitalize%>
+					</p>
+					<p class="diet"><%= user.preference.diet%></p>
+				</div>
+			<p class="intro"><%= user.preference.eating_habits%></p>
+		</div>
 	<% end %>
 </div>

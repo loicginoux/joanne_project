@@ -11,7 +11,7 @@ Foodrubix::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = true
+  config.action_controller.perform_caching = false
 
 
   # caching
@@ -43,10 +43,10 @@ Foodrubix::Application.configure do
   config.assets.compress = false
 
   # serve assets from public directory
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
 
   Paperclip.options[:command_path] = "/usr/local/ImageMagick-6.7.5/bin/"
 
