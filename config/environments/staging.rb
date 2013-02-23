@@ -57,7 +57,7 @@ Foodrubix::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
-  config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  config.action_controller.asset_host = "https://d4c74cobicfny.cloudfront.net"
 
   config.action_mailer.asset_host = "http://calm-gorge-1213.herokuapp.com"
 
