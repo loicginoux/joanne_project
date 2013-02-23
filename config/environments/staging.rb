@@ -29,10 +29,6 @@ Foodrubix::Application.configure do
     :allow_reload => false
   }
 
-  middleware.insert_after(
-   'Rack::Cache', Middleware::CompressedStaticAssets,
-   paths["public"].first, config.assets.prefix, config.static_cache_control)
-
   # Generate digests for assets URLs
   config.assets.digest = true
 
