@@ -57,6 +57,8 @@ Foodrubix::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "http://0.0.0.0:5000"
+  # config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
+
   config.action_mailer.asset_host = config.action_controller.asset_host
 
   # email configuration
