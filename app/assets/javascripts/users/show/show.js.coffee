@@ -1,5 +1,5 @@
 foodrubix.users.show = () ->
-	console.log "test"
+	console.log "test number 2"
 	new foodrubix.PhotoCalendar({el: $("#photoCalendar")})
 	manageLoginTooltip()
 
