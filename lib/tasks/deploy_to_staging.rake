@@ -10,6 +10,6 @@ task :to_staging, [:commitMessage] => :environment do |t, args|
 	`git add .`
 	puts "git commit -m '#{args[:commitMessage]}'"
 	`git commit -m "#{args[:commitMessage]}" `
-	puts "git push staging staging:master"
+	puts "git push staging cloudfront:master"
 	`git push staging staging:master`
 end

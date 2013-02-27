@@ -28,7 +28,7 @@ capybara-*.html
 .rvmrc
 /vendor/bundle
 /public/system/*
-/public/assets/*
+#/public/assets/*
 /coverage/
 /spec/tmp/*
 **.orig
