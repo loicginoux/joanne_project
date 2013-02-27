@@ -15,6 +15,8 @@ class DataPoint < ActiveRecord::Base
     :storage => :s3,
     :bucket => S3_CREDENTIALS[:bucket],
     :path => ":attachment/:id/:style.:extension",
+    :url => ':s3_alias_url',
+    :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
     :s3_credentials => S3_CREDENTIALS,
     :s3_permissions => :public_read
 

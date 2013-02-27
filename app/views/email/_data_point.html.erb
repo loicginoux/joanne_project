@@ -3,7 +3,7 @@
         <tbody><tr style="border-collapse: collapse;">
             <td width="200" style="border-collapse: collapse; font-family: sans-serif;">
                 <%= link_to data_point_url(data_point) do%>
-                    <%= image_tag "http://s3.amazonaws.com/"+S3_CREDENTIALS[:bucket]+"/photos/"+data_point.id.to_s+"/medium.jpg",  :style => "width:200px; outline: none; text-decoration: none; display: block;", :alt => "a meal", :width => 200, :border => 0%>
+                    <%= image_tag data_point.photo.url(:medium),  :style => "width:200px; outline: none; text-decoration: none; display: block;", :alt => "a meal", :width => 200, :border => 0%>
                 <%end%>
             </td>
         </tr>

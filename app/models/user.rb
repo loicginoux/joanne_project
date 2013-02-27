@@ -42,18 +42,19 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :preference
 
   has_attached_file :picture,
-     :styles => {
-       :small => ["50x50#",:jpg],
-       :medium => ["200x200#",:jpg]
-     },
-     :convert_options => { :all => '-auto-orient' },
-     :storage => :s3,
-     :bucket => S3_CREDENTIALS[:bucket],
-     :path => ":attachment/:id/:style.:extension",
-     :s3_credentials => S3_CREDENTIALS,
-     :default_url => '/assets/default_user_:style.gif',
-     :s3_permissions => :public_read
-
+    :styles => {
+      :small => ["50x50#",:jpg],
+      :medium => ["200x200#",:jpg]
+    },
+    :convert_options => { :all => '-auto-orient' },
+    :storage => :s3,
+    :bucket => S3_CREDENTIALS[:bucket],
+    :path => ":attachment/:id/:style.:extension",
+    :s3_credentials => S3_CREDENTIALS,
+    :default_url => '/assets/default_user_:style.gif',
+    :url => ':s3_alias_url',
+    :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+    :s3_permissions => :public_read
 
   scope :without_user, lambda{|user| user ? {:conditions => ["users.id != ?", user.id]} : {} }
   scope :without_followees, lambda{|followee_ids| User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty? }

@@ -8,7 +8,7 @@
     	</div>
     	{{/ribbon}}
 
-		<img class="thumb" src="http://s3.amazonaws.com/<%= S3_CREDENTIALS[:bucket]%>/photos/{{img_path}}"  />
+		<img class="thumb" src="//<%= CLOUDFRONT_CREDENTIALS[:host] %>/photos/{{img_path}}"  />
 		<div class="overlay">
 			<div>
 			<span class="label label-info">

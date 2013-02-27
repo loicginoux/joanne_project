@@ -1,0 +1,8 @@
+development:
+    host: "d2u0sl95jsjgcq.cloudfront.net"
+
+staging:
+    host: "dmi8d7qz67d2o.cloudfront.net"
+
+production:
+    host: "d148wzejek80k4.cloudfront.net"
