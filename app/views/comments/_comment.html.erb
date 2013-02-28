@@ -19,7 +19,11 @@
 						<i class="icon icon-remove"></i>
 					</a>
 				</div>
-				<%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.updated_at)%> ago</span></h5>
+				<!-- <%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.updated_at)%> ago</span> -->
+				<%= getUsername(comment.user) %> <span class="muted">- <abbr class="timeago" title="<%= comment.updated_at %>"><%= comment.updated_at.to_s(:readable) %></abbr></span>
+
+			</h5>
+
 			<p class="commentText"><%= comment.text %></p>
 		</div>
 	</div>

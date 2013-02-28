@@ -1,31 +1,36 @@
-<div class="week_view">
-	<div class="row">
-		<div class="span6">
-			<h2>{{startDate}} - {{endDate}} {{year}}</h2>
-		</div>
-	</div>
-	<div class="row">
-	{{#data}}
-		<div class="span1_7 {{#first}}first{{/first}}" data-date="{{date_drop}}">
-		<h5 class="pagination-centered">{{day_date}}</h5>
-		<br/>
-		<ul class="sortableImages">
-		{{#data_points}}
-			<%= render "data_points/show/main_photo" %>
-		{{/data_points}}
-		</ul>
-		{{^data_points}}
-			<div class="image">
-				<p class="pagination-centered"></p>
+<% cache "week_photo_list" do %>
+
+
+	<div class="week_view">
+		<div class="row">
+			<div class="span6">
+				<h2>{{startDate}} - {{endDate}} {{year}}</h2>
 			</div>
-		{{/data_points}}
 		</div>
-	{{/data}}
-	{{^data}}
-	<div class="alert alert-info">
-		<button class="close" data-dismiss="alert">×</button>
-		<strong>No photos!</strong>
+		<div class="row">
+		{{#data}}
+			<div class="span1_7 {{#first}}first{{/first}}" data-date="{{date_drop}}">
+			<h5 class="pagination-centered">{{day_date}}</h5>
+			<br/>
+			<ul class="sortableImages">
+			{{#data_points}}
+				<%= render "data_points/show/main_photo" %>
+			{{/data_points}}
+			</ul>
+			{{^data_points}}
+				<div class="image">
+					<p class="pagination-centered"></p>
+				</div>
+			{{/data_points}}
+			</div>
+		{{/data}}
+		{{^data}}
+		<div class="alert alert-info">
+			<button class="close" data-dismiss="alert">×</button>
+			<strong>No photos!</strong>
+		</div>
+		{{/data}}
+		</div>
 	</div>
-	{{/data}}
-	</div>
-</div>
+
+<% end %>

@@ -93,7 +93,7 @@
 			<p>Description: <%= @data_point.description%> </p>
 			<%end%>
 			<p>Calories: <%= @data_point.calories%> calories</p>
-			<p>Date: <%= @data_point.uploaded_at.strftime("%m-%d-%Y %I:%M %P")%> </p>
+			<p>Date: <%= @data_point.uploaded_at.to_s(:readable)%> </p>
 			<%if @data_point.nb_likes > 0 %>
 				<p>
 					<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => @data_point}  %>
@@ -138,9 +138,13 @@
 			<%end%>
 
 		</form>
-		<div class="comments" data-data-point="<%= @data_point.id%>">
-			<%= render @data_point.comments %>
-		</div>
+
+		<% cache @data_point.comments do %>
+  		<div class="comments" data-data-point="<%= @data_point.id%>">
+				<%= render @data_point.comments %>
+			</div>
+		<% end %>
+
 
 	</div>
 </div>

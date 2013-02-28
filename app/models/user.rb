@@ -63,7 +63,11 @@ class User < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
   scope :visible, where(:hidden => false)
-  scope :latest_members, confirmed().active().order("created_at desc").visible()
+  scope :latest_members, lambda {||
+    Rails.cache.fetch("latests_members") do
+      User.confirmed().active().visible().includes(:preference).order("created_at desc")
+    end
+  }
   scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
   scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
 
@@ -109,6 +113,9 @@ class User < ActiveRecord::Base
   end
 
   def verify!
+    # empty the cache for latest members
+    Rails.cache.delete("latests_members")
+    # confirm the user
     self.confirmed = true
     self.activate!
     self.save
@@ -140,7 +147,10 @@ class User < ActiveRecord::Base
   end
 
   def isFollowing(followee)
-    Friendship.where(:user_id => self.id, :followee_id => followee.id)
+    followees = Rails.cache.fetch("/user/#{id}/friendships") do
+       Friendship.where(:user_id => self.id)
+    end
+    followees.select { |f| f.followee_id == followee.id }
   end
 
   def hasFacebookConnected?
@@ -359,11 +369,11 @@ class User < ActiveRecord::Base
   # this is not in scope because the "last 24 hours" depends on the user who request it and his timezone
   def slackerboard()
     offset = self.timezone_offset()
-    users_who_uploaded_in_last_24_hours = User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", (Time.now  + (offset).seconds).beginning_of_day - 1.day)
-    if users_who_uploaded_in_last_24_hours.empty?
-      User.active().confirmed().visible().order("username desc")
+    users_who_uploaded_yesterday = User.joins(:data_points).select("distinct users.*").where("data_points.uploaded_at >= ?", (Time.now  + (offset).seconds).beginning_of_day - 1.day)
+    if users_who_uploaded_yesterday.length == 0
+      User.active().confirmed().visible().includes(:preference).order("username desc")
     else
-      User.active().confirmed().visible().order("username desc").where("id NOT IN ("+users_who_uploaded_in_last_24_hours.map(&:id).join(",")+")")
+      User.active().confirmed().visible().includes(:preference).order("username desc").where("id NOT IN ("+users_who_uploaded_yesterday.map(&:id).join(",")+")")
     end
   end
 

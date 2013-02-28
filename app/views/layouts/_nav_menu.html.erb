@@ -1,0 +1,25 @@
+<% cache "nav_menu" do %>
+
+
+	<ul class="nav">
+		<li>
+			<%= link_to(root_path) do%>
+			My Diary
+			<%=image_tag("diary.svg", :class=> "nav_icon")%>
+			<%end%>
+		</li>
+		<li>
+			<%= link_to(feed_path, :user_page => 1) do%>
+			Feed
+			<%=image_tag("following.svg", :class=> "nav_icon") %>
+			<%end%>
+		</li>
+		<li>
+			<%= link_to(team_rubix_path) do%>
+			Team Rubix
+			<%=image_tag("team.svg", :class=> "nav_icon") %>
+			<%end%>
+		</li>
+	</ul>
+
+<% end %>

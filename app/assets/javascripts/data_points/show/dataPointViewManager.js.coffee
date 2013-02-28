@@ -60,6 +60,8 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@nbComments = parseInt(@nbCommentsHTML.text()) || 0
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
+		# replace time ago
+		jQuery("abbr.timeago").timeago();
 		commentController = new foodrubix.CommentListController({
 			el: @el.find(".comments"),
 			master: @

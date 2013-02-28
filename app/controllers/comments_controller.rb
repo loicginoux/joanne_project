@@ -50,6 +50,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     respond_to do |format|
       if @comment.save
+        # delete cache for comments
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render json: @comment}
       else
@@ -66,6 +67,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
+        # delete cache for comments
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,6 +82,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     if current_user.is(@comment.user)
+      # delete cache for comments
       @comment.destroy
     end
 

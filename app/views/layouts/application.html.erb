@@ -26,26 +26,9 @@
 					<%= link_to image_tag('foodRubix_logo_beta.svg'), root_path, :class => 'brand'%>
 
 					<div class="nav-collapse">
-						<ul class="nav">
-							<li>
-								<%= link_to(user_path(:username=> current_user.username)) do%>
-								My Diary
-								<%=image_tag("diary.svg", :class=> "nav_icon")%>
-								<%end%>
-							</li>
-							<li>
-								<%= link_to(feed_path, :user_page => 1) do%>
-									Feed
-									<%=image_tag("following.svg", :class=> "nav_icon") %>
-								<%end%>
-							</li>
-							<li>
-								<%= link_to(team_rubix_path) do%>
-									Team Rubix
-									<%=image_tag("team.svg", :class=> "nav_icon") %>
-								<%end%>
-							</li>
-						</ul>
+
+						<%= render "layouts/nav_menu" %>
+
 						<ul class="nav pull-right">
 
 							<% if @user && !@user.is(current_user)%>

@@ -1,32 +1,36 @@
-<div class="day_view">
-	<div class="row">
-		<div class="span6">
-			<h2>{{hr_date}}</h2>
-		</div>
-	</div>
-	<div class="row">
-	{{#data}}
-		<div class="span3">
-		<ul class="sortableImages">
-			{{#data_points}}
-				<li>
-					<%= render "data_points/show/main_photo" %>
-				</li>
-			{{/data_points}}
-			{{^data_points}}
-			{{/data_points}}
-		</ul>
-		</div>
-		<div class="span9">
-			<div id="dayGraphicContainer"></div>
-		</div>
-	{{/data}}
-	{{^data}}
-	<div class="alert alert-info">
-		<button class="close" data-dismiss="alert">×</button>
-		<strong>No photos!</strong>
-	</div>
-	{{/data}}
-	</div>
-</div>
+<% cache "day_photo_list" do %>
 
+
+	<div class="day_view">
+		<div class="row">
+			<div class="span6">
+				<h2>{{hr_date}}</h2>
+			</div>
+		</div>
+		<div class="row">
+		{{#data}}
+			<div class="span3">
+			<ul class="sortableImages">
+				{{#data_points}}
+					<li>
+						<%= render "data_points/show/main_photo" %>
+					</li>
+				{{/data_points}}
+				{{^data_points}}
+				{{/data_points}}
+			</ul>
+			</div>
+			<div class="span9">
+				<div id="dayGraphicContainer"></div>
+			</div>
+		{{/data}}
+		{{^data}}
+		<div class="alert alert-info">
+			<button class="close" data-dismiss="alert">×</button>
+			<strong>No photos!</strong>
+		</div>
+		{{/data}}
+		</div>
+	</div>
+
+<% end %>

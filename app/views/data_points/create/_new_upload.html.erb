@@ -1,3 +1,5 @@
+<% cache "new_upload" do %>
+
 <div id="new_upload" class="hide  modal uploadPhoto">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
@@ -60,8 +62,8 @@
 				<div class="descrInput">
 					<label class="control-label">Description (optional)</label>
 					<div class="controls">
-						<input class="" id="data_point_description" name="data_point[description]" type="text"
-						value="">
+						<textarea class="" id="data_point_description" name="data_point[description]" rows="3"
+						value=""></textarea>
 					</div>
 				</div>
 			</div>
@@ -84,3 +86,5 @@
 		<a href="javascript:void(0)" class="btn btn-primary btn-save btn-new-upload" data-loading-text="Uploading...">Upload</a>
 	</div>
 </div>
+
+<% end %>

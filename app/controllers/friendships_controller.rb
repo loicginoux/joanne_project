@@ -13,7 +13,8 @@ class FriendshipsController < ApplicationController
       @update = "friendsFeeds"
     end
 
-    if @update.nil? || @update == "users" || @update == "friendsFeeds"
+    if @update.nil? || @update == "users"
+      puts "update users"
       @users = current_user.friendships
       .joins(:followee)
       .order("users.leaderboard_points desc, users.username asc")
@@ -21,15 +22,18 @@ class FriendshipsController < ApplicationController
       .paginate(:per_page => 15, :page => params[:user_page])
     end
     if @update == "friendsFeeds"
-      userIds = (@users.empty?) ? "NULL" : userIds = @users.map(&:id).join(",")
-      @feeds = DataPoint.joins(:user)
+      puts "update friendsFeeds"
+      userIds = current_user.friendships.select(:followee_id).map(&:followee_id).join(",")
+      @feeds = DataPoint.includes(:user)
+      .includes(:comments)
       .order("uploaded_at desc")
-      .where("users.id IN ("+userIds+")")
+      .where("users.id IN (#{userIds})")
       .paginate(:per_page => 10, :page => params[:friends_feed_page])
-
     end
     if @update == "everyoneFeeds"
+      puts "update everyoneFeeds"
       @feeds = DataPoint.includes(:user)
+      .includes(:comments)
       .order("uploaded_at desc")
       .paginate(:per_page => 10, :page => params[:everyone_feed_page])
 
@@ -46,7 +50,11 @@ class FriendshipsController < ApplicationController
   # POST /friendships
   # POST /friendships.json
   def create
+    # create friendship record
     @friendship = current_user.friendships.build(:followee_id => params[:followee])
+    # delete cached frends for current_user
+    Rails.cache.delete("/user/#{current_user.id}/friendships")
+    # get followee user record
     followee = User.select(:username).find(params[:followee])
     redirect = (params[:redirect_to]) ? params[:redirect_to] : user_path(:username=> followee.username)
     if @friendship.save
@@ -63,6 +71,7 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1.json
   def destroy
     @friendship = Friendship.find(params[:id])
+    Rails.cache.delete("/user/#{@friendship.user_id}/friendships")
     @friendship.destroy
     redirect = (params[:redirect_to]) ? params[:redirect_to] : users_path
     respond_to do |format|
