@@ -4,8 +4,8 @@ namespace :deploy do
 		puts "removing public assets..."
 		`git rm -rf public/assets/*`
 		`rm -rf public/assets/*`
-		# puts "precompiling assets..."
-		# `bundle exec rake assets:precompile`
+		puts "precompiling assets..."
+		`bundle exec rake assets:precompile`
 		puts "add to git"
 		`git add .`
 		puts "commit to git with message: '#{args[:commitMessage]}'"
