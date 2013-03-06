@@ -1,5 +1,5 @@
 <% cache [@data_point, current_user.like(@data_point).nil?] do %>
-<div class="row">
+<div class="row" data-user-id="<%= @data_point.user_id %>">
 	<div class="span5">
 		<div class="viewMode">
 			<div class="cbm_wrap">

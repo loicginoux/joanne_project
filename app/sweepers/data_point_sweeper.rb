@@ -12,6 +12,11 @@ class DataPointSweeper < ActionController::Caching::Sweeper
   private
 
   def expire_cache(dp)
-    # dp.user.increment_memcache_iterator()
+    weekNb = dp.uploaded_at.strftime("%U")
+    monthNb = dp.uploaded_at.strftime("%m")
+    Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}")
+    Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}/graphicPoints")
+    Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}")
+    Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}/graphicPoints")
   end
 end

@@ -82,7 +82,7 @@ class DataPoint < ActiveRecord::Base
   #########################
   # Callbacks
   #########################
-  after_save :queue_upload_to_s3
+  # after_save :queue_upload_to_s3
 
 
   #########################
@@ -130,29 +130,30 @@ class DataPoint < ActiveRecord::Base
     end
   end
 
-  def queue_upload_to_s3()
-    if self.local_photo_updated_at_changed? && !self.local_photo_updated_at.nil?
-      self.delay.upload_to_s3
-      self.delay({:run_at => 3.minutes.from_now}).delete_local_photo
-    end
-  end
+  # def queue_upload_to_s3()
+  #   if self.local_photo_updated_at_changed? && !self.local_photo_updated_at.nil?
+  #     self.delay.upload_to_s3
+  #     self.delay({:run_at => 3.minutes.from_now}).delete_local_photo
+  #   end
+  # end
 
-  def upload_to_s3
-    self.photo = self.local_photo
-    self.save
-  end
+  # def upload_to_s3
+  #   self.photo = self.local_photo
+  #   self.save
+  # end
 
-  def delete_local_photo
-    if !self.photo_updated_at.nil?
-      DataPoint.skip_callback(:save)
-      self.local_photo = nil
-      self.save
-      DataPoint.set_callback(:save)
-   end
-  end
+  # def delete_local_photo
+  #   if !self.photo_updated_at.nil?
+  #     DataPoint.skip_callback(:save)
+  #     self.local_photo = nil
+  #     self.save
+  #     DataPoint.set_callback(:save)
+  #  end
+  # end
 
   def pic()
-    (self.local_photo?) ? self.local_photo : self.photo
+    # (self.local_photo?) ? self.local_photo : self.photo
+    self.photo
   end
 
   def has_award?

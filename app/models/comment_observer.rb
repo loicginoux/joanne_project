@@ -16,7 +16,7 @@ class CommentObserver < ActiveRecord::Observer
     end
 
     # we update the number of comments for the datapoint
-    dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments+1)
+    dataPoint.update_attribute("nb_comments", dataPoint.nb_comments+1)
 
     #previous comments from same commenter
     previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
@@ -33,7 +33,7 @@ class CommentObserver < ActiveRecord::Observer
   def after_destroy(comment)
     dataPoint = DataPoint.find(comment.data_point_id)
     # we update the number of comments for the datapoint
-    dataPoint.update_attributes(:nb_comments => dataPoint.nb_comments-1)
+    dataPoint.update_attribute("nb_comments", dataPoint.nb_comments-1)
 
     previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
 

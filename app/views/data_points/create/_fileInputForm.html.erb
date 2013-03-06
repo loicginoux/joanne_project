@@ -5,7 +5,8 @@ other solution could have been
 https://github.com/malsup/form/issues/139#issuecomment-4881899
  -->
 	<form id="formFileUpload" class="formFileUpload" name="formFileUpload" action="/data_points" method="POST" enctype="multipart/form-data">
-		<input class=" data_point_local_photo" id="fileInput" name="data_point[local_photo]" type="file">
+		<!-- <input class=" data_point_local_photo" id="fileInput" name="data_point[local_photo]" type="file"> -->
+		<input class=" data_point_photo" id="fileInput" name="data_point[photo]" type="file">
 			<!-- when creating a data point we need to set up a calorie when uploading first the file, because it's required. The real value then is changed in the second request to add metadata to the photo   -->
 		<input class="" id="data_point_calories" name="data_point[calories]" type="number" value="0">
 

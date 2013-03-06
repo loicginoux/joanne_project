@@ -4,7 +4,7 @@ class LikeObserver < ActiveRecord::Observer
 
     # we update the number of likes for the datapoint
     dataPoint = DataPoint.find(like.data_point_id)
-    dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes+1)
+    dataPoint.update_attribute("nb_likes", dataPoint.nb_likes+1)
 
     # send the mail to photo owner
     if !like.onOwnPhoto?
@@ -24,7 +24,7 @@ class LikeObserver < ActiveRecord::Observer
   def after_destroy(like)
     # we update the number of likes for the datapoint
     dataPoint = DataPoint.find(like.data_point_id)
-    dataPoint.update_attributes(:nb_likes => dataPoint.nb_likes-1)
+    dataPoint.update_attribute("nb_likes", dataPoint.nb_likes-1)
 
     unless like.user.is(dataPoint.user)
       isOnCurrentMonth = (like.created_at >= Date.today.beginning_of_month())

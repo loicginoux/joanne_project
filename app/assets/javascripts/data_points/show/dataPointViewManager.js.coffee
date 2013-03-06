@@ -54,6 +54,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		]
 
 	init: () ->
+
 		@id = @el.find(".info").attr('data-id')
 		@userId = gon.current_user_id
 		@datapoint_userId = parseInt(@el.attr("data-user-id"))

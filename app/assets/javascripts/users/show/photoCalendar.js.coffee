@@ -364,6 +364,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 
 	# called when the modal box for the view image is rendered
 	initViewModal: () ->
+		$(".modal.in").removeClass("hide")
 		@activeModal = new foodrubix.dataPointViewManager({
 		 	el:$('.modal.in .modal-body').children()
 		 	master: @
