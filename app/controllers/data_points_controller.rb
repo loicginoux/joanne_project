@@ -17,10 +17,10 @@ class DataPointsController < ApplicationController
 
       if @period == "week"
         weekNb = @startDate.strftime("%U")
-        puts " "; puts ">>>>>>>>>>>>>>>>>>"
+        puts " "
         puts "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}"
         puts Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}"
-        puts ">>>>>>>>>>>>>>>>>";puts " "
+        puts " "
         @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
           DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
         end
