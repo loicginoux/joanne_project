@@ -33,7 +33,5 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 .project
-/public/system
-/public/assets
 /app/assets/images/data_points
 /app/assets/images/users
