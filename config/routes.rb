@@ -4,6 +4,7 @@ Foodrubix::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+# utility for flushing cache
   match 'data_points/fileInputForm/(:id)',
     :to => "data_points#getFileUploadForm",
     :via => :get,
