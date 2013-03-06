@@ -1,18 +1,21 @@
 #manage graphics
 class foodrubix.graphic
-	constructor: (@data, @view, @date_now) ->
-		if @data.length
-			#@displayData()
-			@prepareDataForHighchart()
-			if @view == "day"
-				@displayDayChart()
-			else if @view == "week"
-				@displayWeekChart()
-			else
-				@displayMonthChart()
+	constructor: () ->
+		that = @
+		window.Spine.bind 'data_points:loaded', (data, view) ->
+			that.view = view
+			that.data = data
+			that.maxPoints = that.maxGraph()
+			if that.maxPoints && that.maxPoints > 0
+				if view == "day"
+					that.displayDayChart()
+				else if view == "week"
+					that.displayWeekChart()
+				else
+					that.displayMonthChart()
 
 	displayDayChart: () =>
-		nbPoints = @processedData.length
+		nbPoints = @data.length
 		$('#dayGraphicContainer').css height: nbPoints*200+125
 		categories = [1..nbPoints]
 		categories = _.map(categories, (num) -> "Photo "+num.toString())
@@ -51,7 +54,7 @@ class foodrubix.graphic
 			},
 			series: [{
 				name: 'Calories',
-				data: @processedData
+				data: @data
 			}]
 		})
 
@@ -97,7 +100,7 @@ class foodrubix.graphic
 			},
 			series: [{
 				name: 'Calories',
-				data: @processedData
+				data: @data
 			}]
 		}
 		if gon.daily_calories_limit != 0
@@ -136,7 +139,7 @@ class foodrubix.graphic
 					text: 'Calories'
 				},
 				min: 0,
-				max: @maxGraph()
+				max: @max
 			},
 			tooltip: {
 				formatter: () ->
@@ -158,7 +161,7 @@ class foodrubix.graphic
 			},
 			series: [{
 				name: 'Calories',
-				data: @processedData
+				data: @data
 			}]
 		}
 		if gon.daily_calories_limit != 0
@@ -176,34 +179,9 @@ class foodrubix.graphic
 
 	maxGraph:()->
 		max = gon.daily_calories_limit
-		for points in @processedData
+		for points in @data
 			points = if (typeof points  == "number") then points else points[1]
 			if points>max
-				max = null
-				break
+				max = points
 		return max
-
-	prepareDataForHighchart: () ->
-		@processedData = []
-		if @view == "week"
-			for day in @data
-				dayCalories = 0
-				for dataPoint in day.data_points
-					dayCalories += dataPoint.calories
-				@processedData.push(dayCalories)
-		else if @view == "month"
-			for week in @data
-				for day in week.week_data
-					dayCalories = 0
-					for dataPoint in day.data_points
-						dayCalories += dataPoint.calories
-					if day.date.getMonth() == @date_now.getMonth()
-						@processedData.push([day.date.clearTime().valueOf(), dayCalories])
-		else if @view == "day"
-			for day in @data
-				for dataPoint in day.data_points
-					@processedData.push dataPoint.calories
-
-
-
 

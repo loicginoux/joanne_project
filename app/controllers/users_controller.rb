@@ -129,7 +129,7 @@ class UsersController < ApplicationController
     if session[:omniauth]
       @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid], :username => session[:omniauth][:username] , :access_token => session[:omniauth][:access_token])
       if session[:omniauth][:image]
-        @user.picture = open(session[:omniauth][:image])
+        @user.local_picture = open(session[:omniauth][:image])
       end
       #we verify directly the account, no need to verify email
       if @user.verify!
@@ -178,7 +178,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.first(:conditions => {:username=> params[:username]})
-    @user.picture.destroy
+    @user.picture.destroy unless @user.picture_file_size.nil?
+    @user.local_picture.destroy unless @user.local_picture_file_size.nil?
     @user.destroy
     respond_to do |format|
       format.html { redirect_to static_path("home") }

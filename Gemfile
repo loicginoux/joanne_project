@@ -94,12 +94,26 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'unicorn'
 
 # memcache
+gem 'memcachier'
 gem 'dalli'
+gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
 
+
+# better fragment caching
 gem 'cache_digests'
 
-
+# synh assets to S3
 gem "asset_sync"
+
+# asynchronous jobs
+gem 'delayed_job_active_record'
+
+
+# better management of heroku worker process
+# gem 'hirefire'
+# gem "workless", "~> 1.1.1"
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -1,6 +1,6 @@
 class Like < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :data_point
+	belongs_to :data_point, :touch => true
 	validate :cannot_like_same_data_point_twice
 
 	scope :onOthersPhoto, lambda{||

@@ -38,6 +38,7 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 
 	initialize: () ->
 		# the one inside the iframe, see why in comment /views/pages/hiddenFileInput.html.erb
+		@el.removeClass("hide")
 		@fileInput = $("#ifu").contents().find("#fileInput")
 		now = new Date()
 		day = now.toString("MM-dd-yyyy")

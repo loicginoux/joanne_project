@@ -40,6 +40,7 @@ Foodrubix::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider/failure', to: redirect('/login')
+  match '/favicon.ico', to: redirect('/assets/favicon.ico')
   match 'team_rubix' => 'users#index', :as => :team_rubix
   match 'feed' => 'friendships#index', :as => :feed
 

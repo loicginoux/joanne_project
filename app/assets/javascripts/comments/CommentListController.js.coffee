@@ -6,6 +6,13 @@ class foodrubix.CommentListController extends Spine.Controller
 		"keyup textarea": "onkeyUp"
 
 
+	init:() ->
+		@el.find(".comment").each((i,e) ->
+			el = $(e)
+			commentUserId = parseInt(el.attr("user-id"))
+			if commentUserId == gon.current_user_id
+				el.addClass("own")
+		)
 	getId:(e)->
 		$(e.target).parents(".comment").attr("data-id")
 

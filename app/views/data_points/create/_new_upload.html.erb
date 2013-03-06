@@ -1,90 +1,91 @@
-<% cache "new_upload" do %>
+<% cache ["new_upload", "v1"] do %>
 
-<div id="new_upload" class="hide  modal uploadPhoto">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>New Upload</h3>
-	</div>
-	<div class="modal-body">
-		<fieldset>
-			<form id="uploadForm" action="/data_points" method="POST" enctype="multipart/form-data">
 
-					<div class="control-group editable_img_container pull-right file">
-						<div class="controls">
-							<img class="photoPreview" />
-							<a class="btn btn-upload" href="javascript:void(0)">Upload photo</a>
-							<!-- <input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file"> -->
-							<div class="progress progress-striped active hide">
-							  <div class="bar" style="width: 0%;"></div>
+	<div id="new_upload" class="hide  modal uploadPhoto">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>New Upload</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<form id="uploadForm" action="/data_points" method="POST" enctype="multipart/form-data">
+
+						<div class="control-group editable_img_container pull-right file">
+							<div class="controls">
+								<img class="photoPreview" />
+								<a class="btn btn-upload" href="javascript:void(0)">Upload photo</a>
+								<!-- <input class="hide data_point_photo" id="fileInput" name="data_point[photo]" type="file"> -->
+								<div class="progress progress-striped active hide">
+								  <div class="bar" style="width: 0%;"></div>
+								</div>
+							</div>
+							<div>
+								<span class="help-inline clear fileExtension">Formats supported: jpg, png, gif, tiff</span>
+								</br>
+								<span class="help-inline clear file hide">Please upload a photo</span>
 							</div>
 						</div>
-						<div>
-							<span class="help-inline clear fileExtension">Formats supported: jpg, png, gif, tiff</span>
-							</br>
-							<span class="help-inline clear file hide">Please upload a photo</span>
-						</div>
-					</div>
 
 
-					<div class="control-group calories">
-						<label class="control-label">Calories <small><a target="_blank" href="http://www.wolframalpha.com/widgets/view.jsp?id=bcefea6791129b219e2530d3eb6a112f" class="highlight">(help me calculate)</a></small></label>
-						<div class="controls">
-							<input class="" id="data_point_calories" name="data_point[calories]" type="number"
-							 value="">
-							<span class="help-inline calories hide">Please enter a number</span>
-
-						</div>
-					</div>
-
-					<div class="control-group date">
-						<label class="control-label">Date</label>
-						<div class="controls">
-							<div class="input-append date datePicker" data-date="" data-date-format="mm-dd-yyyy">
-								<input size="16" type="text" id="data_point_uploaded_at" name="data_point[uploaded_at]" value="">
-								<span class="add-on"><i class="icon-th"></i></span>
-								<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
+						<div class="control-group calories">
+							<label class="control-label">Calories <small><a target="_blank" href="http://www.wolframalpha.com/widgets/view.jsp?id=bcefea6791129b219e2530d3eb6a112f" class="highlight">(help me calculate)</a></small></label>
+							<div class="controls">
+								<input class="" id="data_point_calories" name="data_point[calories]" type="number"
+								 value="">
+								<span class="help-inline calories hide">Please enter a number</span>
 
 							</div>
 						</div>
-					</div>
 
-			</form>
-			<div class="control-group time">
-				<label class="control-label">Time</label>
-				<div class="controls">
-					<input class="timePicker" id="timePicker" name="data_point[time]" type="text"
-					 value="">
-					<span class="help-inline time hide">Please enter a correct time (HH:mm AM/PM)</span>
-				</div>
-			</div>
+						<div class="control-group date">
+							<label class="control-label">Date</label>
+							<div class="controls">
+								<div class="input-append date datePicker" data-date="" data-date-format="mm-dd-yyyy">
+									<input size="16" type="text" id="data_point_uploaded_at" name="data_point[uploaded_at]" value="">
+									<span class="add-on"><i class="icon-th"></i></span>
+									<span class="help-inline date hide">Please enter a correct date (mm-dd-yyy)</span>
 
-			<div class="control-group description">
-				<div class="descrInput">
-					<label class="control-label">Description (optional)</label>
+								</div>
+							</div>
+						</div>
+
+				</form>
+				<div class="control-group time">
+					<label class="control-label">Time</label>
 					<div class="controls">
-						<textarea class="" id="data_point_description" name="data_point[description]" rows="3"
-						value=""></textarea>
+						<input class="timePicker" id="timePicker" name="data_point[time]" type="text"
+						 value="">
+						<span class="help-inline time hide">Please enter a correct time (HH:mm AM/PM)</span>
 					</div>
 				</div>
-			</div>
-		</fieldset>
 
-		<p><strong>TIP!</strong> You can also send in photos by phone to <span class="highlight">pic@foodrubix.mailgun.org</span> with <strong>calories</strong> (just the number) as the subject line and an optional <strong>description</strong> (in quotes) in the body of the email.</p>
+				<div class="control-group description">
+					<div class="descrInput">
+						<label class="control-label">Description (optional)</label>
+						<div class="controls">
+							<textarea class="" id="data_point_description" name="data_point[description]" rows="3"
+							value=""></textarea>
+						</div>
+					</div>
+				</div>
+			</fieldset>
 
-		<!-- this is used when uploading the file for a datapoint
-		we use a hidden iframe containing this code to be able to manipulate a file file input with javascript
-		see: http://stackoverflow.com/questions/9396411/ie-javascript-form-submit-with-file-input
-		other solution could have been
-		https://github.com/malsup/form/issues/139#issuecomment-4881899
-		 -->
-		<iframe id="ifu" name="ifu" class="buttonFileHidden hide" src="/data_points/fileInputForm"></iframe>
+			<p><strong>TIP!</strong> You can also send in photos by phone to <span class="highlight">pic@foodrubix.mailgun.org</span> with <strong>calories</strong> (just the number) as the subject line and an optional <strong>description</strong> (in quotes) in the body of the email.</p>
+
+			<!-- this is used when uploading the file for a datapoint
+			we use a hidden iframe containing this code to be able to manipulate a file file input with javascript
+			see: http://stackoverflow.com/questions/9396411/ie-javascript-form-submit-with-file-input
+			other solution could have been
+			https://github.com/malsup/form/issues/139#issuecomment-4881899
+			 -->
+			<iframe id="ifu" name="ifu" class="buttonFileHidden hide" src="/data_points/fileInputForm"></iframe>
 
 
+		</div>
+		<div class="modal-footer">
+			<a href="javascript:void(0)" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
+			<a href="javascript:void(0)" class="btn btn-primary btn-save btn-new-upload" data-loading-text="Uploading...">Upload</a>
+		</div>
 	</div>
-	<div class="modal-footer">
-		<a href="javascript:void(0)" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
-		<a href="javascript:void(0)" class="btn btn-primary btn-save btn-new-upload" data-loading-text="Uploading...">Upload</a>
-	</div>
-</div>
 
 <% end %>

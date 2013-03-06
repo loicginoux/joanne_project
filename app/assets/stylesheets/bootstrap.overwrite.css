@@ -1,5 +1,9 @@
 /* bootstrap overwrite
 -------------------------*/
+.hide {
+  display: none !important;
+}
+
 .center{
 	text-align: center;
 }

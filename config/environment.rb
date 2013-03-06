@@ -8,3 +8,4 @@ Foodrubix::Application.initialize!
 # date formatting
 # ex:   01-30-2013 09:34 pm
 Time::DATE_FORMATS[:readable] = "%m-%d-%Y %I:%M %P"
+

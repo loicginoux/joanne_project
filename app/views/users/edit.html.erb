@@ -1,35 +1,36 @@
-<h1>Settings</h1>
-<div class="row">
-	<div class="span3">
-		<ul class="nav nav-pills nav-stacked">
-			<li class="active" data-content="profile">
-				<a href="javascript:void(0)">Profile</a>
-			</li>
-			<li data-content="picture">
-				<a href="javascript:void(0)">Picture</a>
-			</li>
-			<li data-content="social">
-				<a href="javascript:void(0)">Social Sharing</a>
-			</li>
-			<li data-content="preferences">
-				<a href="javascript:void(0)">Daily Calorie Goal</a>
-			</li>
-			<li data-content="emails">
-				<a href="javascript:void(0)">Email Recap</a>
-			</li>
-			<li data-content="coaching">
-				<a href="javascript:void(0)">Coaching Intensity</a>
-			</li>
-			<li data-content="eatingHabits">
-				<a href="javascript:void(0)">Eating Habits</a>
-			</li>
-		</ul>
+
+	<h1>Settings</h1>
+	<div class="row">
+		<div class="span3">
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active" data-content="profile">
+					<a href="javascript:void(0)">Profile</a>
+				</li>
+				<li data-content="picture">
+					<a href="javascript:void(0)">Picture</a>
+				</li>
+				<li data-content="social">
+					<a href="javascript:void(0)">Social Sharing</a>
+				</li>
+				<li data-content="preferences">
+					<a href="javascript:void(0)">Daily Calorie Goal</a>
+				</li>
+				<li data-content="emails">
+					<a href="javascript:void(0)">Email Recap</a>
+				</li>
+				<li data-content="coaching">
+					<a href="javascript:void(0)">Coaching Intensity</a>
+				</li>
+				<li data-content="eatingHabits">
+					<a href="javascript:void(0)">Eating Habits</a>
+				</li>
+			</ul>
+		</div>
+		<div id="profile" class="content span9"><%= render 'users/edit/settings_profile' %></div>
+		<div id="picture" class="content span9 hide"><%= render 'users/edit/settings_picture' %></div>
+		<div id="social" class="content span9 hide"><%= render 'preferences/edit/social_sharing' %></div>
+		<div id="preferences" class="content span9 hide"><%= render 'preferences/edit/daily_calory_limit' %></div>
+		<div id="emails" class="content span9 hide"><%= render 'preferences/edit/email_recap' %></div>
+		<div id="coaching" class="content span9 hide"><%= render 'preferences/edit/coaching_intensity_form' %></div>
+		<div id="eatingHabits" class="content span9 hide"><%= render 'preferences/edit/eating_habits_form' %></div>
 	</div>
-	<div id="profile" class="content span9"><%= render 'users/edit/settings_profile' %></div>
-	<div id="picture" class="content span9 hide"><%= render 'users/edit/settings_picture' %></div>
-	<div id="social" class="content span9 hide"><%= render 'preferences/edit/social_sharing' %></div>
-	<div id="preferences" class="content span9 hide"><%= render 'preferences/edit/daily_calory_limit' %></div>
-	<div id="emails" class="content span9 hide"><%= render 'preferences/edit/email_recap' %></div>
-	<div id="coaching" class="content span9 hide"><%= render 'preferences/edit/coaching_intensity_form' %></div>
-	<div id="eatingHabits" class="content span9 hide"><%= render 'preferences/edit/eating_habits_form' %></div>
-</div>

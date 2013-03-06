@@ -1,8 +1,9 @@
+<% cache [@data_point, current_user.like(@data_point).nil?] do %>
 <div class="row">
 	<div class="span5">
 		<div class="viewMode">
 			<div class="cbm_wrap">
-				<%= getPhoto(@data_point, "big")%>
+				<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big"} %>
 			</div>
 		</div>
 		<div class="editMode hide">
@@ -17,7 +18,7 @@
 				</div>
 				<div class="editable_img_container">
 					<div class="cbm_wrap">
-						<%= getPhoto(@data_point, "big")%>
+						<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big"} %>
 					</div>
 					<a class="btn btn-upload" href="javascript:void(0)">Change photo</a>
 					<!-- <input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file"> -->
@@ -114,15 +115,14 @@
 					</div>
 				</div>
 
-				<%= render :partial => "comments/button"  %>
+				<a href="javascript:void(0)" class="btn btn-comment viewMode" data-loading-text="Commenting..."><i class="icon-comment"></i> Comment</a>
+
 				<%= render :partial => "likes/button", :locals => { :data_point => @data_point}  %>
-				<% if @data_point.isOwner(current_user) %>
-				<a href="javascript:void(0)" class="btn btn-primary btn-edit viewMode" >
+				<a href="javascript:void(0)" class="btn btn-primary btn-edit viewMode hide current_user_action" >
 					<i class="icon-white icon-pencil"></i> Edit
 				</a>
-				<%end%>
 			</div>
-			<% if @data_point.isOwner(current_user) %>
+
 			<div class="editMode hide">
 				<a href="javascript:void(0)" class="btn btn-cancel">
 					Cancel
@@ -135,16 +135,16 @@
 					Save changes
 				</a>
 			</div>
-			<%end%>
 
 		</form>
 
-		<% cache @data_point.comments do %>
   		<div class="comments" data-data-point="<%= @data_point.id%>">
 				<%= render @data_point.comments %>
 			</div>
-		<% end %>
+
 
 
 	</div>
 </div>
+
+<% end %>

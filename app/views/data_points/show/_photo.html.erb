@@ -1,0 +1,15 @@
+<% cache [data_point, size, "v1"] do %>
+
+
+	<div class="img_wrapper">
+		<% if data_point.has_award? %>
+			<div class="ribbon-wrapper right">
+				<div class="ribbon">
+					<span><%= data_point.award %></span>
+				</div>
+			</div>
+		<% end %>
+		<%= image_tag(data_point.pic().url(size)) %>
+	</div>
+
+<% end %>

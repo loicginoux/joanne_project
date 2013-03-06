@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219094347) do
+ActiveRecord::Schema.define(:version => 20130303111444) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -66,20 +66,40 @@ ActiveRecord::Schema.define(:version => 20130219094347) do
 
   create_table "data_points", :force => true do |t|
     t.integer  "calories"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "user_id"
     t.datetime "uploaded_at"
-    t.integer  "nb_comments",        :default => 0
-    t.integer  "nb_likes",           :default => 0
-    t.string   "description",        :default => ""
-    t.boolean  "smart_choice_award", :default => false
-    t.boolean  "hot_photo_award",    :default => false
+    t.integer  "nb_comments",              :default => 0
+    t.integer  "nb_likes",                 :default => 0
+    t.string   "description",              :default => ""
+    t.boolean  "smart_choice_award",       :default => false
+    t.boolean  "hot_photo_award",          :default => false
+    t.string   "local_photo_file_name"
+    t.string   "local_photo_content_type"
+    t.integer  "local_photo_file_size"
+    t.datetime "local_photo_updated_at"
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
@@ -129,33 +149,37 @@ ActiveRecord::Schema.define(:version => 20130219094347) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.datetime "created_at",                                                           :null => false
+    t.datetime "updated_at",                                                           :null => false
     t.string   "role"
-    t.string   "perishable_token",         :default => "",                           :null => false
-    t.boolean  "confirmed",                :default => false
+    t.string   "perishable_token",           :default => "",                           :null => false
+    t.boolean  "confirmed",                  :default => false
     t.string   "single_access_token"
-    t.boolean  "fb_sharing",               :default => false
+    t.boolean  "fb_sharing",                 :default => false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.string   "timezone",                 :default => "Central Time (US & Canada)"
-    t.integer  "daily_calories_limit",     :default => 0
-    t.integer  "login_count",              :default => 0,                            :null => false
-    t.integer  "failed_login_count",       :default => 0,                            :null => false
+    t.string   "timezone",                   :default => "Central Time (US & Canada)"
+    t.integer  "daily_calories_limit",       :default => 0
+    t.integer  "login_count",                :default => 0,                            :null => false
+    t.integer  "failed_login_count",         :default => 0,                            :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.boolean  "daily_email",              :default => true
-    t.boolean  "weekly_email",             :default => true
-    t.boolean  "active",                   :default => false
-    t.integer  "leaderboard_points",       :default => 0
-    t.integer  "total_leaderboard_points", :default => 0
-    t.boolean  "hidden",                   :default => false
-    t.boolean  "first_friend",             :default => false
+    t.boolean  "daily_email",                :default => true
+    t.boolean  "weekly_email",               :default => true
+    t.boolean  "active",                     :default => false
+    t.integer  "leaderboard_points",         :default => 0
+    t.integer  "total_leaderboard_points",   :default => 0
+    t.boolean  "hidden",                     :default => false
+    t.boolean  "first_friend",               :default => false
+    t.string   "local_picture_file_name"
+    t.string   "local_picture_content_type"
+    t.integer  "local_picture_file_size"
+    t.datetime "local_picture_updated_at"
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

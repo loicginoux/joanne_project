@@ -1,50 +1,84 @@
-<% cache "month_photo_list" do %>
-
 
 <div class="month_view">
   <div class="row">
   	<div class="span6">
-  		<h2>{{month}} {{year}}</h2>
+  		<h2><%= @startDate.strftime("%B %Y") %></h2>
   	</div>
   </div>
-  <table class="calendar_table table">
-    <thead>
-      <tr>
-        <th class="span1_7">Sunday</th>
-        <th class="span1_7">Monday</th>
-        <th class="span1_7">Tuesday</th>
-        <th class="span1_7">Wednesday</th>
-        <th class="span1_7">Thursday</th>
-        <th class="span1_7">Friday</th>
-        <th class="span1_7">Saturday</th>
-      </tr>
-    </thead>
-    <!-- <tbody class="scrollable"> -->
-    <tbody>
-  {{#data}}
-      <tr>
-  	{{#week_data}}
-        <td class="span1_7 {{#first_of_week}}first{{/first_of_week}}" data-date="{{date_drop}}">
-          <div class="day_date"><b>{{day_date}}</b></div>
-          <ul class="sortableImages">
-        		{{#current_month}}
-      				{{#data_points}}
-      					<%= render "data_points/show/main_photo" %>
-      				{{/data_points}}
-      				{{^data_points}}
 
-      				{{/data_points}}
-        {{/current_month}}
-          </ul>
-  			{{#other_month}}
+  <% if @data_points.length > 0 %>
+    <table class="calendar_table table">
+      <thead>
+        <tr>
+          <th class="span1_7">Sunday</th>
+          <th class="span1_7">Monday</th>
+          <th class="span1_7">Tuesday</th>
+          <th class="span1_7">Wednesday</th>
+          <th class="span1_7">Thursday</th>
+          <th class="span1_7">Friday</th>
+          <th class="span1_7">Saturday</th>
+        </tr>
+      </thead>
+      <!-- <tbody class="scrollable"> -->
+      <tbody>
+        <% arr = Array(@startDate..@endDate) %>
+        <% startWeekDayNumber = (@startDate.strftime("%w").to_i) %>
+        <% previousMonthEndNumber = startWeekDayNumber - 1 %>
+        <% endWeekDayNumber = (@endDate.strftime("%w").to_i) + 1 %>
+        <% nextMonthDayNumber = endWeekDayNumber + 1 %>
+        <tr>
+          <!-- first week -->
+          <% if startWeekDayNumber != 0 %>
+            <% for d in Array(0..previousMonthEndNumber) %>
+              <% date = @startDate - (startWeekDayNumber-d).days %>
+                <td class="span1_7 <% if d == 0 %>first<% end %>" data-date="<%= date.strftime("%m-%d-%Y") %>">
+                <div class="day_date"><b><%= date.strftime("%m-%d-%Y") %></b></div>
+                <ul class="sortableImages"></ul>
+              </td>
+            <% end %>
+          <% end %>
 
-  			{{/other_month}}
-        </td>
-  	{{/week_data}}
-      </tr>
-  {{/data}}
-    </tbody>
-  </table>
+          <% for date in arr %>
+            <% weekDayNumber = date.strftime("%w").to_i %>
+            <% if weekDayNumber == 0 %>
+              <!-- on sunday we open a new row -->
+              <tr>
+            <% end %>
+
+            <% data_points = @data_points[date.strftime("%F")] %>
+            <td class="span1_7 <% if weekDayNumber == 0 %>first<% end %>" data-date="<%= date.strftime("%m-%d-%Y") %>">
+              <div class="day_date"><b><%= date.strftime("%m-%d-%Y") %></b></div>
+              <ul class="sortableImages">
+                <% if !data_points.nil? %>
+                  <% data_points.each do |photo| %>
+                    <%= render :partial => "data_points/show/main_photo", :locals => {:data_point => photo} %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </td>
+            <% if weekDayNumber == 6 %>
+              <!-- on monday we close the current row -->
+              </tr>
+            <% end %>
+          <% end %>
+          <!-- last week -->
+          <% if endWeekDayNumber != 6 %>
+            <% for d2 in Array(nextMonthDayNumber..7) %>
+                <% date = @endDate + (d2-endWeekDayNumber).days %>
+                <td class="span1_7" data-date="<%= date.strftime("%m-%d-%Y") %>">
+                <div class="day_date"><b><%= date.strftime("%m-%d-%Y") %></b></div>
+                <ul class="sortableImages"></ul>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+
+      </tbody>
+    </table>
+
+  <% else %>
+    <%= render "data_points/index/empty" %>
+  <% end %>
 </div>
 
-<% end %>
+

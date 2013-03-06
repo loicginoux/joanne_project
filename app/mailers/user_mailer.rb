@@ -64,11 +64,10 @@ class UserMailer < ActionMailer::Base
       @user = user
       html = render :partial => "email/others_commented", :layout => "email"
       RestClient.post MAILGUN[:api_url]+"/messages",
-      :from => MAILGUN[:admin_mailbox],
-      :to => @user.email,
-      :subject => "[FoodRubix] New comment on a meal you commented",
-      :html => html.to_str
-
+        :from => MAILGUN[:admin_mailbox],
+        :to => @user.email,
+        :subject => "[FoodRubix] New comment on a meal you commented",
+        :html => html.to_str
       puts "comment for previous commenters. email sent to: #{user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
     }
 

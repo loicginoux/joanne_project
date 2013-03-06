@@ -8,7 +8,8 @@ class LikeObserver < ActiveRecord::Observer
 
     # send the mail to photo owner
     if !like.onOwnPhoto?
-      UserMailer.added_like_email(dataPoint, like)
+      puts 2.minutes.from_now
+      UserMailer(:run_at => 2.minutes.from_now).added_like_email(dataPoint, like)
     end
 
     unless like.user.is(dataPoint.user)

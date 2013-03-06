@@ -1,1 +1,9 @@
-<%= escape_javascript render("week_photo_list") %>
+<% if @period == "month" %>
+	$("#photos").append("<%= escape_javascript(render :partial => 'data_points/index/month_photo_list') %>");
+<% elsif @period == "week" %>
+	$("#photos").append("<%= escape_javascript(render :partial => 'data_points/index/week_photo_list') %>");
+<% elsif @period == "day" %>
+	$("#photos").append("<%= escape_javascript(render :partial => 'data_points/index/day_photo_list') %>");
+<% end %>
+
+	window.Spine.trigger('data_points:loaded', <%= @graphicDatas %>, '<%= @period %>')

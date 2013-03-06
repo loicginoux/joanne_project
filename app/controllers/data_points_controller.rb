@@ -3,28 +3,44 @@ class DataPointsController < ApplicationController
   before_filter :require_login, :except => [:create]
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
+  helper_method :get_graphic_points
+
+  cache_sweeper :data_point_sweeper
   def index
 
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
       # startDate = Time.zone.parse(params[:start_date])
-      startDate = DateTime.parse(params[:start_date])
+      @startDate = DateTime.parse(params[:start_date])
       # endDate = Time.zone.parse(params[:end_date])
-      endDate = DateTime.parse(params[:end_date])
-      puts "             "
-      puts ">>>>>>>>>>>>> index"
-      puts "start: #{startDate}"
-      puts "end: #{endDate}"
-      puts "             "
-      @data_points = DataPoint.where(
-        :user_id => params[:user_id],
-        :uploaded_at => startDate..endDate
-        )
-      .order("uploaded_at ASC")
+      @endDate = DateTime.parse(params[:end_date])
+      @period = params[:period]
+
+      if @period == "week"
+        weekNb = @startDate.strftime("%U")
+        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
+          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        end
+        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints") do
+          getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        end
+      elsif @period == "month"
+        monthNb = @startDate.strftime("%m")
+        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}") do
+          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        end
+        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints") do
+          getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        end
+      elsif @period == "day"
+        @data_points = DataPoint
+          .where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate)
+          .group_by(&:group_by_criteria)
+        @graphicDatas = getGraphicPoints(@data_points, @startDate, @endDate, @period)
+      end
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.js {  }
-      format.json { render json: @data_points.to_json(:include => [:likes]) }
+      format.js
     end
   end
 
@@ -88,11 +104,11 @@ class DataPointsController < ApplicationController
         else
           @data_point.uploaded_at = Time.zone.now
         end
-        @data_point.photo = params["attachment-1"]
+        @data_point.local_photo = params["attachment-1"]
         puts ">>>>>>>>>>>>> created photo from mailgun"
       else
         # no attachment or no user
-        UserMailer.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
+        UserMailer.delay.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
       end
     # This is data coming from forms
     else
@@ -110,7 +126,6 @@ class DataPointsController < ApplicationController
 
     if @data_point && @data_point.save
       puts "data point after saved: #{@data_point.inspect}"
-
       # publish to facebook
       if user.canPublishOnFacebook?
         user.fb_publish(@data_point)
@@ -135,15 +150,15 @@ class DataPointsController < ApplicationController
   # PUT /data_points/1
   # PUT /data_points/1.json
   def update
-    puts "       "
     puts ">>>>>>>>>>>>> updated photo"
     puts params[:data_point].inspect
-
     @data_point = DataPoint.find(params[:id])
     # if there is no photo in parameter, we remove it to not create an empty photo
     if (params[:data_point].has_key?(:photo) && params[:data_point][:photo].blank?)
       params[:data_point].delete(:photo)
     end
+
+    @data_point.current_user = current_user
     # if params[:data_point]["uploaded_at"]
     #   puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
     #   params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"])
@@ -160,7 +175,7 @@ class DataPointsController < ApplicationController
         format.json { render json: @data_point }
       else
         format.html { render action: "edit" }
-        format.json { render json: @data_point.errors, status: :unprocessable_entity }
+        format.json { render json: @data_point.errors }
       end
     end
   end
@@ -169,12 +184,14 @@ class DataPointsController < ApplicationController
   # DELETE /data_points/1.json
   def destroy
     @data_point = DataPoint.find(params[:id])
-    @data_point.photo.destroy
+
+    @data_point.local_photo.destroy unless @data_point.local_photo_file_size.nil?
+    @data_point.photo.destroy unless @data_point.photo_file_size.nil?
     @data_point.destroy
 
     respond_to do |format|
       format.html { redirect_to user_path(:username => current_user) }
-      format.json { head :no_content }
+      format.json { render :json => { :message => "Success" } }
     end
   end
 
@@ -182,8 +199,10 @@ class DataPointsController < ApplicationController
   def getFileUploadForm
     if params[:id]
       @id = params[:id]
+      render :partial => "data_points/edit/fileInputForm" , :layout => false
+    else
+      render :partial => "data_points/create/fileInputForm" , :layout => false
     end
-    render :partial => "data_points/create/fileInputForm" , :layout => false
   end
 
   def check_for_cancel
@@ -191,4 +210,35 @@ class DataPointsController < ApplicationController
       redirect_to user_path(:username => current_user)
     end
   end
+
+  private
+
+  def getGraphicPoints(data_points, startDate, endDate, period)
+    puts data_points
+    calories = []
+    if @period == "week" || period == "month"
+      arr = Array(@startDate..@endDate)
+      for date in arr
+        data_points = @data_points[date.strftime("%F")]
+        dayCalorie = 0
+        if !data_points.nil?
+          data_points.each do |photo|
+            dayCalorie += photo.calories
+          end
+        end
+        if period == "month"
+          dayCalorie = [(date.beginning_of_day().strftime("%s").to_i) * 1000, dayCalorie]
+        end
+        calories.push(dayCalorie)
+      end
+    else
+      # period = "day"
+      data_points = @data_points[startDate.strftime("%F")]
+      if !data_points.nil?
+        calories = data_points.map(&:calories)
+      end
+    end
+    return calories
+  end
+
 end

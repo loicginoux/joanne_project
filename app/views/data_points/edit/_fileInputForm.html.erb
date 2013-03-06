@@ -1,0 +1,11 @@
+<!-- this is used when uploading the file for a datapoint
+we use a hidden iframe containing this code to be able to manipulate a file file input with javascript
+see: http://stackoverflow.com/questions/9396411/ie-javascript-form-submit-with-file-input
+other solution could have been
+https://github.com/malsup/form/issues/139#issuecomment-4881899
+ -->
+
+ <form id="formFileUpload" class="formFileUpload" name="formFileUpload" action="/data_points/<%= @id %>" method="PUT" enctype="multipart/form-data">
+	<input class=" data_point_local_photo" id="fileInput_<%= @id %>" name="data_point[local_photo]" type="file">
+
+</form>

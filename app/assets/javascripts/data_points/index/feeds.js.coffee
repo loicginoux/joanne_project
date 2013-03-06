@@ -13,7 +13,6 @@ class foodrubix.feeds extends Spine.Controller
 		@controllers = []
 		@loading = false
 		that = @
-
 		feed = if (UTIL.readCookie("feedList")) then UTIL.readCookie("feedList") else "everyone"
 		$(".btn.listToggler."+feed).click()
 

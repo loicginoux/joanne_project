@@ -1,14 +1,15 @@
-<div class="row comment <% if  comment.user.is(current_user)%>own<% end %>" data-id="<%= comment.id %>">
+<% cache ["v1", comment] do %>
+
+
+<div class="row comment" data-id="<%= comment.id %>" user-id="<%= comment.user.id %>">
 	<div class="span1">
 		<%= getPicture(comment.user, "small") %>
 	</div>
 	<div class="commentInfo span3">
-		<% if  comment.user.is(current_user)%>
-			<div class="edit hide">
-				<textarea><%= comment.text %></textarea>
-				<span>Press escape to cancel.</span>
-			</div>
-		<% end %>
+		<div class="edit hide">
+			<textarea><%= comment.text %></textarea>
+			<span>Press escape to cancel.</span>
+		</div>
 		<div class="view">
 			<h5>
 				<div class="pull-right icons">
@@ -19,12 +20,12 @@
 						<i class="icon icon-remove"></i>
 					</a>
 				</div>
-				<!-- <%= getUsername(comment.user) %> <span class="muted">- <%= time_ago_in_words(comment.updated_at)%> ago</span> -->
-				<%= getUsername(comment.user) %> <span class="muted">- <abbr class="timeago" title="<%= comment.updated_at %>"><%= comment.updated_at.to_s(:readable) %></abbr></span>
-
+				<%= getUsername(comment.user) %> - <span class="muted timeago" title="<%= comment.updated_at.to_time.iso8601 %>"><%= comment.updated_at.to_s(:readable) %></span>
 			</h5>
 
 			<p class="commentText"><%= comment.text %></p>
 		</div>
 	</div>
 </div>
+
+<% end %>

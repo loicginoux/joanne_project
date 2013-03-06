@@ -1,33 +1,34 @@
-<div class="image" id="image_{{id}}" data-id="{{id}}" data-toggle="modal" data-target="#modal_view" data-keyboard="false" >
-	<div class="cbm_wrap">
-		{{#ribbon}}
-		<div class="ribbon-wrapper right small">
-        	<div class="ribbon">
-            	<span>{{ribbon}}</span>
-        	</div>
-    	</div>
-    	{{/ribbon}}
+<% cache [data_point, "v1", "main_photo"] do %>
 
-		<img class="thumb" src="//<%= CLOUDFRONT_CREDENTIALS[:host] %>/photos/{{img_path}}"  />
+
+<div class="image" id="image_<%= data_point.id %>" data-id="<%= data_point.id %>" data-toggle="modal" data-target="#modal_view" data-keyboard="false" >
+	<div class="cbm_wrap">
+		<%= render :partial => "data_points/show/photo", :locals => {
+			:data_point => data_point, :size => "medium"
+		} %>
+
+
 		<div class="overlay">
 			<div>
 			<span class="label label-info">
-				<span class="nbCalories">{{calories}} cal</span>
+				<span class="nbCalories"><%= data_point.calories %> cal</span>
 			</span>
 			<span class="label label-info">
-				<span class="time">{{uploaded_at_readable}}</span>
+				<span class="time"><%= data_point.uploaded_at.strftime("%l:%M %p") %></span>
 			</span>
 			</div>
 			<div>
 			<span class="label label-info">
-				<span class="nbComments">{{nb_comments}}</span>
+				<span class="nbComments"><%= data_point.nb_comments %></span>
 				<i class="icon-comment"></i>
 			</span>
-			<span class="label label-info like {{liked}}" like-id="{{like_id}}">
-				<span class="nbLikes">{{nb_likes}}</span>
-				<i class="{{like_class}}"></i>
+			<span class="label label-info like">
+				<span class="nbLikes"><%= data_point.nb_likes %></span>
+				<i class="icon-thumbs-up"></i>
 			</span>
 			</div>
 		</div>
 	</div>
 </div>
+
+<% end %>

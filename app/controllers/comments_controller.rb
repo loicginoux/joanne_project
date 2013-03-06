@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
         format.json { render json: @comment}
       else
         format.html { render action: "new" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.json { render json: @comment.errors }
       end
     end
   end
@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
   # # PUT /comments/1.json
   def update
     @comment = Comment.find(params[:id])
-
+    @comment.current_user = current_user
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         # delete cache for comments
@@ -72,7 +72,7 @@ class CommentsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.json { render json: @comment.errors }
       end
     end
   end

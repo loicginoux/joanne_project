@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  #########################
+  # Virtual attributes
+  #########################
+  attr_accessor :noObserver
+
+  #########################
+  # Validators
+  #########################
   validates :username,
     :presence => true,
     :uniqueness => { :case_sensitive => false }
@@ -10,9 +18,14 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :presence => true,
     :on => :create
+  validates_attachment_size :local_picture, :less_than=>3.megabyte
   validates_attachment_size :picture, :less_than=>3.megabyte
   validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
+  validates_attachment_content_type :local_picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
 
+  #########################
+  # Authlogic
+  #########################
   acts_as_authentic do |c|
     c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
     c.merge_validates_length_of_password_field_options(:minimum => 6)
@@ -24,6 +37,9 @@ class User < ActiveRecord::Base
   disable_perishable_token_maintenance(true)
   before_validation :reset_perishable_token!, :on => :create
 
+  #########################
+  # Associations
+  #########################
   has_many :authentications, :dependent => :destroy, :autosave => true
 
   has_many :friendships, :dependent => :destroy
@@ -41,6 +57,20 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authentications
   accepts_nested_attributes_for :preference
 
+  #########################
+  # Paperclip attachements
+  #########################
+  has_attached_file :local_picture,
+    :styles => {
+      :small => ["50x50#",:jpg],
+      :medium => ["200x200#",:jpg]
+    },
+    :convert_options => { :all => '-auto-orient' },
+    :default_url => '/assets/default_user_:style.gif',
+    :url => '/assets/:class/:attachment/:id/:style.:extension',
+    :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
+
+
   has_attached_file :picture,
     :styles => {
       :small => ["50x50#",:jpg],
@@ -56,6 +86,9 @@ class User < ActiveRecord::Base
     :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
     :s3_permissions => :public_read
 
+  #########################
+  # Scopes
+  #########################
   scope :without_user, lambda{|user| user ? {:conditions => ["users.id != ?", user.id]} : {} }
   scope :without_followees, lambda{|followee_ids| User.where("id NOT IN (?)", followee_ids) unless followee_ids.empty? }
   scope :confirmed, where(:confirmed => true)
@@ -73,6 +106,15 @@ class User < ActiveRecord::Base
 
 
 
+  #########################
+  # Callbacks
+  #########################
+  after_save :queue_upload_to_s3
+
+
+  #########################
+  # Methods
+  #########################
 
   # leaderboard points for each action
   LEADERBOARD_ACTION_VALUE = {
@@ -99,7 +141,7 @@ class User < ActiveRecord::Base
 
   def deliver_confirm_email_instructions!
     reset_perishable_token!
-    UserMailer.verify_account_email(self)
+    UserMailer.delay.verify_account_email(self)
   end
 
 
@@ -123,7 +165,7 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.reset_password_email(self)
+    UserMailer.delay.reset_password_email(self)
   end
 
   def to_param
@@ -211,7 +253,7 @@ class User < ActiveRecord::Base
       user = user.fetch
       user.feed!(
         :message =>  "This is what I've been eating. What have you been eating?",
-        :picture => data_point.photo.url(:medium),
+        :picture => data_point.pic().url(:medium),
         :name => 'FoodRubix',
         :link => 'http://www.foodrubix.com',
         :description => "a super cool visual food journal - the easiest way to track what you're eating"
@@ -220,10 +262,7 @@ class User < ActiveRecord::Base
   end
 
   def like(data_point)
-    return Like.where(
-      :user_id => self.id,
-      :data_point_id => data_point.id
-    ).first
+    return data_point.likes.where(:user_id => self.id).first
   end
 
   def getEmailProviderUrl()
@@ -358,6 +397,13 @@ class User < ActiveRecord::Base
     self.addPoints(-points, onMonthlyLeaderboard)
   end
 
+  def now()
+    Time.zone = self.timezone
+    now = Time.zone.now
+    Time.zone = Rails.application.config.time_zone
+    return now
+  end
+
   def timezone_offset()
     Time.zone = self.timezone
     offset = Time.zone.now.utc_offset
@@ -378,5 +424,47 @@ class User < ActiveRecord::Base
   end
 
 
+  def queue_upload_to_s3()
+    if self.local_picture_updated_at_changed? && !self.local_picture_updated_at.nil?
+      self.delay.upload_to_s3
+      self.delay({:run_at => 3.minutes.from_now}).delete_local_picture
+    end
+  end
 
+  def upload_to_s3
+    self.picture = self.local_picture
+    self.save
+  end
+
+  def delete_local_picture
+    if !self.picture_updated_at.nil?
+      User.skip_callback(:save)
+      self.local_picture = nil
+      self.save
+      User.set_callback(:save)
+   end
+  end
+
+  def pic()
+    (self.picture?) ? self.picture : self.local_picture
+  end
+
+  # # see http://quickleft.com/blog/faking-regex-based-cache-keys-in-rails
+  # # this iterator allow to fake Regex-Based Cache Keys in Rails
+  # # we increment to flush the cash for this user
+  # def increment_memcache_iterator()
+  #   Rails.cache.write("user-#{self.id}-memcache-iterator", self.memcache_iterator() + 1)
+  # end
+
+  # def memcache_iterator()
+  #   # fetch the user's memcache key
+  #   # If there isn't one yet, assign it a random integer between 0 and 10
+  #   Rails.cache.fetch("/user/#{self.id}/memcache-iterator") do
+  #      return "1"
+  #   end
+  # end
+
+  # def iterative_cache_key()
+  #   "/user/#{self.id}/memcache-iterator/#{self.memcache_iterator()}"
+  # end
 end

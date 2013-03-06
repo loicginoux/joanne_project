@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   before_filter :require_login
-
+  cache_sweeper :friendship_sweeper
   # GET /friendships
   # GET /friendships.json
   def index
@@ -52,8 +52,7 @@ class FriendshipsController < ApplicationController
   def create
     # create friendship record
     @friendship = current_user.friendships.build(:followee_id => params[:followee])
-    # delete cached frends for current_user
-    Rails.cache.delete("/user/#{current_user.id}/friendships")
+
     # get followee user record
     followee = User.select(:username).find(params[:followee])
     redirect = (params[:redirect_to]) ? params[:redirect_to] : user_path(:username=> followee.username)
@@ -71,7 +70,6 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1.json
   def destroy
     @friendship = Friendship.find(params[:id])
-    Rails.cache.delete("/user/#{@friendship.user_id}/friendships")
     @friendship.destroy
     redirect = (params[:redirect_to]) ? params[:redirect_to] : users_path
     respond_to do |format|

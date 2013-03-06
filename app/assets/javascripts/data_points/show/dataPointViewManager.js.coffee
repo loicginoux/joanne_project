@@ -55,17 +55,19 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	init: () ->
 		@id = @el.find(".info").attr('data-id')
-		@userId = $("body").attr("data-user")
+		@userId = gon.current_user_id
+		@datapoint_userId = parseInt(@el.attr("data-user-id"))
 		@nbLikes = parseInt(@nbLikesHTML.text()) || 0
 		@nbComments = parseInt(@nbCommentsHTML.text()) || 0
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
 		# replace time ago
-		jQuery("abbr.timeago").timeago();
+		jQuery(".timeago").timeago();
 		commentController = new foodrubix.CommentListController({
 			el: @el.find(".comments"),
 			master: @
 			})
+		$(".current_user_action").removeClass("hide") if @userId == @datapoint_userId
 
 
 	refreshComments: () =>
@@ -139,22 +141,22 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 				@master.el
 					.find("#image_"+@id+ " span.nbLikes")
 					.html(@nbLikes)
-					.parent(".label-info")
-					.addClass("liked")
-					.attr("like-id", id)
-					.find("i")
-					.addClass("icon-thumbs-down")
-					.removeClass("icon-thumbs-up")
+					# .parent(".label-info")
+					# .addClass("liked")
+					# .attr("like-id", id)
+					# .find("i")
+					# .addClass("icon-thumbs-down")
+					# .removeClass("icon-thumbs-up")
 			else if which == "unlike"
 				@master.el
 					.find("#image_"+@id+ " span.nbLikes")
 					.html(@nbLikes)
-					.parent(".label-info")
-					.removeClass("liked")
-					.attr("like-id", '')
-					.find("i")
-					.removeClass("icon-thumbs-down")
-					.addClass("icon-thumbs-up")
+					# .parent(".label-info")
+					# .removeClass("liked")
+					# .attr("like-id", '')
+					# .find("i")
+					# .removeClass("icon-thumbs-down")
+					# .addClass("icon-thumbs-up")
 
 	like: () =>
 		if @btnLike.attr("disabled")
@@ -224,14 +226,14 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		          type: "DELETE",
 		          url: '/data_points/'+@id+'.json',
 		          dataType: dataType,
-		          success: @onSuccessDelete
+		          success: @onSuccessDelete.bind(@)
 		})
 
 	onSuccessDelete:(e) ->
 		if @master
 			@master.onSuccessAjax(e)
 		else
-			window.location.href = "/"+@el.attr("data-username")
+			window.location.href = "/"
 
 	onSuccessUpdate:(e) ->
 		if @master

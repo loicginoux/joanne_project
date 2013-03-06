@@ -6,6 +6,13 @@ window.foodrubix =
 	friendships: {}
 
 foodrubix.common.init = () ->
+	# get correct navigation bar
+	if parseInt($("body").attr("data-user")) == gon.current_user_id
+		$(".current_user_menu").removeClass("hide")
+	else
+		$(".other_user").removeClass("hide")
+
+	# get user agent
 	ua = navigator.userAgent.toLowerCase()
 	if typeof gon == "undefined"
 		window.gon = {}
