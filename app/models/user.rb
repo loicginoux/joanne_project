@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
   end
 
   def isFollowing(followee)
-    followees = Rails.cache.fetch("/user/#{id}/friendships") do
+    followees = Rails.cache.fetch("/user/#{self.id}/friendships") do
        Friendship.where(:user_id => self.id)
     end
     followees.select { |f| f.followee_id == followee.id }

@@ -3,7 +3,6 @@ namespace :cache do
 task :flush => :environment do
 	puts "Flush Cache..."
   	require 'dalli'
-    require 'memcachier'
     dc = Dalli::Client.new
     dc.flush
 
