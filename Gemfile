@@ -94,7 +94,7 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'unicorn'
 
 # memcache
-gem 'memcachier'
+# gem 'memcachier'
 gem 'dalli'
 gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
 
