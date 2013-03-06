@@ -37,8 +37,8 @@ class DataPoint < ActiveRecord::Base
     },
     :convert_options => { :all => '-auto-orient' },
     :default_url => '/assets/not-available.jpg',
-    :url => "/assets/:class/:attachment/:id/:style.:extension",
-    :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
+    :url => "/system/:class/:attachment/:id/:style.:extension",
+    :path => ":rails_root/public/system/:class/:attachment/:id/:style.:extension"
 
   has_attached_file :photo,
     :styles => {
