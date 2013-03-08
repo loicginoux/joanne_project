@@ -58,7 +58,6 @@ class UserMailer < ActionMailer::Base
   def others_commented_email(dataPoint, comment, users)
     @dataPoint = dataPoint
     @comment = comment
-    puts "users to be notified >>>>>"
     # [*users] converts one object into an array to run each against one element only
     [*users].each {|user|
       @user = user

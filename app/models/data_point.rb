@@ -51,8 +51,8 @@ class DataPoint < ActiveRecord::Base
     :bucket => S3_CREDENTIALS[:bucket],
     :path => ":attachment/:id/:style.:extension",
     :default_url => '/assets/not-available.jpg',
-    # :url => ':s3_alias_url',
-    # :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+    :url => ':s3_alias_url',
+    :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
     :s3_credentials => S3_CREDENTIALS,
     :s3_permissions => :public_read
 

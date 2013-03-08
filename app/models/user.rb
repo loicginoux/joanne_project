@@ -97,12 +97,9 @@ class User < ActiveRecord::Base
   scope :inactive, where(:active => false)
   scope :visible, where(:hidden => false)
   scope :latest_members, lambda {||
-    ret = Rails.cache.read("latests_members")
-    if ret.nil?
-      ret = User.confirmed().active().visible().includes(:preference).order("created_at desc")
-      Rails.cache.write("latests_members", ret)
+    ret = Rails.cache.fetch("latests_members") do
+      User.confirmed().active().visible().includes(:preference).order("created_at desc")
     end
-    return ret
   }
   scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
   scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
@@ -192,18 +189,8 @@ class User < ActiveRecord::Base
   end
 
   def isFollowing(followee)
-    cacheKey = "/user/#{self.id}/friendships"
-    puts " "; puts ">>>>>>>>>>>>>>>>>>"
-    puts cacheKey
-    puts Rails.cache.exist?(cacheKey)
-    puts ">>>>>>>>>>>>>>>>>";puts " "
-    if Rails.cache.exist?(cacheKey)
-      puts "does exist"
-      followees = Rails.cache.read(cacheKey)
-    else
-      puts "doens't exist"
-      followees =  Friendship.where(:user_id => self.id)
-      Rails.cache.write(cacheKey, followees)
+    followees = Rails.cache.fetch("/user/#{self.id}/friendships") do
+      Friendship.where(:user_id => self.id)
     end
     followees.select { |f| f.followee_id == followee.id }
   end

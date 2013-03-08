@@ -17,12 +17,20 @@ class DataPointsController < ApplicationController
 
       if @period == "week"
         weekNb = @startDate.strftime("%U")
-        @data_points = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}", DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria))
-        @graphicDatas = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints", getGraphicPoints(@data_points, @startDate, @endDate, @period))
+        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
+          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        end
+        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints") do
+          getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        end
       elsif @period == "month"
         monthNb = @startDate.strftime("%m")
-        @data_points = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}", DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria))
-        @graphicDatas = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints", getGraphicPoints(@data_points, @startDate, @endDate, @period))
+        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}") do
+          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        end
+        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints") do
+          getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        end
       elsif @period == "day"
         @data_points = DataPoint
           .where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate)
