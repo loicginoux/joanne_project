@@ -106,6 +106,7 @@ gem 'cache_digests'
 gem "asset_sync"
 
 # asynchronous jobs
+gem 'daemons'
 gem 'delayed_job_active_record'
 
 

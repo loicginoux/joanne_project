@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
 
   def deliver_confirm_email_instructions!
     reset_perishable_token!
-    UserMailer.delay.verify_account_email(self)
+    UserMailer.verify_account_email(self)
   end
 
 
@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.delay.reset_password_email(self)
+    UserMailer.reset_password_email(self)
   end
 
   def to_param

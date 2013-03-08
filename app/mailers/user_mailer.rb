@@ -1,6 +1,8 @@
 require 'rest_client'
 
 class UserMailer < ActionMailer::Base
+  # all these methods should be handle_asynchronously  (check at bottom)
+
   def image_upload_not_working(email, user, attachment)
     @user = user
     @email = email
@@ -181,4 +183,13 @@ class UserMailer < ActionMailer::Base
     }
   end
 
+  handle_asynchronously :image_upload_not_working
+  handle_asynchronously :reset_password_email
+  handle_asynchronously :verify_account_email
+  handle_asynchronously :comment_on_your_photo_email
+  handle_asynchronously :others_commented_email
+  handle_asynchronously :added_like_email
+  handle_asynchronously :new_follower_email
+  handle_asynchronously :weekly_recap_email
+  handle_asynchronously :daily_recap_email
 end

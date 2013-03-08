@@ -5,7 +5,7 @@ desc "send weekly email recap to users"
 task :send_weekly_email => :environment do
   puts "sending weekly emails: start at #{Time.now.utc}"
 	users = User.includes(:preference).confirmed().active().where("preferences.weekly_email" => true)
-	UserMailer.delay.weekly_recap_email(users)
+	UserMailer.weekly_recap_email(users)
 	puts "sending weekly emails: done"
 end
 
@@ -16,6 +16,6 @@ desc "send daily email recap to users"
 task :send_daily_email => :environment do
   	puts "sending daily emails: start at #{Time.now.utc}"
 	users = User.includes(:preference).confirmed().active().where("preferences.daily_email" => true)
-	UserMailer.delay.daily_recap_email(users)
+	UserMailer.daily_recap_email(users)
 	puts "sending daily email: done"
 end

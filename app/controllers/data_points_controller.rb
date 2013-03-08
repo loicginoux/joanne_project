@@ -109,7 +109,7 @@ class DataPointsController < ApplicationController
         puts ">>>>>>>>>>>>> created photo from mailgun"
       else
         # no attachment or no user
-        UserMailer.delay.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
+        UserMailer.image_upload_not_working(params["sender"].downcase, user, params["attachment-1"])
       end
     # This is data coming from forms
     else

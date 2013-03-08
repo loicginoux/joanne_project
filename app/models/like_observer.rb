@@ -8,7 +8,7 @@ class LikeObserver < ActiveRecord::Observer
 
     # send the mail to photo owner
     puts "usermail.dealy like"
-    UserMailer.delay.added_like_email(dataPoint, like) unless like.onOwnPhoto?
+    UserMailer.added_like_email(dataPoint, like) unless like.onOwnPhoto?
 
     unless like.user.is(dataPoint.user)
       isOnCurrentMonth = (like.created_at >= Date.today.beginning_of_month())

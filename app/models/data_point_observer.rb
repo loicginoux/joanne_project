@@ -35,8 +35,7 @@ class DataPointObserver < ActiveRecord::Observer
     if data_point.smart_choice_award_changed?
       if data_point.smart_choice_award && !data_point.smart_choice_award_was
         data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
-        # we notify the photo owner
-        # UserMailer.delay.smart_choice_award_email(data_point)
+
 
       elsif !data_point.smart_choice_award && data_point.smart_choice_award_was
         data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
