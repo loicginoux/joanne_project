@@ -111,7 +111,7 @@ gem 'delayed_job_active_record'
 
 # better management of heroku worker process
 # gem 'hirefire'
-# gem "workless"
+gem "workless"
 
 
 # To use ActiveModel has_secure_password
