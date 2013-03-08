@@ -192,10 +192,12 @@ class User < ActiveRecord::Base
   end
 
   def isFollowing(followee)
-    followees = Rails.cache.read("/user/#{self.id}/friendships")
-    if followees.nil?
+    cacheKey = "/user/#{self.id}/friendships"
+    if Rails.cache.exist?(cacheKey)
+      followees = Rails.cache.read(cacheKey)
+    else
       followees =  Friendship.where(:user_id => self.id)
-      Rails.cache.write("/user/#{self.id}/friendships", followees)
+      Rails.cache.write(cacheKey, followees)
     end
     followees.select { |f| f.followee_id == followee.id }
   end
