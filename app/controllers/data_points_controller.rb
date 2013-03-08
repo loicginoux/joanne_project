@@ -17,16 +17,27 @@ class DataPointsController < ApplicationController
 
       if @period == "week"
         weekNb = @startDate.strftime("%U")
-        puts " "
-        puts "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}"
-        puts Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}")
-        puts " "
-        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
-          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        cacheKey = "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}"
+        puts "----"
+        puts cacheKey
+        puts "----"
+        @data_points = Rails.cache.read(cacheKey)
+        if @data_points.nil?
+          @data_points = DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+          Rails.cache.write(cacheKey, @data_points)
         end
-        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints") do
-          getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        # @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
+        #   DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
+        # end
+        cacheKey = "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints"
+        @graphicDatas = Rails.cache.read(cacheKey)
+        if @graphicDatas.nil?
+          @graphicDatas = getGraphicPoints(@data_points, @startDate, @endDate, @period)
+          Rails.cache.write(cacheKey, @graphicDatas)
         end
+        # @graphicDatas = Rails.cache.fetch() do
+        #   getGraphicPoints(@data_points, @startDate, @endDate, @period)
+        # end
       elsif @period == "month"
         monthNb = @startDate.strftime("%m")
         @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}") do
