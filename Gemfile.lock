@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/defconomicron/dalli-store-extensions.git
-  revision: 04145d3e8c79768333d5adfdadef6ba91fae5de3
-  specs:
-    dalli-store-extensions (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -291,7 +285,6 @@ DEPENDENCIES
   cocaine (= 0.3.2)
   coffee-rails (~> 3.2.1)
   dalli
-  dalli-store-extensions!
   delayed_job_active_record
   fb_graph
   gon

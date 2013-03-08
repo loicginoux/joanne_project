@@ -96,7 +96,7 @@ gem 'unicorn'
 # memcache
 # gem 'memcachier'
 gem 'dalli'
-gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
+# gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
 
 
 # better fragment caching
