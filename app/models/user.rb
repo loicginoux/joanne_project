@@ -97,9 +97,12 @@ class User < ActiveRecord::Base
   scope :inactive, where(:active => false)
   scope :visible, where(:hidden => false)
   scope :latest_members, lambda {||
-    Rails.cache.fetch("latests_members") do
-      User.confirmed().active().visible().includes(:preference).order("created_at desc")
+    ret = Rails.cache.read("latests_members")
+    if ret.nil?
+      ret = User.confirmed().active().visible().includes(:preference).order("created_at desc")
+      Rails.cache.write("latests_members", ret)
     end
+    return ret
   }
   scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
   scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
@@ -189,8 +192,10 @@ class User < ActiveRecord::Base
   end
 
   def isFollowing(followee)
-    followees = Rails.cache.fetch("/user/#{self.id}/friendships") do
-       Friendship.where(:user_id => self.id)
+    followees = Rails.cache.read("/user/#{self.id}/friendships")
+    if followees.nil?
+      followees =  Friendship.where(:user_id => self.id)
+      Rails.cache.write("/user/#{self.id}/friendships", followees)
     end
     followees.select { |f| f.followee_id == followee.id }
   end

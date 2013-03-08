@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :mailer_set_url_options
   # before_filter :set_timezone
   helper_method :current_user
+  helper_method :cache_fetch
   helper_method :getDateFromParam
 
 
@@ -86,5 +87,12 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-
+  def cache_fetch(cacheKey, data)
+    ret = Rails.cache.read(cacheKey)
+    if ret.nil?
+      ret = data
+      Rails.cache.write(cacheKey, data)
+    end
+    return ret
+  end
 end

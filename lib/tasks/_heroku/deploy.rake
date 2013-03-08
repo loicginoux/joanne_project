@@ -4,6 +4,11 @@
     :production => "heroku" #'quiet-summer-5721'
   }
 
+  HEROKU_APP = {
+    :staging => 'calm-gorge-1213',
+    :production => 'quiet-summer-5721'
+  }
+
   namespace :deploy do
     ENVIRONMENTS.keys.each do |env|
       desc "Deploy to #{env}"

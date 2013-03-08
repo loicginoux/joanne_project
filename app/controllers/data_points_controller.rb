@@ -17,35 +17,12 @@ class DataPointsController < ApplicationController
 
       if @period == "week"
         weekNb = @startDate.strftime("%U")
-        cacheKey = "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}"
-        puts "----"
-        puts cacheKey
-        puts "----"
-        @data_points = Rails.cache.read(cacheKey)
-        if @data_points.nil?
-          @data_points = DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
-          Rails.cache.write(cacheKey, @data_points)
-        end
-        # @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
-        #   DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
-        # end
-        cacheKey = "/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints"
-        @graphicDatas = Rails.cache.read(cacheKey)
-        if @graphicDatas.nil?
-          @graphicDatas = getGraphicPoints(@data_points, @startDate, @endDate, @period)
-          Rails.cache.write(cacheKey, @graphicDatas)
-        end
-        # @graphicDatas = Rails.cache.fetch() do
-        #   getGraphicPoints(@data_points, @startDate, @endDate, @period)
-        # end
+        @data_points = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}", DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria))
+        @graphicDatas = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints", getGraphicPoints(@data_points, @startDate, @endDate, @period))
       elsif @period == "month"
         monthNb = @startDate.strftime("%m")
-        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}") do
-          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria)
-        end
-        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints") do
-          getGraphicPoints(@data_points, @startDate, @endDate, @period)
-        end
+        @data_points = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}", DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).group_by(&:group_by_criteria))
+        @graphicDatas = cache_fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints", getGraphicPoints(@data_points, @startDate, @endDate, @period))
       elsif @period == "day"
         @data_points = DataPoint
           .where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate)
