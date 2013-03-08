@@ -13,15 +13,9 @@ namespace :cache do
 	end
 end
 
-namespace :cache do
-	task :test => :environment do
-		`heroku run rake cache:flush`
-	end
-end
 
-namespace :deploy do
-  task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
-  	`which heroku`
-		`heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}`
-  end
-end
+# namespace :deploy do
+#   task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
+# 		`heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}`
+#   end
+# end
