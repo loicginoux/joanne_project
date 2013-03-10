@@ -5,16 +5,11 @@ class CommentObserver < ActiveRecord::Observer
 
     # we notify the photo owner
     puts "usermail.dealy comment"
-    UserMailer.comment_on_your_photo_email(dataPoint, comment) unless comment.onOwnPhoto?
+    UserMailer.comment_on_your_photo_email(comment.id) unless comment.onOwnPhoto?
 
     # we notify the previous commenters
-    # compact remove the nil elements
-    previousCommenters = dataPoint.comments.map { |com|
-      com.user unless (com.user.is(comment.user) || com.user.is(dataPoint.user))
-    }.compact.uniq
-    if previousCommenters.length > 0
-      UserMailer.others_commented_email(dataPoint, comment, previousCommenters)
-    end
+    UserMailer.others_commented_email(comment)
+
 
     # we update the number of comments for the datapoint
     dataPoint.update_attribute("nb_comments", dataPoint.nb_comments+1)

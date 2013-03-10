@@ -129,7 +129,8 @@ class User < ActiveRecord::Base
     :daily_calories_limit => 5,
     :fb_sharing => 10,
     :hot_photo_award => 3,
-    :smart_choice_award => 5
+    :smart_choice_award => 5,
+    :joining_goal => 5 # fill in the joining goal field
   }
 
   #cancan gem
@@ -141,7 +142,7 @@ class User < ActiveRecord::Base
 
   def deliver_confirm_email_instructions!
     reset_perishable_token!
-    UserMailer.verify_account_email(self)
+    UserMailer.verify_account_email(self.id)
   end
 
 
@@ -165,7 +166,7 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.reset_password_email(self)
+    UserMailer.reset_password_email(self.id)
   end
 
   def to_param
@@ -293,6 +294,7 @@ class User < ActiveRecord::Base
     points += fb_sharing_points()
     points += smart_choice_award_points(monthly)
     points += hot_photo_award_points(monthly)
+    points += joining_goal_points()
     return points
   end
 
@@ -343,6 +345,7 @@ class User < ActiveRecord::Base
     (self.picture.nil?) ? 0 : User::LEADERBOARD_ACTION_VALUE[:profile_photo]
   end
 
+
   def daily_calories_limit_points()
     (self.preference.daily_calories_limit == 0) ? 0 : User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
   end
@@ -350,6 +353,11 @@ class User < ActiveRecord::Base
   def fb_sharing_points()
     (self.preference.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
   end
+
+  def joining_goal_points()
+    (self.preference.joining_goal) ? User::LEADERBOARD_ACTION_VALUE[:joining_goal] : 0
+  end
+
 
   def smart_choice_award_points(monthly = false)
     dp = self.data_points.smart_choice_awarded()

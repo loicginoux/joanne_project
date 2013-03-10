@@ -6,11 +6,11 @@ require 'rest_client'
 #
 class UserMailer < ActionMailer::Base
 
-  def image_upload_not_working(email, user, attachment)
+  def image_upload_not_working(email, attachment)
     # this need to be put to avoid issue
     # http://stackoverflow.com/questions/4452149/rails-3-abandon-sending-mail-within-actionmailer-action
     self.message.perform_deliveries = false
-    @user = user
+    @user = User.find_by_email(email)
     @email = email
     @attachment = attachment
     html = render :partial => "email/image_upload_not_working", :layout => "email"
@@ -21,43 +21,40 @@ class UserMailer < ActionMailer::Base
       :subject => "[FoodRubix] Wrong email used to upload a photo",
       :html => html.to_str
   end
-  # handle_asynchronously :image_upload_not_working
 
-  def reset_password_email(user)
+  def reset_password_email(user_id)
     self.message.perform_deliveries = false
-    @user = user
-    @reset_url = edit_password_reset_url(user.perishable_token)
+    @user = User.find(user_id)
+    @reset_url = edit_password_reset_url(@user.perishable_token)
     html = render :partial => "email/reset_password", :layout => "email"
-    puts "password reset email sent to: #{user.email}"
+    puts "password reset email sent to: #{@user.email}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
-      :to => user.email,
+      :to => @user.email,
       :subject => "[FoodRubix] Password Reset",
       :html => html.to_str
   end
-  # handle_asynchronously :reset_password_email
 
-  def verify_account_email(user)
+  def verify_account_email(user_id)
     self.message.perform_deliveries = false
-    @user = user
-    @verification_url = user_verification_url(user.perishable_token)
+    @user = User.find(user_id)
+    @verification_url = user_verification_url(@user.perishable_token)
     html = render :partial => "email/verify_account", :layout => "email"
-    puts "account verification email sent to: #{user.email} with url #{@verification_url}"
+    puts "account verification email sent to: #{@user.email} with url #{@verification_url}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
-      :to => user.email,
+      :to => @user.email,
       :subject => "[FoodRubix] Verify your account",
       :html => html.to_str
   end
-  # handle_asynchronously :verify_account_email
 
 
   # this mail is sent to the owner of a photo
-  def comment_on_your_photo_email(dataPoint, comment)
+  def comment_on_your_photo_email(comment_id)
     self.message.perform_deliveries = false
-    @dataPoint = dataPoint
-    @comment = comment
-    @user = dataPoint.user
+    @comment = Comment.find(comment_id)
+    @dataPoint = DataPoint.find(@comment.data_point_id)
+    @user = @dataPoint.user
     html = render :partial => "email/comment_on_your_photo", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
@@ -65,29 +62,37 @@ class UserMailer < ActionMailer::Base
       :subject => "[FoodRubix] New comment on your meal",
       :html => html.to_str
 
-    puts "new comment on your meal. email sent to: #{dataPoint.user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
+    puts "new comment on your meal. email sent to: #{@user.email}, comment_id: #{@comment.id}, data_point_id: #{@dataPoint.id}"
   end
-  # handle_asynchronously :comment_on_your_photo_email
+
 
   # this mail is sent to the previous people who commented a photo
   # to notify them there is a new comment
-  def others_commented_email(dataPoint, comment, users)
+  def others_commented_email(comment_id)
     self.message.perform_deliveries = false
-    @dataPoint = dataPoint
-    @comment = comment
-    # [*users] converts one object into an array to run each against one element only
-    [*users].each {|user|
-      @user = user
-      html = render :partial => "email/others_commented", :layout => "email"
-      RestClient.post MAILGUN[:api_url]+"/messages",
-        :from => MAILGUN[:admin_mailbox],
-        :to => @user.email,
-        :subject => "[FoodRubix] New comment on a meal you commented",
-        :html => html.to_str
-      puts "comment for previous commenters. email sent to: #{user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
-    }
+
+    @comment = Comment.find(comment_id)
+    @dataPoint = DataPoint.find(@comment.data_point_id)
+
+    # we notify the previous commenters
+    # compact remove the nil elements
+    previousCommenters = @dataPoint.comments.map { |com|
+      com.user unless (com.user.is(@comment.user) || com.user.is(@dataPoint.user))
+    }.compact.uniq
+    if previousCommenters.length > 0
+      # [*users] converts one object into an array to run each against one element only
+      [*previousCommenters].each {|user|
+        @user = user
+        html = render :partial => "email/others_commented", :layout => "email"
+        RestClient.post MAILGUN[:api_url]+"/messages",
+          :from => MAILGUN[:admin_mailbox],
+          :to => @user.email,
+          :subject => "[FoodRubix] New comment on a meal you commented",
+          :html => html.to_str
+        puts "comment for previous commenters. email sent to: #{@user.email}, comment_id: #{@comment.id}, data_point_id: #{@dataPoint.id}"
+      }
+    end
   end
-  # handle_asynchronously :others_commented_email
 
   def added_like_email(data_point_id, like_id)
     self.message.perform_deliveries = false
@@ -103,27 +108,27 @@ class UserMailer < ActionMailer::Base
       :html => html.to_str
     Rails.logger.debug("new like email sent to: #{@user.email}, like_id: #{@like.id}, data_point_id: #{@dataPoint.id}")
   end
-  # handle_asynchronously :added_like_email
 
 
 
-  def new_follower_email(followee, follower)
+  def new_follower_email(followee_id, follower_id)
     self.message.perform_deliveries = false
-    @followee = followee
-    @follower = follower
-    @user = followee
+    @followee = User.find(followee_id)
+    @follower = User.find(follower_id)
+    @user = @followee
     html = render :partial => "email/new_follower", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
-      :to => followee.email,
-      :subject => "[FoodRubix] #{follower.username.capitalize} is now following you",
+      :to => @followee.email,
+      :subject => "[FoodRubix] #{@follower.username.capitalize} is now following you",
       :html => html.to_str
-    puts "new follower email sent to: #{followee.email}, follower_id: #{follower.id}"
+    puts "new follower email sent to: #{@followee.email}, follower_id: #{@follower.id}"
   end
   # handle_asynchronously :new_follower_email
 
-  def weekly_recap_email(users)
+  def weekly_recap_email()
     self.message.perform_deliveries = false
+    users = User.includes(:preference).confirmed().active().where("preferences.weekly_email" => true)
     @leaderboard_users = User.monthly_leaderboard().limit(20)
     users.each {|user|
       Time.zone = user.timezone
@@ -160,11 +165,10 @@ class UserMailer < ActionMailer::Base
   end
   # handle_asynchronously :weekly_recap_email
 
-  def daily_recap_email(users)
+  def daily_recap_email()
     self.message.perform_deliveries = false
+    users = User.includes(:preference).confirmed().active().where("preferences.daily_email" => true)
     @leaderboard_users = User.monthly_leaderboard().limit(20)
-
-
     users.each {|user|
 
       Time.zone = user.timezone

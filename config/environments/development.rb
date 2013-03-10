@@ -72,7 +72,8 @@ Foodrubix::Application.configure do
   )
 
   # worker configuration with delayed_job + workless
-  config.after_initialize do
-    Delayed::Job.scaler = :local
-  end
+  # config.after_initialize do
+  #   Delayed::Job.scaler = :local
+  # end
+
 end

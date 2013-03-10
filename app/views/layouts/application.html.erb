@@ -11,14 +11,10 @@
 		<![endif]-->
 		<%= javascript_include_tag "application" %>
 
-
-
-
 		<%= csrf_meta_tags %>
 	</head>
-	<%= user = @user || current_user %>
-	<body data-controller="<%= controller_name %>" data-action="<%= action_name %>" data-user="<% if user %><%= user.id %><% end %>">
-		<div id="wrapper">
+	<% user = @user || current_user %>
+	<body data-controller="<%= controller_name %>" data-action="<%= action_name %>" data-user="<% unless user.nil? %><%= user.id %><% end %>"><div id="wrapper">
 
 			<%= render :partial =>"layouts/navigation_bar", :locals => {:user => user} %>
 

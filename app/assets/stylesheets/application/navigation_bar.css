@@ -37,6 +37,10 @@
 	color: black;
 }
 
+.hi_current_user.hide, li.current_user_menu.hide{
+	display: none;
+}
+
 .navbar .user_pic{
 	float: left;
 	margin-top: 10px;

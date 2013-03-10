@@ -11,6 +11,14 @@ class PreferenceObserver < ActiveRecord::Observer
 				end
 			end
 
+			if pref.joining_goal_changed?
+				if pref.joining_goal != "" && pref.joining_goal_was == ""
+					points += User::LEADERBOARD_ACTION_VALUE[:joining_goal]
+				elsif pref.joining_goal == "" && pref.joining_goal_was != ""
+					points -= User::LEADERBOARD_ACTION_VALUE[:joining_goal]
+				end
+			end
+
 			if pref.daily_calories_limit_changed?
 				if pref.daily_calories_limit > 0 && pref.daily_calories_limit_was == 0
 					points += User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]

@@ -7,6 +7,8 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development do
   gem 'sqlite3'
+  # To use debugger
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :production do
@@ -106,13 +108,13 @@ gem 'cache_digests'
 gem "asset_sync"
 
 # asynchronous jobs
-gem 'daemons'
-gem 'delayed_job_active_record'
+# gem 'daemons'
+# gem 'delayed_job_active_record'
 
 
 # better management of heroku worker process
 # gem 'hirefire'
-gem "workless"
+# gem "workless"
 
 
 # To use ActiveModel has_secure_password
@@ -125,7 +127,6 @@ gem "workless"
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+
 
 

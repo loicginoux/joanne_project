@@ -1,7 +1,6 @@
 class LikeObserver < ActiveRecord::Observer
   observe :like
   def after_create(like)
-
     # we update the number of likes for the datapoint
     dataPoint = DataPoint.find(like.data_point_id)
     dataPoint.update_attribute("nb_likes", dataPoint.nb_likes+1)
@@ -9,8 +8,8 @@ class LikeObserver < ActiveRecord::Observer
     # send the mail to photo owner
     puts "usermail like + #{like.data_point_id} #{like.id}"
     unless like.onOwnPhoto?
-      # html = render "email/test", :layout => false
-      UserMailer.delay.added_like_email(like.data_point_id, like.id)
+
+      UserMailer.added_like_email(like.data_point_id, like.id)
     end
 
     unless like.user.is(dataPoint.user)

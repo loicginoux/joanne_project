@@ -7,7 +7,7 @@ window.foodrubix =
 
 foodrubix.common.init = () ->
 	# get correct navigation bar
-	if parseInt($("body").attr("data-user")) == gon.current_user_id
+	if typeof gon != "undefined"  && parseInt($("body").attr("data-user")) == gon.current_user_id
 		$(".current_user_menu").removeClass("hide")
 	else
 		$(".other_user").removeClass("hide")
