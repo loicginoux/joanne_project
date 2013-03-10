@@ -1,9 +1,15 @@
 require 'rest_client'
 
+# all arguments passed must be ids in order to be processed by a background worker
+# see issue
+# http://stackoverflow.com/questions/4337879/rails-absolutely-stumped-with-delayed-job-not-receiving-arguments-anywhere
+#
 class UserMailer < ActionMailer::Base
-  # all these methods should be handle_asynchronously  (check at bottom)
 
   def image_upload_not_working(email, user, attachment)
+    # this need to be put to avoid issue
+    # http://stackoverflow.com/questions/4452149/rails-3-abandon-sending-mail-within-actionmailer-action
+    self.message.perform_deliveries = false
     @user = user
     @email = email
     @attachment = attachment
@@ -15,8 +21,10 @@ class UserMailer < ActionMailer::Base
       :subject => "[FoodRubix] Wrong email used to upload a photo",
       :html => html.to_str
   end
+  # handle_asynchronously :image_upload_not_working
 
   def reset_password_email(user)
+    self.message.perform_deliveries = false
     @user = user
     @reset_url = edit_password_reset_url(user.perishable_token)
     html = render :partial => "email/reset_password", :layout => "email"
@@ -27,8 +35,10 @@ class UserMailer < ActionMailer::Base
       :subject => "[FoodRubix] Password Reset",
       :html => html.to_str
   end
+  # handle_asynchronously :reset_password_email
 
   def verify_account_email(user)
+    self.message.perform_deliveries = false
     @user = user
     @verification_url = user_verification_url(user.perishable_token)
     html = render :partial => "email/verify_account", :layout => "email"
@@ -39,9 +49,12 @@ class UserMailer < ActionMailer::Base
       :subject => "[FoodRubix] Verify your account",
       :html => html.to_str
   end
+  # handle_asynchronously :verify_account_email
+
 
   # this mail is sent to the owner of a photo
   def comment_on_your_photo_email(dataPoint, comment)
+    self.message.perform_deliveries = false
     @dataPoint = dataPoint
     @comment = comment
     @user = dataPoint.user
@@ -54,10 +67,12 @@ class UserMailer < ActionMailer::Base
 
     puts "new comment on your meal. email sent to: #{dataPoint.user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
   end
+  # handle_asynchronously :comment_on_your_photo_email
 
   # this mail is sent to the previous people who commented a photo
   # to notify them there is a new comment
   def others_commented_email(dataPoint, comment, users)
+    self.message.perform_deliveries = false
     @dataPoint = dataPoint
     @comment = comment
     # [*users] converts one object into an array to run each against one element only
@@ -71,24 +86,29 @@ class UserMailer < ActionMailer::Base
         :html => html.to_str
       puts "comment for previous commenters. email sent to: #{user.email}, comment_id: #{comment.id}, data_point_id: #{dataPoint.id}"
     }
-
-
   end
+  # handle_asynchronously :others_commented_email
 
-  def added_like_email(dataPoint, like)
-    @dataPoint = dataPoint
-    @like = like
-    @user = dataPoint.user
+  def added_like_email(data_point_id, like_id)
+    self.message.perform_deliveries = false
+    @dataPoint = DataPoint.find(data_point_id)
+    @like = Like.find(like_id)
+    @liker = @like.user
+    @user = @dataPoint.user
     html = render :partial => "email/added_like", :layout => "email"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => @user.email,
-      :subject => "[FoodRubix] #{like.user.username.capitalize} liked your meal",
+      :subject => "[FoodRubix] #{@like.user.username.capitalize} liked your meal",
       :html => html.to_str
-    puts "new like email sent to: #{dataPoint.user.email}, like_id: #{like.id}, data_point_id: #{dataPoint.id}"
+    Rails.logger.debug("new like email sent to: #{@user.email}, like_id: #{@like.id}, data_point_id: #{@dataPoint.id}")
   end
+  # handle_asynchronously :added_like_email
+
+
 
   def new_follower_email(followee, follower)
+    self.message.perform_deliveries = false
     @followee = followee
     @follower = follower
     @user = followee
@@ -100,10 +120,11 @@ class UserMailer < ActionMailer::Base
       :html => html.to_str
     puts "new follower email sent to: #{followee.email}, follower_id: #{follower.id}"
   end
+  # handle_asynchronously :new_follower_email
 
   def weekly_recap_email(users)
+    self.message.perform_deliveries = false
     @leaderboard_users = User.monthly_leaderboard().limit(20)
-
     users.each {|user|
       Time.zone = user.timezone
       if Time.zone.now.monday? && Time.zone.now.hour == 7
@@ -137,8 +158,10 @@ class UserMailer < ActionMailer::Base
       end
     }
   end
+  # handle_asynchronously :weekly_recap_email
 
   def daily_recap_email(users)
+    self.message.perform_deliveries = false
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
 
@@ -182,14 +205,9 @@ class UserMailer < ActionMailer::Base
       end
     }
   end
+  # handle_asynchronously :daily_recap_email
 
-  handle_asynchronously :image_upload_not_working
-  handle_asynchronously :reset_password_email
-  handle_asynchronously :verify_account_email
-  handle_asynchronously :comment_on_your_photo_email
-  handle_asynchronously :others_commented_email
-  handle_asynchronously :added_like_email
-  handle_asynchronously :new_follower_email
-  handle_asynchronously :weekly_recap_email
-  handle_asynchronously :daily_recap_email
+
+
+
 end

@@ -71,4 +71,8 @@ Foodrubix::Application.configure do
     ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
   )
 
+  # worker configuration with delayed_job + workless
+  config.after_initialize do
+    Delayed::Job.scaler = :local
+  end
 end

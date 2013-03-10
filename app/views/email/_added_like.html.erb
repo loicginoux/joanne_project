@@ -4,10 +4,10 @@
             <td width="580" style="border-collapse: collapse; font-family: sans-serif;">
 
 <p>
-	Hi <%= @dataPoint.user.username.capitalize%>,
+	Hi <%= @user.username.capitalize%>,
 </p>
 <p>
-	<%= link_to @like.user.username.capitalize, user_url(:username=> @like.user.username)%> liked your meal. Nice one!
+	<%= link_to @liker.username.capitalize, user_url(:username=> @liker.username)%> liked your meal. Nice one!
 </p>
 <p>
 	Find out which photo <%= link_to "here", data_point_url(:id => @dataPoint.id)%>.
