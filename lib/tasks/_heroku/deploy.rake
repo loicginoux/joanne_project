@@ -15,6 +15,7 @@
       task env, [:commitMessage] => :environment do |t, args|
         args.with_defaults(:commitMessage => "commit")
         current_branch = `git branch | grep ^* | awk '{ print $2 }'`.strip
+        puts "skype :#{args[skipAssets]}"
 
         Rake::Task['deploy:before_deploy'].invoke(env, current_branch, args[:commitMessage])
         Rake::Task['deploy:update_code'].invoke(env, current_branch, args[:commitMessage])

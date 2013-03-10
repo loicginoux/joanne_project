@@ -1,6 +1,5 @@
 namespace :deploy do
   task :before_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
-
 		puts "removing public assets..."
 		`git rm -rf public/assets/*`
 		`rm -rf public/assets/*`
