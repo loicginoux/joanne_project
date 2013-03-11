@@ -14,7 +14,7 @@ Foodrubix::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
   config.gzip_compression = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
@@ -61,9 +61,9 @@ Foodrubix::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
+  config.action_controller.asset_host = "calm-gorge-1213.herokuapp.com"
   # config.action_controller.asset_host = "foodrubix-testing.s3.amazonaws.com"
-  config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
+  # config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
 
   config.action_mailer.asset_host = "http://calm-gorge-1213.herokuapp.com"
 
