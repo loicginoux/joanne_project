@@ -3,7 +3,7 @@ namespace :deploy do
 
   	print "Do you want to precompile assets? (y/n) " and STDOUT.flush
     char = $stdin.getc
-    if char != ?y && char != ?Y
+    if char == ?y || char == ?Y
      	puts "removing public assets..."
 			`git rm -rf public/assets/*`
 			`rm -rf public/assets/*`
