@@ -15,7 +15,7 @@ Foodrubix::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.gzip_compression = true
+  config.gzip_compression = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
@@ -77,7 +77,7 @@ Foodrubix::Application.configure do
   }
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += ['application-ie9.js','homepage.js', 'homepage.css', "application-ie.css"]
+  config.assets.precompile += ['application-ie9.js','homepage.js', 'homepage.css', "application-ie.css", "active_admin.js", "active_admin.css.scss"]
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 

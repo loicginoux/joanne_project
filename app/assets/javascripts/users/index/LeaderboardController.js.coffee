@@ -4,6 +4,7 @@ class foodrubix.LeaderboardController extends Spine.Controller
 	elements:
 		"select" : "select"
 		".users" : "users"
+		".loading" : "loadingEl"
 
 	changeDiet:	(e) ->
 		@log e
@@ -13,11 +14,11 @@ class foodrubix.LeaderboardController extends Spine.Controller
 		data.diet = e.target.value
 		data[@pageParamName] = 1
 		@users.empty()
-		# window.UTIL.load(@users, @pageParamName, true)
+		@loadingEl.removeClass("hide")
 		$.ajax({
 			type: 'GET',
 			url: 'users.js',
 			data: data,
 			success: () ->
-				# window.UTIL.load(that.users, that.pageParamName, false)
+				that.loadingEl.addClass("hide")
 		})

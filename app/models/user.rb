@@ -18,10 +18,10 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :presence => true,
     :on => :create
-  validates_attachment_size :local_picture, :less_than=>3.megabyte
+  # validates_attachment_size :local_picture, :less_than=>3.megabyte
   validates_attachment_size :picture, :less_than=>3.megabyte
   validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
-  validates_attachment_content_type :local_picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
+  # validates_attachment_content_type :local_picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
 
   #########################
   # Authlogic
@@ -60,15 +60,15 @@ class User < ActiveRecord::Base
   #########################
   # Paperclip attachements
   #########################
-  has_attached_file :local_picture,
-    :styles => {
-      :small => ["50x50#",:jpg],
-      :medium => ["200x200#",:jpg]
-    },
-    :convert_options => { :all => '-auto-orient' },
-    :default_url => '/assets/default_user_:style.gif',
-    :url => '/assets/:class/:attachment/:id/:style.:extension',
-    :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
+  # has_attached_file :local_picture,
+  #   :styles => {
+  #     :small => ["50x50#",:jpg],
+  #     :medium => ["200x200#",:jpg]
+  #   },
+  #   :convert_options => { :all => '-auto-orient' },
+  #   :default_url => '/assets/default_user_:style.gif',
+  #   :url => '/assets/:class/:attachment/:id/:style.:extension',
+  #   :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
 
 
   has_attached_file :picture,
@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   #########################
   # Callbacks
   #########################
-  after_save :queue_upload_to_s3
+  # after_save :queue_upload_to_s3
 
 
   #########################
@@ -432,29 +432,30 @@ class User < ActiveRecord::Base
   end
 
 
-  def queue_upload_to_s3()
-    if self.local_picture_updated_at_changed? && !self.local_picture_updated_at.nil?
-      self.delay.upload_to_s3
-      self.delay({:run_at => 3.minutes.from_now}).delete_local_picture
-    end
-  end
+  # def queue_upload_to_s3()
+  #   if self.local_picture_updated_at_changed? && !self.local_picture_updated_at.nil?
+  #     self.delay.upload_to_s3
+  #     self.delay({:run_at => 3.minutes.from_now}).delete_local_picture
+  #   end
+  # end
 
-  def upload_to_s3
-    self.picture = self.local_picture
-    self.save
-  end
+  # def upload_to_s3
+  #   self.picture = self.local_picture
+  #   self.save
+  # end
 
-  def delete_local_picture
-    if !self.picture_updated_at.nil?
-      User.skip_callback(:save)
-      self.local_picture = nil
-      self.save
-      User.set_callback(:save)
-   end
-  end
+  # def delete_local_picture
+  #   if !self.picture_updated_at.nil?
+  #     User.skip_callback(:save)
+  #     self.local_picture = nil
+  #     self.save
+  #     User.set_callback(:save)
+  #  end
+  # end
 
   def pic()
-    (self.picture?) ? self.picture : self.local_picture
+    # (self.picture?) ? self.picture : self.local_picture
+    self.picture
   end
 
   # # see http://quickleft.com/blog/faking-regex-based-cache-keys-in-rails
