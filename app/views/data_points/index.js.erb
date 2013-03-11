@@ -6,4 +6,6 @@
 	$("#photos").append("<%= escape_javascript(render :partial => 'data_points/index/day_photo_list') %>");
 <% end %>
 
+<% if @data_points.length > 0 %>
 	window.Spine.trigger('data_points:loaded', <%= @graphicDatas %>, '<%= @period %>')
+<% end %>

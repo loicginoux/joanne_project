@@ -71,6 +71,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 			},
 			dataType: 'script',
 			success: @onSuccessFetch.bind @
+			error: (a,b,c)-> console.log("error fetching data points", a,b,c)
 		})
 
 	# change the views from month, week or day view
