@@ -57,7 +57,7 @@ class FriendshipsController < ApplicationController
     followee = User.select(:username).find(params[:followee])
     redirect = (params[:redirect_to]) ? params[:redirect_to] : user_path(:username=> followee.username)
     if @friendship.save
-      flash[:notice] = "You're now following #{followee.username.capitalize}. You'll see what #{followee.username.capitalize} is eating under the Feed page."
+      flash[:notice] = "You're now following #{followee.username.capitalize}. You'll see what #{followee.username.capitalize} is eating under the #{ActionController::Base.helpers.link_to 'Feed page', feed_path()}.".html_safe
       redirect_to redirect
     else
       flash[:notice] = "Unable to add friend."

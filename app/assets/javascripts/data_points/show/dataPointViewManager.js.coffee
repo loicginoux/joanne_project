@@ -63,7 +63,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		$(".likers").tooltip()
 		@replaceCommentsLinks()
 		# replace time ago
-		jQuery(".timeago").timeago();
+		jQuery(".timeago").timeago()
 		commentController = new foodrubix.CommentListController({
 			el: @el.find(".comments"),
 			master: @
@@ -78,6 +78,10 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			dataType: 'script'
 			data:
 				data_point_id: @id
+			success: () ->
+				debugger
+				jQuery(".timeago").timeago()
+
 		})
 
 
