@@ -112,7 +112,8 @@ class DataPoint < ActiveRecord::Base
 
   def duplicate (newTime)
     clone = self.dup
-    clone.local_photo = self.photo
+    # clone.local_photo = self.photo
+    clone.photo = self.photo
     clone.hot_photo_award = false
     clone.smart_choice_award = false
     clone.nb_comments = 0
