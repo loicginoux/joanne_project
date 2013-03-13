@@ -125,7 +125,6 @@ class DataPointsController < ApplicationController
       end
     end
 
-
     if @data_point && @data_point.save
       puts "data point after saved: #{@data_point.inspect}"
       # publish to facebook
@@ -186,7 +185,7 @@ class DataPointsController < ApplicationController
   # DELETE /data_points/1.json
   def destroy
     @data_point = DataPoint.find(params[:id])
-    @data_point.local_photo.destroy unless @data_point.local_photo_file_size.nil?
+    # @data_point.local_photo.destroy unless @data_point.local_photo_file_size.nil?
     @data_point.photo.destroy unless @data_point.photo_file_size.nil?
     @data_point.destroy
 

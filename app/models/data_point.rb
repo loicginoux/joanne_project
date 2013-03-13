@@ -12,7 +12,7 @@ class DataPoint < ActiveRecord::Base
   #########################
   validates :calories, :presence => true, :numericality => { :only_integer => true }
   validates_attachment_size :photo, :less_than=>3.megabyte
-  validates_attachment_size :local_photo, :less_than=>3.megabyte
+  # validates_attachment_size :local_photo, :less_than=>3.megabyte
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validate :editor_must_be_owner, :on => :update
@@ -29,16 +29,16 @@ class DataPoint < ActiveRecord::Base
   # this will be used while asynchronously uploading
   # photo to S3
   # see http://roberto.peakhut.com/2010/01/14/paperclip_recipes/
-  has_attached_file :local_photo,
-    :styles => {
-      :thumbnail => ["50x50#",:jpg],
-      :medium => ["220x220#",:jpg],
-      :big => ["380x380#",:jpg]
-    },
-    :convert_options => { :all => '-auto-orient' },
-    :default_url => '/assets/not-available.jpg',
-    :url => "/system/:class/:attachment/:id/:style.:extension",
-    :path => ":rails_root/public/system/:class/:attachment/:id/:style.:extension"
+  # has_attached_file :local_photo,
+  #   :styles => {
+  #     :thumbnail => ["50x50#",:jpg],
+  #     :medium => ["220x220#",:jpg],
+  #     :big => ["380x380#",:jpg]
+  #   },
+  #   :convert_options => { :all => '-auto-orient' },
+  #   :default_url => '/assets/not-available.jpg',
+  #   :url => "/system/:class/:attachment/:id/:style.:extension",
+  #   :path => ":rails_root/public/system/:class/:attachment/:id/:style.:extension"
 
   has_attached_file :photo,
     :styles => {

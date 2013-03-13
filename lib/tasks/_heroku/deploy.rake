@@ -37,7 +37,7 @@
     task :update_code, [:env, :branch, :commitMessage] => :environment do |t, args|
       FileUtils.cd Rails.root do
         puts "Updating #{ENVIRONMENTS[args[:env]]} with branch #{args[:branch]}"
-        `git push #{ENVIRONMENTS[args[:env]]} #{args[:branch]}:master`
+        `git push -f #{ENVIRONMENTS[args[:env]]} #{args[:branch]}:master`
       end
     end
   end
