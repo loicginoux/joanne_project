@@ -1,3 +1,5 @@
+require_relative '../initializers/cloudfront'
+
 Foodrubix::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -13,9 +15,24 @@ Foodrubix::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
+  config.gzip_compression = false
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true
+
+  # caching
+  config.cache_store = :dalli_store
+  config.static_cache_control = "public, max-age=2592000"
+
+  config.action_dispatch.rack_cache = {
+    :metastore    => Dalli::Client.new,
+    :entitystore  => 'file:tmp/cache/rack/body',
+    :allow_reload => false
+  }
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -47,9 +64,10 @@ Foodrubix::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "www.foodrubix.com"
-  config.action_controller.asset_host = "https://d148wzejek80k4.cloudfront.net"
+  # config.action_controller.asset_host = "foodrubix-production.s3.amazonaws.com"
+  config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
 
-  config.action_mailer.asset_host = "http://www.foodrubix.com"
+  config.action_mailer.asset_host = config.action_controller.asset_host
 
   # email configuration
   config.action_mailer.default_url_options = {
