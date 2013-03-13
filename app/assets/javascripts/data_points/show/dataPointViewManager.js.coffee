@@ -142,7 +142,6 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			if which == "comments"
 				@master.el.find("#image_"+@id+ " span.nbComments").html(@nbComments)
 			else if which == "like"
-				if !id then console.log("no like id provided for master")
 				@master.el
 					.find("#image_"+@id+ " span.nbLikes")
 					.html(@nbLikes)

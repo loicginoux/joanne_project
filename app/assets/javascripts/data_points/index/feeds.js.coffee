@@ -28,15 +28,13 @@ class foodrubix.feeds extends Spine.Controller
 			# and that the show more hidden button is here (in the contrary, it means there is no more feed to load)
 			moreBtn = $("#show_more_feeds_link")
 			if !@loading && moreBtn.length
-				UTIL.load($('.feedLoading'), "feedL", true)
-				console.log("start loading")
+				UTIL.load($('.feedLoading'), "feedL", true)				console.log("start loading")
 				moreBtn.click()
 				@loading = true
 
 	stopLoading:() ->
 		that = @
 		@loading = false
-		console.log("stop loading")
 		UTIL.load($('.feedLoading'), "feedL", false)
 		$(".feed").each((i,e) ->
 			that.controllers.push(new foodrubix.dataPointViewManager({
