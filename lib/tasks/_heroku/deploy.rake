@@ -24,10 +24,14 @@
 
     task :before_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
       puts "Deploying #{args[:branch]} to #{args[:env]}"
+      `heroku maintenance:on --app #{HEROKU_APP[args[:env]]}`
+      puts "mode maintenance:on"
     end
 
     task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
       puts "Deployment complete: #{args[:branch]} to #{args[:env]}"
+      `heroku maintenance:off --app #{HEROKU_APP[args[:env]]}`
+      puts "mode maintenance:off"
     end
 
     task :update_code, [:env, :branch, :commitMessage] => :environment do |t, args|
