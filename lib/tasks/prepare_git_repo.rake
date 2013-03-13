@@ -8,6 +8,7 @@ namespace :deploy do
 			`rm -rf public/assets/*`
 			puts "precompiling assets..."
 			`bundle exec rake assets:precompile`
+			`bundle exec rake assets:clean_expired`
     end
 
 		puts "add to git"
