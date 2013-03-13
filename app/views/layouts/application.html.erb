@@ -7,9 +7,7 @@
 		<%= stylesheet_link_tag    "application","https://fonts.googleapis.com/css?family=News+Cycle:400,700", :media => "all" %>
 		<!--[if lt IE 9]>
 		<%= stylesheet_link_tag    "application-ie", :media => "all" %>
-		<%= javascript_include_tag "application-ie9" %>
 		<![endif]-->
-		<%= javascript_include_tag "application" %>
 
 		<%= csrf_meta_tags %>
 	</head>
@@ -49,5 +47,10 @@
 				</script>
 			<% end %>
 		</div>
+		<!--[if lt IE 9]>
+		<%= javascript_include_tag "application-ie9" %>
+		<![endif]-->
+		<%= javascript_include_tag "application" %>
 	</body>
+
 </html>
