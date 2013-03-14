@@ -1,6 +1,6 @@
 
 		<div class="center">
-			<img class="loading " src="/assets/loading.gif"></img>
+			<img class="loading " src="<%= asset_path("loading.gif") %>"></img>
 		</div>
 
 <%= button_to "Follow", friendships_url(:followee => @followee.id), :method => :post, :class => "hide"%>.
