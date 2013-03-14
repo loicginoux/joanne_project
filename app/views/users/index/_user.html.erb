@@ -6,6 +6,9 @@
 		<% unless (user.first_friend || user.hidden) %>
 				<p><%= user.leaderboard_points%> points</p>
 		<% end %>
+		<% if user.first_friend %>
+			<p>Founder</p>
+		<% end %>
 		<%= render :partial => "users/index/follow_button", :locals => {:user => user}%>
 	</div>
 	<%= link_to user_path(:username=> user.username) do %>

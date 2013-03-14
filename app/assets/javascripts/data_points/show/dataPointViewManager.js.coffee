@@ -12,8 +12,10 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".newComment":                "inputComment"
 		".control-group.comment":     "divTextarea"
 		".nbLikes":                   "nbLikesHTML"
-		".people":                   "peopleHTML"
+		".nbLikeThis":                "nbLikeFragment"
+		".people":                    "peopleHTML"
 		".nbComments":                "nbCommentsHTML"
+		".nbCommentThis":             "nbCommentFragment"
 		".comments":                  "comments"
 		".commentText":               "commentTexts"
 		".viewMode":                  "viewElements"
@@ -64,7 +66,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		@replaceCommentsLinks()
 		# replace time ago
 		jQuery(".timeago").timeago()
-		commentController = new foodrubix.CommentListController({
+		@commentController = new foodrubix.CommentListController({
 			el: @el.find(".comments"),
 			master: @
 			})
@@ -72,6 +74,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 
 	refreshComments: () =>
+		that = @
 		$.ajax({
 			type: "GET"
 			url: '/comments'
@@ -79,9 +82,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			data:
 				data_point_id: @id
 			success: () ->
-				debugger
-				jQuery(".timeago").timeago()
-
+				that.commentController.refreshComments()
 		})
 
 
@@ -133,6 +134,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 
 	updateNumberComments: (nbCom) ->
 		@nbComments = @nbComments+nbCom
+		@nbCommentFragment.removeClass("hide") if @nbComments >= 1
 		@nbCommentsHTML.html(@nbComments)
 		@updateMasterInfo("comments")
 
@@ -199,6 +201,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 	onSuccessLike: (data, textStatus, jqXHR) =>
 		@btnLike.attr("data-like-id", data.id)
 		@nbLikes = @nbLikes+1
+		@nbLikeFragment.removeClass("hide") if @nbLikes >= 1
 		peopleHTML =  if (@nbLikes == 1) then  "person" else "people"
 		@nbLikesHTML.html(@nbLikes)
 		@peopleHTML.html(peopleHTML)

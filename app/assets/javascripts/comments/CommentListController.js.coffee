@@ -7,6 +7,10 @@ class foodrubix.CommentListController extends Spine.Controller
 
 
 	init:() ->
+		@refreshComments()
+
+	refreshComments:()->
+		jQuery(".timeago").timeago()
 		@el.find(".comment").each((i,e) ->
 			el = $(e)
 			commentUserId = parseInt(el.attr("user-id"))
