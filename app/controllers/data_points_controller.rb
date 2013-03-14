@@ -105,7 +105,7 @@ class DataPointsController < ApplicationController
         else
           @data_point.uploaded_at = Time.zone.now
         end
-        # @data_point.local_photo = params["attachment-1"]
+
         @data_point.photo = params["attachment-1"]
         puts ">>>>>>>>>>>>> created photo from mailgun"
       else
@@ -159,7 +159,7 @@ class DataPointsController < ApplicationController
       params[:data_point].delete(:photo)
     end
 
-    @data_point.current_user = current_user
+    @data_point.editor_id = current_user.id
     # if params[:data_point]["uploaded_at"]
     #   puts "uploaded at in params: #{params[:data_point]['uploaded_at']}"
     #   params[:data_point]["uploaded_at"] = Time.zone.parse(params[:data_point]["uploaded_at"])
@@ -185,7 +185,7 @@ class DataPointsController < ApplicationController
   # DELETE /data_points/1.json
   def destroy
     @data_point = DataPoint.find(params[:id])
-    # @data_point.local_photo.destroy unless @data_point.local_photo_file_size.nil?
+
     @data_point.photo.destroy unless @data_point.photo_file_size.nil?
     @data_point.destroy
 

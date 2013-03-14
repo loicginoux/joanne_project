@@ -5,20 +5,18 @@ class DataPoint < ActiveRecord::Base
   # set to true to skip observers
   attr_accessor :noObserver
   # alow access to current_user in model
-  attr_accessor :current_user
+  attr_accessor :editor_id
 
   #########################
   # Validators
   #########################
   validates :calories, :presence => true, :numericality => { :only_integer => true }
   validates_attachment_size :photo, :less_than=>3.megabyte
-  # validates_attachment_size :local_photo, :less_than=>3.megabyte
-  validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validate :editor_must_be_owner, :on => :update
 
   def editor_must_be_owner
-    if current_user.id != user_id
+    if editor_id && (editor_id != user_id)
       errors[:base] << "You are not the owner"
     end
   end
@@ -26,19 +24,6 @@ class DataPoint < ActiveRecord::Base
   #########################
   # Paperclip attachements
   #########################
-  # this will be used while asynchronously uploading
-  # photo to S3
-  # see http://roberto.peakhut.com/2010/01/14/paperclip_recipes/
-  # has_attached_file :local_photo,
-  #   :styles => {
-  #     :thumbnail => ["50x50#",:jpg],
-  #     :medium => ["220x220#",:jpg],
-  #     :big => ["380x380#",:jpg]
-  #   },
-  #   :convert_options => { :all => '-auto-orient' },
-  #   :default_url => '/assets/not-available.jpg',
-  #   :url => "/system/:class/:attachment/:id/:style.:extension",
-  #   :path => ":rails_root/public/system/:class/:attachment/:id/:style.:extension"
 
   has_attached_file :photo,
     :styles => {
@@ -82,7 +67,6 @@ class DataPoint < ActiveRecord::Base
   #########################
   # Callbacks
   #########################
-  # after_save :queue_upload_to_s3
 
 
   #########################
@@ -112,7 +96,7 @@ class DataPoint < ActiveRecord::Base
 
   def duplicate (newTime)
     clone = self.dup
-    # clone.local_photo = self.photo
+
     clone.photo = self.photo
     clone.hot_photo_award = false
     clone.smart_choice_award = false
@@ -131,29 +115,8 @@ class DataPoint < ActiveRecord::Base
     end
   end
 
-  # def queue_upload_to_s3()
-  #   if self.local_photo_updated_at_changed? && !self.local_photo_updated_at.nil?
-  #     self.delay.upload_to_s3
-  #     self.delay({:run_at => 3.minutes.from_now}).delete_local_photo
-  #   end
-  # end
-
-  # def upload_to_s3
-  #   self.photo = self.local_photo
-  #   self.save
-  # end
-
-  # def delete_local_photo
-  #   if !self.photo_updated_at.nil?
-  #     DataPoint.skip_callback(:save)
-  #     self.local_photo = nil
-  #     self.save
-  #     DataPoint.set_callback(:save)
-  #  end
-  # end
 
   def pic()
-    # (self.local_photo?) ? self.local_photo : self.photo
     self.photo
   end
 
