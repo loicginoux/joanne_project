@@ -114,12 +114,12 @@ class DataPointsController < ApplicationController
       end
     # This is data coming from forms
     else
-      user = current_user
+      @user = current_user
       if params[:data_point][:id]
         @data_point = DataPoint.find(params[:data_point][:id]).duplicate(params[:data_point][:uploaded_at])
       else
         @data_point = DataPoint.new(params[:data_point])
-        @data_point.user_id = user.id
+        @data_point.user_id = @user.id
         @data_point.uploaded_at = Time.zone.now
         puts ">>>>>>>>>>>>> created photo from form"
       end
@@ -128,11 +128,13 @@ class DataPointsController < ApplicationController
     if @data_point && @data_point.save
       puts "data point after saved: #{@data_point.inspect}"
       # publish to facebook
-      if user.canPublishOnFacebook?
-        user.fb_publish(@data_point)
+      if @user.canPublishOnFacebook?
+        @user.fb_publish(@data_point)
       end
-
-      if !fromMailgun && current_user
+      if fromMailgun
+        # mailgun expect a 200 response, so we need to send him something
+        render :text => ""
+      elsif !fromMailgun && current_user
         # set content type even if it's json because f... IE doesn't recognized json and prompt
         # download window when returning json
         render :json => @data_point, :content_type => 'text/plain'
