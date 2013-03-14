@@ -77,11 +77,11 @@ class DataPointsController < ApplicationController
     # This is data coming from mailgun
     if params[:data_point].nil?
       fromMailgun = true
-      user = User.find_by_email(params["sender"].downcase)
-      if params["attachment-1"] && user
-        Time.zone = user.timezone
+      @user = User.find_by_email(params["sender"].downcase)
+      if params["attachment-1"] && @user
+        Time.zone = @user.timezone
         @data_point = DataPoint.new
-        @data_point.user_id = user.id
+        @data_point.user_id = @user.id
         # calories in subject
         if params["Subject"]
           match = (params["Subject"]).match(/(\d)+/)
@@ -134,6 +134,7 @@ class DataPointsController < ApplicationController
       if fromMailgun
         # mailgun expect a 200 response, so we need to send him something
         render :text => ""
+
       elsif !fromMailgun && current_user
         # set content type even if it's json because f... IE doesn't recognized json and prompt
         # download window when returning json
