@@ -64,6 +64,18 @@
   right: 0;
 }
 
+
+.img_wrapper.medium .ribbon-wrapper .ribbon {
+  top: 18px;
+  right: -73px;
+}
+
+.medium .ribbon span {
+padding: 1px 0;
+font-size: 11px;
+line-height: 18px
+}
+
 .ribbon-wrapper.right .ribbon {
   top: 42px;
   right: -43px;
