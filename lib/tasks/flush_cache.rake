@@ -14,8 +14,3 @@ namespace :cache do
 end
 
 
-namespace :deploy do
-  task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
-  	Bundler.with_clean_env { p `heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}` }
-  end
-end

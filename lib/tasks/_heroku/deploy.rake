@@ -28,6 +28,7 @@
     end
 
     task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
+      Bundler.with_clean_env { p `heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}` }
       Bundler.with_clean_env { p `heroku maintenance:off --app #{HEROKU_APP[args[:env]]}` }
       puts "Deployment complete: #{args[:branch]} to #{args[:env]}"
       puts "Pushing #{args[:branch]} to github"
