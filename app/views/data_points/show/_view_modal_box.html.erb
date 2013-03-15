@@ -3,7 +3,7 @@
 	<div class="span5">
 		<div class="viewMode">
 			<div class="cbm_wrap">
-				<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big"} %>
+				<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big", :style=>"344px"} %>
 			</div>
 		</div>
 		<div class="editMode hide">
@@ -18,7 +18,7 @@
 				</div>
 				<div class="editable_img_container">
 					<div class="cbm_wrap">
-						<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big"} %>
+						<%= render :partial => "data_points/show/photo", :locals => {:data_point => @data_point, :size => "big", :style=>"344px"} %>
 					</div>
 					<a class="btn btn-upload" href="javascript:void(0)">Change photo</a>
 					<!-- <input class="hide data_point_photo" id="fileInput_<%= @data_point.id%>" name="data_point[photo]" type="file"> -->

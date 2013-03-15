@@ -5,10 +5,10 @@
 	<div class="photo pull-left">
 		<%= link_to data_point_path(feed.id) do %>
 			<div class="cbm_wrap">
-				<%= render :partial => "data_points/show/photo", :locals => {:data_point => feed, :size => "medium"} %>
+				<%= render :partial => "data_points/show/photo", :locals => {:data_point => feed, :size => "medium", :style=>"194px"} %>
 			</div>
 		<% end %>
-		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user, "highlight") %> - <%= feed.calories%> Cal. - <span class="muted"><%= time_ago_in_words(feed.uploaded_at)%> ago</span></p>
+		<p class="info" data-id="<%= feed.id%>"><%= getUsername(feed.user, "highlight") %> - <%= feed.calories%> Cal. - <span class="muted timeago" title="<%= feed.local_uploaded_time() %>"><%= feed.uploaded_at.to_s(:readable)%></span></p>
 		<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => feed}  %>
 		<%= render :partial => "comments/nbCommentThis", :locals	=> {:data_point => feed}  %>
 	</div>

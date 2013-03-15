@@ -1,4 +1,4 @@
 <span class="nbCommentThis <% if data_point.nb_comments == 0 %>hide<% end %>">
 <i class="icon-comment"></i>
-<span class="nbComments"><%= data_point.nb_comments%></span> <%if data_point.nb_comments == 1 %>comment<% else %>comments<% end%>
+<span class="nbComments"><%= data_point.nb_comments%></span> <%if data_point.nb_comments <= 1 %>comment<% else %>comments<% end%>
 </span>

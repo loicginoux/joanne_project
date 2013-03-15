@@ -21,7 +21,7 @@ ActiveAdmin.register DataPoint do
     	end
 		column :uploaded_at
 		column :photo do |datapoint|
-      		getPhoto(datapoint, "thumbnail")
+      		render :partial => "data_points/show/photo", :locals => {:data_point => datapoint, :size => "thumbnail", :style=>"50px"}
     	end
 		default_actions
 	end
@@ -54,7 +54,8 @@ ActiveAdmin.register DataPoint do
 				:nb_comments,
 				:nb_likes,
 				:photo do
-					 row("Photo") { getPhoto(DataPoint.find(params[:id]), "big")}
+					render :partial => "data_points/show/photo", :locals => {:data_point => DataPoint.find(params[:id]), :size => "big", :style=>"350px"}
+
 
 				end
         end

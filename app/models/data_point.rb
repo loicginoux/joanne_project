@@ -120,6 +120,11 @@ class DataPoint < ActiveRecord::Base
     self.photo
   end
 
+  # return the iso format and remove the "Z" from UTC timezone
+  def local_uploaded_time
+    self.uploaded_at.to_time.iso8601[0..-2]
+  end
+
   def has_award?
     return (self.hot_photo_award || self.smart_choice_award)
   end

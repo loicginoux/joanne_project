@@ -1,6 +1,4 @@
-<% cache [data_point, size, "v2"] do %>
-
-
+<% cache [data_point, style, size, "v1"] do %>
 	<div class="img_wrapper <%= size %>">
 		<% if data_point.has_award? %>
 			<div class="ribbon-wrapper right">
@@ -9,7 +7,7 @@
 				</div>
 			</div>
 		<% end %>
-		<%= image_tag(data_point.pic().url(size)) %>
+		<%= image_tag data_point.pic().url(size), :height	=> style, :width => style %>
 	</div>
 
 <% end %>

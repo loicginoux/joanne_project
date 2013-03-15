@@ -4,7 +4,7 @@
 <div class="image" id="image_<%= data_point.id %>" data-id="<%= data_point.id %>" data-toggle="modal" data-target="#modal_view" data-keyboard="false" >
 	<div class="cbm_wrap">
 		<%= render :partial => "data_points/show/photo", :locals => {
-			:data_point => data_point, :size => "medium"
+			:data_point => data_point, :size => "medium", :style=>"100px"
 		} %>
 
 
