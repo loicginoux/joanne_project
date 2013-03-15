@@ -135,7 +135,7 @@
 }
 
 .dots{
-	background: url("/assets/3_dots.png") 0 0 no-repeat;
+	background: 0 0 no-repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAqCAMAAADhynmdAAAADFBMVEX+/v7////pYAD8/Pyo8h10AAAAOUlEQVR42u2TMQoAQAjDWv3/n3UQ3Dy4RQUzZ7AEsRlSHLI2Xo4E6Ffy3K/RqVyjEY3uj1Y3UgzHABlGAW7uAAUOAAAAAElFTkSuQmCC');
 	height: 42px;
 	left: 45%;
 	position: relative;
