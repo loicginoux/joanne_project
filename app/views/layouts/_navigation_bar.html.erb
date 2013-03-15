@@ -1,4 +1,6 @@
+<% cache ["v1", "navbar", user.username] do %>
 
+<% end %>
 
 
 <div class="navbar navbar-fixed-top">
@@ -30,9 +32,9 @@
 				</ul>
 
 				<ul class="nav pull-right">
-
-					<%= getPicture(user, 'small') %>
-
+					<div class="pull-left">
+						<%= getPicture(user, 'small') %>
+					</div>
 					<h3  class="hi_current_user other_user hide"><%= link_to "#{user.username}'s diary", user_path(:username=> user.username) %></h3>
 
 					<li class="dropdown current_user_menu hide">

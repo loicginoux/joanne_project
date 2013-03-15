@@ -1,5 +1,8 @@
 /* Nav bar
 --------------------------------*/
+.navbar-inner{
+	height: 70px;
+}
 .navbar .container .brand{
 	padding: 5px 20px 0;
 }

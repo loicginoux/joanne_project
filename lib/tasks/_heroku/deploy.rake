@@ -24,10 +24,14 @@
 
     task :before_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
       puts "Deploying #{args[:branch]} to #{args[:env]}"
+      Bundler.with_clean_env { p `heroku maintenance:on --app #{HEROKU_APP[args[:env]]}` }
     end
 
     task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
+      Bundler.with_clean_env { p `heroku maintenance:off --app #{HEROKU_APP[args[:env]]}` }
       puts "Deployment complete: #{args[:branch]} to #{args[:env]}"
+      puts "Pushing #{args[:branch]} to github"
+      `git push -f origin #{args[:branch]}`
     end
 
     task :update_code, [:env, :branch, :commitMessage] => :environment do |t, args|

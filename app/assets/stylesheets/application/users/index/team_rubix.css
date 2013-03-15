@@ -67,11 +67,17 @@
 
 .leaderboard a.user:hover .points,
 .total_leaderboard a.user:hover .points,
-#all-users a.user:hover .points,
-#latest-members a.user:hover .ago{
+.friends a.user:hover .points,
+.latest-members a.user:hover .ago{
 	padding-top: 12px;
 }
 
+.leaderboard .points,
+.friends .points,
+.total_leaderboard .points{
+	color: #E96000;
+	font-weight: bold
+}
 
 #team-rubix .user:hover .follow{
 	display:inline;
@@ -107,7 +113,7 @@
 	width: 80px;
 }
 
-#latest-members .member{
+.latest-members .member{
 	width: 100%
 }
 
