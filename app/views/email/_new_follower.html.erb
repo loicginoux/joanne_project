@@ -6,7 +6,10 @@
 
 
                 <p>
+                    <% if @follower.picture? %>
+
                     <%=link_to image_tag(@follower.picture.url(:medium), :size => 100) ,  user_url(:username=> @follower.username)%>
+                    <% end %>
                 </p>
                 <p>Hi <%= @followee.username.capitalize%>,</p>
                 <p>
