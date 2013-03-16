@@ -29,7 +29,9 @@
     task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
       puts "Deployment complete: #{args[:branch]} to #{args[:env]}"
       puts "Pushing #{args[:branch]} to github"
-      `git push -f origin #{args[:branch]}`
+      if args[:env] == "production"
+        `git push -f origin #{args[:branch]}`
+      end
     end
 
     task :update_code, [:env, :branch, :commitMessage] => :environment do |t, args|
