@@ -17,7 +17,6 @@
 /config/s3.yml
 /config/mailgun.yml
 /config/facebook.yml
-/config/asset_sync.yml
 
 /paperclip
 

@@ -4,15 +4,14 @@ AssetSync.configure do |config|
   raise "#{asset_sync_config_file} is missing!" unless File.exists? asset_sync_config_file
   credentials = YAML.load_file(asset_sync_config_file)[Rails.env].symbolize_keys
 
+
   config.enabled = credentials[:enabled]
   config.fog_provider = credentials[:fog_provider]
-  config.aws_access_key_id = credentials[:aws_access_key_id]
-  config.aws_secret_access_key = credentials[:aws_secret_access_key]
+  config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+  config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
   config.fog_directory = credentials[:fog_directory]
   config.existing_remote_files = credentials[:existing_remote_files]
   config.gzip_compression = credentials[:gzip_compression]
-
-
 
   # Increase upload performance by configuring your region
   # config.fog_region = 'eu-west-1'
