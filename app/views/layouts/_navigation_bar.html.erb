@@ -7,26 +7,26 @@
 	<div class="navbar-inner">
 		<div class="container">
 
-			<%= link_to image_tag('foodRubix_logo_beta.svg'), root_path, :class => 'brand'%>
+			<%= link_to image_tag('foodRubix_logo_beta.svg', :width => "200px", :height => "40px"), root_path, :class => 'brand'%>
 
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li>
 						<%= link_to(root_path) do%>
 						My Diary
-						<%=image_tag("diary.svg", :class=> "nav_icon")%>
+						<%=image_tag("diary.svg", :class=> "nav_icon", :width => "35px", :height => "50px")%>
 						<%end%>
 					</li>
 					<li>
 						<%= link_to(feed_path, :user_page => 1) do%>
 						Feed
-						<%=image_tag("following.svg", :class=> "nav_icon") %>
+						<%=image_tag("following.svg", :class=> "nav_icon", :width => "35px", :height => "50px") %>
 						<%end%>
 					</li>
 					<li>
 						<%= link_to(team_rubix_path) do%>
 						Team Rubix
-						<%=image_tag("team.svg", :class=> "nav_icon") %>
+						<%=image_tag("team.svg", :class=> "nav_icon", :width => "35px", :height => "50px") %>
 						<%end%>
 					</li>
 				</ul>
