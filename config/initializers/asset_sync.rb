@@ -9,7 +9,7 @@ AssetSync.configure do |config|
   config.fog_provider = credentials[:fog_provider]
   config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-  config.fog_directory = credentials[:fog_directory]
+  config.fog_directory = ENV['FOG_DIRECTORY']
   config.existing_remote_files = credentials[:existing_remote_files]
   config.gzip_compression = credentials[:gzip_compression]
 
