@@ -122,7 +122,7 @@ class DataPoint < ActiveRecord::Base
 
   # return the iso format and remove the "Z" from UTC timezone
   def local_uploaded_time
-    self.uploaded_at.to_time.iso8601[0..-2]
+    self.uploaded_at.strftime("%Y-%m-%d %H:%M")
   end
 
   def has_award?
