@@ -24,12 +24,9 @@
 
     task :before_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
       puts "Deploying #{args[:branch]} to #{args[:env]}"
-      Bundler.with_clean_env { p `heroku maintenance:on --app #{HEROKU_APP[args[:env]]}` }
     end
 
     task :after_deploy, [:env, :branch, :commitMessage] => :environment do |t, args|
-      Bundler.with_clean_env { p `heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}` }
-      Bundler.with_clean_env { p `heroku maintenance:off --app #{HEROKU_APP[args[:env]]}` }
       puts "Deployment complete: #{args[:branch]} to #{args[:env]}"
       puts "Pushing #{args[:branch]} to github"
       `git push -f origin #{args[:branch]}`
@@ -38,7 +35,10 @@
     task :update_code, [:env, :branch, :commitMessage] => :environment do |t, args|
       FileUtils.cd Rails.root do
         puts "Updating #{ENVIRONMENTS[args[:env]]} with branch #{args[:branch]}"
+        Bundler.with_clean_env { p `heroku maintenance:on --app #{HEROKU_APP[args[:env]]}` }
         `git push -f #{ENVIRONMENTS[args[:env]]} #{args[:branch]}:master`
+        Bundler.with_clean_env { p `heroku run rake cache:flush  --app #{HEROKU_APP[args[:env]]}` }
+        Bundler.with_clean_env { p `heroku maintenance:off --app #{HEROKU_APP[args[:env]]}` }
       end
     end
   end
