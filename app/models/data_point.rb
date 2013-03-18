@@ -27,9 +27,9 @@ class DataPoint < ActiveRecord::Base
 
   has_attached_file :photo,
     :styles => {
-      :thumbnail => ["100x100#",:jpg],
-      :medium => ["194x194#",:jpg],
-      :big => ["344x344#",:jpg]
+      :thumbnail => ["50x50#",:jpg],
+      :medium => ["220x220#",:jpg],
+      :big => ["380x380#",:jpg]
     },
     :convert_options => { :all => '-auto-orient' },
     :storage => :s3,
