@@ -3,29 +3,35 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 
 
+group :development, :test do
+    gem 'sqlite3'
+    gem 'rspec-rails'
+end
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development do
   gem 'sqlite3'
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
+
 end
 
-group :production do
-  gem 'pg'
-end
-
-group :staging do
+group :production, :staging do
   gem 'pg'
 end
 
 group :test do
-  gem 'sqlite3'
   #better fixtures
   gem 'machinist'
-  #better test writting
+  gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
   gem 'shoulda'
 end
+
 
 # Gems used only for assets and not required
 # in production environments by default.
