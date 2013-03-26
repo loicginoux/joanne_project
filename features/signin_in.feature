@@ -8,4 +8,4 @@ Scenario: Signing in through the form
   And I am on the sign in page
   When I enter correct credentials
   And I press the sign in button
-  Then the flash message should be "Signed in successfully."
+  Then you should land on your diary page

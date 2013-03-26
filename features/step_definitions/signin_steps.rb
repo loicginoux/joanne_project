@@ -7,16 +7,14 @@ Given(/^I am on the sign in page$/) do
 end
 
 When(/^I enter correct credentials$/) do
-	fillin "Email", with: @user.email
-  fillin "Password", with: @user.password
+	fill_in "user_session_username", with: @user.username
+  fill_in "user_session_password", with: @user.password
 end
 
 When(/^I press the sign in button$/) do
-  click_button "Sign in"
+  click_button "Log in"
 end
 
-Then(/^the flash message should be "(.*?)"$/) do |arg1|
-  within(".flash") do
-    page.should have_content text
-  end
+Then(/^you should land on your diary page$/) do
+  URI.parse(current_url).path.should_not == login_path
 end
