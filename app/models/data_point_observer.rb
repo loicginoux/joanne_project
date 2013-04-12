@@ -2,56 +2,58 @@ class DataPointObserver < ActiveRecord::Observer
   observe :data_point
 
   def after_create(data_point)
+    unless data_point.noObserver
     # we add leaderboard points to the uploader if he has less than 3 image during the day
-    nbDataPointSameDay =  data_point.user.data_points.same_day_as(data_point.uploaded_at).length
-    isOnCurrentMonth = (data_point.uploaded_at >= data_point.user.now().beginning_of_month())
-    data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:data_point], isOnCurrentMonth) unless nbDataPointSameDay > 3
+      nbDataPointSameDay =  data_point.user.data_points.same_day_as(data_point.uploaded_at).length
+      isOnCurrentMonth = (data_point.uploaded_at >= data_point.user.now().beginning_of_month())
+      data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:data_point], isOnCurrentMonth) unless nbDataPointSameDay > 3
+    end
   end
 
   def after_update(data_point)
+    unless data_point.noObserver
+      points = 0
+      beg_of_month = data_point.user.now().beginning_of_month()
+      isOnCurrentMonth = (data_point.uploaded_at >= beg_of_month)
+      # if uploaded date has changed, we need to:
+      #    - remove points from the previous date if there is now less than 3 photos
+      #    - add point to the new date if there is less than 3 photos
+      if data_point.uploaded_at_changed?
+        dataPointsInPreviousDay = data_point.user.data_points.same_day_as(data_point.uploaded_at_was)
+        dataPointsInCurrentDay = data_point.user.data_points.same_day_as(data_point.uploaded_at)
 
-    points = 0
-    beg_of_month = data_point.user.now().beginning_of_month()
-    isOnCurrentMonth = (data_point.uploaded_at >= beg_of_month)
-    # if uploaded date has changed, we need to:
-    #    - remove points from the previous date if there is now less than 3 photos
-    #    - add point to the new date if there is less than 3 photos
-    if data_point.uploaded_at_changed?
-      dataPointsInPreviousDay = data_point.user.data_points.same_day_as(data_point.uploaded_at_was)
-      dataPointsInCurrentDay = data_point.user.data_points.same_day_as(data_point.uploaded_at)
+        if dataPointsInPreviousDay.length < 3
+          wasOnCurrentMonth = (data_point.uploaded_at_was >= beg_of_month)
+          data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:data_point], wasOnCurrentMonth)
+        end
 
-      if dataPointsInPreviousDay.length < 3
-        wasOnCurrentMonth = (data_point.uploaded_at_was >= beg_of_month)
-        data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:data_point], wasOnCurrentMonth)
+        if dataPointsInCurrentDay.length <= 3
+          data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:data_point], isOnCurrentMonth )
+        end
       end
 
-      if dataPointsInCurrentDay.length <= 3
-        data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:data_point], isOnCurrentMonth )
+
+      # we award points if photo has been smart choice awarded
+      if data_point.smart_choice_award_changed?
+        if data_point.smart_choice_award && !data_point.smart_choice_award_was
+          data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
+
+
+        elsif !data_point.smart_choice_award && data_point.smart_choice_award_was
+          data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
+        end
       end
+
+      # we award points if photo has been hot photo awarded
+      if data_point.hot_photo_award_changed?
+        if data_point.hot_photo_award && !data_point.hot_photo_award_was
+          data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:hot_photo_award],isOnCurrentMonth )
+        elsif !data_point.hot_photo_award && data_point.hot_photo_award_was
+          data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:hot_photo_award],isOnCurrentMonth )
+        end
+      end
+
     end
-
-
-    # we award points if photo has been smart choice awarded
-    if data_point.smart_choice_award_changed?
-      if data_point.smart_choice_award && !data_point.smart_choice_award_was
-        data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
-
-
-      elsif !data_point.smart_choice_award && data_point.smart_choice_award_was
-        data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:smart_choice_award],isOnCurrentMonth )
-      end
-    end
-
-    # we award points if photo has been hot photo awarded
-    if data_point.hot_photo_award_changed?
-      if data_point.hot_photo_award && !data_point.hot_photo_award_was
-        data_point.user.addPoints(User::LEADERBOARD_ACTION_VALUE[:hot_photo_award],isOnCurrentMonth )
-      elsif !data_point.hot_photo_award && data_point.hot_photo_award_was
-        data_point.user.removePoints(User::LEADERBOARD_ACTION_VALUE[:hot_photo_award],isOnCurrentMonth )
-      end
-    end
-
-
 
   end
 

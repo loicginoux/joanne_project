@@ -1,14 +1,17 @@
 class Comment < ActiveRecord::Base
+
+  attr_accessible :user_id, :text, :data_point_id
+
 	#########################
   # Virtual attributes
   #########################
   # alow access to current_user in model
-  attr_accessor :current_user
+  attr_accessor :current_user, :noMailTriggered
 
 	#########################
   # Validators
   #########################
-  validates :text, :presence => true
+  validates_presence_of :text, :user, :data_point
 	validate :editor_must_be_owner, :on => :update
 
   def editor_must_be_owner
@@ -27,8 +30,8 @@ class Comment < ActiveRecord::Base
   #########################
   # Scopes
   #########################
-	scope :onOthersPhoto, lambda{||
-		# comment that is in a photo not belonging to the commenter
+	# comments that are on a photo not belonging to the commenter
+  scope :onOthersPhoto, lambda{||
 		Comment.joins(:data_point).where('data_points.user_id != comments.user_id')
 	}
 

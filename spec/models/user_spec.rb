@@ -7,18 +7,24 @@ require 'spec_helper'
 
 describe User do
 	context "#fields" do
-		it { should respondTo(:username) }
-		it { should respondTo(:email) }
-		it { should respondTo(:password) }
-		it { should respondTo(:role) }
-		it { should respondTo(:confirmed) }
-		it { should respondTo(:active) }
-		it { should respondTo(:timezone) }
-		it { should respondTo(:picture) }
-		it { should respondTo(:leaderboard_points) }
-		it { should respondTo(:total_leaderboard_points) }
-		it { should respondTo(:hidden) }
-		it { should respondTo(:first_friend) }
+		it { should respond_to(:username) }
+		it { should respond_to(:email) }
+		it { should respond_to(:password) }
+		it { should respond_to(:role) }
+		it { should respond_to(:confirmed) }
+		it { should respond_to(:active) }
+		it { should respond_to(:timezone) }
+		it { should respond_to(:picture) }
+		it { should respond_to(:leaderboard_points) }
+		it { should respond_to(:total_leaderboard_points) }
+		it { should respond_to(:hidden) }
+		it { should respond_to(:picture) }
+
+
+	end
+
+	context "#virtual attributes" do
+		it { should respond_to(:noObserver) }
 	end
 
 	context "#validations" do
@@ -26,7 +32,9 @@ describe User do
 		it { should validate_uniqueness_of(:username) }
 		it { should validate_presence_of(:email) }
 		it { should validate_uniqueness_of(:email) }
-		it { should validate_presence_of(:password) }
+		it { should validate_format_of(:email).with("test@test.com") }
+		it { should validate_format_of(:email).not_with("test@test") }
+
 	end
 
 	context "#associations" do
@@ -45,11 +53,31 @@ describe User do
 	  it { should accept_nested_attributes_for(:preference) }
 	end
 
-	describe "#methods" do
-		let!(:user) { FactoryGirl.create(:user) }
+	context "#scopes" do
+		describe ".without_user" do
+			let!(:included_user) { FactoryGirl.create(:user) }
+			let!(:excluded_user) { FactoryGirl.create(:user) }
 
-		it "should count the correct daily calories points" do
-			user.daily_calories_limit_points.should eql User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+			it "exclude user pass in param" do
+				User.without_user(excluded_user).should_not include(excluded_user)
+			end
+
+			it "include user not pass in param" do
+				User.without_user(excluded_user).should include(included_user)
+			end
 		end
+
 	end
+
+
+	describe "#methods" do
+		# let!(:user) { FactoryGirl.create(:user) }
+
+		# it "should count the correct daily calories points" do
+		# 	puts user.username
+		# 	user.daily_calories_limit_points.should eql User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
+		# end
+	end
+
+
 end

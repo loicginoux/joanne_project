@@ -100,4 +100,17 @@ Foodrubix::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # paperclip options
+  config.paperclip_defaults = {
+    :convert_options => { :all => '-auto-orient' },
+    :storage => :s3,
+    :bucket => S3_CREDENTIALS[:bucket],
+    :s3_credentials => S3_CREDENTIALS,
+    :path => ":attachment/:id/:style.:extension",
+    :default_url => '/assets/default_user_:style.gif',
+    :url => ':s3_alias_url',
+    :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+    :s3_permissions => :public_read
+  }
 end

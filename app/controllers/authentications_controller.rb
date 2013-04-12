@@ -3,7 +3,6 @@ class AuthenticationsController < ApplicationController
 
   def create
     omniauth = request.env['omniauth.auth']
-    puts omniauth.inspect
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
     if authentication
@@ -36,8 +35,6 @@ class AuthenticationsController < ApplicationController
                               :email => omniauth[:info][:email],
                               :access_token => omniauth["credentials"]['token'],
                               :image => omniauth[:info][:image]}
-        puts "session[:omniauth]:"
-        puts session[:omniauth]
         redirect_to register_path
       end
     end

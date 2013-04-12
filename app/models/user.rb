@@ -76,15 +76,15 @@ class User < ActiveRecord::Base
       :small => ["50x50#",:jpg],
       :medium => ["200x200#",:jpg]
     },
-    :convert_options => { :all => '-auto-orient' },
-    :storage => :s3,
-    :bucket => S3_CREDENTIALS[:bucket],
-    :path => ":attachment/:id/:style.:extension",
-    :s3_credentials => S3_CREDENTIALS,
-    :default_url => '/assets/default_user_:style.gif',
-    :url => ':s3_alias_url',
-    :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
-    :s3_permissions => :public_read
+    :default_url => '/assets/default_user_:style.gif'
+    # :convert_options => { :all => '-auto-orient' },
+    # :storage => :s3,
+    # :bucket => S3_CREDENTIALS[:bucket],
+    # :path => ":attachment/:id/:style.:extension",
+    # :s3_credentials => S3_CREDENTIALS,
+    # :url => ':s3_alias_url',
+    # :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+    # :s3_permissions => :public_read
 
   #########################
   # Scopes
@@ -235,12 +235,8 @@ class User < ActiveRecord::Base
       if self.username.nil?
         self.username = fb_username
       end
-      puts "image"
-      puts omniauth[:info][:image]
       if omniauth[:info][:image]
         self.picture = open(omniauth[:info][:image])
-        puts "self.picture"
-        puts self.picture
       end
     when 'twitter'
       # fetch extra user info from twitter
@@ -254,7 +250,7 @@ class User < ActiveRecord::Base
       user = user.fetch
       user.feed!(
         :message =>  "This is what I've been eating. What have you been eating?",
-        :picture => data_point.pic().url(:medium),
+        :picture => data_point.photo.url(:medium),
         :name => 'FoodRubix',
         :link => 'http://www.foodrubix.com',
         :description => "a super cool visual food journal - the easiest way to track what you're eating"
@@ -453,10 +449,10 @@ class User < ActiveRecord::Base
   #  end
   # end
 
-  def pic()
-    # (self.picture?) ? self.picture : self.local_picture
-    self.picture
-  end
+  # def pic()
+  #   # (self.picture?) ? self.picture : self.local_picture
+  #   self.picture
+  # end
 
   # # see http://quickleft.com/blog/faking-regex-based-cache-keys-in-rails
   # # this iterator allow to fake Regex-Based Cache Keys in Rails

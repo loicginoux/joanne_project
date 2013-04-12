@@ -1,4 +1,14 @@
 class DataPoint < ActiveRecord::Base
+
+  attr_accessible :user_id,
+    :calories,
+    :uploaded_at,
+    :nb_comments,
+    :nb_likes,
+    :description,
+    :smart_choice_award,
+    :hot_photo_award,
+    :photo
   #########################
   # Virtual attributes
   #########################
@@ -10,7 +20,8 @@ class DataPoint < ActiveRecord::Base
   #########################
   # Validators
   #########################
-  validates :calories, :presence => true, :numericality => { :only_integer => true }
+  validates_presence_of :calories, :user, :photo
+  validates_numericality_of :calories, :only_integer => true
   validates_attachment_size :photo, :less_than=>3.megabyte
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validate :editor_must_be_owner, :on => :update
@@ -31,15 +42,15 @@ class DataPoint < ActiveRecord::Base
       :medium => ["220x220#",:jpg],
       :big => ["380x380#",:jpg]
     },
-    :convert_options => { :all => '-auto-orient' },
-    :storage => :s3,
-    :bucket => S3_CREDENTIALS[:bucket],
-    :path => ":attachment/:id/:style.:extension",
-    :default_url => '/assets/not-available.jpg',
-    # :url => ':s3_alias_url',
-    # :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
-    :s3_credentials => S3_CREDENTIALS,
-    :s3_permissions => :public_read
+    :default_url => '/assets/not-available.jpg'
+
+    # :storage => :s3,
+    # :bucket => S3_CREDENTIALS[:bucket],
+    # :path => ":attachment/:id/:style.:extension",
+    # # :url => ':s3_alias_url',
+    # # :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+    # :s3_credentials => S3_CREDENTIALS,
+    # :s3_permissions => :public_read
 
   #########################
   # Associations
@@ -113,11 +124,6 @@ class DataPoint < ActiveRecord::Base
     else
       uploaded_at.to_date.to_s(:db)
     end
-  end
-
-
-  def pic()
-    self.photo
   end
 
   # return the iso format and remove the "Z" from UTC timezone

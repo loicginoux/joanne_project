@@ -6,6 +6,7 @@ gem 'rails', '3.2.11'
 group :development, :test do
     gem 'sqlite3'
     gem 'rspec-rails'
+    gem 'pry-rails'
 end
 
 
@@ -15,21 +16,52 @@ group :development do
   gem 'sqlite3'
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
-
+  # debug in chrome inspector
+  gem 'meta_request'
+  # guard to automate background tasks on file changes
+  # see railscast episode 264
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard-livereload'
 end
 
 group :production, :staging do
   gem 'pg'
+  # Use unicorn as the app server
+  gem 'unicorn'
+end
+
+group :production, :staging, :development do
+  #better sql logging
+  gem "hirb"
+
+  # better active record print
+  gem "awesome_print"
+  # scheduled cron jobs
+  gem 'whenever', :require => false
+
+  # Application Performance Monitoring
+  gem 'newrelic_rpm'
+
+  # memcache
+  # gem 'memcachier'
+  gem 'dalli'
+  # gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
+
+
+  # better fragment caching
+  gem 'cache_digests'
 end
 
 group :test do
-  #better fixtures
-  gem 'machinist'
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'shoulda'
+  gem "lorem-ipsum"
+  gem "launchy"
+  gem "spork-rails"  #use zeus instead
+
 end
 
 
@@ -44,8 +76,13 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
-
 end
+
+
+# admin panel
+gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre'
+
 
 gem 'jquery-rails'
 
@@ -71,11 +108,7 @@ gem 'aws-s3'
 gem 'aws-sdk'
 
 
-#better sql logging
-gem "hirb"
 
-# better active record print
-gem "awesome_print"
 
 gem "rest-client"
 
@@ -85,30 +118,13 @@ gem 'will_paginate', '~> 3.0'
 #passing rails variable to js
 gem 'gon'
 
-# scheduled cron jobs
-gem 'whenever', :require => false
 
-# Application Performance Monitoring
-gem 'newrelic_rpm'
-
-# admin panel
-gem 'activeadmin'
-gem "meta_search",    '>= 1.1.0.pre'
 
 # more robust web server that webrick (default)
 # gem 'thin'
 
-# Use unicorn as the app server
-gem 'unicorn'
-
-# memcache
-# gem 'memcachier'
-gem 'dalli'
-# gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
 
 
-# better fragment caching
-gem 'cache_digests'
 
 # synh assets to S3
 gem "asset_sync"

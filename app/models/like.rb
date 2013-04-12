@@ -1,7 +1,13 @@
 class Like < ActiveRecord::Base
+
+	attr_accessible :user_id, :data_point_id
+	attr_accessor :noMailTriggered
+
 	belongs_to :user
 	belongs_to :data_point, :touch => true
+
 	validate :cannot_like_same_data_point_twice
+	validates_presence_of :user, :data_point
 
 	scope :onOthersPhoto, lambda{||
 		# comment that is in a photo not belonging to the commenter

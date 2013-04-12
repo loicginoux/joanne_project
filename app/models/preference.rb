@@ -13,5 +13,6 @@ class Preference < ActiveRecord::Base
 
   DIETS = ["Low carb", "Weight Watchers","Jenny Craig","Nutrisystem","Paleo","Vegetarian","Vegan","Volumetrics","Raw foods","Other","I eat everything"]
 
+  validates :user, :presence => true
   validates :daily_calories_limit, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 end

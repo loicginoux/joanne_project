@@ -217,7 +217,6 @@ class DataPointsController < ApplicationController
   private
 
   def getGraphicPoints(data_points, startDate, endDate, period)
-    puts data_points
     calories = []
     if @period == "week" || period == "month"
       arr = Array(@startDate..@endDate)

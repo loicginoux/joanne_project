@@ -43,7 +43,7 @@ Foodrubix::Application.configure do
   config.assets.compress = false
 
   # serve assets from public directory
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Expands the lines which load the assets
   config.assets.debug = false
@@ -75,5 +75,11 @@ Foodrubix::Application.configure do
   # config.after_initialize do
   #   Delayed::Job.scaler = :local
   # end
+
+  # paperclip options
+  config.paperclip_defaults = {
+    :url => "/system/:class/:attachment/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+  }
 
 end

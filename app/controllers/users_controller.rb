@@ -117,10 +117,8 @@ class UsersController < ApplicationController
   end
 
   def create
-
     params[:user][:username] = params[:user][:username].downcase
     params[:user][:email] = params[:user][:email].downcase
-    puts params[:user]
     @user = User.new
     @user.data_points.build
     @user = User.new(params[:user])
