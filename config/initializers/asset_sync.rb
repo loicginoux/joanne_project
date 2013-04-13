@@ -4,16 +4,23 @@ AssetSync.configure do |config|
   raise "#{asset_sync_config_file} is missing!" unless File.exists? asset_sync_config_file
   credentials = YAML.load_file(asset_sync_config_file)[Rails.env].symbolize_keys
 
+  s3_config_file = File.join(Rails.root,'config','s3.yml')
+  raise "#{s3_config_file} is missing!" unless File.exists? s3_config_file
+  S3_CREDENTIALS = YAML.load_file(s3_config_file)[Rails.env].symbolize_keys
 
   config.enabled = credentials[:enabled]
   config.fog_provider = credentials[:fog_provider]
-  config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
-  config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-  config.fog_directory = ENV['FOG_DIRECTORY']
+  config.fog_directory = credentials[:fog_directory]
   config.existing_remote_files = credentials[:existing_remote_files]
   config.gzip_compression = credentials[:gzip_compression]
 
-  # Increase upload performance by configuring your region
+  if Rails.env == "production" || Rails.env == "staging"
+    config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+    config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+  else
+    config.aws_access_key_id = S3_CREDENTIALS[:access_key_id]
+    config.aws_secret_access_key = S3_CREDENTIALS[:secret_access_key]
+  end
   # config.fog_region = 'eu-west-1'
   #
   # Don't delete files from the store
