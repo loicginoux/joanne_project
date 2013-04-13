@@ -107,7 +107,7 @@ class DataPointsController < ApplicationController
         end
 
         @data_point.photo = params["attachment-1"]
-        puts ">>>>>>>>>>>>> created photo from mailgun"
+        puts ">>>>>>>>>>>>> created photo from mailgun, #{params["attachment-1"].size}"
       else
         # no attachment or no user
         UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
