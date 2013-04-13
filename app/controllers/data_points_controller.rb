@@ -107,7 +107,7 @@ class DataPointsController < ApplicationController
         end
 
         @data_point.photo = params["attachment-1"]
-        puts ">>>>>>>>>>>>> created photo from mailgun, #{params["attachment-1"].size}"
+        puts ">>>>>>>>>>>>> created photo from mailgun"
       else
         # no attachment or no user
         UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
@@ -147,6 +147,9 @@ class DataPointsController < ApplicationController
 
     elsif fromMailgun
       # mailgun expect a 200 response, so we need to send him something
+      if @data_point.photo.size >= 4000000
+        UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
+      end
       render :text => ""
     end
   end

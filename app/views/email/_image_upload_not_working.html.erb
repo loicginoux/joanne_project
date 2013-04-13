@@ -15,6 +15,11 @@
     You haven't attached any photo to your email.
 </p>
 <% end %>
+<% if @attachment.size >= 4000000 %>
+<p>
+    Please upload a photo under 4Mb.
+</p>
+<% end %>
 
             </td>
         </tr>
