@@ -157,6 +157,11 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 			@el.find(".control-group.file").addClass('error')
 			@el.find('.help-inline.file').removeClass('hide')
 
+		# validate photo size limit
+		if @fileInput[0].files[0].size > 4000000
+			validated = false
+			@el.find(".control-group.file").addClass('error')
+			@el.find('.help-inline.file_size_limit').removeClass('hide')
 
 		ISODate.set(
 			hour:date.getHours(),

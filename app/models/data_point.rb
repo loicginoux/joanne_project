@@ -11,7 +11,7 @@ class DataPoint < ActiveRecord::Base
   # Validators
   #########################
   validates :calories, :presence => true, :numericality => { :only_integer => true }
-  validates_attachment_size :photo, :less_than=>3.megabyte
+  validates_attachment_size :photo, :less_than=>4.megabyte
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validate :editor_must_be_owner, :on => :update
 
@@ -45,7 +45,7 @@ class DataPoint < ActiveRecord::Base
   # Associations
   #########################
   belongs_to :user
-  has_many :comments, :dependent => :destroy
+  has_many :comments, :dependent => :destroy, :order => 'created_at ASC'
   has_many :likes, :dependent => :destroy
   has_many :fans, :through => :likes, :source => :user
 

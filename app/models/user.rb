@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     :presence => true,
     :on => :create
   # validates_attachment_size :local_picture, :less_than=>3.megabyte
-  validates_attachment_size :picture, :less_than=>3.megabyte
+  validates_attachment_size :picture, :less_than=>4.megabyte
   validates_attachment_content_type :picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
   # validates_attachment_content_type :local_picture, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif']
 

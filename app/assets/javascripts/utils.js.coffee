@@ -102,6 +102,14 @@ window.UTIL = {
 		ind1= theCookie.indexOf(";",ind+1)
 		if (ind1 == -1) then ind1 = theCookie.length
 		return unescape(theCookie.substring(ind+cookieName.length+2,ind1))
+
+	loadAsynchScript: (opt) ->
+		ur = document.createElement('script')
+		ur.type = 'text/javascript'
+		ur.async = true
+		ur.id = opt.scriptId
+		ur.src = opt.src
+		$(opt.parent).append(ur)
 }
 
 $( document ).ready UTIL.init

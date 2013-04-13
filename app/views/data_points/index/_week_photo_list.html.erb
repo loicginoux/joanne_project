@@ -16,7 +16,7 @@
 							<ul class="sortableImages">
 								<% if !data_points.nil? %>
 									<% data_points.each do |photo| %>
-										<%= render :partial => "data_points/show/main_photo", :locals => {:data_point => photo} %>
+										<%= render :partial => "data_points/show/main_photo", :locals => {:data_point => photo, :style => "100px"} %>
 									<% end %>
 								<% end %>
 							</ul>
