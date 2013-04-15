@@ -3,6 +3,7 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 	elements:
 		"#photos":                 "photos"
 		"img":                     "img"
+		".filereader_alternative": "filereader_alternative"
 		".progress":               "progress"
 		".progress .bar":          'bar'
 		"#data_point_calories":    "calories"
@@ -39,6 +40,8 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 	initialize: () ->
 		# the one inside the iframe, see why in comment /views/pages/hiddenFileInput.html.erb
 		@fileInput = $("#ifu").contents().find("#fileInput")
+		if (typeof window.FileReader == 'undefined')
+			@img.addClass("hide")
 		@el.removeClass("hide")
 		now = new Date()
 		day = now.toString("MM-dd-yyyy")
@@ -66,6 +69,7 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 
 	clearNewUpload: () ->
 		@img.attr('src','').parent().height("200px")
+		@filereader_alternative.empty()
 		@fileInput.val('')
 		@progress.addClass('hide')
 
@@ -109,6 +113,8 @@ class foodrubix.DataPointUploadModal	extends Spine.Controller
 				# $(input).parent().find("img").attr('src', e.target.result).parent().css("height", "auto");
 				$(".photoPreview").attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
+		else if typeof FileReader == "undefined"
+			@filereader_alternative.empty().html(fileName)
 
 	validateDataPointData: (e) =>
 		validated = true

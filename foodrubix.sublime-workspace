@@ -1,0 +1,2160 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"file",
+				"fileName"
+			],
+			[
+				"phot",
+				"photo_file_size"
+			],
+			[
+				"da",
+				"data_point"
+			],
+			[
+				"sub",
+				"subj	subject(:name) {}"
+			],
+			[
+				"in",
+				"include	include_context"
+			],
+			[
+				"dp",
+				"dp_with_likes"
+			],
+			[
+				"is",
+				"isOwner"
+			],
+			[
+				"su",
+				"subj	subject(:name) {}"
+			],
+			[
+				"i",
+				"i	it {}"
+			],
+			[
+				"des",
+				"dest	describe (type)"
+			],
+			[
+				"on",
+				"onOwnPhoto"
+			],
+			[
+				"wher",
+				"whereDataPointBelongsTo"
+			],
+			[
+				"user",
+				"user_with_data_points"
+			],
+			[
+				"F",
+				"FactoryGirl"
+			],
+			[
+				"foll",
+				"followee_id"
+			],
+			[
+				"ho",
+				"hot_photo_award"
+			],
+			[
+				"nb",
+				"nb_likes"
+			],
+			[
+				"va",
+				"va	validates_associated"
+			],
+			[
+				"data",
+				"data_point"
+			],
+			[
+				"edito",
+				"editor_id"
+			],
+			[
+				"c",
+				"clo	click_on \"locator\""
+			],
+			[
+				"up",
+				"upload"
+			],
+			[
+				"register",
+				"register_path"
+			],
+			[
+				"reset",
+				"reset_url"
+			],
+			[
+				"fil",
+				"fill	fill_in \"id_or_name_or_label\", :with => \"value\""
+			],
+			[
+				"sel",
+				"sel	select \"option_text\", :from => \"dropdown\""
+			],
+			[
+				"fac",
+				"factory"
+			],
+			[
+				"v",
+				"vu	validates_uniqueness_of"
+			],
+			[
+				"month",
+				"monthNbWas"
+			],
+			[
+				"week",
+				"weekNbWas"
+			],
+			[
+				"size",
+				"sizePx"
+			],
+			[
+				"back",
+				"background-size"
+			],
+			[
+				"bac",
+				"background-repeat"
+			],
+			[
+				"font-",
+				"font-style"
+			],
+			[
+				"load",
+				"loadingEl"
+			],
+			[
+				"par",
+				"partial"
+			],
+			[
+				"sk",
+				"skipAssets"
+			],
+			[
+				"joi",
+				"joining_goal"
+			],
+			[
+				"li",
+				"like_id"
+			],
+			[
+				"cache",
+				"cacheKey"
+			],
+			[
+				"commit",
+				"commitMessage"
+			],
+			[
+				"data_",
+				"data_point"
+			],
+			[
+				"commen",
+				"commentId"
+			],
+			[
+				"if",
+				"ife	if … else … end"
+			],
+			[
+				"day",
+				"dayCalorie"
+			],
+			[
+				"end",
+				"endWeekDayNumber"
+			],
+			[
+				"start",
+				"startWeekDayNumber"
+			],
+			[
+				"wee",
+				"weekDayNumber"
+			],
+			[
+				"gra",
+				"graphicDatas"
+			],
+			[
+				"sta",
+				"startDate"
+			],
+			[
+				"st",
+				"strftime"
+			],
+			[
+				"pho",
+				"photo"
+			],
+			[
+				"lo",
+				"local_photo"
+			],
+			[
+				"local",
+				"local_picture"
+			],
+			[
+				"current",
+				"current_user_session"
+			],
+			[
+				"late",
+				"latests_members"
+			],
+			[
+				"to",
+				"to_staging"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"leaderboard_p",
+				"leaderboard_prices"
+			],
+			[
+				"link",
+				"link_to"
+			],
+			[
+				"team",
+				"team_rubix_path"
+			],
+			[
+				"te",
+				"text_field"
+			],
+			[
+				"firs",
+				"first_name"
+			],
+			[
+				"wi",
+				"width	zen:css_properties"
+			],
+			[
+				"empt",
+				"emptyState"
+			],
+			[
+				"background-c",
+				"background-color	zen:css_properties"
+			],
+			[
+				"cancel",
+				"cancelEditing"
+			],
+			[
+				"comm",
+				"commentEl"
+			],
+			[
+				"pref",
+				"pref_f"
+			],
+			[
+				"coaching",
+				"coaching_intensity"
+			],
+			[
+				"btn",
+				"btnGroup"
+			],
+			[
+				"cop",
+				"copyItem"
+			],
+			[
+				"ctr",
+				"ctrlDown"
+			],
+			[
+				"key",
+				"keyCode"
+			],
+			[
+				"continue",
+				"continueBuilding"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"test",
+				"testObject"
+			],
+			[
+				"align",
+				"text-align"
+			],
+			[
+				"u",
+				"u"
+			],
+			[
+				"parent",
+				"parentTr"
+			],
+			[
+				"ov",
+				"overflow"
+			],
+			[
+				"target",
+				"targetHeight"
+			],
+			[
+				"sort",
+				"sortableImages"
+			],
+			[
+				"ife",
+				"ifel	If Else"
+			],
+			[
+				"monthly",
+				"monthly"
+			],
+			[
+				"leader",
+				"leaderboard_points_changed"
+			],
+			[
+				"ren",
+				"render"
+			],
+			[
+				"span",
+				"span"
+			],
+			[
+				"remove",
+				"removePoints"
+			],
+			[
+				"do",
+				"dob	Insert do |variable| … end"
+			],
+			[
+				"follo",
+				"followee"
+			],
+			[
+				"previous",
+				"previousComments"
+			],
+			[
+				"lead",
+				"leaderboard_points"
+			],
+			[
+				"add",
+				"addPoints"
+			],
+			[
+				"new",
+				"new_total_points"
+			],
+			[
+				"cur",
+				"current_user_position"
+			],
+			[
+				"dat",
+				"dateDrop"
+			],
+			[
+				"sorted",
+				"sortedItemIndex"
+			],
+			[
+				"prev",
+				"prevPhotoTime"
+			],
+			[
+				"next",
+				"nextPhotoDate"
+			],
+			[
+				"date",
+				"datePhoto"
+			],
+			[
+				"sa",
+				"sameLikes"
+			],
+			[
+				"followee",
+				"followee_id"
+			],
+			[
+				"photo",
+				"photo_file_name"
+			],
+			[
+				"dataP",
+				"dataPointsInPreviousDay"
+			],
+			[
+				"eac",
+				"eac-	each_cons(..) { |group| .. }"
+			],
+			[
+				"like",
+				"likes_points"
+			],
+			[
+				"find_",
+				"find_by_sql  (function)"
+			],
+			[
+				"dail",
+				"daily_calories_limit"
+			],
+			[
+				"acti",
+				"activate"
+			],
+			[
+				"pre",
+				"previousCommenters"
+			],
+			[
+				"from",
+				"fromMailgun"
+			],
+			[
+				"jq",
+				"jqXHR"
+			],
+			[
+				"j",
+				"jqXHR"
+			],
+			[
+				"uploaded",
+				"uploaded_at"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"use",
+				"user_session"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"fetch",
+				"fetchChildren"
+			],
+			[
+				"nod",
+				"node1"
+			],
+			[
+				"event",
+				"eventSpy2"
+			],
+			[
+				"ev",
+				"eventSpy"
+			],
+			[
+				"eve",
+				"eventSpy2"
+			],
+			[
+				"aja",
+				"ajax"
+			],
+			[
+				"ajax",
+				"ajaxParameters"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "config/initializers/asset_sync.rb",
+			"settings":
+			{
+				"buffer_size": 1629,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/initializers/s3.rb",
+			"settings":
+			{
+				"buffer_size": 501,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/authentications_controller.rb",
+			"settings":
+			{
+				"buffer_size": 2431,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<OmniAuth::AuthHash\n	credentials=#<Hashie::Mash\n		expires=true\n		expires_at=1371040690\n		token=\"BAAEgKsvoEMkBAJcWEbFBkan0NG8c8LkDkgOKKZBZC4mu6R0qlXakRObS7FDJ3Qafq2xHlZCs2JHFwb4gQ2NODkOmh7bZBN9UayZBV60xp39dYKYIZAOz7HpeHj3qDRxlu1UxMOfBkDFMQTzDVeERKX5MTe5SXbE62s3ZCRDCoagbbMLoGbzZCz2L\"\n	>\n	extra=#<Hashie::Mash\n		raw_info=#<Hashie::Mash\n			email=\"frankpapageorgio@gmail.com\"\n			first_name=\"Frank\"\n			gender=\"male\"\n			id=\"21710434\"\n			last_name=\"Papageorgio\"\n			link=\"http://www.facebook.com/frank.papageorgio\"\n			locale=\"en_US\"\n			name=\"Frank\n			Papageorgio\"\n			timezone=-5\n			updated_time=\"2012-11-05T13:45:48+0000\"\n			username=\"frank.papageorgio\"\n			verified=true\n		>\n	>\n	info=#<OmniAuth::AuthHash::InfoHash\n	email=\"frankpapageorgio@gmail.com\"\n	first_name=\"Frank\"\n	image=\"http://graph.facebook.com/21710434/picture?type=square\"\n	last_name=\"Papageorgio\"\n	name=\"Frank\n	Papageorgio\"\n	nickname=\"frank.papageorgio\"\n	urls=#<Hashie::Mash\n		Facebook=\"http://www.facebook.com/frank.papageorgio\">\n		verified=true\n	>\n	provider=\"facebook\"\n	uid=\"21710434\"\n>",
+			"settings":
+			{
+				"buffer_size": 1043,
+				"line_ending": "Unix",
+				"name": "<OmniAuth::AuthHash"
+			}
+		},
+		{
+			"file": "app/models/user.rb",
+			"settings":
+			{
+				"buffer_size": 15594,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 405 files for \"auth/\"\n\n/Users/lginoux/project/ruby/foodrubix/app/controllers/application_controller.rb:\n   25      puts \"error message: #{e.message}\"\n   26      # if e.type == \"OAuthException\"\n   27:     #   redirect_to \"https://www.facebook.com/dialog/oauth?client_id=#{FB_CONFIG[:fb_app_id]}&redirect_uri=/auth/facebbok/callback\"\n   28      # end\n   29      # redirect_to static_path('home')\n\n/Users/lginoux/project/ruby/foodrubix/app/views/preferences/edit/_social_sharing.html.erb:\n   11  				<% else %>\n   12  					<p>Connect to Facebook to share your photos on Facebook and tell others what you’re up to.  You’ll only hold yourself accountable for goals that others know about, so put yourself out there a little.</p>\n   13: 					<a href=\"/auth/facebook\" class=\"auth_provider\">\n   14  				  		<%= image_tag \"facebook_login.jpg\", :alt => \"Facebook\", :height => \"28px\" %>\n   15  					</a>\n\n/Users/lginoux/project/ruby/foodrubix/app/views/user_sessions/_form.html.erb:\n   39  				<%= f.submit \"Log in\", :class => \"btn btn-primary login\"  %>\n   40  				or\n   41: 				<a href=\"/auth/facebook\" class=\"auth_provider\">\n   42  					<%= image_tag \"facebook_login.jpg\", :alt => \"Facebook\", :height => \"28px\" %>\n   43  				</a>\n   44  					<!-- or\n   45: 					<a href=\"/auth/twitter\" class=\"auth_provider\">\n   46  				  		<%= image_tag \"twitter_login.jpg\", :alt => \"Twitter\", :height => \"28px\" %>\n   47  				  	</a> -->\n\n/Users/lginoux/project/ruby/foodrubix/app/views/users/edit/_settings_profile.html.erb:\n  109  				<% if !session[:omniauth] %>\n  110  				or\n  111: 				<a href=\"/auth/facebook\" class=\"auth_provider\">\n  112  					<%= image_tag \"facebook_login.jpg\", :alt => \"Facebook\", :height => \"28px\" %>\n  113  				</a>\n  114  				<!-- or\n  115: 				<a href=\"/auth/twitter\" class=\"auth_provider\">\n  116  				<%= image_tag \"twitter_login.jpg\", :alt => \"Twitter\", :height => \"28px\" %>\n  117  			</a> -->\n\n/Users/lginoux/project/ruby/foodrubix/config/routes.rb:\n   40    # match 'fileInputForm'  => 'pages#show', :id => 'fileInputForm', :as => \"fileInputForm\", :format => false\n   41  \n   42:   match '/auth/:provider/callback' => 'authentications#create'\n   43:   match '/auth/:provider/failure', to: redirect('/login')\n   44    match '/favicon.ico', to: redirect('/assets/favicon.ico')\n   45    match 'team_rubix' => 'users#index', :as => :team_rubix\n\n8 matches across 5 files\n",
+			"settings":
+			{
+				"buffer_size": 2386,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "app/controllers/password_resets_controller.rb",
+			"settings":
+			{
+				"buffer_size": 1412,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/users_controller.rb",
+			"settings":
+			{
+				"buffer_size": 7187,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/asset_sync.yml",
+			"settings":
+			{
+				"buffer_size": 675,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/s3.yml",
+			"settings":
+			{
+				"buffer_size": 523,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/users/edit/_settings_profile.html.erb",
+			"settings":
+			{
+				"buffer_size": 4316,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 287.0,
+		"selected_items":
+		[
+			[
+				"dele",
+				"File: Delete"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"syn rs",
+				"Set Syntax: RSpec"
+			],
+			[
+				"ruby",
+				"RubyTest: Run All Ruby Tests"
+			],
+			[
+				"run",
+				"RubyTest: Run All Ruby Tests"
+			],
+			[
+				"rubytest ",
+				"RubyTest: Run Single Test"
+			],
+			[
+				"test",
+				"RubyTest: Run Single Test"
+			],
+			[
+				"run test",
+				"RubyTest: Run Single Test"
+			],
+			[
+				"rubyte",
+				"RubyTest: Run Single Test"
+			],
+			[
+				"z",
+				"Run Zeus Test"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"rspec",
+				"Set Syntax: RSpec"
+			],
+			[
+				"new",
+				"File: New File Relative to Current View"
+			],
+			[
+				"rails",
+				"Set Syntax: Ruby on Rails"
+			],
+			[
+				"NEW F",
+				"File: New File Relative to Current View"
+			],
+			[
+				"rename",
+				"File: Rename"
+			],
+			[
+				"renam",
+				"File: Rename"
+			],
+			[
+				"delete",
+				"File: Delete"
+			],
+			[
+				"rena",
+				"File: Rename"
+			],
+			[
+				"cucu",
+				"Set Syntax: Cucumber Steps"
+			],
+			[
+				"packa in",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"move",
+				"File: Move"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"toggle",
+				"View: Toggle Minimap"
+			],
+			[
+				"ne",
+				"File: New File Relative to Current View"
+			],
+			[
+				"ren",
+				"File: Rename"
+			],
+			[
+				"new f",
+				"File: New File Relative to Current View"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"fetch",
+				"Fetch: Manage"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"browa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"file renam",
+				"File: Rename"
+			],
+			[
+				"synt java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"java",
+				"Format: Javascript"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"toggle bar",
+				"View: Toggle Side Bar"
+			],
+			[
+				"bar",
+				"View: Toggle Side Bar"
+			],
+			[
+				"toggle sb",
+				"View: Toggle Side Bar"
+			],
+			[
+				"file new",
+				"File: New File Relative to Current View"
+			],
+			[
+				"dif",
+				"FileDiffs: Menu"
+			],
+			[
+				"file",
+				"FileDiffs: Menu"
+			],
+			[
+				"filed",
+				"FileDiffs: Menu"
+			],
+			[
+				"filedif",
+				"FileDiffs: Menu"
+			],
+			[
+				"diff",
+				"Set Syntax: Diff"
+			],
+			[
+				"re",
+				"File: Rename"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"package a",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"file de",
+				"File: Delete"
+			],
+			[
+				"foler",
+				"Project: Add Folder"
+			],
+			[
+				"build",
+				"Build: Cancel"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: erb",
+				"Snippet: end (ERB)"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"lorem",
+				"Snippet: jQuery Plugin Boilerplate Minified"
+			],
+			[
+				"indent",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"stack",
+				"Stackoverflow: Search from Input"
+			],
+			[
+				"lin",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"lint",
+				"SublimeLinter: Background Linting"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"git",
+				"Git: Diff All"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/lginoux/project/ruby/foodrubix/config/routes.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/preferences/edit/_social_sharing.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/application_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/homepage/browserawareness.js",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/new/DataPointUploadModal.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/show/_view_modal_box.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/show/dataPointViewManager.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/users/show/show.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/application/navigation_bar.css",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/users/edit/edit.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/layouts/_navigation_bar.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/create/_new_upload.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_verify_account.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/create/_fileInputForm.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/config/asset_sync_aws.yml",
+		"/Users/lginoux/project/ruby/foodrubix/.gitignore",
+		"/Users/lginoux/project/ruby/foodrubix/config/initializers/s3.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/users/edit.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_day_photo_list.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/show/_main_photo.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/data_points_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/mailers/user_mailer.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_image_upload_not_working.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/utils.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/preferences/edit/_daily_calory_limit.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/show/_photo.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/show.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/comments_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/data_point.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/google_analytics.js.erb",
+		"/Users/lginoux/project/ruby/foodrubix/config/unicorn.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/asset_sync.yml",
+		"/Users/lginoux/project/ruby/foodrubix/config/initializers/asset_sync.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/comment.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/preferences_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_week_photo_list.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_month_photo_list.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/helpers/data_points_helper.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/intercom.io.js.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/users/edit/SettingsPictureController.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/users/edit/_settings_picture.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/user.rb",
+		"/Users/lginoux/project/ruby/foodrubix/Gemfile",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/friendship.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/comments.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/development.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/users.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/test.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/production.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/like_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/data_point_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/leaderboard_price_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/friendships/index.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/admin/data_points.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/admin/users.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/admin/comments.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/database.yml",
+		"/Users/lginoux/project/ruby/foodrubix/db/migrate/20120806211304_add_picture_to_user.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/comment_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/data_points.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/support/env.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/cucumber.yml",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/comments/_comment.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/comments/index.js.erb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/friendships.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_leaderboard.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/likes.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/spec_helper.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_data_point.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_awards.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/helpers/user_helper.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/like_observer.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/like.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/friendship_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/foodrubix.sublime-project",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/staging.rb",
+		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/_heroku/deploy.rake",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/comment_observer.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/data_point_observer.rb",
+		"/Users/lginoux/Library/Application Support/Sublime Text 2/Packages/User/rails/testing/focus.sublime-snippet",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/friendship_observer.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/authentication/signin_in.feature",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/init.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/user_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/readme.markdown",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/leaderboard_price.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/models/preference.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/models/preference_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/layouts/home.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/layouts/application.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/config/application.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/shared/shared_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/edit_photo_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/Guardfile",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/homepage/homepage.css",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/homepage.css",
+		"/Users/lginoux/project/ruby/foodrubix/db/schema.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/users_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/controllers/friendships_controller.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/data_point/comment_photo.feature",
+		"/Users/lginoux/project/ruby/foodrubix/features/data_point/edit_photo.feature",
+		"/Users/lginoux/project/ruby/foodrubix/Procfile",
+		"/Users/lginoux/project/ruby/foodrubix/spec/controllers/data_point_controller_spec.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/upload_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/fixtures/images/hamburger-icon.png",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/liking_commenting_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/homepage/zopim.js.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/homepage/zopim.js",
+		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/cucumber.rake",
+		"/Users/lginoux/project/ruby/foodrubix/features/data_point/like_photo.feature",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/application/data_points/show/view_photo_popup_box.css",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/comments/CommentListController.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/users/show/photoCalendar.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/config/initializers/devise.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/support/deferred_garbage_collection.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/support/deferred_garbage_collection.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/liking_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/authentication/facebook_login.feature",
+		"/Users/lginoux/project/ruby/foodrubix/features/data_point/upload.feature",
+		"/Users/lginoux/project/ruby/foodrubix/features/support/steps_methods.rb",
+		"/Users/lginoux/project/ruby/foodrubix/spec/factories/images/hamburger-icon.png",
+		"/Users/lginoux/project/ruby/foodrubix/spec/controllers/data_point_spec.rb",
+		"/Users/lginoux/Desktop/robot_wallB.js",
+		"/Users/lginoux/project/ruby/foodrubix/features/data_point/change_period_diary.feature",
+		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/scheduler.rake",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/change_period_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/data_point/data_point_steps.rb",
+		"/Users/lginoux/project/ruby/foodrubix/features/step_definitions/authentication/authentication_steps.rb"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"*.css*",
+			"",
+			"*.css*",
+			"",
+			"*.html.erb",
+			"",
+			"*html.erb",
+			"*/html/erb",
+			"",
+			"*/app*",
+			"",
+			"*.css",
+			"",
+			"*.html.erb",
+			"",
+			"*.erb",
+			".erb",
+			"",
+			"*.erb",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" ",
+			"puts",
+			"auth/",
+			"session[:omniauth]:",
+			"wolfram",
+			".container .nav>li>a",
+			".container .nav>li>a ",
+			"nav_icon",
+			"50px",
+			"filereader_alternative",
+			"img",
+			"clearNewUpload",
+			"onChangePhoto",
+			"fileInput",
+			"clearNewUpload",
+			"FILE",
+			"comment",
+			"btnComment",
+			"safari",
+			"auth",
+			"facebook",
+			"Visit the ",
+			"Tip ",
+			"Tip",
+			"type=\"number",
+			"input",
+			"input type",
+			"asset_sync_config_file",
+			"params[\"attachment-1\"]",
+			"comments",
+			"comments.",
+			"files",
+			"main_photo",
+			"100",
+			"validate",
+			"Please upload a photo",
+			".file",
+			"#	deleted:    ",
+			"File.ope",
+			"focus =>",
+			"focus",
+			"quiet",
+			"@comments",
+			"image",
+			"ImageMagic",
+			"Paperclip.options[:command_path]",
+			"each_with",
+			"javascript_strategy",
+			"allow_rescue",
+			"DatabaseCleaner",
+			"javascript_strategy",
+			"allow_rescue",
+			"require",
+			"infer_base_class_for_anonymous_controllers",
+			"pic",
+			"pic()",
+			"hot_photo_awarded",
+			"commenter",
+			"com1",
+			"Comment",
+			"comments",
+			"Comment",
+			"comment",
+			"Comment",
+			"comment",
+			"Comment",
+			"comment",
+			"Comment",
+			"UserMailer",
+			"public",
+			"s3",
+			"AWS::S3::Base.establish_connection",
+			"s3",
+			"onOthersPhoto",
+			"whereDataPointBelongsTo",
+			"@",
+			"let(",
+			"col_list",
+			"avatar",
+			"update",
+			"validate_presence_of",
+			"like",
+			"pic()",
+			"pic",
+			"onOwnPhoto?",
+			"comment",
+			"hamburger-icon",
+			"hamburger-icon.png",
+			"hamburger-icon",
+			"viewMode",
+			"true",
+			"hover",
+			"cocaine",
+			"onImageClick",
+			"idImageClicked",
+			"fetchViewModal",
+			"like",
+			"I click on the photo of the diary page",
+			"usermail.dealy comment",
+			"usermail like",
+			"Log",
+			"hamburger-icon.png",
+			"\"attachment-1\"",
+			"ajax",
+			".click",
+			"click",
+			"b%e",
+			"puts ",
+			"login_for_user",
+			"login",
+			"next",
+			"class=\"auth_provider\"",
+			"auth_provider",
+			"I press",
+			"I presss on",
+			"reset_perishable_token",
+			"token",
+			"perishable_token",
+			"load_user_using_perishable_token",
+			"ctrl",
+			"alt+1",
+			"alt",
+			"group",
+			"gr",
+			"new_password",
+			"the alert message sh",
+			"the alert ",
+			"comment"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"id=\"auth_provider\"",
+			"UserMailer",
+			"UserMailer.",
+			"UserMailer.delay",
+			"UserMailer",
+			"/vtree.css",
+			"sans-serif;",
+			"fetchChildren",
+			"+ \\n",
+			"p",
+			"class"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "config/initializers/asset_sync.rb",
+					"settings":
+					{
+						"buffer_size": 1629,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								742,
+								742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "config/initializers/s3.rb",
+					"settings":
+					{
+						"buffer_size": 501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								55
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/controllers/authentications_controller.rb",
+					"settings":
+					{
+						"buffer_size": 2431,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1113,
+								1113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 1043,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								878,
+								878
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<OmniAuth::AuthHash",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/models/user.rb",
+					"settings":
+					{
+						"buffer_size": 15594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7204,
+								7212
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3999.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"settings":
+					{
+						"buffer_size": 2386,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										318,
+										323
+									],
+									[
+										756,
+										761
+									],
+									[
+										1089,
+										1094
+									],
+									[
+										1274,
+										1279
+									],
+									[
+										1587,
+										1592
+									],
+									[
+										1770,
+										1775
+									],
+									[
+										2110,
+										2115
+									],
+									[
+										2180,
+										2185
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								2112,
+								2112
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 218.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/controllers/password_resets_controller.rb",
+					"settings":
+					{
+						"buffer_size": 1412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								355,
+								355
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/controllers/users_controller.rb",
+					"settings":
+					{
+						"buffer_size": 7187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								279,
+								279
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/Ruby on Rails.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "config/asset_sync.yml",
+					"settings":
+					{
+						"buffer_size": 675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								675,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "config/s3.yml",
+					"settings":
+					{
+						"buffer_size": 523,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								411,
+								411
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/views/users/edit/_settings_profile.html.erb",
+					"settings":
+					{
+						"buffer_size": 4316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 182.0
+	},
+	"output.shell_turtlestein":
+	{
+		"height": 151.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"usrcon",
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"",
+				"app/views/users/edit/_settings_profile.html.erb"
+			],
+			[
+				"setting",
+				"app/views/users/edit/_settings_profile.html.erb"
+			],
+			[
+				"userrb",
+				"app/models/user.rb"
+			],
+			[
+				"nav",
+				"app/views/layouts/_navigation_bar.html.erb"
+			],
+			[
+				"show",
+				"app/assets/javascripts/users/show/show.js.coffee"
+			],
+			[
+				"datapointvie",
+				"app/views/data_points/show/_view_modal_box.html.erb"
+			],
+			[
+				"view",
+				"app/assets/javascripts/data_points/show/dataPointViewManager.js.coffee"
+			],
+			[
+				"new",
+				"app/views/data_points/create/_new_upload.html.erb"
+			],
+			[
+				"upload",
+				"app/assets/javascripts/data_points/new/DataPointUploadModal.js.coffee"
+			],
+			[
+				"newupl",
+				"app/views/data_points/create/_new_upload.html.erb"
+			],
+			[
+				"datapoint",
+				"app/assets/javascripts/data_points/show/dataPointViewManager.js.coffee"
+			],
+			[
+				"bro",
+				"app/assets/javascripts/homepage/browserawareness.js"
+			],
+			[
+				"usercon",
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"face",
+				"app/views/email/_verify_account.html.erb"
+			],
+			[
+				"user",
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"pas",
+				"app/controllers/password_resets_controller.rb"
+			],
+			[
+				"applicationc",
+				"app/controllers/application_controller.rb"
+			],
+			[
+				"newuplo",
+				"app/views/data_points/create/_new_upload.html.erb"
+			],
+			[
+				"s3",
+				"config/s3.yml"
+			],
+			[
+				"gii",
+				".gitignore"
+			],
+			[
+				"asse",
+				"config/asset_sync.yml"
+			],
+			[
+				"ass",
+				"config/initializers/asset_sync.rb"
+			],
+			[
+				"image_upload_not_working",
+				"app/views/email/_image_upload_not_working.html.erb"
+			],
+			[
+				"usermai",
+				"app/mailers/user_mailer.rb"
+			],
+			[
+				"uploa",
+				"app/views/data_points/create/_new_upload.html.erb"
+			],
+			[
+				"dpc",
+				"app/controllers/data_points_controller.rb"
+			],
+			[
+				"main_photo",
+				"app/views/data_points/show/_main_photo.html.erb"
+			],
+			[
+				"day",
+				"app/views/data_points/index/_day_photo_list.html.erb"
+			],
+			[
+				"ignor",
+				".gitignore"
+			],
+			[
+				"gitig",
+				".gitignore"
+			],
+			[
+				"asset",
+				"config/asset_sync.yml"
+			],
+			[
+				"unic",
+				"config/unicorn.rb"
+			],
+			[
+				"google",
+				"app/assets/javascripts/all/google_analytics.js.erb"
+			],
+			[
+				"coco",
+				"app/controllers/comments_controller.rb"
+			],
+			[
+				"dp",
+				"app/models/data_point.rb"
+			],
+			[
+				"comment",
+				"app/models/comment.rb"
+			],
+			[
+				"view_modal_box",
+				"app/views/data_points/show/_view_modal_box.html.erb"
+			],
+			[
+				"ccon",
+				"app/controllers/comments_controller.rb"
+			],
+			[
+				"datapointv",
+				"app/assets/javascripts/data_points/show/dataPointViewManager.js.coffee"
+			],
+			[
+				"_photo",
+				"app/views/data_points/show/_photo.html.erb"
+			],
+			[
+				"dph",
+				"app/helpers/data_points_helper.rb"
+			],
+			[
+				"ut",
+				"app/assets/javascripts/utils.js.coffee"
+			],
+			[
+				"uti",
+				"app/assets/javascripts/utils.js.coffee"
+			],
+			[
+				"daily_calory_limit",
+				"app/views/preferences/edit/_daily_calory_limit.html.erb"
+			],
+			[
+				"edit",
+				"app/views/users/edit.html.erb"
+			],
+			[
+				"settings",
+				"app/assets/javascripts/users/edit/SettingsPictureController.js.coffee"
+			],
+			[
+				"newup",
+				"app/assets/javascripts/data_points/new/DataPointUploadModal.js.coffee"
+			],
+			[
+				"env",
+				"features/support/env.rb"
+			],
+			[
+				"cucumber",
+				"config/cucumber.yml"
+			],
+			[
+				"fact",
+				"spec/factories/data_points.rb"
+			],
+			[
+				"friend",
+				"app/models/friendship.rb"
+			],
+			[
+				"dpsp",
+				"spec/models/data_point_spec.rb"
+			],
+			[
+				"app/views/co",
+				"app/views/comments/_comment.html.erb"
+			],
+			[
+				"index.js",
+				"app/views/comments/index.js.erb"
+			],
+			[
+				"addpi",
+				"db/migrate/20120806211304_add_picture_to_user.rb"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"databas",
+				"config/database.yml"
+			],
+			[
+				".gi",
+				".gitignore"
+			],
+			[
+				"adp",
+				"app/admin/data_points.rb"
+			],
+			[
+				"deve",
+				"config/environments/development.rb"
+			],
+			[
+				"html.erb",
+				"app/views/friendships/index.html.erb"
+			],
+			[
+				"fli",
+				"spec/factories/likes.rb"
+			],
+			[
+				"fdp",
+				"spec/factories/data_points.rb"
+			],
+			[
+				"spechel",
+				"spec/spec_helper.rb"
+			],
+			[
+				"facdp",
+				"spec/factories/data_points.rb"
+			],
+			[
+				"facto",
+				"spec/factories/data_points.rb"
+			],
+			[
+				"likeob",
+				"app/models/like_observer.rb"
+			],
+			[
+				"mlike",
+				"app/models/like.rb"
+			],
+			[
+				"like",
+				"spec/models/like_spec.rb"
+			],
+			[
+				"comments",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"staging",
+				"config/environments/staging.rb"
+			],
+			[
+				"test.rb",
+				"config/environments/test.rb"
+			],
+			[
+				"prod",
+				"config/environments/production.rb"
+			],
+			[
+				"test",
+				"config/environments/test.rb"
+			],
+			[
+				"muser",
+				"app/models/user.rb"
+			],
+			[
+				"ge",
+				"Gemfile"
+			],
+			[
+				"fuser",
+				"spec/factories/users.rb"
+			],
+			[
+				"dpo",
+				"app/models/data_point_observer.rb"
+			],
+			[
+				"mfri",
+				"app/models/friendship.rb"
+			],
+			[
+				"friendo",
+				"app/models/friendship_observer.rb"
+			],
+			[
+				"commentob",
+				"app/models/comment_observer.rb"
+			],
+			[
+				"coffe",
+				"app/assets/javascripts/init.js.coffee"
+			],
+			[
+				"spec",
+				"spec/spec_helper.rb"
+			],
+			[
+				"factuser",
+				"spec/factories/users.rb"
+			],
+			[
+				"rspec",
+				"spec/models/user_spec.rb"
+			],
+			[
+				"read",
+				"readme.markdown"
+			],
+			[
+				"dev",
+				"config/environments/development.rb"
+			],
+			[
+				"commento",
+				"app/models/comment_observer.rb"
+			],
+			[
+				"commentobser",
+				"app/models/comment_observer.rb"
+			],
+			[
+				"fcomm",
+				"spec/factories/comments.rb"
+			],
+			[
+				"mcommen",
+				"app/models/comment.rb"
+			],
+			[
+				"co",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"preferspe",
+				"spec/models/preference_spec.rb"
+			],
+			[
+				"mprefere",
+				"app/models/preference.rb"
+			],
+			[
+				"leader",
+				"app/models/leaderboard_price.rb"
+			],
+			[
+				"fafrien",
+				"spec/factories/friendships.rb"
+			],
+			[
+				"friensp",
+				"spec/models/friendship_spec.rb"
+			],
+			[
+				"mfriend",
+				"app/models/friendship.rb"
+			],
+			[
+				"mcomme",
+				"app/models/comment.rb"
+			],
+			[
+				"comm",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"guar",
+				"Guardfile"
+			],
+			[
+				"home",
+				"app/views/layouts/home.html.erb"
+			],
+			[
+				"gua",
+				"Guardfile"
+			],
+			[
+				"commentcon",
+				"app/controllers/comments_controller.rb"
+			],
+			[
+				"commsp",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"preference",
+				"app/models/preference.rb"
+			],
+			[
+				"sche",
+				"db/schema.rb"
+			],
+			[
+				"schema",
+				"db/schema.rb"
+			],
+			[
+				"friendcon",
+				"app/controllers/friendships_controller.rb"
+			],
+			[
+				"friends",
+				"app/models/friendship.rb"
+			],
+			[
+				"schem",
+				"db/schema.rb"
+			],
+			[
+				"friendsp",
+				"spec/models/friendship_spec.rb"
+			],
+			[
+				"mcomment",
+				"app/models/comment.rb"
+			],
+			[
+				"dpspe",
+				"spec/models/data_point_spec.rb"
+			],
+			[
+				"mli",
+				"app/views/data_points/index/_month_photo_list.html.erb"
+			],
+			[
+				"commentspec",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"likespe",
+				"spec/models/like_spec.rb"
+			],
+			[
+				"speccomment",
+				"spec/models/comment_spec.rb"
+			],
+			[
+				"specuser",
+				"spec/models/user_spec.rb"
+			],
+			[
+				"mdp",
+				"app/models/data_point.rb"
+			],
+			[
+				"likesp",
+				"spec/models/like_spec.rb"
+			],
+			[
+				"homeht",
+				"app/views/layouts/home.html.erb"
+			],
+			[
+				"navigation_bar",
+				"app/views/layouts/_navigation_bar.html.erb"
+			],
+			[
+				"aplichtml",
+				"app/views/layouts/application.html.erb"
+			],
+			[
+				"giti",
+				".gitignore"
+			],
+			[
+				"appli",
+				"config/application.rb"
+			],
+			[
+				".js",
+				"app/assets/javascripts/all/intercom.io.js.erb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/lginoux/project/ruby/kts/kts.sublime-project"
+			],
+			[
+				"kts",
+				"/Users/lginoux/project/ruby/kts/kts.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 255.0,
+	"status_bar_visible": true
+}

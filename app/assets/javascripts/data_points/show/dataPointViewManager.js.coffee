@@ -21,6 +21,7 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 		".viewMode":                  "viewElements"
 		".editMode":                  "editElements"
 		".editable_img_container img":"img"
+		".filereader_alternative":    "filereader_alternative"
 		# ".data_point_photo":          "fileInput"
 		".progress":                  "progress"
 		".progress .bar":             'bar'
@@ -286,6 +287,9 @@ class foodrubix.dataPointViewManager extends Spine.Controller
 			reader.onload = (e) ->
 				that.img.attr('src', e.target.result).parent().css("height", "auto");
 			reader.readAsDataURL(input.files[0]);
+		else if typeof FileReader == "undefined"
+			@img.addClass("hide").parent().parent().height(@img.height()).css("background-image", "none")
+			@filereader_alternative.empty().html(fileName)
 
 	validateDataPointData: (e) =>
 		validated = true
