@@ -147,7 +147,7 @@ class DataPointsController < ApplicationController
 
     elsif fromMailgun
       # mailgun expect a 200 response, so we need to send him something
-      if @data_point.photo.size >= 4000000
+      if  @data_point.photo && @data_point.photo.size >= 4000000
         UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
       end
       render :text => ""

@@ -4,7 +4,7 @@ class Friendship < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :followee, :class_name => 'User'
 	validate :cannot_follow_same_user_twice
-
+	has_many :points, :dependent => :destroy
 
 
 	# prevent the system to have two likes for the same user on the same photo

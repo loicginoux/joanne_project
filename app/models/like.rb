@@ -2,6 +2,7 @@ class Like < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :data_point, :touch => true
 	validate :cannot_like_same_data_point_twice
+	has_many :points, :dependent => :destroy
 
 	scope :onOthersPhoto, lambda{||
 		# comment that is in a photo not belonging to the commenter

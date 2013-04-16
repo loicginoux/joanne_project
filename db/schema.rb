@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130303111444) do
+ActiveRecord::Schema.define(:version => 20130415122230) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -123,6 +123,25 @@ ActiveRecord::Schema.define(:version => 20130303111444) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "points", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friendship_id"
+    t.integer  "comment_id"
+    t.integer  "like_id"
+    t.integer  "data_point_id"
+    t.integer  "number"
+    t.date     "attribution_date"
+    t.string   "action"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "points", ["comment_id"], :name => "index_points_on_comment_id"
+  add_index "points", ["data_point_id"], :name => "index_points_on_data_point_id"
+  add_index "points", ["friendship_id"], :name => "index_points_on_friendship_id"
+  add_index "points", ["like_id"], :name => "index_points_on_like_id"
+  add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "preferences", :force => true do |t|
     t.integer "user_id"

@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   has_many :data_points, :dependent => :destroy
   has_many :leaderboard_prices, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_many :points, :dependent => :destroy
   has_one :preference, :dependent => :destroy
 
   accepts_nested_attributes_for :data_points
@@ -60,17 +61,6 @@ class User < ActiveRecord::Base
   #########################
   # Paperclip attachements
   #########################
-  # has_attached_file :local_picture,
-  #   :styles => {
-  #     :small => ["50x50#",:jpg],
-  #     :medium => ["200x200#",:jpg]
-  #   },
-  #   :convert_options => { :all => '-auto-orient' },
-  #   :default_url => '/assets/default_user_:style.gif',
-  #   :url => '/assets/:class/:attachment/:id/:style.:extension',
-  #   :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
-
-
   has_attached_file :picture,
     :styles => {
       :small => ["50x50#",:jpg],
@@ -109,29 +99,11 @@ class User < ActiveRecord::Base
   #########################
   # Callbacks
   #########################
-  # after_save :queue_upload_to_s3
 
 
   #########################
   # Methods
   #########################
-
-  # leaderboard points for each action
-  LEADERBOARD_ACTION_VALUE = {
-    :comment => 3, #your comment on a photo
-    :commented => 2, #someone else comment on your photo
-    :like => 1, #your like on a photo
-    :liked => 2, #someone else likes your photo
-    :data_point => 1,
-    :follow => 1, #you follow someone
-    :followed => 2, #someone follows you
-    :profile_photo => 5,
-    :daily_calories_limit => 5,
-    :fb_sharing => 10,
-    :hot_photo_award => 3,
-    :smart_choice_award => 5,
-    :joining_goal => 5 # fill in the joining goal field
-  }
 
   #cancan gem
   ROLES = %w[admin]
@@ -204,26 +176,6 @@ class User < ActiveRecord::Base
     self.hasFacebookConnected? && self.preference.fb_sharing
   end
 
-  def positionLeadership
-    User.find_by_sql(['
-      SELECT "u1".username,
-            "u1".leaderboard_points,
-            "u1".total_leaderboard_points,
-            (SELECT count(*)
-              FROM "users" as "u2"
-              WHERE "u2".leaderboard_points > "u1".leaderboard_points
-                AND "u2"."confirmed" = \'t\'
-                AND "u2"."active" = \'t\'
-            )+1 as "position",
-            (SELECT count(*)
-              FROM "users" as "u3"
-              WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
-                AND "u3"."confirmed" = \'t\'
-                AND "u3"."active" = \'t\'
-            )+1 as "all_time_position"
-      FROM  "users" as "u1"
-      WHERE "u1".id = ?', self.id]).first
-  end
 
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email']
@@ -280,129 +232,35 @@ class User < ActiveRecord::Base
     return lookup[provider]
   end
 
-  def assign_leaderboard_points(monthly = false)
-    points = 0
-    points += comments_points(monthly)
-    points += commented_points(monthly)
-    points += likes_points(monthly)
-    points += liked_points(monthly)
-    points += photo_upload_points(monthly)
-    points += followee_points()
-    points += follower_points()
-    points += profile_photo_points()
-    points += daily_calories_limit_points()
-    points += fb_sharing_points()
-    points += smart_choice_award_points(monthly)
-    points += hot_photo_award_points(monthly)
-    points += joining_goal_points()
-    return points
+  def get_overall_points()
+    get_points(self.points)
   end
 
-
-
-  def comments_points(monthly = false)
-    myComments = self.comments
-
-    if monthly
-      myComments = myComments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    myComments.group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:comment]
+  def get_monthly_points()
+    # endDate = DateTime.parse(Date.today.to_s)
+    # startDate = DateTime.parse((endDate - 1.days).to_s)
+    # get_points(self.points.for_period())
   end
 
-  def commented_points(monthly = false)
-    comments = Comment.onOthersPhoto().whereDataPointBelongsTo(self)
-    if monthly
-      comments = comments.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    comments.group(Comment.col_list).length * User::LEADERBOARD_ACTION_VALUE[:commented]
-  end
-
-  def likes_points(monthly = false)
-    likes = self.likes.onOthersPhoto()
-    if monthly
-      likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    likes.length * User::LEADERBOARD_ACTION_VALUE[:like]
-  end
-
-  def liked_points(monthly = false)
-    likes = Like.onOthersPhoto().whereDataPointBelongsTo(self)
-    if monthly
-      likes = likes.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    likes.length * User::LEADERBOARD_ACTION_VALUE[:liked]
-  end
-
-  def followee_points()
-    self.followees.length * User::LEADERBOARD_ACTION_VALUE[:follow]
-  end
-
-  def follower_points()
-    self.followers.length * User::LEADERBOARD_ACTION_VALUE[:followed]
-  end
-
-  def profile_photo_points()
-    (self.picture.nil?) ? 0 : User::LEADERBOARD_ACTION_VALUE[:profile_photo]
-  end
-
-
-  def daily_calories_limit_points()
-    (self.preference.daily_calories_limit == 0) ? 0 : User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
-  end
-
-  def fb_sharing_points()
-    (self.preference.fb_sharing) ? User::LEADERBOARD_ACTION_VALUE[:fb_sharing] : 0
-  end
-
-  def joining_goal_points()
-    (self.preference.joining_goal) ? User::LEADERBOARD_ACTION_VALUE[:joining_goal] : 0
-  end
-
-
-  def smart_choice_award_points(monthly = false)
-    dp = self.data_points.smart_choice_awarded()
-    if monthly
-      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    dp.length * User::LEADERBOARD_ACTION_VALUE[:smart_choice_award]
-  end
-
-  def hot_photo_award_points(monthly = false)
-    dp = self.data_points.hot_photo_awarded()
-    if monthly
-      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    dp.length * User::LEADERBOARD_ACTION_VALUE[:hot_photo_award]
-  end
-
-  def photo_upload_points(monthly = false)
-    # a point is awarded per photo and per day with a limit of 3 photo/point a day.
-    # we group a user photo per day,
-    # then we calculate the number of photo per day
-    # and for each day we add the points per photo. If a day has more than 3 photos, we count it as 3 points
-    dp = self.data_points
-    if monthly
-      dp = dp.where(:uploaded_at => Date.today.beginning_of_month..Date.today.end_of_month)
-    end
-    dp.group_by(&:group_by_criteria).map {|k,v| v.length}.inject(0){|sum, i| (i<4) ? sum+i*User::LEADERBOARD_ACTION_VALUE[:data_point] : sum+3}
-  end
-
-  def addPoints(points, onMonthlyLeaderboard = true)
-    unless points == 0
-      # we remove points on current month only if onMonthlyLeaderboard
-      new_points = (onMonthlyLeaderboard) ? self.leaderboard_points + points : self.leaderboard_points
-
-      new_total_points = self.total_leaderboard_points + points
-      puts "#{points} points added to #{self.username}, pass from #{self.leaderboard_points} to #{new_points} points (total: from #{self.total_leaderboard_points} to #{new_total_points})"
-      self.update_attributes({
-        :leaderboard_points =>  new_points,
-        :total_leaderboard_points => new_total_points
-      })
-    end
-  end
-
-  def removePoints(points, onMonthlyLeaderboard = true)
-    self.addPoints(-points, onMonthlyLeaderboard)
+  def positionLeadership
+    User.find_by_sql(['
+      SELECT "u1".username,
+            "u1".leaderboard_points,
+            "u1".total_leaderboard_points,
+            (SELECT count(*)
+              FROM "users" as "u2"
+              WHERE "u2".leaderboard_points > "u1".leaderboard_points
+                AND "u2"."confirmed" = \'t\'
+                AND "u2"."active" = \'t\'
+            )+1 as "position",
+            (SELECT count(*)
+              FROM "users" as "u3"
+              WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
+                AND "u3"."confirmed" = \'t\'
+                AND "u3"."active" = \'t\'
+            )+1 as "all_time_position"
+      FROM  "users" as "u1"
+      WHERE "u1".id = ?', self.id]).first
   end
 
   def now()
@@ -431,49 +289,9 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  # def queue_upload_to_s3()
-  #   if self.local_picture_updated_at_changed? && !self.local_picture_updated_at.nil?
-  #     self.delay.upload_to_s3
-  #     self.delay({:run_at => 3.minutes.from_now}).delete_local_picture
-  #   end
-  # end
-
-  # def upload_to_s3
-  #   self.picture = self.local_picture
-  #   self.save
-  # end
-
-  # def delete_local_picture
-  #   if !self.picture_updated_at.nil?
-  #     User.skip_callback(:save)
-  #     self.local_picture = nil
-  #     self.save
-  #     User.set_callback(:save)
-  #  end
-  # end
-
   def pic()
     # (self.picture?) ? self.picture : self.local_picture
     self.picture
   end
 
-  # # see http://quickleft.com/blog/faking-regex-based-cache-keys-in-rails
-  # # this iterator allow to fake Regex-Based Cache Keys in Rails
-  # # we increment to flush the cash for this user
-  # def increment_memcache_iterator()
-  #   Rails.cache.write("user-#{self.id}-memcache-iterator", self.memcache_iterator() + 1)
-  # end
-
-  # def memcache_iterator()
-  #   # fetch the user's memcache key
-  #   # If there isn't one yet, assign it a random integer between 0 and 10
-  #   Rails.cache.fetch("/user/#{self.id}/memcache-iterator") do
-  #      return "1"
-  #   end
-  # end
-
-  # def iterative_cache_key()
-  #   "/user/#{self.id}/memcache-iterator/#{self.memcache_iterator()}"
-  # end
 end

@@ -48,13 +48,13 @@ class DataPoint < ActiveRecord::Base
   has_many :comments, :dependent => :destroy, :order => 'created_at ASC'
   has_many :likes, :dependent => :destroy
   has_many :fans, :through => :likes, :source => :user
+  has_many :points, :dependent => :destroy
 
   #########################
   # Scopes
   #########################
   scope :hot_photo_awarded, where(:hot_photo_award => true)
   scope :smart_choice_awarded, where(:smart_choice_award => true)
-  scope :from_yesterday, where(:uploaded_at => (DateTime.now.beginning_of_day - 1.day)..(DateTime.now.end_of_day - 1.day))
   scope :same_day_as, lambda { |date|
     if date
       DataPoint.where(:uploaded_at => date.beginning_of_day..date.end_of_day)

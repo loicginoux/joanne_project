@@ -21,7 +21,8 @@ class Comment < ActiveRecord::Base
   # Associations
   #########################
 	belongs_to :user
-	belongs_to :data_point, :touch => true
+  belongs_to :data_point, :touch => true
+	has_many :points, :dependent => :destroy
 
 
   #########################
