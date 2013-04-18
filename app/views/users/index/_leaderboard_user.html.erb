@@ -9,11 +9,7 @@
 				<%=  image_tag user.picture.url(:small), {:class=>"avatar"} %>
 				<div class="pull-left">
 					<p class="username">
-						<% if defined? current_user_position %>
-							<%= current_user_position %>
-						<% else %>
-							<%= ((leaderboard_users.current_page * users_per_page) - (users_per_page - 1)) + index %>
-						<% end %> - <%= user.username.capitalize%>
+						<%= user["position_"+leaderboard] %> - <%= user.username.capitalize%>
 					</p>
 					<p class="diet"><%= user.preference.diet%></p>
 				</div>

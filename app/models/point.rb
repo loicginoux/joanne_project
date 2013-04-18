@@ -18,28 +18,6 @@ class Point < ActiveRecord::Base
 		:action,
 		:attribution_date
 
-	before_create :default_date_attribution
-
-	scope :on_comments, where(:action => Point::ACTION_TYPE[:comment])
-	scope :on_comments_received, where(:action => Point::ACTION_TYPE[:commented])
-	scope :on_like, where(:action => Point::ACTION_TYPE[:like])
-	scope :on_like_received, where(:action => Point::ACTION_TYPE[:liked])
-	scope :on_photo_uploaded, where(:action => Point::ACTION_TYPE[:data_point])
-	scope :on_follow, where(:action => Point::ACTION_TYPE[:follow])
-	scope :on_follower, where(:action => Point::ACTION_TYPE[:followed])
-	scope :on_profile_photo, where(:action => Point::ACTION_TYPE[:profile_photo])
-	scope :on_daily_calories_limit, where(:action => Point::ACTION_TYPE[:daily_calories_limit])
-	scope :on_fb_sharing, where(:action => Point::ACTION_TYPE[:fb_sharing])
-	scope :on_hot_photo_award, where(:action => Point::ACTION_TYPE[:hot_photo_award])
-	scope :on_smart_choice_award, where(:action => Point::ACTION_TYPE[:smart_choice_award])
-	scope :on_joining_goal, where(:action => Point::ACTION_TYPE[:joining_goal])
-	scope :for_period, lambda{ |startPeriod, endPeriod|
-		if startPeriod & endPeriod
-			Point.where(attribution_date: => startPeriod..endPeriod)
-		else
-			[]
-		end
-	}
 
 	# points for each action
   ACTION_VALUE = {
@@ -74,8 +52,37 @@ class Point < ActiveRecord::Base
     :joining_goal => "joining_goal" # fill in the joining goal field
   }
 
-  def default_date_attribution
-  	self.attribution_date = self.created_at if self.attribution_date.nil?
-  end
-
+	scope :on_comments, where(:action => Point::ACTION_TYPE[:comment])
+	scope :on_comments_received, where(:action => Point::ACTION_TYPE[:commented])
+	scope :on_like, where(:action => Point::ACTION_TYPE[:like])
+	scope :on_like_received, where(:action => Point::ACTION_TYPE[:liked])
+	scope :on_photo_uploaded, where(:action => Point::ACTION_TYPE[:data_point])
+	scope :on_follow, where(:action => Point::ACTION_TYPE[:follow])
+	scope :on_follower, where(:action => Point::ACTION_TYPE[:followed])
+	scope :on_profile_photo, where(:action => Point::ACTION_TYPE[:profile_photo])
+	scope :on_daily_calories_limit, where(:action => Point::ACTION_TYPE[:daily_calories_limit])
+	scope :on_fb_sharing, where(:action => Point::ACTION_TYPE[:fb_sharing])
+	scope :on_hot_photo_award, where(:action => Point::ACTION_TYPE[:hot_photo_award])
+	scope :on_smart_choice_award, where(:action => Point::ACTION_TYPE[:smart_choice_award])
+	scope :on_joining_goal, where(:action => Point::ACTION_TYPE[:joining_goal])
+	scope :for_period, lambda{ |startPeriod, endPeriod|
+		if startPeriod && endPeriod
+			Point.where(:attribution_date => startPeriod..endPeriod)
+		else
+			[]
+		end
+	}
+	scope :for_user, lambda{ |user|
+		if user
+			Point.where(:user_id => user.id)
+		else
+			[]
+		end
+	}
+	scope :for_current_month, lambda{ ||
+		now = DateTime.now
+		startP = now.beginning_of_month
+		endP = now.end_of_month
+		Point.for_period(startP,endP)
+	}
 end

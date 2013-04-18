@@ -61,6 +61,17 @@ class User < ActiveRecord::Base
   #########################
   # Paperclip attachements
   #########################
+  # has_attached_file :local_picture,
+  #   :styles => {
+  #     :small => ["50x50#",:jpg],
+  #     :medium => ["200x200#",:jpg]
+  #   },
+  #   :convert_options => { :all => '-auto-orient' },
+  #   :default_url => '/assets/default_user_:style.gif',
+  #   :url => '/assets/:class/:attachment/:id/:style.:extension',
+  #   :path => ":rails_root/app/assets/images/:class/:attachment/:id/:style.:extension"
+
+
   has_attached_file :picture,
     :styles => {
       :small => ["50x50#",:jpg],
@@ -91,19 +102,57 @@ class User < ActiveRecord::Base
       User.confirmed().active().visible().includes(:preference).order("created_at desc")
     end
   }
+  # with points gotten from the user table
   scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
   scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
 
+  # with points gotten calculated from the points table
+  scope :monthly_leaderboard_calculated, confirmed()
+    .active()
+    .visible()
+    .includes([:leaderboard_prices, :preference])
+    .joins(:points)
+    .where("points.attribution_date" => (DateTime.now.beginning_of_month)..(DateTime.now.end_of_month))
+    .select("users.id, users.username, sum(points.number) as pointsNumber")
+    .group("users.id")
+    .order("pointsNumber desc, username desc")
+
+  scope :total_leaderboard_calculated, confirmed()
+    .active()
+    .visible()
+    .includes([:leaderboard_prices, :preference])
+    .joins(:points)
+    .select("users.id, users.username, sum(points.number) as pointsNumber")
+    .group("users.id")
+    .order("pointsNumber desc, username desc")
 
 
   #########################
   # Callbacks
   #########################
+  # after_save :queue_upload_to_s3
 
 
   #########################
   # Methods
   #########################
+
+  # leaderboard points for each action
+  LEADERBOARD_ACTION_VALUE = {
+    :comment => 3, #your comment on a photo
+    :commented => 2, #someone else comment on your photo
+    :like => 1, #your like on a photo
+    :liked => 2, #someone else likes your photo
+    :data_point => 1,
+    :follow => 1, #you follow someone
+    :followed => 2, #someone follows you
+    :profile_photo => 5,
+    :daily_calories_limit => 5,
+    :fb_sharing => 10,
+    :hot_photo_award => 3,
+    :smart_choice_award => 5,
+    :joining_goal => 5 # fill in the joining goal field
+  }
 
   #cancan gem
   ROLES = %w[admin]
@@ -115,6 +164,11 @@ class User < ActiveRecord::Base
   def deliver_confirm_email_instructions!
     reset_perishable_token!
     UserMailer.verify_account_email(self.id)
+  end
+
+  # login with either
+  def self.find_by_username_or_email(login)
+    User.find_by_username(login) || User.find_by_email(login)
   end
 
 
@@ -176,6 +230,26 @@ class User < ActiveRecord::Base
     self.hasFacebookConnected? && self.preference.fb_sharing
   end
 
+  def positionLeadership
+    User.find_by_sql(['
+      SELECT "u1".username,
+            "u1".leaderboard_points,
+            "u1".total_leaderboard_points,
+            (SELECT count(*)
+              FROM "users" as "u2"
+              WHERE "u2".leaderboard_points > "u1".leaderboard_points
+                AND "u2"."confirmed" = \'t\'
+                AND "u2"."active" = \'t\'
+            )+1 as "position",
+            (SELECT count(*)
+              FROM "users" as "u3"
+              WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
+                AND "u3"."confirmed" = \'t\'
+                AND "u3"."active" = \'t\'
+            )+1 as "all_time_position"
+      FROM  "users" as "u1"
+      WHERE "u1".id = ?', self.id]).first
+  end
 
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email']
@@ -232,37 +306,6 @@ class User < ActiveRecord::Base
     return lookup[provider]
   end
 
-  def get_overall_points()
-    get_points(self.points)
-  end
-
-  def get_monthly_points()
-    # endDate = DateTime.parse(Date.today.to_s)
-    # startDate = DateTime.parse((endDate - 1.days).to_s)
-    # get_points(self.points.for_period())
-  end
-
-  def positionLeadership
-    User.find_by_sql(['
-      SELECT "u1".username,
-            "u1".leaderboard_points,
-            "u1".total_leaderboard_points,
-            (SELECT count(*)
-              FROM "users" as "u2"
-              WHERE "u2".leaderboard_points > "u1".leaderboard_points
-                AND "u2"."confirmed" = \'t\'
-                AND "u2"."active" = \'t\'
-            )+1 as "position",
-            (SELECT count(*)
-              FROM "users" as "u3"
-              WHERE "u3".total_leaderboard_points > "u1".total_leaderboard_points
-                AND "u3"."confirmed" = \'t\'
-                AND "u3"."active" = \'t\'
-            )+1 as "all_time_position"
-      FROM  "users" as "u1"
-      WHERE "u1".id = ?', self.id]).first
-  end
-
   def now()
     Time.zone = self.timezone
     now = Time.zone.now
@@ -289,9 +332,11 @@ class User < ActiveRecord::Base
     end
   end
 
+
   def pic()
     # (self.picture?) ? self.picture : self.local_picture
     self.picture
   end
+
 
 end

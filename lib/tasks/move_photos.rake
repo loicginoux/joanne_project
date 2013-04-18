@@ -1,3 +1,4 @@
+# this was used to fix a bug and shouldn't be used anymore
 desc "change the uploaded time for all photos"
 task :move_photos => :environment do
 	User.where("username != 'joanne'").where("username != 'loknackie'").each{ |user|

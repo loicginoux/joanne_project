@@ -19,23 +19,24 @@ class UsersController < ApplicationController
 
 
     if @update.nil? || @update == "allTimeLeaderboard"
-      # get user list
-      userList =  User.total_leaderboard()
       # filter by diet
       @diet = params[:diet]
       if (@diet && @diet != "")
-        userList = userList.where(:"preferences.diet" => Preference::DIETS[params[:diet].to_i] )
+        @total_leaderboard_users = User.total_leaderboard()
+          .where(:"preferences.diet" => Preference::DIETS[params[:diet].to_i] )
+          .paginate(:per_page => nb_total_leaderboard_users_per_page,
+            :page => params[:total_leaderboard_page])
         # don't show current user position
         @isInTotalLeaderboard = true
+      else
+        @total_leaderboard_users = User.total_leaderboard()
+          .paginate(:per_page => nb_total_leaderboard_users_per_page,
+                    :page => params[:total_leaderboard_page])
+
       end
-      # paginate results
-      @total_leaderboard_users = userList
-        .paginate(:per_page => nb_total_leaderboard_users_per_page,
-                  :page => params[:total_leaderboard_page])
       # get current user position
       if @isInTotalLeaderboard.nil?
-        pos = current_user.positionLeadership()
-        @current_user_total_position = pos.all_time_position.to_i
+        @current_user_total_position = current_user.position_total_leaderboard.to_i
         @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
       end
     end
@@ -46,19 +47,19 @@ class UsersController < ApplicationController
       # filter by diet
       @diet = params[:diet]
       if (@diet && @diet != "")
-        userList = userList.where(:"preferences.diet" => Preference::DIETS[params[:diet].to_i] )
+        @leaderboard_users = User.monthly_leaderboard()
+          .where(:"preferences.diet" => Preference::DIETS[params[:diet].to_i] )
         # don't show current user position
         @isInLeaderboard = true
+      else
+        @leaderboard_users = User.monthly_leaderboard()
+          .paginate(
+            :per_page => nb_leaderboard_users_per_page,
+            :page => params[:leaderboard_page])
       end
-      # pagintae result
-      @leaderboard_users = userList
-        .paginate(
-          :per_page => nb_leaderboard_users_per_page,
-          :page => params[:leaderboard_page])
 
       if @isInLeaderboard.nil?
-        pos = (pos.nil?) ? current_user.positionLeadership() : pos
-        @current_user_position = pos.position.to_i
+        @current_user_position = current_user.position_leaderboard.to_i
         @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
       end
     end

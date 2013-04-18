@@ -11,7 +11,10 @@ class UserObserver < ActiveRecord::Observer
 		# we update the leaderboard points of the user
 		if !user.leaderboard_points_changed? && !user.total_leaderboard_points_changed? && !user.updated_at_changed? && !user.last_request_at_changed?
 			if user.picture_updated_at_changed? && user.picture_updated_at_was.nil?
-				user.addPoints(User::LEADERBOARD_ACTION_VALUE[:profile_photo])
+				Point.create(
+					:user => user,
+					:number => Point::ACTION_VALUE[:profile_photo],
+					:action => Point::ACTION_TYPE[:profile_photo]  )
 			end
 
 		end
