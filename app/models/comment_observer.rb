@@ -4,7 +4,6 @@ class CommentObserver < ActiveRecord::Observer
     dataPoint = DataPoint.find(comment.data_point_id)
 
     # we notify the photo owner
-    puts "usermail.dealy comment"
     UserMailer.comment_on_your_photo_email(comment.id) unless comment.onOwnPhoto?
 
     # we notify the previous commenters
@@ -15,7 +14,7 @@ class CommentObserver < ActiveRecord::Observer
     dataPoint.update_attribute("nb_comments", dataPoint.nb_comments+1)
 
     #previous comments from same commenter
-    previousComments = comment.data_point.comments.where(:user_id => comment.user.id)
+    previousComments = dataPoint.comments.where(:user_id => comment.user.id)
 
     if !comment.user.is(dataPoint.user) && previousComments.length <= 1
       # we add leaderboard points to the commenter
@@ -27,9 +26,9 @@ class CommentObserver < ActiveRecord::Observer
 
       # we add leaderboard points to the photo's owner
       Point.create(
-        :user => comment.data_point.user,
+        :user => dataPoint.user,
         :comment => comment,
-        :data_point => comment.data_point,
+        :data_point => dataPoint,
         :number => Point::ACTION_VALUE[:commented],
         :action => Point::ACTION_TYPE[:commented])
     end

@@ -9,6 +9,7 @@ class Point < ActiveRecord::Base
 		:attribution_date
 
 	belongs_to :user
+	belongs_to :data_point
 	belongs_to :comment
 	belongs_to :like
 	belongs_to :friendship
