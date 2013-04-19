@@ -5,7 +5,7 @@ class PreferenceObserver < ActiveRecord::Observer
 
 		if pref.fb_sharing_changed?
 			if pref.fb_sharing && !pref.fb_sharing_was
-				Point.create(
+				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:fb_sharing],
 					:action => Point::ACTION_TYPE[:fb_sharing]  )
@@ -16,7 +16,7 @@ class PreferenceObserver < ActiveRecord::Observer
 
 		if pref.joining_goal_changed?
 			if pref.joining_goal != "" && pref.joining_goal_was == ""
-				Point.create(
+				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:joining_goal],
 					:action => Point::ACTION_TYPE[:joining_goal]  )
@@ -27,7 +27,7 @@ class PreferenceObserver < ActiveRecord::Observer
 
 		if pref.daily_calories_limit_changed?
 			if pref.daily_calories_limit > 0 && pref.daily_calories_limit_was == 0
-				Point.create(
+				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:daily_calories_limit],
 					:action => Point::ACTION_TYPE[:daily_calories_limit]  )

@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   has_many :yums, :through => :likes, :source => :data_point
 
   has_many :data_points, :dependent => :destroy
-  has_many :leaderboard_prices, :dependent => :destroy
+  has_many :leaderboard_prizes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :points, :dependent => :destroy
   has_one :preference, :dependent => :destroy

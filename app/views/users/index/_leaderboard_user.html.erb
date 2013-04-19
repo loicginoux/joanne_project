@@ -16,7 +16,7 @@
 				<% if leaderboard == "total_leaderboard" %>
 					<span class="winner-ribbons">
 						<% user.leaderboard_prices.last(5).each do |price| %>
-						<%= image_tag "month_winner_ribbon.svg", :title => price.name, :style => "width:30px", :class=> "winner-ribbon" %>
+							<%= image_tag "month_winner_ribbon.svg", :title => price.name, :style => "width:30px", :class=> "winner-ribbon" %>
 						<% end %>
 					</span>
 				<% end %>

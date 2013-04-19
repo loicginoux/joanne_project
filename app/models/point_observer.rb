@@ -1,5 +1,7 @@
 class PointObserver< ActiveRecord::Observer
 	observe :point
+
+
 	def after_save(pt)
 		update_points_and_positions(pt.user)
 	end
