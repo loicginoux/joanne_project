@@ -120,7 +120,7 @@ class DataPointsController < ApplicationController
       else
         @data_point = DataPoint.new(params[:data_point])
         @data_point.user_id = @user.id
-        @data_point.uploaded_at = Time.zone.now
+        # @data_point.uploaded_at = Time.zone.now
         puts ">>>>>>>>>>>>> created photo from form"
       end
     end

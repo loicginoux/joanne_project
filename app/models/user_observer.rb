@@ -6,6 +6,7 @@ class UserObserver < ActiveRecord::Observer
 			friendship.noMailTriggered = true
 			friendship.save()
 		}
+
 	end
 	def before_save(user)
 		# we update the leaderboard points of the user

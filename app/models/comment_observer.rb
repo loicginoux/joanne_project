@@ -18,15 +18,13 @@ class CommentObserver < ActiveRecord::Observer
 
     if !comment.user.is(dataPoint.user) && previousComments.length <= 1
       # we add leaderboard points to the commenter
-      a = Point.create!(
+      Point.create!(
         :user => comment.user,
         :comment => comment,
         :number => Point::ACTION_VALUE[:comment],
         :action => Point::ACTION_TYPE[:comment],
         :attribution_date => comment.created_at  )
-      puts " "; puts ">>>>>>>>>>>>>>>>>>"
-      puts a
-      puts ">>>>>>>>>>>>>>>>>";puts " "
+
       # we add leaderboard points to the photo's owner
       Point.create!(
         :user => dataPoint.user,

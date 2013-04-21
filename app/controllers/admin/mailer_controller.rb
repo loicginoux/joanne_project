@@ -65,7 +65,7 @@ class Admin::MailerController < ApplicationController
 
     @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
 
-    render :partial => "email/empty_recap", :layout => "email"
+    render :partial => "email/reports/empty_recap", :layout => "email"
 
   end
 
@@ -81,6 +81,8 @@ class Admin::MailerController < ApplicationController
       )
     .order("uploaded_at ASC")
 
+    @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
+    @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
     @leaderboard_users = User.monthly_leaderboard().limit(20)
 
     @slackerboard_users = current_user.slackerboard().limit(20)
@@ -91,7 +93,7 @@ class Admin::MailerController < ApplicationController
 
     @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
 
-    render :partial => "email/daily_recap", :layout => "email"
+    render :partial => "email/reports/daily/daily_recap", :layout => "email"
 
   end
 
@@ -110,6 +112,6 @@ class Admin::MailerController < ApplicationController
     .order("uploaded_at ASC")
     .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
 
-    render :partial => "email/weekly_recap", :layout => "email"
+    render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
   end
 end

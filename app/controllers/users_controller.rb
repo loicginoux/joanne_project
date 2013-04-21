@@ -36,8 +36,15 @@ class UsersController < ApplicationController
       end
       # get current user position
       if @isInTotalLeaderboard.nil?
-        @current_user_total_position = current_user.position_total_leaderboard.to_i
+        @current_user_total_position = User.in_leadeboard()
+          .where("username <= ?", @current_user.username )
+          .where("total_leaderboard_points >= ?", @current_user.total_leaderboard_points )
+          .count()
         @isInTotalLeaderboard = ((@total_leaderboard_users.current_page * nb_total_leaderboard_users_per_page) >=  @current_user_total_position )
+        puts " "; puts ">>>>>>>>>>>>>>>>>>"
+        puts @current_user_total_position
+        puts @isInTotalLeaderboard
+        puts ">>>>>>>>>>>>>>>>>";puts " "
       end
     end
 
@@ -59,7 +66,7 @@ class UsersController < ApplicationController
       end
 
       if @isInLeaderboard.nil?
-        @current_user_position = current_user.position_leaderboard.to_i
+        @current_user_position = User.in_leadeboard().where("leaderboard_points < ?", @current_user.leaderboard_points ).count()
         @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
       end
     end
@@ -168,6 +175,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    @preference = current_user.preference
     @url = edit_user_path(:username=> current_user.username)
     if @user.update_attributes(params[:user])
       redirect_to edit_user_path(:username=> @user.username), notice: 'Successfully updated profile.'

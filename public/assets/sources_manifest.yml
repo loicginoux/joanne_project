@@ -4,6 +4,7 @@ data_points/local_photos/303/small.jpg: e7c874c91cde3c198f75e77fddeda5c3
 data_points/local_photos/304/small.jpg: 9947a81930aaf2dee4baaed66164cf60
 default_user_medium.gif: 20c2b50c48c2b1187f0d7c243ca3abe4
 default_user_small.gif: d75dd73562e0ad274211a258c2954164
+diary.png: bf8300d6362c4a207e7d5493174f82b6
 diary.svg: a48919dce8f55090c0b676c8e197abf4
 email/bullet-single-alpha.gif: 3a11b017db6feb0595606bda002c3cb0
 email/bullet-single-alpha_new.gif: 1a5f23efe2fdbfcd2703d37db235bd1d
@@ -15,6 +16,7 @@ empty_email.jpg: 30d72adffd21d886385701f633f7d83b
 facebook_64.png: dc3b9466850593d922258129e3604a38
 facebook_login.jpg: 8ce3d4d5dec913a354805aee1caa6a5f
 favicon.ico: e6336ccfb7dc5894208d3b5b3abbcd96
+following.png: 8d6cfa49bccd643de6dd349c42d04f02
 following.svg: 986456f4b22628f60d26215f882372ed
 foodRubix_logo.svg: 325e2752a2306a046ed2265396220901
 foodRubix_logo_155*100.png: 078cf5fd35028372b5a803ac0efc657e
@@ -36,16 +38,17 @@ loading.gif: ea496176d249e5aa744482d7557bfbdf
 month_winner_ribbon.svg: 9291b91c2a4c9cbae017e5797e9ab5f8
 not-available.jpg: c3be0897094c886635d3651e32fa95cd
 settings.png: 04e14c6b4a2e9e30a85ee63cdbdce311
+team.png: 35c40089963c0a6ad26851eb5b0b086a
 team.svg: e798539e570ede806b8b82a717a4f754
 twitter_64.png: da1d6d6e368402753b2243a58f5e0bdd
 twitter_login.jpg: f271653538037ea3b1bafd2b5aa5ebaa
 active_admin.js: 9bc8dca3228b5c2e521d19ec1d97aacb
 application-ie9.js: 81f45d7509930bfe3b5773e578e4f534
-application.js: d9045346b07490303fda97516d18c2fd
+application.js: a68099ba92f004075cc874a1307b4622
 homepage.js: 741e5af29c2838256f2c425708edbd87
 active_admin.css: a434b936d118dcfe6818bd0ac04bea8b
 application-ie.css: 61d8029035794aac01f5b4a5fcecd109
-application.css: 7b36141b7e97fae813c7e27f89833776
+application.css: f5600148588319c103eb0725b9ca9f89
 homepage.css: 0af9836ca04dec148c2ad989acf36dc2
 active_admin/admin_notes_icon.png: 25b05cd8197f7a271d0624853a6dbdd5
 active_admin/datepicker/datepicker-header-bg.png: 6f0baad739953cb1a0413c031841e82f

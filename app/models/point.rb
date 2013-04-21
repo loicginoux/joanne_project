@@ -26,7 +26,7 @@ class Point < ActiveRecord::Base
     :commented => 2, #someone else comment on your photo
     :like => 1, #your like on a photo
     :liked => 2, #someone else likes your photo
-    :data_point => 1,
+    :data_point => 1, #photo upload
     :follow => 1, #you follow someone
     :followed => 2, #someone follows you
     :profile_photo => 5,
@@ -86,4 +86,6 @@ class Point < ActiveRecord::Base
 		endP = now.end_of_month
 		Point.for_period(startP,endP)
 	}
+
+
 end

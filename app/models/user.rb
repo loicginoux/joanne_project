@@ -97,20 +97,21 @@ class User < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
   scope :visible, where(:hidden => false)
+  scope :in_leadeboard, active().confirmed().visible()
   scope :latest_members, lambda {||
     ret = Rails.cache.fetch("latests_members") do
-      User.confirmed().active().visible().includes(:preference).order("created_at desc")
+      User.in_leadeboard().includes(:preference).order("created_at desc")
     end
   }
   # with points gotten from the user table
-  scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("leaderboard_points desc, username asc")
-  scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prices, :preference]).order("total_leaderboard_points desc, username asc")
+  scope :monthly_leaderboard, confirmed().active().visible().includes([:leaderboard_prizes, :preference]).order("leaderboard_points desc, username asc")
+  scope :total_leaderboard, confirmed().active().visible().includes([:leaderboard_prizes, :preference]).order("total_leaderboard_points desc, username asc")
 
   # with points gotten calculated from the points table
   scope :monthly_leaderboard_calculated, confirmed()
     .active()
     .visible()
-    .includes([:leaderboard_prices, :preference])
+    .includes([:leaderboard_prizes, :preference])
     .joins(:points)
     .where("points.attribution_date" => (DateTime.now.beginning_of_month)..(DateTime.now.end_of_month))
     .select("users.id, users.username, sum(points.number) as pointsNumber")
@@ -120,7 +121,7 @@ class User < ActiveRecord::Base
   scope :total_leaderboard_calculated, confirmed()
     .active()
     .visible()
-    .includes([:leaderboard_prices, :preference])
+    .includes([:leaderboard_prizes, :preference])
     .joins(:points)
     .select("users.id, users.username, sum(points.number) as pointsNumber")
     .group("users.id")
@@ -338,5 +339,57 @@ class User < ActiveRecord::Base
     self.picture
   end
 
+  def update_points()
+    points = self.points.map(&:number).inject(:+) || 0
+    monthly_points = self.points.for_current_month().map(&:number).inject(:+) || 0
+    self.update_attributes(
+      :total_leaderboard_points => points,
+      :leaderboard_points => monthly_points,
+    )
+  end
 
+  def email_progress_bar_data(date)
+    array = []
+    start = date.beginning_of_week(:sunday)
+    photos = DataPoint.select([:id, :created_at])
+      .where(:user_id =>self.id, :created_at => start..start.end_of_week())
+      .order("created_at ASC")
+      .group_by(&:group_by_day_of_week)
+
+    for i in 0..6
+      day = start + i.days
+      first_letter = day.strftime("%A")[0,1]
+      has_created_photo = ( !photos[i.to_s].nil?)
+      array.push({
+        :first_letter => first_letter,
+        :has_created_photo => has_created_photo,
+      })
+    end
+    return array
+  end
+
+
+  def calculate_best_score(date)
+    beg_yesterday = (date - 1.day).beginning_of_day()
+    end_yesterday = (date - 1.day).end_of_day()
+    # score for the day of yesterday
+    daily_score = Point.for_user(self).for_period(beg_yesterday,end_yesterday).map(&:number).inject(:+) || 0
+    puts "daily score for user '#{self.username}' for #{beg_yesterday}: #{daily_score} - best score: #{self.best_daily_score}"
+    if (self.best_daily_score < daily_score)
+      self.update_attributes(:best_daily_score => daily_score)
+    end
+  end
+
+  def calculate_streaks(date)
+    beg_yesterday = (date - 1.day).beginning_of_day()
+    end_yesterday = (date - 1.day).end_of_day()
+    nbPhotos = self.data_points.where(:created_at => beg_yesterday..end_yesterday).count()
+    new_streak = (nbPhotos > 0) ? self.streak + 1 : 0
+    puts "nbPhotos for user '#{self.username}' for #{beg_yesterday}: #{nbPhotos} - user.streak: #{self.streak} - user.best_streak: #{self.best_streak}"
+    if new_streak > self.best_streak
+      self.update_attributes(:streak => new_streak, :best_streak => new_streak)
+    else
+      self.update_attributes(:streak => new_streak)
+    end
+  end
 end

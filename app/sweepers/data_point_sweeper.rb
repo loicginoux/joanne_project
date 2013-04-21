@@ -13,12 +13,14 @@ class DataPointSweeper < ActionController::Caching::Sweeper
 
 
   def expire_cache(dp)
-    weekNb = dp.uploaded_at.strftime("%U")
-    monthNb = dp.uploaded_at.strftime("%m")
-    Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}")
-    Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}/graphicPoints")
-    Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}")
-    Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}/graphicPoints")
+    unless dp.uploaded_at.nil?
+      weekNb = dp.uploaded_at.strftime("%U")
+      monthNb = dp.uploaded_at.strftime("%m")
+      Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}")
+      Rails.cache.delete("/user/#{dp.user_id}/data_points/month/#{monthNb}/graphicPoints")
+      Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}")
+      Rails.cache.delete("/user/#{dp.user_id}/data_points/week/#{weekNb}/graphicPoints")
+    end
     unless dp.uploaded_at_was.nil?
       weekNbWas = dp.uploaded_at_was.strftime("%U")
       monthNbWas = dp.uploaded_at_was.strftime("%m")

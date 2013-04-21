@@ -12,20 +12,21 @@ class LikeObserver < ActiveRecord::Observer
 
 
     unless like.user.is(dataPoint.user)
-      isOnCurrentMonth = (like.created_at >= Date.today.beginning_of_month())
       # we add leaderboard points to the user who liked
       Point.create!(
         :user => like.user,
         :like => like,
         :number => Point::ACTION_VALUE[:like],
-        :action => Point::ACTION_TYPE[:like]  )
+        :action => Point::ACTION_TYPE[:like],
+        :attribution_date => like.created_at  )
       # we add leaderboard points to the photo's owner
       Point.create!(
         :user => like.data_point.user,
         :like => like,
         :data_point => like.data_point,
         :number => Point::ACTION_VALUE[:liked],
-        :action => Point::ACTION_TYPE[:liked]  )
+        :action => Point::ACTION_TYPE[:liked],
+        :attribution_date => like.created_at  )
     end
   end
 

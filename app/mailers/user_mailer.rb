@@ -150,9 +150,9 @@ class UserMailer < ActionMailer::Base
         @user = user
         puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @groups.empty?
-          html = render :partial => "email/empty_recap", :layout => "email"
+          html = render :partial => "email/reports/empty_recap", :layout => "email"
         else
-          html = render :partial => "email/weekly_recap", :layout => "email"
+          html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
         end
 
         RestClient.post MAILGUN[:api_url]+"/messages",
@@ -185,6 +185,8 @@ class UserMailer < ActionMailer::Base
           )
         .order("uploaded_at ASC")
 
+        @progress_bar_data = user.email_progress_bar_data(Time.zone.now)
+        @daily_points = Point.for_user(user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
         @user = user
 
         @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
@@ -196,9 +198,9 @@ class UserMailer < ActionMailer::Base
 
         puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @data_points.empty?
-          html = render :partial => "email/empty_recap", :layout => "email"
+          html = render :partial => "email/reports/empty_recap", :layout => "email"
         else
-          html = render :partial => "email/daily_recap", :layout => "email"
+          html = render :partial => "email/reports/daily/daily_recap", :layout => "email"
         end
 
         RestClient.post MAILGUN[:api_url]+"/messages",

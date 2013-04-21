@@ -6,11 +6,14 @@ class FriendshipObserver < ActiveRecord::Observer
                         :user => friendship.user,
                         :friendship => friendship,
                         :number => Point::ACTION_VALUE[:follow],
-                        :action => Point::ACTION_TYPE[:follow]  )
+                        :action => Point::ACTION_TYPE[:follow],
+                        :attribution_date => friendship.created_at )
+
 		Point.create!(
                         :user => friendship.followee,
                         :friendship => friendship,
                         :number => Point::ACTION_VALUE[:followed],
-                        :action => Point::ACTION_TYPE[:followed]  )
+                        :action => Point::ACTION_TYPE[:followed],
+                        :attribution_date => friendship.created_at  )
 	end
 end

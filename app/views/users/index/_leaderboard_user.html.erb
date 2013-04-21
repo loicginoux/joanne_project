@@ -9,14 +9,18 @@
 				<%=  image_tag user.picture.url(:small), {:class=>"avatar"} %>
 				<div class="pull-left">
 					<p class="username">
-						<%= user["position_"+leaderboard] %> - <%= user.username.capitalize%>
+						<% if defined? current_user_position %>
+							<%= current_user_position %>
+						<% else %>
+							<%= ((leaderboard_users.current_page * users_per_page) - (users_per_page - 1)) + index %>
+						<% end %> - <%= user.username.capitalize%>
 					</p>
 					<p class="diet"><%= user.preference.diet%></p>
 				</div>
 				<% if leaderboard == "total_leaderboard" %>
 					<span class="winner-ribbons">
-						<% user.leaderboard_prices.last(5).each do |price| %>
-							<%= image_tag "month_winner_ribbon.svg", :title => price.name, :style => "width:30px", :class=> "winner-ribbon" %>
+						<% user.leaderboard_prizes.last(5).each do |prize| %>
+							<%= image_tag "month_winner_ribbon.svg", :title => prize.name, :style => "width:30px", :class=> "winner-ribbon" %>
 						<% end %>
 					</span>
 				<% end %>

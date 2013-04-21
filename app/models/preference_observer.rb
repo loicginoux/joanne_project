@@ -8,7 +8,8 @@ class PreferenceObserver < ActiveRecord::Observer
 				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:fb_sharing],
-					:action => Point::ACTION_TYPE[:fb_sharing]  )
+					:action => Point::ACTION_TYPE[:fb_sharing],
+					:attribution_date => pref.updated_at  )
 			elsif !pref.fb_sharing && pref.fb_sharing_was
 				pref.user.points.where(:action => Point::ACTION_TYPE[:fb_sharing]).destroy_all()
 			end
@@ -19,7 +20,8 @@ class PreferenceObserver < ActiveRecord::Observer
 				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:joining_goal],
-					:action => Point::ACTION_TYPE[:joining_goal]  )
+					:action => Point::ACTION_TYPE[:joining_goal],
+					:attribution_date => pref.updated_at  )
 			elsif pref.joining_goal == "" && pref.joining_goal_was != ""
 				pref.user.points.where(:action => Point::ACTION_TYPE[:joining_goal]).destroy_all()
 			end
@@ -30,11 +32,12 @@ class PreferenceObserver < ActiveRecord::Observer
 				Point.create!(
 					:user => pref.user,
 					:number => Point::ACTION_VALUE[:daily_calories_limit],
-					:action => Point::ACTION_TYPE[:daily_calories_limit]  )
+					:action => Point::ACTION_TYPE[:daily_calories_limit],
+					:attribution_date => pref.updated_at  )
 			elsif pref.daily_calories_limit == 0 && pref.daily_calories_limit_was > 0
 				pref.user.points.where(:action => Point::ACTION_TYPE[:daily_calories_limit]).destroy_all()
 			end
 		end
-		pref.user.addPoints(points)
+
 	end
 end

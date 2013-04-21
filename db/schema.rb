@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418093132) do
+ActiveRecord::Schema.define(:version => 20130419094214) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -104,14 +104,14 @@ ActiveRecord::Schema.define(:version => 20130418093132) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "leaderboard_prices", :force => true do |t|
+  create_table "leaderboard_prizes", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "leaderboard_prices", ["user_id"], :name => "index_leaderboard_prices_on_user_id"
+  add_index "leaderboard_prizes", ["user_id"], :name => "index_leaderboard_prices_on_user_id"
 
   create_table "likes", :force => true do |t|
     t.integer  "user_id"
@@ -140,15 +140,17 @@ ActiveRecord::Schema.define(:version => 20130418093132) do
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "preferences", :force => true do |t|
-    t.integer "user_id"
-    t.text    "joining_goal"
-    t.string  "coaching_intensity"
-    t.boolean "fb_sharing",           :default => false
-    t.integer "daily_calories_limit", :default => 0
-    t.boolean "daily_email",          :default => true
-    t.boolean "weekly_email",         :default => true
-    t.string  "diet"
-    t.text    "eating_habits"
+    t.integer  "user_id"
+    t.text     "joining_goal"
+    t.string   "coaching_intensity"
+    t.boolean  "fb_sharing",           :default => false
+    t.integer  "daily_calories_limit", :default => 0
+    t.boolean  "daily_email",          :default => true
+    t.boolean  "weekly_email",         :default => true
+    t.string   "diet"
+    t.text     "eating_habits"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_sessions", :force => true do |t|
@@ -164,34 +166,32 @@ ActiveRecord::Schema.define(:version => 20130418093132) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
     t.string   "role"
-    t.string   "perishable_token",           :default => "",                           :null => false
-    t.boolean  "confirmed",                  :default => false
+    t.string   "perishable_token",         :default => "",                           :null => false
+    t.boolean  "confirmed",                :default => false
     t.string   "single_access_token"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.string   "timezone",                   :default => "Central Time (US & Canada)"
-    t.integer  "login_count",                :default => 0,                            :null => false
-    t.integer  "failed_login_count",         :default => 0,                            :null => false
+    t.string   "timezone",                 :default => "Central Time (US & Canada)"
+    t.integer  "login_count",              :default => 0,                            :null => false
+    t.integer  "failed_login_count",       :default => 0,                            :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.boolean  "active",                     :default => false
-    t.integer  "leaderboard_points",         :default => 0
-    t.integer  "total_leaderboard_points",   :default => 0
-    t.boolean  "hidden",                     :default => false
-    t.boolean  "first_friend",               :default => false
-    t.integer  "best_daily_score",           :default => 0
-    t.integer  "streak",                     :default => 0
-    t.integer  "best_streak",                :default => 0
-    t.integer  "position_total_leaderboard"
-    t.integer  "position_leaderboard"
+    t.boolean  "active",                   :default => false
+    t.integer  "leaderboard_points",       :default => 0
+    t.integer  "total_leaderboard_points", :default => 0
+    t.boolean  "hidden",                   :default => false
+    t.boolean  "first_friend",             :default => false
+    t.integer  "best_daily_score",         :default => 0
+    t.integer  "streak",                   :default => 0
+    t.integer  "best_streak",              :default => 0
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"

@@ -48,6 +48,7 @@ class PreferencesController < ApplicationController
     if @preference.update_attributes(params[:preference])
     	redirect_to edit_user_path(:username=> @user.username), notice: 'Successfully updated profile.'
     else
+      puts "#{@preference.errors.inspect}"
       redirect_to edit_user_path(:username=> @user.username), notice: "You can't do that...try again."
     end
   end
