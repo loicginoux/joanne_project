@@ -7,8 +7,15 @@ namespace :deploy do
 			# `git rm -rf public/assets/*`
 			# `rm -rf public/assets/*`
 			puts "precompiling assets..."
-			Rake::Task["assets:precompile"].invoke
-			Rake::Task["assets:clean_expired"].invoke
+
+			s3_config_file = File.join(Rails.root,'config','s3.yml')
+    	raise "#{s3_config_file} is missing!" unless File.exists? s3_config_file
+    	S3_CREDENTIALS = YAML.load_file(s3_config_file)[Rails.env].symbolize_keys
+
+			system("bundle exec rake assets:precompile RAILS_ENV=#{args[:env]} AWS_ACCESS_KEY_ID=#{S3_CREDENTIALS[:access_key_id]} AWS_SECRET_ACCESS_KEY=#{S3_CREDENTIALS[:secret_access_key]}")
+			system("bundle exec rake assets:clean_expired RAILS_ENV=#{args[:env]} AWS_ACCESS_KEY_ID=#{S3_CREDENTIALS[:access_key_id]} AWS_SECRET_ACCESS_KEY=#{S3_CREDENTIALS[:secret_access_key]}")
+			# Rake::Task["assets:precompile"].invoke
+			# Rake::Task["assets:clean_expired"].invoke
     # end
 
 		puts "add to git"
