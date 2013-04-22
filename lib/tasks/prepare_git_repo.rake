@@ -20,6 +20,7 @@ namespace :deploy do
 
 		puts "add to git"
 		`git add .`
+		`git rm $(git ls-files --deleted)`
 		puts "commit to git with message: '#{args[:commitMessage]}'"
 		`git commit -m "#{args[:commitMessage]}" `
   end
