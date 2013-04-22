@@ -66,6 +66,7 @@ class Point < ActiveRecord::Base
 	scope :on_hot_photo_award, where(:action => Point::ACTION_TYPE[:hot_photo_award])
 	scope :on_smart_choice_award, where(:action => Point::ACTION_TYPE[:smart_choice_award])
 	scope :on_joining_goal, where(:action => Point::ACTION_TYPE[:joining_goal])
+	scope :on_start_month, where("action = ? OR action = ? OR action = ? OR action = ? OR action = ? OR action = ?", Point::ACTION_TYPE[:follow], Point::ACTION_TYPE[:followed],  Point::ACTION_TYPE[:profile_photo], Point::ACTION_TYPE[:daily_calories_limit], Point::ACTION_TYPE[:fb_sharing], Point::ACTION_TYPE[:joining_goal] )
 	scope :for_period, lambda{ |startPeriod, endPeriod|
 		if startPeriod && endPeriod
 			Point.where(:attribution_date => startPeriod..endPeriod)
