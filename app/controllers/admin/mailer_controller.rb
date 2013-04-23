@@ -46,6 +46,7 @@ class Admin::MailerController < ApplicationController
     @reset_url = edit_password_reset_url(@user.perishable_token)
     render :partial => "email/reset_password", :layout => "email"
   end
+
   def preview_empty()
     @user = current_user
     # this removes the offset that can't be done with the Date object
@@ -59,6 +60,11 @@ class Admin::MailerController < ApplicationController
     .order("uploaded_at ASC")
 
     @leaderboard_users = User.monthly_leaderboard().limit(20)
+    @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
+    puts " "; puts ">>>>>>>>>>>>>>>>>>"
+    puts @progress_bar_data
+    puts ">>>>>>>>>>>>>>>>>";puts " "
+    @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
 
     @slackerboard_users = current_user.slackerboard().limit(20)
     @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last

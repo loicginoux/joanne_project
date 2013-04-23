@@ -360,9 +360,11 @@ class User < ActiveRecord::Base
       day = start + i.days
       first_letter = day.strftime("%A")[0,1]
       has_created_photo = ( !photos[i.to_s].nil?)
+      yesterday = (day == (date - 1.day).beginning_of_day())
       array.push({
         :first_letter => first_letter,
         :has_created_photo => has_created_photo,
+        :yesterday => yesterday
       })
     end
     return array

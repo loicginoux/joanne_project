@@ -15,7 +15,7 @@
     <tr height="10px"></tr>
     <tr>
       <% @progress_bar_data.each do |day_data| %>
-        <%= render :partial => "email/reports/daily/progress_bar_day", :locals => { :day => day_data[:first_letter], :light=> day_data[:has_created_photo]}  %>
+        <%= render :partial => "email/reports/daily/progress_bar_day", :locals => { :day => day_data[:first_letter], :light=> day_data[:has_created_photo], :yesterday => day_data[:yesterday]}  %>
       <% end %>
       <td width="10px"></td>
     </tr>

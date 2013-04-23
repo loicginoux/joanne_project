@@ -63,6 +63,10 @@ homepage/foodrubix-logo.svg: homepage/foodrubix-logo-58ab0199a1e0430747d4b6af8bc
 homepage/foodrubix-logo/index.svg: homepage/foodrubix-logo-58ab0199a1e0430747d4b6af8bc666e1.svg
 homepage/icon-food.png: homepage/icon-food-11e7412bd84305ccab1a625c4326286b.png
 homepage/icon-food/index.png: homepage/icon-food-11e7412bd84305ccab1a625c4326286b.png
+homepage/ribbon-left.png: homepage/ribbon-left-a3ca0c65dedf95d7ee96bedf8940b60c.png
+homepage/ribbon-left/index.png: homepage/ribbon-left-a3ca0c65dedf95d7ee96bedf8940b60c.png
+homepage/ribbon-right.png: homepage/ribbon-right-26400a1502ee8de496009ea6672bfebb.png
+homepage/ribbon-right/index.png: homepage/ribbon-right-26400a1502ee8de496009ea6672bfebb.png
 homepage/step1.png: homepage/step1-1d1357e7f59ba8b2755c17680dcdb7fb.png
 homepage/step1/index.png: homepage/step1-1d1357e7f59ba8b2755c17680dcdb7fb.png
 homepage/step2.png: homepage/step2-701f74207016944d216f065a9384a0f9.png
@@ -99,8 +103,8 @@ application-ie.css: application-ie-fb82de996bf9a95686089cdd527518c2.css
 application-ie/index.css: application-ie-fb82de996bf9a95686089cdd527518c2.css
 application.css: application-7f5d6e5fe6dc3e79da630bb76019e91a.css
 application/index.css: application-7f5d6e5fe6dc3e79da630bb76019e91a.css
-homepage.css: homepage-a0aa11097f817cc732ccd9b39e88a9c6.css
-homepage/index.css: homepage-a0aa11097f817cc732ccd9b39e88a9c6.css
+homepage.css: homepage-14cc9dc5c0ad51bc231e38fbf5333dda.css
+homepage/index.css: homepage-14cc9dc5c0ad51bc231e38fbf5333dda.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-e48e46acabb622812c54167ad07bd36e.png
 active_admin/admin_notes_icon/index.png: active_admin/admin_notes_icon-e48e46acabb622812c54167ad07bd36e.png
 active_admin/datepicker/datepicker-header-bg.png: active_admin/datepicker/datepicker-header-bg-c1280a7c32bf2441a1335e57659d3539.png
