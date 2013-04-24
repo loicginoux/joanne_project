@@ -95,6 +95,10 @@ ActiveAdmin.register User do
 			end
 			row :hidden
 			row :first_friend
+			row :best_daily_score
+			row :streak
+			row :best_streak
+
 		end
 	end
 end
