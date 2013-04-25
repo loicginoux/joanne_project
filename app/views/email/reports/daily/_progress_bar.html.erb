@@ -3,19 +3,29 @@
     <tr>
       <td valign="top" align="left" style="border-collapse:collapse">
         <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
-          Your stats
+          Your Stats
         </h2>
         <%= render :partial => "email/style/points_limiter",  %>
       </td>
     </tr>
   </tbody>
 </table>
+<h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px; border-bottom: 1px solid  #efefef;">
+
+          Weekly Progress
+
+        </h2>
+        <br>
 <table width="100%"  border = "0" cellpadding="0" cellspacing="0" align="center" height="113px"   style="border:5px solid #CFCFCF; border-radius:20px">
   <tbody>
     <tr height="10px"></tr>
     <tr>
+      <% count = 0 %>
       <% @progress_bar_data.each do |day_data| %>
-        <%= render :partial => "email/reports/daily/progress_bar_day", :locals => { :day => day_data[:first_letter], :light=> day_data[:has_created_photo], :yesterday => day_data[:yesterday]}  %>
+        <% if day_data[:has_created_photo]
+          count = count + 1
+        end %>
+        <%= render :partial => "email/reports/daily/progress_bar_day", :locals => { :day => day_data[:first_letter], :light=> day_data[:has_created_photo]}  %>
       <% end %>
       <td width="10px"></td>
     </tr>
@@ -23,3 +33,4 @@
 
   </tbody>
 </table>
+<p>You've posted photos <%= pluralize(count, "day") %> out of 7.</p>

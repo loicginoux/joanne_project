@@ -350,21 +350,20 @@ class User < ActiveRecord::Base
 
   def email_progress_bar_data(date)
     array = []
-    start = date.beginning_of_week(:sunday)
+    startWeek = date.beginning_of_week(:sunday)
+    endWeek = startWeek.end_of_week(:sunday)
     photos = DataPoint.select([:id, :created_at])
-      .where(:user_id =>self.id, :created_at => start..start.end_of_week())
+      .where(:user_id =>self.id, :created_at => startWeek..endWeek)
       .order("created_at ASC")
       .group_by(&:group_by_day_of_week)
 
     for i in 0..6
-      day = start + i.days
+      day = startWeek + i.days
       first_letter = day.strftime("%A")[0,1]
       has_created_photo = ( !photos[i.to_s].nil?)
-      yesterday = (day == (date - 1.day).beginning_of_day())
       array.push({
         :first_letter => first_letter,
-        :has_created_photo => has_created_photo,
-        :yesterday => yesterday
+        :has_created_photo => has_created_photo
       })
     end
     return array
