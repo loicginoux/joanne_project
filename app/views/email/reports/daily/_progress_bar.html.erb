@@ -33,4 +33,4 @@
 
   </tbody>
 </table>
-<p>You've posted photos <%= pluralize(count, "day") %> out of 7.</p>
+<p style="font-size: 1.2em; text-align:center; color:e96000; ">You've posted photos <%= pluralize(count, "day") %> out of 7. <% if count == 0 %> :(<% elsif count >= 6 %> :)<% end %></p>
