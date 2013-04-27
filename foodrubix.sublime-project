@@ -1,0 +1,25 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"Gemfile.lock",
+				"Rakfile",
+				"README.rdoc"
+			],
+			"folder_exclude_patterns":
+			[
+				"vendor",
+				"tmp",
+				"script",
+				"paperclip",
+				"log",
+				"doc",
+				".bundle",
+				"test"
+			],
+			"path": "/Users/lginoux/project/ruby/foodrubix"
+		}
+	]
+}

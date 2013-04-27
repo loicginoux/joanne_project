@@ -372,7 +372,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		})
 
 	onImageClick: (e) =>
-		@idImageClicked = $(e.target).parents(".image").attr("data-id")
+		@idImageClicked = if ($(e.target).attr("data-id")) then $(e.target).attr("data-id") else $(e.target).parents(".image").attr("data-id")
 
 
 	# when a photo is edited or created, we need to refresh the view to

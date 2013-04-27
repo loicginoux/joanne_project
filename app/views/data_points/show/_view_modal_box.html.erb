@@ -94,17 +94,17 @@
 		</div>
 		<div class="meta viewMode">
 			<% if !@data_point.description.empty? %>
-			<p>Description: <%= @data_point.description%> </p>
+			<p class="description">Description: <%= @data_point.description%> </p>
 			<%end%>
-			<p>Calories: <%= @data_point.calories%> calories</p>
-			<p>Date: <%= @data_point.uploaded_at.to_s(:readable)%> </p>
+			<p class="calories">Calories: <%= @data_point.calories%> calories</p>
+			<p class="date">Date: <%= @data_point.uploaded_at.to_s(:readable)%> </p>
 			<%if @data_point.nb_likes > 0 %>
-				<p>
+				<p class="nbLikeThis">
 					<%= render :partial => "likes/nbLikeThis", :locals	=> {:data_point => @data_point}  %>
 				</p>
 			<% end %>
 			<%if @data_point.nb_comments > 0 %>
-				<p>
+				<p class="nbCommentThis">
 					<%= render :partial => "comments/nbCommentThis", :locals	=> {:data_point => @data_point}  %>
 				</p>
 			<% end %>

@@ -3,12 +3,13 @@ class CommentObserver < ActiveRecord::Observer
   def after_create(comment)
     dataPoint = DataPoint.find(comment.data_point_id)
 
-    # we notify the photo owner
-    UserMailer.comment_on_your_photo_email(comment.id) unless comment.onOwnPhoto?
+    unless comment.noMailTriggered
+      # we notify the photo owner
+      UserMailer.comment_on_your_photo_email(comment.id) unless comment.onOwnPhoto?
 
-    # we notify the previous commenters
-    UserMailer.others_commented_email(comment)
-
+      # we notify the previous commenters
+      UserMailer.others_commented_email(comment)
+    end
 
     # we update the number of comments for the datapoint
     dataPoint.update_attribute("nb_comments", dataPoint.nb_comments+1)

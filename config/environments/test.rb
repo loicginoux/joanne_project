@@ -27,11 +27,20 @@ Foodrubix::Application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :test
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # paperclip options
+  config.paperclip_defaults = {
+    :url => "/system/test/:class/:attachment/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/system/test/:class/:attachment/:id/:style/:basename.:extension"
+  }
+
 end

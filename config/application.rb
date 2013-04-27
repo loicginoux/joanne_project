@@ -11,6 +11,16 @@ end
 
 module Foodrubix
   class Application < Rails::Application
+
+    config.generators do |g|
+        # skip the views and helpers generation specs.
+        g.view_specs false
+        g.helper_specs false
+        # we intend to use RSpec as our test framework of choice
+        g.test_framework :rspec, :fixture => true
+        #  use factory_girl for our fixtures
+        g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -78,5 +88,16 @@ module Foodrubix
 
     #email configuration
     # config.action_mailer.delivery_method = :smtp
+
+
+    # ActionDispatch::Callbacks.after do
+    #   # Reload the factories
+    #   return unless (Rails.env.development? || Rails.env.test?)
+
+    #   unless FactoryGirl.factories.blank? # first init will load factories, this should only run on subsequent reloads
+    #     FactoryGirl.factories.clear
+    #     FactoryGirl.find_definitions
+    #   end
+    # end
   end
 end

@@ -6,10 +6,10 @@ class LikeObserver < ActiveRecord::Observer
     dataPoint.update_attribute("nb_likes", dataPoint.nb_likes+1)
 
     # send the mail to photo owner
-    puts "usermail like + #{like.data_point_id} #{like.id}"
 
-    UserMailer.added_like_email(like.data_point_id, like.id) unless like.onOwnPhoto?
-
+    unless like.onOwnPhoto? || like.noMailTriggered
+      UserMailer.added_like_email(like.data_point_id, like.id)
+    end
 
     unless like.user.is(dataPoint.user)
       # we add leaderboard points to the user who liked

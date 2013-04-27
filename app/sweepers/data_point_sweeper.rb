@@ -13,6 +13,7 @@ class DataPointSweeper < ActionController::Caching::Sweeper
 
 
   def expire_cache(dp)
+
     unless dp.uploaded_at.nil?
       weekNb = dp.uploaded_at.strftime("%U")
       monthNb = dp.uploaded_at.strftime("%m")
