@@ -44,7 +44,7 @@ describe User do
 	  it { should have_many( :likes ).dependent(:destroy) }
 	  it { should have_many( :yums ).through(:likes) }
 	  it { should have_many( :data_points ).dependent(:destroy) }
-	  it { should have_many( :leaderboard_prices ).dependent(:destroy) }
+	  it { should have_many( :leaderboard_prizes ).dependent(:destroy) }
 	  it { should have_many( :comments ).dependent(:destroy) }
 	  it { should have_one( :preference).dependent(:destroy) }
 
@@ -70,14 +70,6 @@ describe User do
 	end
 
 
-	describe "#methods" do
-		# let!(:user) { FactoryGirl.create(:user) }
-
-		# it "should count the correct daily calories points" do
-		# 	puts user.username
-		# 	user.daily_calories_limit_points.should eql User::LEADERBOARD_ACTION_VALUE[:daily_calories_limit]
-		# end
-	end
 
 
 end
