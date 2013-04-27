@@ -1,11 +1,10 @@
 FactoryGirl.define do
-	sequence(:username) {|n| "user#{n}" }
-	sequence(:email) {|n| "email#{n}@mail.com" }
 
   factory :user,  aliases: [:followee] do
-    username
-    email
+    username {"user#{rand(10000).to_s}" }
+    email {"user_#{rand(10000).to_s}@factory#{rand(10000)}.com" }
     password "password"
+    password_confirmation "password"
     confirmed true
     active true
     association :preference, factory: :preference, strategy: :build

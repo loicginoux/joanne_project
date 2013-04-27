@@ -54,4 +54,10 @@ RSpec.configure do |config|
   config.after(:all) do
     DeferredGarbageCollection.reconsider
   end
+
+  # turns off observers
+  # http://stackoverflow.com/questions/3961880/how-to-run-rspec-with-no-observers-in-rails-3
+  config.before do
+    ActiveRecord::Base.observers.disable :all # <-- Turn 'em all off!
+  end
 end

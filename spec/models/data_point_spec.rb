@@ -71,13 +71,6 @@ describe DataPoint do
 		  it { should include(dp_with_sc_award)  }
 		  it { should_not include(dp)  }
 		end
-		describe ".from_yesterday" do
-		  subject { DataPoint.from_yesterday() }
-		  let(:dp_from_yesterday) { FactoryGirl.create(:data_point, :uploaded_at => Time.now - 1.day) }
-		  it { should include(dp_from_yesterday)  }
-		  it { should_not include(dp)  }
-
-		end
 		describe ".same_day_as" do
 		  subject { DataPoint.same_day_as(Time.now) }
 		  let(:dp_from_yesterday) { FactoryGirl.create(:data_point, :uploaded_at => Time.now - 1.day) }
@@ -99,10 +92,12 @@ describe DataPoint do
 		  end
 		end
 		describe "listOfFans()" do
-		  let(:dp_with_likes) { FactoryGirl.create(:dp_with_likes) }
-		  subject() { dp_with_likes.listOfFans() }
-		  it { should include(dp_with_likes.likes[0].user) }
-		  it { should_not include(dp.user) }
+
+		  # let(:dp_with_likes) { FactoryGirl.create(:dp_with_likes) }
+		  # subject() { dp_with_likes.listOfFans().map { |u| u.id } }
+
+		  # it { should include(dp_with_likes.likes[0].user.id) }
+		  # it { should_not include(dp.user.id) }
 		end
 
 

@@ -24,7 +24,7 @@ describe Friendship do
 	  it { should belong_to( :user) }
 	  it { should belong_to( :followee) }
 	  it "cannot follow same user twice" do
-			user1 = FactoryGirl.create(:user)
+			user1 = FactoryGirl.create(:user, :username => "username123", :email => "email123@asdmail.com")
 			user2 = FactoryGirl.create(:followee)
 			fr1 = Friendship.create(:user => user1, :followee => user2, :noMailTriggered => true)
 			fr2 = Friendship.new(:user => user1, :followee => user2, :noMailTriggered => true)

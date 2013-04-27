@@ -1,6 +1,7 @@
 FactoryGirl.define do
 	factory :data_point do
 		calories 100
+		noObserver true
 		description "Lorem ipsum dolor sit amet."
 		photo File.new(Rails.root + 'spec/fixtures/images/test1.png')
 		uploaded_at { DateTime.now }
