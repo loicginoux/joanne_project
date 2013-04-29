@@ -8,5 +8,6 @@ FactoryGirl.define do
     weekly_email false
     diet "vegetarian"
     eating_habits "I eat test food"
+    user
   end
 end

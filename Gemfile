@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 
 group :development, :test do
@@ -15,13 +15,16 @@ end
 group :development do
   gem 'sqlite3'
   # To use debugger
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  # gem 'ruby-debug19', :require => 'ruby-debug'
   # debug in chrome inspector
   gem 'meta_request'
   # guard to automate background tasks on file changes
   # see railscast episode 264
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-livereload'
+
+  gem 'factory_girl_rails', :require => false
+
 end
 
 group :production, :staging do

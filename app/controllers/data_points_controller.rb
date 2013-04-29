@@ -70,87 +70,38 @@ class DataPointsController < ApplicationController
     @data_point = DataPoint.find(params[:id])
   end
 
-  # POST /data_points
+# POST /data_points
   # POST /data_points.json
   def create
-    fromMailgun = false
-    # This is data coming from mailgun
     if params[:data_point].nil?
-      fromMailgun = true
-      @user = User.find_by_email(params["sender"].downcase)
-      if params["attachment-1"] && @user
-        Time.zone = @user.timezone
-        @data_point = DataPoint.new
-        @data_point.user_id = @user.id
-        # calories in subject
-        if params["Subject"]
-          match = (params["Subject"]).match(/(\d)+/)
-          if match && match[0]
-            @data_point.calories = match[0]
-          else
-            @data_point.calories = 0
-          end
-        else
-          @data_point.calories = 0
-        end
-        # description of photo is in mail body
-        if params["stripped-text"]
-          match = (params["stripped-text"]).match(/"(.*?)"/)
-          @data_point.description = params["stripped-text"].match(/"(.*?)"/)[1]  if (match && match[1])
-        end
-
-        # date of photo
-        if params["Date"]
-          @data_point.uploaded_at = params["Date"]
-        else
-          @data_point.uploaded_at = Time.zone.now
-        end
-
-        @data_point.photo = params["attachment-1"]
-        puts ">>>>>>>>>>>>> created photo from mailgun"
-      else
-        # no attachment or no user
-        UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
-      end
-    # This is data coming from forms
+      DataPoint.createFromMailgun(params)
+      # always return 200
+      render :text => ""
     else
       @user = current_user
       if params[:data_point][:id]
-        @data_point = DataPoint.find(params[:data_point][:id]).duplicate(params[:data_point][:uploaded_at])
+        @data_point = DataPoint.duplicate(params[:data_point][:id],params[:data_point][:uploaded_at] )
       else
         @data_point = DataPoint.new(params[:data_point])
         @data_point.user_id = @user.id
-        # @data_point.uploaded_at = Time.zone.now
+        @data_point.uploaded_at = Time.zone.now
         puts ">>>>>>>>>>>>> created photo from form"
       end
-    end
 
-    if @data_point && @data_point.save
-      puts "data point after saved: #{@data_point.inspect}"
-      # publish to facebook
-      if @user.canPublishOnFacebook?
-        @user.fb_publish(@data_point)
-      end
-      if fromMailgun
-        # mailgun expect a 200 response, so we need to send him something
-        render :text => ""
+      if @data_point && @data_point.save
+        puts "data point after saved: #{@data_point.inspect}"
+        # publish to facebook
+        if @user.canPublishOnFacebook?
+          @user.fb_publish(@data_point)
+        end
 
-      elsif !fromMailgun && current_user
         # set content type even if it's json because f... IE doesn't recognized json and prompt
         # download window when returning json
         render :json => @data_point, :content_type => 'text/plain'
+      else
+        puts "data point not saved, errors: #{@data_point.errors.inspect}"
+        render :json => @data_point.errors
       end
-
-    elsif !fromMailgun
-      puts "data point not saved, errors: #{@data_point.errors.inspect}"
-      render :json => @data_point.errors
-
-    elsif fromMailgun
-      # mailgun expect a 200 response, so we need to send him something
-      if  @data_point.photo && @data_point.photo.size >= 4000000
-        UserMailer.image_upload_not_working(params["sender"].downcase, params["attachment-1"])
-      end
-      render :text => ""
     end
   end
 

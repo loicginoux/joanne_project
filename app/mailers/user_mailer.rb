@@ -6,19 +6,49 @@ require 'rest_client'
 #
 class UserMailer < ActionMailer::Base
 
-  def image_upload_not_working(email, attachment)
+  def mail_upload_no_user(email)
+    # this need to be put to avoid issue
+    # http://stackoverflow.com/questions/4452149/rails-3-abandon-sending-mail-within-actionmailer-action
+    self.message.perform_deliveries = false
+    @user = User.find_by_email(email)
+    @email = email
+    html = render :partial => "email/mail_upload_no_user", :layout => "email"
+    puts "mail upload no user for email: #{email}"
+    RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => email,
+      :subject => "[FoodRubix] Wrong email used to upload a photo",
+      :html => html.to_str
+  end
+
+  def mail_upload_no_file(email)
+    # this need to be put to avoid issue
+    # http://stackoverflow.com/questions/4452149/rails-3-abandon-sending-mail-within-actionmailer-action
+    self.message.perform_deliveries = false
+    @user = User.find_by_email(email)
+    @email = email
+    html = render :partial => "email/mail_upload_no_file", :layout => "email"
+    puts "mail upload no attachement: #{email}"
+    RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => email,
+      :subject => "[FoodRubix] No attachement found",
+      :html => html.to_str
+  end
+
+  def mail_upload_too_big_file(email, attachment)
     # this need to be put to avoid issue
     # http://stackoverflow.com/questions/4452149/rails-3-abandon-sending-mail-within-actionmailer-action
     self.message.perform_deliveries = false
     @user = User.find_by_email(email)
     @email = email
     @attachment = attachment
-    html = render :partial => "email/image_upload_not_working", :layout => "email"
-    puts "image upload didn't work: #{email}"
+    html = render :partial => "email/mail_upload_too_big_file", :layout => "email"
+    puts "file size too big: #{email}"
     RestClient.post MAILGUN[:api_url]+"/messages",
       :from => MAILGUN[:admin_mailbox],
       :to => email,
-      :subject => "[FoodRubix] Wrong email used to upload a photo",
+      :subject => "[FoodRubix] Please re-send a photo under 4 MB",
       :html => html.to_str
   end
 
@@ -150,9 +180,9 @@ class UserMailer < ActionMailer::Base
         @user = user
         puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @groups.empty?
-          html = render :partial => "email/reports/empty_recap", :layout => "email"
+          html = render :partial => "email/empty_recap", :layout => "email"
         else
-          html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
+          html = render :partial => "email/weekly_recap", :layout => "email"
         end
 
         RestClient.post MAILGUN[:api_url]+"/messages",
@@ -185,8 +215,6 @@ class UserMailer < ActionMailer::Base
           )
         .order("uploaded_at ASC")
 
-        @progress_bar_data = user.email_progress_bar_data(Time.zone.now)
-        @daily_points = Point.for_user(user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
         @user = user
 
         @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
@@ -198,9 +226,9 @@ class UserMailer < ActionMailer::Base
 
         puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @data_points.empty?
-          html = render :partial => "email/reports/empty_recap", :layout => "email"
+          html = render :partial => "email/empty_recap", :layout => "email"
         else
-          html = render :partial => "email/reports/daily/daily_recap", :layout => "email"
+          html = render :partial => "email/daily_recap", :layout => "email"
         end
 
         RestClient.post MAILGUN[:api_url]+"/messages",

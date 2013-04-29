@@ -105,19 +105,6 @@ class DataPoint < ActiveRecord::Base
     self.fans.map{|dp| dp.username.capitalize}.to_sentence
   end
 
-  def duplicate (newTime)
-    clone = self.dup
-
-    clone.photo = self.photo
-    clone.hot_photo_award = false
-    clone.smart_choice_award = false
-    clone.nb_comments = 0
-    clone.nb_likes = 0
-    clone.uploaded_at = newTime if newTime
-    puts ">>>>>>>>>>>>> copied photo"
-    return clone
-  end
-
   def group_by_criteria
     if uploaded_at.nil?
       created_at.to_date.to_s(:db)
@@ -152,5 +139,77 @@ class DataPoint < ActiveRecord::Base
       ""
     end
   end
+
+  def self.duplicate (id, newTime)
+    return unless id
+    source = DataPoint.find(id)
+    clone = source.dup
+    clone.photo = source.photo
+    clone.hot_photo_award = false
+    clone.smart_choice_award = false
+    clone.nb_comments = 0
+    clone.nb_likes = 0
+    clone.uploaded_at = newTime if newTime
+    puts ">>>>>>>>>>>>> copied photo"
+    return clone
+  end
+
+  def self.createFromMailgun(params)
+    @user = User.find_by_email(params["sender"].downcase)
+    puts ">>>>>>"
+    puts params["attachment-1"]
+    puts @user
+    puts ">>>>>>"
+    if params["attachment-1"] && @user
+      Time.zone = @user.timezone
+      @data_point = DataPoint.new
+      @data_point.user_id = @user.id
+      @data_point.calories = DataPoint.getCaloriesFromMail(params)
+      @data_point.description = DataPoint.getDescriptionFromMail(params)
+      @data_point.uploaded_at = (params["Date"]) ? params["Date"] : Time.zone.now
+      @data_point.photo = params["attachment-1"]
+      puts ">>>>>>>>>>>>> created photo from mailgun"
+
+      if @data_point.photo.size >= 4000000
+        UserMailer.mail_upload_too_big_file(params["sender"].downcase, params["attachment-1"])
+      end
+
+      if @data_point.save
+        puts "data point after mailing saved: #{@data_point.inspect}"
+        if @user.canPublishOnFacebook?
+          @user.fb_publish(@data_point)
+        end
+      else
+        puts "errors while emailing photo: #{@data_point.errors.inspect}"
+      end
+    elsif !params["attachement-1"]
+      UserMailer.mail_upload_no_file(params["sender"].downcase)
+    elsif !@user
+      UserMailer.mail_upload_no_user(params["sender"].downcase)
+    end
+  end
+
+  def self.getCaloriesFromMail(params)
+    # calories in subject
+    return 0 unless params["Subject"]
+    match = (params["Subject"]).match(/(\d)+/)
+    if match && match[0]
+     return match[0]
+    else
+      return 0
+    end
+
+  end
+
+  def self.getDescriptionFromMail(params)
+    # description of photo is in mail body
+    res = ""
+    if params["stripped-text"]
+      match = (params["stripped-text"]).match(/"(.*?)"/)
+      res = params["stripped-text"].match(/"(.*?)"/)[1]  if (match && match[1])
+    end
+    return res
+  end
+
 end
 

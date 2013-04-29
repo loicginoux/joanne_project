@@ -7,7 +7,7 @@ FactoryGirl.define do
     password_confirmation "password"
     confirmed true
     active true
-    association :preference, factory: :preference, strategy: :build
+    association :preference, factory: :preference
     # picture File.new(Rails.root + 'spec/fixtures/images/test1.png')
 
     factory :inactive_user do
