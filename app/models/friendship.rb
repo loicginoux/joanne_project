@@ -1,6 +1,10 @@
 class Friendship < ActiveRecord::Base
 
-	attr_accessible :user, :followee, :noMailTriggered
+	attr_accessible :user,
+		:user_id,
+	 	:followee,
+	 	:followee_id,
+	 	:noMailTriggered
 
 	attr_accessor :noMailTriggered
 

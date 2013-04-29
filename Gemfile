@@ -89,8 +89,6 @@ gem "meta_search",    '>= 1.1.0.pre'
 
 gem 'jquery-rails'
 
-#authorization and permissions system
-gem 'cancan'
 
 #authentification system
 gem 'authlogic'

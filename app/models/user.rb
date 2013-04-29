@@ -155,12 +155,6 @@ class User < ActiveRecord::Base
     :joining_goal => 5 # fill in the joining goal field
   }
 
-  #cancan gem
-  ROLES = %w[admin]
-
-  def admin?
-    self.role == 'admin'
-  end
 
   def deliver_confirm_email_instructions!
     reset_perishable_token!

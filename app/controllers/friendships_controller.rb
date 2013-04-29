@@ -26,14 +26,16 @@ class FriendshipsController < ApplicationController
       userIds = current_user.friendships.select(:followee_id).map(&:followee_id).join(",")
       @feeds = DataPoint.includes(:user)
       .includes(:comments)
-      .order("uploaded_at desc")
       .where("users.id IN (#{userIds})")
+      .where("uploaded_at < ?", current_user.now())
+      .order("uploaded_at desc")
       .paginate(:per_page => 10, :page => params[:friends_feed_page])
     end
     if @update == "everyoneFeeds"
       puts "update everyoneFeeds"
       @feeds = DataPoint.includes(:user)
       .includes(:comments)
+      .where("uploaded_at < ?", current_user.now())
       .order("uploaded_at desc")
       .paginate(:per_page => 10, :page => params[:everyone_feed_page])
 

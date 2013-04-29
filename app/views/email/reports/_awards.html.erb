@@ -3,9 +3,9 @@
     <tr>
       <% unless @smart_choice_photo.nil?  %>
         <td width="320" valign="top" align="left" style="border-collapse:collapse">
-          <%= render :partial => "email/style/points_limiter_2_col",  %>
+          <%= render :partial => "email/style/points_limiter_2_col" %>
           <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">Smart Choice Award</h2>
-          <%= render :partial => "email/style/points_limiter_2_col",  %>
+          <%= render :partial => "email/style/points_limiter_2_col" %>
 
            <%= link_to image_tag(@smart_choice_photo.photo.url(:medium), :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"), data_point_url(@smart_choice_photo)
               %>
@@ -21,11 +21,11 @@
 
       <% unless @hot_photo.nil?  %>
         <td width="320" valign="top" align="left" style="border-collapse:collapse">
-          <%= render :partial => "email/style/points_limiter_2_col",  %>
+          <%= render :partial => "email/style/points_limiter_2_col" %>
 
           <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">Hot Photo Award</h2>
 
-          <%= render :partial => "email/style/points_limiter_2_col",  %>
+          <%= render :partial => "email/style/points_limiter_2_col" %>
 
               <%= link_to image_tag(@hot_photo.photo.url(:medium), :style => "border:none; outline:none; text-decoration:none; display:block; width:320px; height:320px;"), data_point_url(@hot_photo)
               %>

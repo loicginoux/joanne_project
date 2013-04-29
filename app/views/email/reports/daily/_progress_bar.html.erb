@@ -5,7 +5,7 @@
         <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
           Your Stats
         </h2>
-        <%= render :partial => "email/style/points_limiter",  %>
+        <%= render :partial => "email/style/points_limiter" %>
       </td>
     </tr>
   </tbody>
@@ -33,4 +33,4 @@
 
   </tbody>
 </table>
-<p style="font-size: 1.2em; text-align:center; color:e96000; font-weight: bold; ">You've posted photos <%= pluralize(count, "day") %> out of 7. <% if count == 0 %><%=  image_tag("email/sad.png", :style => "width:20px")  %><% elsif count == 5 %><%= image_tag("email/smiley5.png", :style => "width:20px")%><% elsif count == 6 %><%= image_tag("email/smiley6.png", :style => "width:20px")%><% elsif count == 7 %><%= image_tag("email/smiley7.png", :style => "width:20px")%><% end %></p>
+<p style="font-size: 1.2em; text-align:center;color:#111111;font-family:sans-serif;">You've posted photos <%= pluralize(count, "day") %> out of 7. <% if count == 0 %><%=  image_tag("email/sad.png", :style => "width:20px")  %><% elsif count == 5 %><%= image_tag("email/smiley5.png", :style => "width:20px")%><% elsif count == 6 %><%= image_tag("email/smiley6.png", :style => "width:20px")%><% elsif count == 7 %><%= image_tag("email/smiley7.png", :style => "width:20px")%><% end %></p>

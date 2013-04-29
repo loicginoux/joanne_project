@@ -2,17 +2,19 @@
   <tbody>
     <tr>
       <td width="320" valign="top" align="left" style="border-collapse:collapse">
-        <%= render :partial => "email/style/points_limiter_2_col",  %>
+        <%= render :partial => "email/style/points_limiter_2_col"  %>
         <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
 
           Monthly Leaderboard
 
         </h2>
-        <%= render :partial => "email/style/points_limiter_2_col",  %>
+        <%= render :partial => "email/style/points_limiter_2_col"  %>
 
         <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
           <tbody>
+            <% isCurrentUserInLeaderboard = false %>
             <% @leaderboard_users.each_with_index do |user, index| %>
+              <% isCurrentUserInLeaderboard = (isCurrentUserInLeaderboard)? true : (user.id == current_user.id) %>
               <tr height="60px" style="font-family:sans-serif; font-size: 15px; line-height: 24px;">
                 <td width="25px"> <%= index + 1 %>.</td>
                 <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>
@@ -20,23 +22,23 @@
                 <td style="text-align:right; color: #e96000;font-weight: bold;"><%= user.leaderboard_points %> points</td>
               </tr>
             <% end %>
-
-
           </tbody>
         </table>
-
+        <% unless isCurrentUserInLeaderboard %>
+          <p style="color:#111111;font-family:sans-serif;">Don't see yourself here? Click <%= link_to "here", team_rubix_url() %>.</p>
+        <% end %>
       </td>
       <td style="border-collapse:collapse">&nbsp;</td>
       <td width="320" valign="top" align="left" style="border-collapse:collapse">
 
 
-        <%= render :partial => "email/style/points_limiter_2_col",  %>
+        <%= render :partial => "email/style/points_limiter_2_col"  %>
 
         <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
           Slackerboard
         </h2>
 
-        <%= render :partial => "email/style/points_limiter_2_col",  %>
+        <%= render :partial => "email/style/points_limiter_2_col"  %>
 
         <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
           <tbody>

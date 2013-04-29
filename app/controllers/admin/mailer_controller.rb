@@ -89,7 +89,7 @@ class Admin::MailerController < ApplicationController
 
     @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
     @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
-    @leaderboard_users = User.monthly_leaderboard().limit(20)
+    @leaderboard_users = User.monthly_leaderboard().limit(1)
 
     @slackerboard_users = current_user.slackerboard().limit(20)
 
