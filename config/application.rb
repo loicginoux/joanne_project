@@ -9,6 +9,14 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+module AssetsInitializers
+  class Railtie < Rails::Railtie
+    initializer "assets_initializers.initialize_rails", :group => :assets do |app|
+      require "#{Rails.root}/config/initializers/s3.rb"
+    end
+  end
+end
+
 module Foodrubix
   class Application < Rails::Application
 
