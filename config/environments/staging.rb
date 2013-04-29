@@ -1,4 +1,5 @@
 require_relative '../initializers/cloudfront'
+require_relative '../initializers/s3'
 
 Foodrubix::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
