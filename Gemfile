@@ -20,11 +20,15 @@ group :development do
   gem 'meta_request'
   # guard to automate background tasks on file changes
   # see railscast episode 264
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  # gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-livereload'
 
   gem 'factory_girl_rails', :require => false
 
+end
+
+group :test, :darwin do
+  gem 'rb-fsevent'
 end
 
 group :production, :staging do
