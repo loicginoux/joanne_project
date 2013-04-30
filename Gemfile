@@ -87,7 +87,7 @@ end
 
 
 # admin panel
-gem 'activeadmin'
+gem 'activeadmin','~> 0.5.0'
 gem "meta_search",    '>= 1.1.0.pre'
 
 
