@@ -1,0 +1,165 @@
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+  <tbody>
+    <tr>
+      <td valign="top" align="left" style="border-collapse:collapse">
+        <h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px">
+          Weekly Recap
+        </h2>
+        <%= render :partial => "email/style/points_limiter" %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<% if @stats["intro"]["last_week_calories"] == 0 %>
+  <% compare = "impossible" %>
+<% elsif @stats["intro"]["current_week_calories"] > @stats["intro"]["last_week_calories"] %>
+<% compare = "up" %>
+<% elsif @stats["intro"]["current_week_calories"] < @stats["intro"]["last_week_calories"] %>
+<% compare = "down" %>
+<% else %>
+<% compare = "equal" %>
+<% end %>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+  <tbody>
+    <tr>
+      <td width="250px"  valign="top" align="left" style="border-collapse:collapse">
+        <table  width="100%" height="137px" style="background-color: #efefef;" cellpadding="0" cellspacing="0" border="0" align="center">
+          <tbody>
+            <tr height="10px"></tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td align="center" style="font-family:sans-serif;font-size:35px;font-weight:bold;line-height:36px;text-decoration:none;<% if compare == "up" %>color:#e96000<% else %>color:#058dc7<% end %>">
+                <%= number_with_delimiter(@stats["intro"]["current_week_calories"], :delimiter => ',') %>
+              </td>
+              <td style="width:10px;"></td>
+            </tr>
+            <tr height="5px"></tr>
+            <tr align="center" style="font-family:sans-serif;color:#888888;font-size:12px;line-height:18px;text-transform:uppercase">
+              <td style="width:10px;"></td>
+              <td>calories for the week</td>
+              <td style="width:10px;"></td>
+            </tr>
+            <tr height="5px"></tr>
+            <% if compare != "impossible" %>
+              <tr align="center" height="50px" style="font-family:sans-serif; color: #fff; font-size:12px; line-height:18px">
+                <td style="width:10px;"></td>
+                  <% if compare == "up" %>
+                    <td style="background-color: #e96000; width:90px">
+                      <span style="display: block;">
+                        <%=  image_tag("email/arrow_increase.png", :width => "20px", :style=> "padding-top:5px")  %> <%= (@stats["intro"]["current_week_calories"] - @stats["intro"]["last_week_calories"]) * 100 / @stats["intro"]["last_week_calories"] %>%
+                      </span>
+                      <span style="display: block;">
+                        compared to <%= number_with_delimiter(@stats["intro"]["last_week_calories"], :delimiter => ',') %> (last week)
+                      </span>
+                    </td>
+
+                  <% elsif compare == "down" %>
+                    <td style="background-color: #058dc7; width:90px">
+                      <span style="display: block;">
+                        <%=  image_tag("email/arrow_decrease.png", :width => "20px", :style=> "padding-top:5px")  %> <%= (@stats["intro"]["current_week_calories"] - @stats["intro"]["last_week_calories"]) * 100 / @stats["intro"]["last_week_calories"] %>%
+                      </span>
+                      <span style="display: block;">
+                        compared to <%= number_with_delimiter(@stats["intro"]["last_week_calories"] , :delimiter => ',') %> (last week)
+                      </span>
+                    </td>
+                  <% else %>
+                    <td style="background-color: #058dc7; width:90px">
+                      same as last week
+                    </td>
+                  <% end %>
+
+                <td style="width:10px;"></td>
+              </tr>
+            <% end %>
+            <tr height="10px"></tr>
+          </tbody>
+        </table>
+      </td>
+      <td width="10px"></td>
+      <td width="440px">
+        <table height="80px" width="100%" style="border: 5px solid #efefef;">
+          <tbody>
+            <tr height="8px"></tr>
+            <% if @stats["intro"]["daily_calories_limit"] != 0  %>
+
+              <tr>
+                <td width="5px"></td>
+                <td style="font-size: 14px;font-family:sans-serif; line-height: 14px; color:#111111;">
+                  <!-- <p>
+                    Your daily calorie limit is <span style="font-weight: bold;"><%= @stats["intro"]["daily_calories_limit"] %> calories.</span>
+                  </p>
+                  <p>
+                    This week: you met your goal <span style="font-weight: bold;"><%= @stats["intro"]["current_week_nb_days_below"] %> days</span> out of 7.
+                  </p>
+                  <p style="margin-bottom: 0px;">
+                    Previous week: you met your goal <span style="font-weight: bold;"><%= @stats["intro"]["last_week_nb_days_below"] %> days</span> out of 7.
+                  </p>
+ -->
+                  <!-- <p>
+                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["daily_calories_limit"] %></span> daily calorie limit.
+                  </p>
+                  <p>
+                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["current_week_nb_days_below"] %></span> days out of 7
+                    you met your goal this week.
+                  </p>
+                  <p style="margin-bottom: 0px;">
+                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["last_week_nb_days_below"] %></span> days out of 7 you met your goal last week
+                  </p> -->
+
+                  <p>
+                    <span style="display: inline-block; width:265px">Daily calorie limit</span><span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 130px;"><%= number_with_delimiter(@stats["intro"]["daily_calories_limit"], :delimiter => ',') %></span>
+                  </p>
+                  <p>
+                    <span style="display: inline-block; width:265px">This week, you met your goal</span> <span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 125px;"><%= @stats["intro"]["current_week_nb_days_below"] %> days out of 7</span>
+                  </p>
+                  <p style="margin-bottom: 0px;">
+                    <span style="display: inline-block; width:265px">Last week, you met your goal</span>
+                    <span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 125px;"><%= @stats["intro"]["last_week_nb_days_below"] %> days out of 7</span>
+                  </p>
+
+
+                  <p style="margin-top: 5px;">
+                    <%= case @stats["intro"]["current_week_nb_days_below"]
+                    when 0
+                      "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
+                    when 1
+                      "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
+                    when 2
+                      "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
+                    when 3
+                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                    when 4
+                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                    when 5
+                      "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
+                    when 6
+                      "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
+                    else
+                      "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
+                    end %>
+                  </p>
+                </td>
+                <td width="5px"></td>
+              </tr>
+            <% else %>
+              <tr height="97px">
+                <td width="5px"></td>
+                <td style="font-size: 14px;font-family:sans-serif; line-height: 20px; color:#111111;">
+                  <p style="font-size: 18px; font-weight: bold;">Did you know?</p>
+                  <p>If you go under <a href="<%= edit_user_url(@user) %>">Settings</a> and set your daily calorie goal, you will get more usefull stats in your weekly email.</p>
+                <td>
+                <td width="5px"></td>
+              </tr>
+            <% end %>
+            <tr height="10px"></tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+  </tbody>
+</table>

@@ -73,6 +73,12 @@ class DataPoint < ActiveRecord::Base
       []
     end
   }
+  scope :for_week, lambda { |user, starW, endW|
+    DataPoint.select([:calories, :uploaded_at]).where(
+      :user_id => user.id,
+      :uploaded_at => starW..endW
+    )
+  }
 
 
   #########################

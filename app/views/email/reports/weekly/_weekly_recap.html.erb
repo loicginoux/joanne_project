@@ -1,64 +1,7 @@
+<%= render :partial => "email/reports/weekly/intro" %>
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-    <tbody>
-        <tr style="border-collapse: collapse;">
-            <td width="100%" style="border-collapse: collapse; font-family: sans-serif;">
-                <p align="left" style="font-size: 18px; line-height: 24px; color: #434343; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: sans-serif;">
-                    This is what you ate this week
-                </p>
-            </td>
-        </tr>
-        <tr style="border-collapse: collapse;">
-            <td width="100%" height="10" style="border-collapse: collapse; font-family: sans-serif;">
-            </td>
-        </tr>
-    </tbody>
-</table>
+<%= render :partial => "email/reports/weekly/calories_breakdown" %>
 
+<%= render :partial => "email/reports/weekly/goal_check" %>
 
-
-
-<% @groups.each do |day, day_data_point| %>
-    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tbody>
-            <tr style="border-collapse: collapse;">
-                <td width="100%" style="border-collapse: collapse; font-family: sans-serif;">
-                    <p align="left" style="font-size: 18px; line-height: 24px; color: #434343; font-weight: bold; margin-top: 0px; margin-bottom: 18px; font-family: sans-serif;">
-                        <%= day %>
-                    </p>
-                </td>
-            </tr>
-            <tr style="border-collapse: collapse;">
-                <td width="100%" height="10" style="border-collapse: collapse; font-family: sans-serif;">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <% day_data_point.each_slice(3) do |group| %>
-        <% if group.length == 3 %>
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
-        <% elsif  group.length == 2%>
-            <table width="475" cellpadding="0" cellspacing="0" border="0">
-        <% elsif  group.length == 1%>
-            <table width="237" cellpadding="0" cellspacing="0" border="0">
-        <%end%>
-                <tbody>
-                    <tr style="border-collapse: collapse;">
-                        <%= render :partial => "email/reports/data_point", :collection => group, :as => :data_point %>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- end of images -->
-    <% end %>
-
-<% end %>
-
-
-
-
-
-<%= render :partial => "email/style/limiter" %>
-
-<%= render :partial => "email/reports/leaderboard" %>
+<%= render :partial => "email/reports/weekly/trending" %>

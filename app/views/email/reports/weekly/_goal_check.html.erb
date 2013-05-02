@@ -1,0 +1,84 @@
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+  <tbody>
+    <%= render :partial => "email/style/white_space" %>
+    <tr>
+    	<td>
+    		<h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px; border-bottom: 1px solid  #efefef;">
+        	Goal Check
+				</h2>
+    	</td>
+    </tr>
+    <tr height="20px"></tr>
+  </tbody>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+				<table width="100px" style="font-family:sans-serif;color:#888888;font-size:14px;line-height:18px;text-transform:uppercase">
+					<tbody>
+						<tr height="35px"></tr>
+						<tr height="40px" align="center" >
+							<td style="background-color: #efefef;">
+								This Week
+							</td>
+						</tr>
+						<tr height="40px" align="center">
+							<td style="background-color: #efefef;">
+								Last Week
+							</td>
+						</tr>
+						<tr height="10px"></tr>
+					</tbody>
+				</table>
+			</td>
+			<td width="10px"></td>
+			<td>
+				<table width="560px" cellpadding="5px" cellspacing="0" border="0" align="center" style="font-family:sans-serif;color:#111111;font-size:11px; vertical-align: middle; color: #111111;">
+					<tbody align="center">
+						<tr height="30px" style="font-size:16px;line-height:18px;text-transform:uppercase; font-weight: normal;">
+							<td width="70px">S</td>
+							<td width="70px">M</td>
+							<td width="70px">T</td>
+							<td width="70px">W</td>
+							<td width="70px">T</td>
+							<td width="70px">F</td>
+							<td width="70px">S</td>
+						</tr>
+						<tr height="40px">
+							<% for i in 0..6 %>
+									<% day_photos = @stats["week_calories"]["current_week"][i.to_s] %>
+									<% unless day_photos.nil? %>
+										<% day_calories = day_photos.map(&:calories).inject(:+) %>
+										<%= render :partial	=> "email/reports/weekly/goal_check_cell",
+										:locals => {
+											:day_calories => day_calories,
+											:limit => @stats["intro"]["daily_calories_limit"]
+										}  %>
+									<% end %>
+							<% end %>
+						</tr>
+						<tr height="40px">
+							<% for i in 0..6 %>
+								<% day_photos = @stats["week_calories"]["last_week"][i.to_s] %>
+								<% unless day_photos.nil? %>
+									<% day_calories = day_photos.map(&:calories).inject(:+) %>
+									<%= render :partial	=> "email/reports/weekly/goal_check_cell",
+										:locals => {
+											:day_calories => day_calories,
+											:limit => @stats["intro"]["daily_calories_limit"]
+										}
+									%>
+								<% end %>
+							<% end %>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+  </tbody>
+</table>
+<p style="text-align: right; font-family:sans-serif; font-size:10px; margin-top: 0;">
+	<%=  image_tag("email/smiley4.png", :width => "12px")%> = You stayed within your daily calorie limit
+</p>
+

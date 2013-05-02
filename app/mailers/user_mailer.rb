@@ -163,27 +163,26 @@ class UserMailer < ActionMailer::Base
     users.each {|user|
       Time.zone = user.timezone
       if Time.zone.now.monday? && Time.zone.now.hour == 7
-        # startDate = (Time.zone.now - 7.days).utc
-        # endDate = Time.zone.now.utc
-        endDate = DateTime.parse((Date.today).to_s)
-        startDate = DateTime.parse((endDate - 7.days).to_s)
 
         @slackerboard_users = user.slackerboard().limit(20)
 
-        @groups = DataPoint.where(
-          :user_id => user.id,
-          :uploaded_at => startDate..endDate
-        )
-        .order("uploaded_at ASC")
-        .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
+        @stats = user.prepare_weekly_stats()
+        # @groups = DataPoint.where(
+        #   :user_id => user.id,
+        #   :uploaded_at => startDate..endDate
+        # )
+        # .order("uploaded_at ASC")
+        # .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
 
         @user = user
         puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
-        if @groups.empty?
-          html = render :partial => "email/empty_recap", :layout => "email"
-        else
-          html = render :partial => "email/weekly_recap", :layout => "email"
-        end
+        # if @groups.empty?
+        #   html = render :partial => "email/empty_recap", :layout => "email"
+        # else
+        #   html = render :partial => "email/weekly_recap", :layout => "email"
+        # end
+
+        html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
 
         RestClient.post MAILGUN[:api_url]+"/messages",
         :from => MAILGUN[:admin_mailbox],
@@ -226,9 +225,9 @@ class UserMailer < ActionMailer::Base
 
         puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
         if @data_points.empty?
-          html = render :partial => "email/empty_recap", :layout => "email"
+          html = render :partial => "email/reports/empty_recap", :layout => "email"
         else
-          html = render :partial => "email/daily_recap", :layout => "email"
+          html = render :partial => "email/reports/weekly/daily_recap", :layout => "email"
         end
 
         RestClient.post MAILGUN[:api_url]+"/messages",

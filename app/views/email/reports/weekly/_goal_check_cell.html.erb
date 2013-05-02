@@ -1,0 +1,9 @@
+<%if day_calories > @stats["intro"]["daily_calories_limit"] %>
+	<td width="70px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #e96000; color:#fff">
+		Over by <%= day_calories -  limit %>
+	</td>
+<% else %>
+	<td width="70px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #efefef;">
+		<%=  image_tag("email/smiley4.png", :width => "20px")%>
+	</td>
+<% end %>

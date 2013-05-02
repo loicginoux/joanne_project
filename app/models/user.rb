@@ -378,4 +378,59 @@ class User < ActiveRecord::Base
       self.update_attributes(:streak => new_streak)
     end
   end
+
+
+  def prepare_weekly_stats()
+    stats = {
+      "intro" => {
+        "daily_calories_limit" => self.preference.daily_calories_limit
+      },
+      "week_calories" => {}
+    }
+    # startDate = (Time.zone.now - 7.days).utc
+    # endDate = Time.zone.now.utc
+    end_current_week   = DateTime.parse((Date.today).to_s)
+    start_current_week = DateTime.parse((end_current_week - 7.days).to_s)
+    start_1_week_ago   = DateTime.parse((end_current_week - 14.days).to_s)
+    start_2_weeks_ago  = DateTime.parse((end_current_week - 21.days).to_s)
+    start_3_weeks_ago  = DateTime.parse((end_current_week - 28.days).to_s)
+
+    current_week_photos = DataPoint.for_week(self, start_current_week, end_current_week )
+    last_week_photos = DataPoint.for_week(self, start_1_week_ago, start_current_week )
+
+    stats["week_calories"]["current_week"] = current_week_photos.order("uploaded_at ASC")
+      .group_by{|v| v.uploaded_at.strftime("%w")} #sorted by week day number
+
+    stats["week_calories"]["last_week"] = last_week_photos.order("uploaded_at ASC")
+      .group_by{|v| v.uploaded_at.strftime("%w")} #sorted by week day number
+
+    stats["week_calories"]["2_weeks_ago"] = DataPoint.for_week(self, start_2_weeks_ago, start_1_week_ago )
+      .map(&:calories).inject(:+) || 0
+
+    stats["week_calories"]["3_weeks_ago"] = DataPoint.for_week(self, start_3_weeks_ago, start_2_weeks_ago )
+      .map(&:calories).inject(:+) || 0
+
+
+    stats["intro"]["current_week_calories"] = current_week_photos.map(&:calories).inject(:+) || 0
+    stats["intro"]["last_week_calories"] = last_week_photos.map(&:calories).inject(:+) || 0
+
+    stats["intro"]["last_week_nb_days_below"] = 0
+    stats["week_calories"]["last_week"].each do |key, val|
+      stats["intro"]["last_week_nb_days_below"] += 1
+    end
+    stats["intro"]["current_week_nb_days_below"] = 0
+    stats["week_calories"]["current_week"].each do |key, val|
+      stats["intro"]["current_week_nb_days_below"] += 1
+    end
+    puts " "
+    puts ">>>>>>>>>>>>>>>>>>"
+    puts "stats: "+stats.inspect
+    puts ">>>>>>>>>>>>>>>>>"
+    puts " "
+    return stats
+  end
 end
+
+
+
+

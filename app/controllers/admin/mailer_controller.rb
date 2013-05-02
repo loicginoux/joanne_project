@@ -89,7 +89,7 @@ class Admin::MailerController < ApplicationController
 
     @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
     @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
-    @leaderboard_users = User.monthly_leaderboard().limit(1)
+    @leaderboard_users = User.monthly_leaderboard().limit(20)
 
     @slackerboard_users = current_user.slackerboard().limit(20)
 
@@ -109,14 +109,8 @@ class Admin::MailerController < ApplicationController
     @slackerboard_users = current_user.slackerboard().limit(20)
 
     @user = current_user
-    endDate = DateTime.parse((Date.today).to_s)
-    startDate = DateTime.parse((endDate - 7.days).to_s)
-    @groups = DataPoint.where(
-      :user_id => @user.id,
-      :uploaded_at => startDate..endDate
-      )
-    .order("uploaded_at ASC")
-    .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
+
+    @stats = @user.prepare_weekly_stats()
 
     render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
   end

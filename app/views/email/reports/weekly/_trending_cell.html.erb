@@ -1,0 +1,13 @@
+<% if current_value == 0 %>
+	<td width="140px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #efefef;">
+		0
+	</td>
+<% elsif current_value > prev_value %>
+	<td width="140px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #e96000; color:#fff">
+		<%=  image_tag("email/arrow_increase.png", :width => "15px")  %> <%= number_with_delimiter(current_value , :delimiter => ',') %>
+	</td>
+<% else %>
+	<td width="140px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #058dc7; color:#fff">
+		<%=  image_tag("email/arrow_decrease.png", :width => "15px")  %> <%= number_with_delimiter(current_value, :delimiter => ',') %>
+	</td>
+<% end %>
