@@ -1,41 +1,45 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
-  <tbody>
-    <%= render :partial => "email/style/white_space" %>
-    <tr>
-    	<td>
-    		<h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px; border-bottom: 1px solid  #efefef;">
-    			Calorie Breakdown
-				</h2>
-    	</td>
-    </tr>
-    <tr height="20px"></tr>
-  </tbody>
+		<tbody>
+				<%= render :partial => "email/style/white_space" %>
+				<tr>
+						<td>
+								<h2 style="color:#111111;font-family:sans-serif;margin-top:0;margin-bottom:0;font-size:24px;line-height:30px;padding:0 2px; border-bottom: 1px solid #efefef;">
+										Calorie Breakdown
+								</h2>
+						</td>
+				</tr>
+				<tr height="20px">
+						<td></td>
+				</tr>
+		</tbody>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
 	<tbody>
 		<tr>
 			<td>
 				<table width="100px" style="font-family:sans-serif;color:#888888;font-size:14px;line-height:18px;text-transform:uppercase">
-					<tbody>
-						<tr height="40px" align="center" >
-							<td style="background-color: #efefef;">
-								This Week
-							</td>
-						</tr>
-						<tr height="40px" align="center">
-							<td style="background-color: #efefef;">
-								Last Week
-							</td>
-						</tr>
-						<tr height="10px"></tr>
-					</tbody>
+						<tbody>
+								<tr height="40px" align="center">
+										<td style="background-color: #efefef;">
+												This Week
+										</td>
+								</tr>
+								<tr height="40px" align="center">
+										<td style="background-color: #efefef;">
+												Last Week
+										</td>
+								</tr>
+								<tr height="10px">
+										<td></td>
+								</tr>
+						</tbody>
 				</table>
 			</td>
 			<td width="10px"></td>
 			<td>
 				<table width="560px" cellpadding="5px" cellspacing="0" border="0" align="center" style="font-family:sans-serif;color:#111111;font-size:14px; vertical-align: middle; color: #111111;">
 					<tbody align="center">
-						<tr height="30px" style="font-size:16px;line-height:18px;text-transform:uppercase; font-weight: normal;">
+						<tr height="28px" style="font-size:16px;line-height:18px;text-transform:uppercase; font-weight: normal;">
 							<td width="70px">S</td>
 							<td width="70px">M</td>
 							<td width="70px">T</td>
@@ -75,9 +79,7 @@
 									<% prev_day_photos = @stats["week_calories"]["last_week"][i.to_s] %>
 									<% if !day_photos || !prev_day_photos %>
 
-										<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; color: #111111; font-weight: normal; font-size: 11px;">
-
-										</td>
+										<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; color: #111111; font-weight: normal; font-size: 11px;"></td>
 									<% else %>
 
 										<% dayCal = @stats["week_calories"]["current_week"][i.to_s].map(&:calories).inject(:+) %>
@@ -102,19 +104,18 @@
 												</span>
 											</td>
 										<% else%>
-											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; background-color: #058dc7; color: #fff; font-weight: normal; font-size: 18px;">
-												=
-											</td>
+											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; background-color: #058dc7; color: #fff; font-weight: normal; font-size: 18px;">=</td>
 										<% end %>
 									<% end %>
-								</td>
 							<% end %>
 						</tr>
 					</tbody>
 				</table>
 			</td>
 		</tr>
-		<tr height="20px"></tr>
+		<tr height="20px">
+			<td></td>
+		</tr>
   </tbody>
 </table>
 

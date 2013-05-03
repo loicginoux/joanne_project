@@ -154,93 +154,50 @@ class UserMailer < ActionMailer::Base
       :html => html.to_str
     puts "new follower email sent to: #{@followee.email}, follower_id: #{@follower.id}"
   end
-  # handle_asynchronously :new_follower_email
 
-  def weekly_recap_email()
+  def weekly_recap_email(user, leaderboard_users)
     self.message.perform_deliveries = false
-    users = User.includes(:preference).confirmed().active().where("preferences.weekly_email" => true)
-    @leaderboard_users = User.monthly_leaderboard().limit(20)
-    users.each {|user|
-      Time.zone = user.timezone
-      if Time.zone.now.monday? && Time.zone.now.hour == 7
+    @stats = user.prepare_weekly_stats()
+    @user = user
+    puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
 
-        @slackerboard_users = user.slackerboard().limit(20)
+    html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
 
-        @stats = user.prepare_weekly_stats()
-        # @groups = DataPoint.where(
-        #   :user_id => user.id,
-        #   :uploaded_at => startDate..endDate
-        # )
-        # .order("uploaded_at ASC")
-        # .group_by{|v| v.uploaded_at.strftime("%a %b %d, %Y")}
-
-        @user = user
-        puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
-        # if @groups.empty?
-        #   html = render :partial => "email/empty_recap", :layout => "email"
-        # else
-        #   html = render :partial => "email/weekly_recap", :layout => "email"
-        # end
-
-        html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
-
-        RestClient.post MAILGUN[:api_url]+"/messages",
-        :from => MAILGUN[:admin_mailbox],
-        :to => user.email,
-        :subject => "[FoodRubix] This is what you ate this week",
-        :html => html.to_str
-      end
-    }
+    RestClient.post MAILGUN[:api_url]+"/messages",
+    :from => MAILGUN[:admin_mailbox],
+    :to => user.email,
+    :subject => "[FoodRubix] This is what you ate this week",
+    :html => html.to_str
   end
-  # handle_asynchronously :weekly_recap_email
 
-  def daily_recap_email()
+  def daily_recap_email(user, leaderboard_users)
     self.message.perform_deliveries = false
-    users = User.includes(:preference).confirmed().active().where("preferences.daily_email" => true)
-    @leaderboard_users = User.monthly_leaderboard().limit(20)
-    users.each {|user|
+    endDate = DateTime.parse(Date.today.to_s)
+    startDate = DateTime.parse((endDate - 1.days).to_s)
+    @leaderboard_users = leaderboard_users
+    @user = user
+    # this removes the offset that can't be done with the Date object
 
-      Time.zone = user.timezone
-      if Time.zone.now.hour == 7
-        # this removes the offset that can't be done with the Date object
-        endDate = DateTime.parse(Date.today.to_s)
-        startDate = DateTime.parse((endDate - 1.days).to_s)
+    @slackerboard_users = user.slackerboard().limit(20)
+    @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
+    @data_points = DataPoint.where(:user_id => user.id,:uploaded_at => startDate..endDate).order("uploaded_at ASC")
+    @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
+    @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
+    @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
+    @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
-        @slackerboard_users = user.slackerboard().limit(20)
+    puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
+    if @data_points.empty?
+      html = render :partial => "email/reports/empty_recap", :layout => "email"
+    else
+      html = render :partial => "email/reports/daily/daily_recap", :layout => "email"
+    end
 
-        @data_points = DataPoint.where(
-          :user_id => user.id,
-          :uploaded_at => startDate..endDate
-          )
-        .order("uploaded_at ASC")
-
-        @user = user
-
-        @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
-
-        @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
-
-
-        @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
-
-        puts "sending daily email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
-        if @data_points.empty?
-          html = render :partial => "email/reports/empty_recap", :layout => "email"
-        else
-          html = render :partial => "email/reports/weekly/daily_recap", :layout => "email"
-        end
-
-        RestClient.post MAILGUN[:api_url]+"/messages",
-          :from => MAILGUN[:admin_mailbox],
-          :to => user.email,
-          :subject => "[FoodRubix] This is what you ate yesterday",
-          :html => html.to_str
-      end
-    }
+    RestClient.post MAILGUN[:api_url]+"/messages",
+      :from => MAILGUN[:admin_mailbox],
+      :to => user.email,
+      :subject => "[FoodRubix] This is what you ate yesterday",
+      :html => html.to_str
   end
-  # handle_asynchronously :daily_recap_email
-
-
-
 
 end

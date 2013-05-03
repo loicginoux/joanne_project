@@ -14,7 +14,7 @@
           <tbody>
             <% isCurrentUserInLeaderboard = false %>
             <% @leaderboard_users.each_with_index do |user, index| %>
-              <% isCurrentUserInLeaderboard = (isCurrentUserInLeaderboard)? true : (user.id == current_user.id) %>
+              <% isCurrentUserInLeaderboard = (isCurrentUserInLeaderboard)? true : (user.id == @user.id) %>
               <tr height="60px" style="font-family:sans-serif; font-size: 15px; line-height: 24px;">
                 <td width="25px"> <%= index + 1 %>.</td>
                 <td width="60px"><%= link_to image_tag(user.picture.url("small")) ,  user_url(:username=> user.username) %> </td>

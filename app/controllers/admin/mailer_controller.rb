@@ -61,9 +61,7 @@ class Admin::MailerController < ApplicationController
 
     @leaderboard_users = User.monthly_leaderboard().limit(20)
     @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
-    puts " "; puts ">>>>>>>>>>>>>>>>>>"
-    puts @progress_bar_data
-    puts ">>>>>>>>>>>>>>>>>";puts " "
+
     @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
 
     @slackerboard_users = current_user.slackerboard().limit(20)
@@ -104,14 +102,8 @@ class Admin::MailerController < ApplicationController
   end
 
   def preview_weekly()
-    @leaderboard_users = User.monthly_leaderboard().limit(20)
-
-    @slackerboard_users = current_user.slackerboard().limit(20)
-
     @user = current_user
-
     @stats = @user.prepare_weekly_stats()
-
     render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
   end
 end

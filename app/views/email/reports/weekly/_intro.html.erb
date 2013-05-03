@@ -60,7 +60,7 @@
                   <% elsif compare == "down" %>
                     <td style="background-color: #058dc7; width:90px">
                       <span style="display: block;">
-                        <%=  image_tag("email/arrow_decrease.png", :width => "20px", :style=> "padding-top:5px")  %> <%= (@stats["intro"]["current_week_calories"] - @stats["intro"]["last_week_calories"]) * 100 / @stats["intro"]["last_week_calories"] %>%
+                        <%=  image_tag("email/arrow_decrease.png", :width => "20px", :style=> "padding-top:5px")  %> <%= (@stats["intro"]["last_week_calories"] - @stats["intro"]["current_week_calories"]) * 100 / @stats["intro"]["last_week_calories"] %>%
                       </span>
                       <span style="display: block;">
                         compared to <%= number_with_delimiter(@stats["intro"]["last_week_calories"] , :delimiter => ',') %> (last week)
@@ -89,27 +89,6 @@
               <tr>
                 <td width="5px"></td>
                 <td style="font-size: 14px;font-family:sans-serif; line-height: 14px; color:#111111;">
-                  <!-- <p>
-                    Your daily calorie limit is <span style="font-weight: bold;"><%= @stats["intro"]["daily_calories_limit"] %> calories.</span>
-                  </p>
-                  <p>
-                    This week: you met your goal <span style="font-weight: bold;"><%= @stats["intro"]["current_week_nb_days_below"] %> days</span> out of 7.
-                  </p>
-                  <p style="margin-bottom: 0px;">
-                    Previous week: you met your goal <span style="font-weight: bold;"><%= @stats["intro"]["last_week_nb_days_below"] %> days</span> out of 7.
-                  </p>
- -->
-                  <!-- <p>
-                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["daily_calories_limit"] %></span> daily calorie limit.
-                  </p>
-                  <p>
-                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["current_week_nb_days_below"] %></span> days out of 7
-                    you met your goal this week.
-                  </p>
-                  <p style="margin-bottom: 0px;">
-                    <span style="font-weight: bold; font-size: 16px; display: inline-block; width:30px"><%= @stats["intro"]["last_week_nb_days_below"] %></span> days out of 7 you met your goal last week
-                  </p> -->
-
                   <p>
                     <span style="display: inline-block; width:265px">Daily calorie limit</span><span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 130px;"><%= number_with_delimiter(@stats["intro"]["daily_calories_limit"], :delimiter => ',') %></span>
                   </p>
@@ -123,24 +102,34 @@
 
 
                   <p style="margin-top: 5px;">
-                    <%= case @stats["intro"]["current_week_nb_days_below"]
-                    when 0
-                      "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
-                    when 1
-                      "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
-                    when 2
-                      "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
-                    when 3
-                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                    when 4
-                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                    when 5
-                      "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
-                    when 6
-                      "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
-                    else
-                      "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
-                    end %>
+                    <% case compare
+                    when "impossible" %>
+                      <%= case @stats["intro"]["current_week_nb_days_below"]
+                      when 0
+                        "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
+                      when 1
+                        "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
+                      when 2
+                        "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
+                      when 3
+                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                      when 4
+                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                      when 5
+                        "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
+                      when 6
+                        "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
+                      else
+                        "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
+                      end %>
+
+                    <% when "up" %>
+                      You did better this week. Good job! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
+                    <% when "down" %>
+                      You didn't do as well this week. <%= image_tag("email/sad.png", :style => "width:20px") %> Try again.
+                    <% else %>
+                      You did as well as last week. Keep it up!
+                    <% end %>
                   </p>
                 </td>
                 <td width="5px"></td>
