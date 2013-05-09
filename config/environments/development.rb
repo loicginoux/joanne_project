@@ -1,3 +1,6 @@
+require_relative '../initializers/cloudfront'
+require_relative '../initializers/s3'
+
 Foodrubix::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -43,7 +46,7 @@ Foodrubix::Application.configure do
   config.assets.compress = false
 
   # serve assets from public directory
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Expands the lines which load the assets
   config.assets.debug = false
@@ -57,6 +60,7 @@ Foodrubix::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "http://0.0.0.0:5000"
+  # config.action_controller.asset_host = "foodrubix-development.s3.amazonaws.com"
   # config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
 
   config.action_mailer.asset_host = config.action_controller.asset_host
@@ -78,8 +82,18 @@ Foodrubix::Application.configure do
 
   # paperclip options
   config.paperclip_defaults = {
-    :url => "/system/:class/:attachment/:id/:style/:basename.:extension",
-    :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+    :url => "/assets/images/:class/:attachment/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/assets/images/:class/:attachment/:id/:style/:basename.:extension"
   }
-
+  # config.paperclip_defaults = {
+  #   :convert_options => { :all => '-auto-orient' },
+  #   :storage => :s3,
+  #   :bucket => S3_CREDENTIALS[:bucket],
+  #   :s3_credentials => S3_CREDENTIALS,
+  #   :path => ":attachment/:id/:style.:extension",
+  #   :default_url => '/assets/default_user_:style.gif',
+  #   :url => ':s3_alias_url',
+  #   :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
+  #   :s3_permissions => :public_read
+  # }
 end

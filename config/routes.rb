@@ -9,6 +9,10 @@ Foodrubix::Application.routes.draw do
     :as => "fileUploadForm"
   resources :authentications, :only => [:create]
   resources :data_points
+  resources :week_data_points
+  resources :day_data_points
+  resources :month_data_points
+
   resources :users do
     get :follow, :on => :member
   end

@@ -1,4 +1,4 @@
 foodrubix.friendships.index = () ->
-	feedsManager = new foodrubix.feeds({
+	feedsManager = new foodrubix.Feeds({
 		el:$('.feeds')
 	})

@@ -1,4 +1,4 @@
-class foodrubix.feeds extends Spine.Controller
+class foodrubix.Feeds extends Spine.Controller
 	elements:
 		".feed": "feeds"
 		"h3": "title"

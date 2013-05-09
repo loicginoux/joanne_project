@@ -1,10 +1,6 @@
 ---
 arrow_empty_state.png: arrow_empty_state-144a1df3287e25bef7d7b8ef392e6913.png
 arrow_empty_state/index.png: arrow_empty_state-144a1df3287e25bef7d7b8ef392e6913.png
-data_points/local_photos/303/small.jpg: data_points/local_photos/303/small-fe47fecddbf8a6cee79c5cbcc47bc5e3.jpg
-data_points/local_photos/303/small/index.jpg: data_points/local_photos/303/small-fe47fecddbf8a6cee79c5cbcc47bc5e3.jpg
-data_points/local_photos/304/small.jpg: data_points/local_photos/304/small-3409c3fb60e2827917a9e21b970cbbc8.jpg
-data_points/local_photos/304/small/index.jpg: data_points/local_photos/304/small-3409c3fb60e2827917a9e21b970cbbc8.jpg
 default_user_medium.gif: default_user_medium-7664d816fdc29155fc168d56626796c8.gif
 default_user_medium/index.gif: default_user_medium-7664d816fdc29155fc168d56626796c8.gif
 default_user_small.gif: default_user_small-a6b300bd107eb0ca7267f0846e47e6f9.gif
@@ -31,6 +27,10 @@ email/bullets-2col-alpha_new.gif: email/bullets-2col-alpha_new-f47a311ec67a0aebe
 email/bullets-2col-alpha_new/index.gif: email/bullets-2col-alpha_new-f47a311ec67a0aebe68b495a2a2f2ad8.gif
 email/sad.png: email/sad-698639afe411446021980dcdd102213c.png
 email/sad/index.png: email/sad-698639afe411446021980dcdd102213c.png
+email/sample_goal_check.png: email/sample_goal_check-8f1428e9b126967b02bdc85f54c6b8f4.png
+email/sample_goal_check/index.png: email/sample_goal_check-8f1428e9b126967b02bdc85f54c6b8f4.png
+email/sample_goal_check.psd: email/sample_goal_check-51e45c21295b24f646860651f8ce211a.psd
+email/sample_goal_check/index.psd: email/sample_goal_check-51e45c21295b24f646860651f8ce211a.psd
 email/smiley1.png: email/smiley1-bbdbb299897236b0bf623766cf6127bf.png
 email/smiley1/index.png: email/smiley1-bbdbb299897236b0bf623766cf6127bf.png
 email/smiley2.png: email/smiley2-1eb69f0f0d96b84a36736409f840e636.png
@@ -111,16 +111,16 @@ active_admin.js: active_admin-5ef2058b99f4c2cf3af4bcd9d161aede.js
 active_admin/index.js: active_admin-5ef2058b99f4c2cf3af4bcd9d161aede.js
 application-ie9.js: application-ie9-09162bbf0288161992be6a0a77ec3c6b.js
 application-ie9/index.js: application-ie9-09162bbf0288161992be6a0a77ec3c6b.js
-application.js: application-0140895504a4a7a9278abee07c2d88cb.js
-application/index.js: application-0140895504a4a7a9278abee07c2d88cb.js
-homepage.js: homepage-90b6b100aa2ec322dfee0dadc62c9784.js
-homepage/index.js: homepage-90b6b100aa2ec322dfee0dadc62c9784.js
+application.js: application-88ebdbc94bacd7eef2608fb7905ea9b7.js
+application/index.js: application-88ebdbc94bacd7eef2608fb7905ea9b7.js
+homepage.js: homepage-56d57215d04002b55c0deabf71066c51.js
+homepage/index.js: homepage-56d57215d04002b55c0deabf71066c51.js
 active_admin.css: active_admin-11e76be2c471dfa362cb6603a0dc2458.css
 active_admin/index.css: active_admin-11e76be2c471dfa362cb6603a0dc2458.css
 application-ie.css: application-ie-c9063548eeeabdd6a3f7cccd26ba1361.css
 application-ie/index.css: application-ie-c9063548eeeabdd6a3f7cccd26ba1361.css
-application.css: application-85e8a21376c63d065cbbb7c09a2c9c2f.css
-application/index.css: application-85e8a21376c63d065cbbb7c09a2c9c2f.css
+application.css: application-71e3174ab78da8ca52467e9cf94f8156.css
+application/index.css: application-71e3174ab78da8ca52467e9cf94f8156.css
 homepage.css: homepage-4cf2f8b8f7370c17eac9fce9405262b9.css
 homepage/index.css: homepage-4cf2f8b8f7370c17eac9fce9405262b9.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-e48e46acabb622812c54167ad07bd36e.png

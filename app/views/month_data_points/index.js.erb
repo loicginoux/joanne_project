@@ -1,0 +1,3 @@
+$("#photos").empty().append("<%= escape_javascript(render :partial => 'month_data_points/photo_list') %>");
+
+<%= render :partial => 'data_points/index/load_graphic', :locals => {:period => "month"}  %>

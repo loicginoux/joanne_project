@@ -1,5 +1,5 @@
 foodrubix.users.show = () ->
-	new foodrubix.PhotoCalendar({el: $("#photoCalendar")})
+	new foodrubix.PhotoCalendarManager()
 	manageLoginTooltip()
 
 manageLoginTooltip = () ->

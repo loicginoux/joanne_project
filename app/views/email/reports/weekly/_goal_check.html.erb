@@ -11,6 +11,9 @@
     <tr height="20px"></tr>
   </tbody>
 </table>
+
+<% if @stats["intro"]["daily_calories_limit"] != 0 %>
+
 <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
 	<tbody>
 		<tr>
@@ -74,7 +77,27 @@
 		</tr>
   </tbody>
 </table>
-<p style="text-align: right; font-family:sans-serif; font-size:10px; margin-top: 0;">
-	<%=  image_tag("email/smiley4.png", :width => "12px")%> = You stayed within your daily calorie limit
+<p style="text-align: right; font-family:sans-serif; font-size:12px; margin-top: 0;">
+	<%=  image_tag("email/smiley4.png", :width => "14px")%> = You stayed within your daily calorie limit
 </p>
 
+<% else %>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+				<p style="font-family:sans-serif; font-size:14px; margin-top: 0; color:#e96000; font-weight: bold;">
+					Set your daily calorie limit under <a href="<%= edit_user_url(@user) %>">Settings</a> to activate the chart below
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+
+			 <%=  image_tag("email/sample_goal_check.png", :alt => "sample goal check", :width => "100%")  %>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<% end %>

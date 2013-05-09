@@ -13,7 +13,7 @@
                 <p align="left" style="font-size: 15px; line-height: 24px; color: #434343; font-family: sans-serif;">
                     Total calories for the day:
                     <span style="background-color: #E96000; padding-bottom: 2px; padding-right: 4px; padding-top: 1px; padding-left: 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; line-height: 14px; color: white; vertical-align: baseline; white-space: nowrap; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);">
-                        <%= @totalDayCalories%> cal
+                        <%= number_with_delimiter(@totalDayCalories, :delimiter => ',')%> cal
                     </span>
                 </p>
                 <% if @user.preference.daily_calories_limit > 0 && @user.preference.daily_calories_limit >= @totalDayCalories%>

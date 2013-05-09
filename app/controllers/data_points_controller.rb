@@ -6,38 +6,27 @@ class DataPointsController < ApplicationController
   helper_method :get_graphic_points
 
   cache_sweeper :data_point_sweeper
-  def index
 
+  def index
     if(params.has_key?(:start_date) && params.has_key?(:end_date)) && params.has_key?(:user_id)
       # startDate = Time.zone.parse(params[:start_date])
       @startDate = DateTime.parse(params[:start_date])
       # endDate = Time.zone.parse(params[:end_date])
       @endDate = DateTime.parse(params[:end_date])
-      @period = params[:period]
 
-      if @period == "week"
-        weekNb = @startDate.strftime("%U")
-        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}") do
-          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).order("uploaded_at ASC").group_by(&:group_by_criteria)
-        end
-        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{weekNb}/graphicPoints") do
-          getGraphicPoints(@data_points, @startDate, @endDate, @period)
-        end
-      elsif @period == "month"
-        monthNb = @startDate.strftime("%m")
-        @data_points = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}") do
-          DataPoint.where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate).order("uploaded_at ASC").group_by(&:group_by_criteria)
-        end
-        @graphicDatas = Rails.cache.fetch("/user/#{params[:user_id]}/data_points/#{@period}/#{monthNb}/graphicPoints") do
-          getGraphicPoints(@data_points, @startDate, @endDate, @period)
-        end
-      elsif @period == "day"
-        @data_points = DataPoint
-          .where(:user_id => params[:user_id],:uploaded_at => @startDate..@endDate)
-          .order("uploaded_at ASC")
-          .group_by(&:group_by_criteria)
-        @graphicDatas = getGraphicPoints(@data_points, @startDate, @endDate, @period)
+      @data_points = getDataPoints(@startDate, @endDate, params[:user_id] )
+
+      @graphicDatas = {}
+
+      if params.has_key?(:previousDates) && params[:previousDates].has_key?(:start_date) && params[:previousDates].has_key?(:end_date)
+        start_prev_date = DateTime.parse(params[:previousDates][:start_date])
+        end_prev_date = DateTime.parse(params[:previousDates][:end_date])
+        previous_data_points = getDataPoints(start_prev_date, end_prev_date, params[:user_id] )
+        @graphicDatas[:previous_period] = getGraphicPoints(previous_data_points, start_prev_date, end_prev_date)
       end
+
+      @graphicDatas[:current_period] = getGraphicPoints(@data_points, @startDate, @endDate)
+
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -166,35 +155,6 @@ class DataPointsController < ApplicationController
     unless params[:cancel].blank?
       redirect_to user_path(:username => current_user)
     end
-  end
-
-  private
-
-  def getGraphicPoints(data_points, startDate, endDate, period)
-    calories = []
-    if @period == "week" || period == "month"
-      arr = Array(@startDate..@endDate)
-      for date in arr
-        data_points = @data_points[date.strftime("%F")]
-        dayCalorie = 0
-        if !data_points.nil?
-          data_points.each do |photo|
-            dayCalorie += photo.calories
-          end
-        end
-        if period == "month"
-          dayCalorie = [(date.beginning_of_day().strftime("%s").to_i) * 1000, dayCalorie]
-        end
-        calories.push(dayCalorie)
-      end
-    else
-      # period = "day"
-      data_points = @data_points[startDate.strftime("%F")]
-      if !data_points.nil?
-        calories = data_points.map(&:calories)
-      end
-    end
-    return calories
   end
 
 end

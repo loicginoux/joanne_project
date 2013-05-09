@@ -16,7 +16,8 @@
 				"log",
 				"doc",
 				".bundle",
-				"test"
+				"test",
+				"public"
 			],
 			"path": "/Users/lginoux/project/ruby/foodrubix"
 		}

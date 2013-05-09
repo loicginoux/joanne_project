@@ -119,5 +119,5 @@
   </tbody>
 </table>
 
-<%= render :partial => "email/reports/weekly/view_chart_button" %>
+<%= render :partial => "email/reports/weekly/view_chart_button", :locals => {:url => "#{user_url(@user)}/#week/compare"}  %>
 

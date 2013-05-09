@@ -7,7 +7,7 @@
 				</div>
 			</div>
 		<% end %>
-		<%= image_tag data_point.photo.url(size), :height	=> style, :width => style %>
+		<%= image_tag data_point.photo.url(size), :height	=> style, :width => style, :alt => data_point.id %>
 	</div>
 
 <% end %>

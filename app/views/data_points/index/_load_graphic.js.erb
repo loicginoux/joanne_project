@@ -1,0 +1,3 @@
+<% if @graphicDatas.length > 0 %>
+	window.Spine.trigger('data_points:loaded', <%= @graphicDatas.to_json.html_safe %>)
+<% end %>

@@ -335,7 +335,12 @@ class User < ActiveRecord::Base
 
   def email_progress_bar_data(date)
     array = []
-    startWeek = date.beginning_of_week(:sunday)
+    if date.wday == 0
+      # on sunday, start of week is the current day so we get the previous sunday
+      startWeek = (date - 1.days).beginning_of_week(:sunday)
+    else
+      startWeek = date.beginning_of_week(:sunday)
+    end
     endWeek = startWeek.end_of_week(:sunday)
     photos = DataPoint.select([:id, :created_at])
       .where(:user_id =>self.id, :created_at => startWeek..endWeek)

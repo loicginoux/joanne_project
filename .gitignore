@@ -14,11 +14,19 @@
 /log/*.log
 /tmp
 
+#config file with sensible info
 /config/s3.yml
 /config/mailgun.yml
 /config/facebook.yml
 
 /paperclip
+
+#assets uploaded by user in dev mode
+/public/system/
+/public/assets/data_points
+/public/assets/users
+/assets/images/data_points
+/assets/images/users
 
 *.rbc
 *.sassc
@@ -33,6 +41,6 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 .project
-/public/system/
+
 dp
 .zeus.sock
