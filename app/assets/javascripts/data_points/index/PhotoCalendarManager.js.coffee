@@ -11,18 +11,18 @@ class foodrubix.PhotoCalendarManager extends Spine.Stack
     dayController  : foodrubix.DayPhotoCalendar
 
 	routes:
-		'week'                           : 'weekController'
-		'week/:day/:month/:year'         : 'weekController'
-		'week/:day/:month/:year/compare' : 'weekController'
-		'week/compare'                   : 'weekController'
+		'week'                            : 'weekController'
+		'week/:day/:month/:year'          : 'weekController'
+		'week/:day/:month/:year/:compare' : 'weekController'
+		'week/:compare'                   : 'weekController'
 
-		'month'                          : 'monthController'
-		'month/:day/:month/:year'        : 'monthController'
-		'month/:day/:month/:year/compare': 'monthController'
-		'month/compare'                  : 'monthController'
+		'month'                           : 'monthController'
+		'month/:day/:month/:year'         : 'monthController'
+		'month/:day/:month/:year/:compare': 'monthController'
+		'month/:compare'                  : 'monthController'
 
-		'day'                            : 'dayController'
-		'day/:day/:month/:year'          : 'dayController'
+		'day'                             : 'dayController'
+		'day/:day/:month/:year'           : 'dayController'
 
 	events:
 		# "click .period"          : "changePeriod"

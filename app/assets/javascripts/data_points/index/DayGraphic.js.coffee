@@ -10,6 +10,8 @@ class foodrubix.DayGraphic extends foodrubix.Graphic
 		@log("data points loaded", data, @)
 		@compareBtn.hide()
 		@el = $("#dayGraphicContainer")
+		$(".graphicContainer").empty()
+
 		@data = data
 		@display() if data.length
 

@@ -34,7 +34,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	isActive: () => @isActive
 
 	initGraphic:() ->
-		@log "initGraphic"
+		# @log "initGraphic"
 		if @graphic
 			@graphic.cancel()
 
@@ -47,9 +47,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@stack.changePeriod(@period)
 		@getDates()
 		@stack.activeController = @
-		# @log Spine.Route.getPath()
-		if Spine.Route.getPath().indexOf("/compare") != -1
-			@log "compare from route"
+		@graphic.adjustCompareBtnState(options)
+		if options.compare
+			# @log "compare from route"
 			@graphic.compare()
 		else
 			@stack.getDataPoints(@onSuccessFetch)

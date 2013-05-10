@@ -18,6 +18,7 @@ class foodrubix.WeekGraphic extends foodrubix.Graphic
 				fillOpacity: 0.1,
 				id:"previous"
 			})
+			$("html, body").animate({scrollTop: (@compareBtn.offset().top - 70)}, 1000);
 
 		@settings = $.extend({}, @settings, {
 			xAxis: {

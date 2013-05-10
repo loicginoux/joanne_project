@@ -7,7 +7,11 @@
 				</div>
 			</div>
 		<% end %>
-		<%= image_tag data_point.photo.url(size), :height	=> style, :width => style, :alt => data_point.id %>
+		<% if Rails.env == "development" %>
+			<%= image_tag "not-available.jpg", :height	=> style, :width => style, :alt => data_point.id %>
+		<% else %>
+			<%= image_tag data_point.photo.url(size), :height	=> style, :width => style, :alt => data_point.id %>
+		<% end %>
 	</div>
 
 <% end %>

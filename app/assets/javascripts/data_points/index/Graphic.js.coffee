@@ -7,11 +7,10 @@ class foodrubix.Graphic extends Spine.Controller
 		".graphicContainer": "graphicContainer"
 
 	events:
-		"click .compare": "compare"
+		"click .compare": "clickCompare"
 
 	constructor: () ->
 		super
-		@log "constr graph", @master
 
 	onDataPointsLoaded: (data) ->
 		# @log("data points loaded", data, @)
@@ -92,10 +91,22 @@ class foodrubix.Graphic extends Spine.Controller
 			}]
 
 	# compare current period with previous one
+	clickCompare:	(e) =>
+		if Spine.Route.getPath().indexOf("compare") == -1
+			@navigate(Spine.Route.getPath(), "compare")
+		else
+			@navigate(Spine.Route.getPath().replace("/compare", ""))
+
 	compare:	(e) =>
-		# console.log("compare")
 		@master.stack.getDataPoints(@master.stack.onSuccessFetch, @master.getComparisonDates())
 
+	adjustCompareBtnState: (options) ->
+		if options.compare
+			@compareBtn.addClass("active")
+		else
+			@compareBtn.removeClass("active")
+
+	# get max point on the graph depending on the array data and the daily calorie limit
 	maxGraph:(data)->
 		return 0 unless data
 		# max = gon.daily_calories_limit
