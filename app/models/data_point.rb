@@ -119,9 +119,6 @@ class DataPoint < ActiveRecord::Base
     end
   end
 
-  def group_by_day_of_week
-    created_at.strftime("%w")
-  end
 
   def pic()
     self.photo

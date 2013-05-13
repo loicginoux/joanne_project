@@ -100,11 +100,11 @@ class foodrubix.Graphic extends Spine.Controller
 	compare:	(e) =>
 		@master.stack.getDataPoints(@master.stack.onSuccessFetch, @master.getComparisonDates())
 
-	adjustCompareBtnState: (options) ->
+	adjustCompareBtnState: (options, period) ->
 		if options.compare
-			@compareBtn.addClass("active")
+			@compareBtn.html("Remove Comparison")
 		else
-			@compareBtn.removeClass("active")
+			@compareBtn.html("Compare to Last "+period.slice(0,1).toUpperCase()+period.slice(1))
 
 	# get max point on the graph depending on the array data and the daily calorie limit
 	maxGraph:(data)->

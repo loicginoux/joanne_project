@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"compa",
+				"compareBtn"
+			],
+			[
 				"perio",
 				"periodNb"
 			],
@@ -510,62 +514,64 @@
 			[
 				"ma",
 				"margin-top"
-			],
-			[
-				"fon",
-				"font-size"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
+			"file": "app/assets/javascripts/data_points/index/Graphic.js.coffee",
 			"settings":
 			{
-				"buffer_size": 8409,
+				"buffer_size": 2729,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Searching 415 files for \"@graphic\" (case sensitive)\n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee:\n   11  	initGraphic:() ->\n   12  		super\n   13: 		@graphic = new foodrubix.DayGraphic({master:@})\n   14  \n   15  	getDates: () ->\n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/MonthGraphic.js.coffee:\n   44  		})\n   45  \n   46: 		@graphicContainer.highcharts(@settings)\n   47  \n   48  \n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee:\n    8  	initGraphic:() ->\n    9  		super\n   10: 		@graphic = new foodrubix.MonthGraphic({master:@})\n   11  \n   12  	getDates: () ->\n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee:\n   37  \n   38  	initGraphic:() ->\n   39: 		if @graphic\n   40: 			@graphic.graphicContainer.empty()\n   41: 			@graphic.compareBtn.hide()\n   42  \n   43  	activate:() =>\n   ..\n   51  		# @log Spine.Route.getPath()\n   52  		if Spine.Route.getPath().indexOf(\"/compare\") != -1\n   53: 			@graphic.compare()\n   54  		else\n   55  			@stack.getDataPoints(@onSuccessFetch)\n   ..\n   72    load: ()->\n   73    	UTIL.load(@photos, \"photos\", true)\n   74:   	@graphic.\n   75  \n   76    unload: ()->\n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/WeekGraphic.js.coffee:\n   33  		})\n   34  \n   35: 		@graphicContainer.highcharts(@settings)\n   36  \n\n/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/WeekPhotoCalendar.js.coffee:\n    8  	initGraphic:() ->\n    9  		super\n   10: 		@graphic = new foodrubix.WeekGraphic({master:@})\n   11  \n   12  	getDates: () ->\n\n/Users/lginoux/project/ruby/foodrubix/app/controllers/data_points_controller.rb:\n   17        @data_points = getDataPoints(@startDate, @endDate, params[:user_id] )\n   18  \n   19:       @graphicDatas = {}\n   20  \n   21        if params.has_key?(:previousDates) && params[:previousDates].has_key?(:start_date) && params[:previousDates].has_key?(:end_date)\n   ..\n   23          end_prev_date = DateTime.parse(params[:previousDates][:end_date])\n   24          previous_data_points = getDataPoints(start_prev_date, end_prev_date, params[:user_id] )\n   25:         @graphicDatas[:previous_period] = getGraphicPoints(previous_data_points, start_prev_date, end_prev_date)\n   26        end\n   27  \n   28:       @graphicDatas[:current_period] = getGraphicPoints(@data_points, @startDate, @endDate)\n   29  \n   30      end\n\n/Users/lginoux/project/ruby/foodrubix/app/controllers/day_data_points_controller.rb:\n   14          .group_by(&:group_by_criteria)\n   15  \n   16:       @graphicDatas = getGraphicPoints(@data_points, @startDate, @endDate)\n   17      end\n   18      respond_to do |format|\n\n/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_load_graphic.js.erb:\n    1: <% if @graphicDatas.length > 0 %>\n    2: 	window.Spine.trigger('data_points:loaded', <%= @graphicDatas.to_json.html_safe %>)\n    3  <% end %>\n    4  \n\n16 matches across 9 files\n",
+			"file": "app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
 			"settings":
 			{
-				"buffer_size": 3085,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
+				"buffer_size": 8373,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee",
 			"settings":
 			{
-				"buffer_size": 5038,
+				"buffer_size": 5301,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/javascripts/data_points/index/WeekPhotoCalendar.js.coffee",
+			"file": "app/views/users/show.html.erb",
 			"settings":
 			{
-				"buffer_size": 872,
+				"buffer_size": 1119,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee",
+			"file": "app/assets/javascripts/data_points/index/DayGraphic.js.coffee",
 			"settings":
 			{
-				"buffer_size": 816,
+				"buffer_size": 1051,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee",
+			"file": "app/assets/javascripts/data_points/index/WeekGraphic.js.coffee",
 			"settings":
 			{
-				"buffer_size": 601,
+				"buffer_size": 888,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/data_points/index/MonthGraphic.js.coffee",
+			"settings":
+			{
+				"buffer_size": 1180,
 				"line_ending": "Unix"
 			}
 		}
@@ -573,9 +579,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 187.0,
 		"selected_items":
 		[
+			[
+				"rename",
+				"File: Rename"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"trai",
 				"Trailing Spaces: Toggle Trailing Spaces Highlighting"
@@ -591,14 +605,6 @@
 			[
 				"high",
 				"Trailing Spaces: Toggle Trailing Spaces Highlighting"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"rename",
-				"File: Rename"
 			],
 			[
 				"delete",
@@ -889,7 +895,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 476.0
+		"width": 593.0
 	},
 	"console":
 	{
@@ -906,39 +912,54 @@
 	},
 	"file_history":
 	[
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/DayGraphic.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/show/_photo.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/Graphic.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/WeekPhotoCalendar.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/config/s3.yml",
+		"/Users/lginoux/project/ruby/foodrubix/config/application.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/initializers/cloudfront.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/production.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/environments/development.rb",
+		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/prepare_git_repo.rake",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_calories_breakdown.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/spine.js.coffee",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/users/show.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/.gitignore",
+		"/Users/lginoux/project/ruby/foodrubix/app/helpers/data_points_helper.rb",
+		"/Users/lginoux/project/ruby/foodrubix/foodrubix.sublime-project",
+		"/Users/lginoux/project/ruby/foodrubix/config/environment.rb",
+		"/Users/lginoux/project/ruby/foodrubix/config/cloudfront.yml",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_goal_check.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_trending.html.erb",
+		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/spine.js",
+		"/Users/lginoux/Library/Application Support/Sublime Text 2/Packages/Alignment/Default (OSX).sublime-keymap",
+		"/Users/lginoux/Library/Application Support/Sublime Text 2/Packages/Alignment/Base File.sublime-settings",
+		"/Users/lginoux/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/WeekGraphic.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/users/show/_control_buttons.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/users/show.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/application/users/show/show.css",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/data_points_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/month_data_points_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/MonthGraphic.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/stylesheets/application/images.css.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_goal_check.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/admin/mailer_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/models/user.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_intro.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/daily/_daily_recap.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_calories_breakdown.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_goal_check_cell.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_view_chart_button.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_trending.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/DayGraphic.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/models/data_point.rb",
-		"/Users/lginoux/project/ruby/foodrubix/config/environments/development.rb",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_load_graphic.js.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/week_data_points_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/day_data_points/_photo_list.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/spine.js",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/week_data_points/index.js.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/month_data_points/index.js.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/day_data_points/index.js.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/WeekPhotoCalendar.js.coffee",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/day_data_points_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/ajax.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/list.js.coffee",
@@ -946,7 +967,6 @@
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/manager.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/relation.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/route.js.coffee",
-		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/all/spine/spine.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/users/show/show.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/PhotoCalendarStack.js.coffee",
 		"/Users/lginoux/project/ruby/foodrubix/app/assets/javascripts/data_points/index/day_graphic.js.coffee",
@@ -966,8 +986,6 @@
 		"/Users/lginoux/project/ruby/foodrubix/app/views/month_data_points/_photo_list.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/config/routes.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index.js.erb",
-		"/Users/lginoux/project/ruby/foodrubix/.gitignore",
-		"/Users/lginoux/project/ruby/foodrubix/foodrubix.sublime-project",
 		"/Users/lginoux/project/ruby/foodrubix/Gemfile",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_week_photo_list.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/weeks/index.js.erb",
@@ -980,7 +998,6 @@
 		"/Users/lginoux/project/ruby/foodrubix/public/b6828600276b3f10d24df747955b96b5.txt",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/comments_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/_heroku/deploy.rake",
-		"/Users/lginoux/project/ruby/foodrubix/config/application.rb",
 		"/Users/lginoux/project/ruby/foodrubix/config/environments/staging.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/models/friendship.rb",
 		"/Users/lginoux/project/ruby/foodrubix/spec/controllers/data_point_controller_spec.rb",
@@ -989,7 +1006,6 @@
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/weekly/_trending_cell.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/_leaderboard.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/send_email.rake",
-		"/Users/lginoux/project/ruby/foodrubix/config/environments/production.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/daily/_streaks_and_points.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/controllers/friendships_controller.rb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/layouts/_email.html.erb",
@@ -1011,10 +1027,7 @@
 		"/Users/lginoux/project/ruby/foodrubix/paperclip/ruby/1.9.1/gems/facebooker-1.0.75/test/facebooker/models/user_test.rb",
 		"/Users/lginoux/.irbc",
 		"/Users/lginoux/project/ruby/foodrubix/Gemfile.lock",
-		"/Users/lginoux/project/ruby/foodrubix/lib/tasks/prepare_git_repo.rake",
-		"/Users/lginoux/project/ruby/foodrubix/config/initializers/cloudfront.rb",
 		"/Users/lginoux/project/ruby/foodrubix/config/initializers/s3.rb",
-		"/Users/lginoux/project/ruby/foodrubix/config/s3.yml",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/_mail_upload_too_big_file.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/db/schema.rb",
 		"/Users/lginoux/project/ruby/foodrubix/db/seeds.rb",
@@ -1026,14 +1039,7 @@
 		"/Users/lginoux/project/ruby/foodrubix/app/views/users/index/_info_modal_leaderboard.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/users/index/_info_modal_all_time_leaderboard.html.erb",
 		"/Users/lginoux/project/ruby/foodrubix/app/views/email/reports/_awards.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/email/style/_points_limiter_2_col.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/app/models/point.rb",
-		"/Users/lginoux/project/ruby/foodrubix/app/controllers/home_redirect_controller.rb",
-		"/Users/lginoux/project/ruby/foodrubix/app/views/data_points/index/_empty.html.erb",
-		"/Users/lginoux/project/ruby/foodrubix/db/migrate/20120506170915_add_role_to_users.rb",
-		"/Users/lginoux/project/ruby/foodrubix/app/admin/users.rb",
-		"/Users/lginoux/project/ruby/foodrubix/spec/factories/preferences.rb",
-		"/Users/lginoux/project/ruby/foodrubix/spec/spec_helper.rb"
+		"/Users/lginoux/project/ruby/foodrubix/app/views/email/style/_points_limiter_2_col.html.erb"
 	],
 	"find":
 	{
@@ -1078,6 +1084,34 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"compareBtn",
+			".compare",
+			"@compareBtn",
+			".button(\"toggle\")",
+			"img_wrapper",
+			"getDat",
+			"compare()",
+			"img_wrapper",
+			"asset_sync",
+			"s3.rb",
+			"S3_CREDENTIALS",
+			"You stayed within your daily calorie limit",
+			"controller",
+			"listeningTo",
+			"require",
+			"@Spine",
+			"require",
+			"release",
+			"initGraphic",
+			"[0]",
+			"setDateFromURL",
+			"load",
+			"init",
+			"load",
+			"compare",
+			"initGraphic",
+			".compare",
+			"compa",
 			"goT",
 			"setDateFromURL",
 			"initGraphic",
@@ -1177,35 +1211,7 @@
 			"sortedDayFrom",
 			"that",
 			"ctrlDown",
-			"checkOverflow",
-			"userLikeImage",
-			"checkOverflow",
-			"getDataPoints",
-			"onHoverImage",
-			"hover",
-			"@el.delegate(\".image\", \"mouseenter mouseleave\", @onHoverImage.bind(@))",
-			"onHoverImage",
-			"$(\".loading\").remove()",
-			"activeController",
-			"UTIL.load($('#photos'), \"photos\", true)",
-			"activeController",
-			"UTIL.load",
-			"goTo",
-			"getDates",
-			"unifyHeights",
-			"goTo",
-			"goToPrev",
-			"goTo",
-			"getComparisonDates",
-			"@getDates()",
-			"getDates",
-			"goTo",
-			"getDates",
-			"period",
-			"Spine.",
-			"Spine.Stack",
-			"sta",
-			"Stack"
+			"checkOverflow"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1235,23 +1241,23 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
+					"file": "app/assets/javascripts/data_points/index/Graphic.js.coffee",
 					"settings":
 					{
-						"buffer_size": 8409,
+						"buffer_size": 2729,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1377,
-								1377
+								2630,
+								2636
 							]
 						],
 						"settings":
@@ -1260,110 +1266,34 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 978.0,
+						"translation.y": 1652.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee",
 					"settings":
 					{
-						"buffer_size": 3085,
+						"buffer_size": 8373,
 						"regions":
 						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										210,
-										218
-									],
-									[
-										423,
-										431
-									],
-									[
-										639,
-										647
-									],
-									[
-										872,
-										880
-									],
-									[
-										891,
-										899
-									],
-									[
-										935,
-										943
-									],
-									[
-										1107,
-										1115
-									],
-									[
-										1269,
-										1277
-									],
-									[
-										1441,
-										1449
-									],
-									[
-										1648,
-										1656
-									],
-									[
-										1915,
-										1923
-									],
-									[
-										2289,
-										2297
-									],
-									[
-										2432,
-										2440
-									],
-									[
-										2694,
-										2702
-									],
-									[
-										2914,
-										2922
-									],
-									[
-										2997,
-										3005
-									]
-								],
-								"scope": ""
-							}
 						},
 						"selection":
 						[
 							[
-								903,
-								903
+								778,
+								778
 							]
 						],
 						"settings":
 						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 200.0,
+						"translation.y": 469.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1373,42 +1303,15 @@
 					"file": "app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee",
 					"settings":
 					{
-						"buffer_size": 5038,
+						"buffer_size": 5301,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3541,
-								3541
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1887.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/assets/javascripts/data_points/index/WeekPhotoCalendar.js.coffee",
-					"settings":
-					{
-						"buffer_size": 872,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								748,
-								748
+								405,
+								405
 							]
 						],
 						"settings":
@@ -1423,19 +1326,46 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee",
+					"buffer": 3,
+					"file": "app/views/users/show.html.erb",
 					"settings":
 					{
-						"buffer_size": 816,
+						"buffer_size": 1119,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								654,
-								654
+								772,
+								772
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 81.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/assets/javascripts/data_points/index/DayGraphic.js.coffee",
+					"settings":
+					{
+						"buffer_size": 1051,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								307,
+								307
 							]
 						],
 						"settings":
@@ -1451,18 +1381,18 @@
 				},
 				{
 					"buffer": 5,
-					"file": "app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee",
+					"file": "app/assets/javascripts/data_points/index/WeekGraphic.js.coffee",
 					"settings":
 					{
-						"buffer_size": 601,
+						"buffer_size": 888,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								592,
-								592
+								537,
+								461
 							]
 						],
 						"settings":
@@ -1472,6 +1402,33 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/assets/javascripts/data_points/index/MonthGraphic.js.coffee",
+					"settings":
+					{
+						"buffer_size": 1180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								446,
+								446
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 36.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1529,8 +1486,92 @@
 		"selected_items":
 		[
 			[
+				"month",
+				"app/assets/javascripts/data_points/index/MonthGraphic.js.coffee"
+			],
+			[
 				"weekgr",
 				"app/assets/javascripts/data_points/index/WeekGraphic.js.coffee"
+			],
+			[
+				"day",
+				"app/assets/javascripts/data_points/index/DayGraphic.js.coffee"
+			],
+			[
+				"show",
+				"app/views/users/show.html.erb"
+			],
+			[
+				"pcm",
+				"app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee"
+			],
+			[
+				"photoca",
+				"app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee"
+			],
+			[
+				"gra",
+				"app/assets/javascripts/data_points/index/Graphic.js.coffee"
+			],
+			[
+				"",
+				"app/assets/javascripts/data_points/index/Graphic.js.coffee"
+			],
+			[
+				"graphic",
+				"app/assets/javascripts/data_points/index/Graphic.js.coffee"
+			],
+			[
+				"gitign",
+				".gitignore"
+			],
+			[
+				"s3",
+				"config/s3.yml"
+			],
+			[
+				"env",
+				"config/environment.rb"
+			],
+			[
+				"appl",
+				"config/application.rb"
+			],
+			[
+				"cloud",
+				"config/cloudfront.yml"
+			],
+			[
+				"prod",
+				"config/environments/production.rb"
+			],
+			[
+				"deve",
+				"config/environments/development.rb"
+			],
+			[
+				"prepare",
+				"lib/tasks/prepare_git_repo.rake"
+			],
+			[
+				"gitig",
+				".gitignore"
+			],
+			[
+				"calories",
+				"app/views/email/reports/weekly/_calories_breakdown.html.erb"
+			],
+			[
+				"tren",
+				"app/views/email/reports/weekly/_trending.html.erb"
+			],
+			[
+				"goal",
+				"app/views/email/reports/weekly/_goal_check.html.erb"
+			],
+			[
+				"spine",
+				"app/assets/javascripts/all/spine/spine.js.coffee"
 			],
 			[
 				"graphi",
@@ -1549,16 +1590,8 @@
 				"app/assets/javascripts/data_points/index/MonthPhotoCalendar.js.coffee"
 			],
 			[
-				"show",
-				"app/assets/stylesheets/application/users/show/show.css"
-			],
-			[
 				"datapointscontroller",
 				"app/controllers/data_points_controller.rb"
-			],
-			[
-				"month",
-				"app/controllers/month_data_points_controller.rb"
 			],
 			[
 				"dpc",
@@ -1577,10 +1610,6 @@
 				"app/views/email/reports/weekly/_intro.html.erb"
 			],
 			[
-				"",
-				"app/models/user.rb"
-			],
-			[
 				"user",
 				"app/models/user.rb"
 			],
@@ -1593,20 +1622,12 @@
 				"app/views/email/reports/weekly/_goal_check_cell.html.erb"
 			],
 			[
-				"goal",
-				"app/views/email/reports/weekly/_goal_check.html.erb"
-			],
-			[
 				"view_chart_button",
 				"app/views/email/reports/weekly/_view_chart_button.html.erb"
 			],
 			[
 				"trending",
 				"app/views/email/reports/weekly/_trending.html.erb"
-			],
-			[
-				"deve",
-				"config/environments/development.rb"
 			],
 			[
 				"data_point.rb",
@@ -1645,32 +1666,12 @@
 				"app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee"
 			],
 			[
-				"photoca",
-				"app/assets/javascripts/data_points/index/PhotoCalendar.js.coffee"
-			],
-			[
-				"pcm",
-				"app/assets/javascripts/data_points/index/PhotoCalendarManager.js.coffee"
-			],
-			[
 				"control_buttons",
 				"app/views/users/show/_control_buttons.html.erb"
 			],
 			[
-				"spine",
-				"app/assets/javascripts/all/spine/spine.js"
-			],
-			[
-				"graphic",
-				"app/assets/javascripts/data_points/index/Graphic.js.coffee"
-			],
-			[
 				"daygra",
 				"app/assets/javascripts/data_points/index/DayGraphic.js.coffee"
-			],
-			[
-				"day",
-				"app/assets/javascripts/data_points/index/DayPhotoCalendar.js.coffee"
 			],
 			[
 				"photcal",
@@ -1909,10 +1910,6 @@
 				"app/views/email/reports/weekly/_trending.html.erb"
 			],
 			[
-				"calories",
-				"app/views/email/reports/weekly/_calories_breakdown.html.erb"
-			],
-			[
 				"trend",
 				"app/views/email/reports/weekly/_trending.html.erb"
 			],
@@ -1999,46 +1996,6 @@
 			[
 				"commentc",
 				"app/controllers/comments_controller.rb"
-			],
-			[
-				"deplo",
-				"lib/tasks/_heroku/deploy.rake"
-			],
-			[
-				"deploy",
-				"lib/tasks/_heroku/deploy.rake"
-			],
-			[
-				"prepare",
-				"lib/tasks/prepare_git_repo.rake"
-			],
-			[
-				"staging",
-				"config/environments/staging.rb"
-			],
-			[
-				"prepa",
-				"lib/tasks/prepare_git_repo.rake"
-			],
-			[
-				"s",
-				"config/s3.yml"
-			],
-			[
-				"applica",
-				"config/application.rb"
-			],
-			[
-				"prod",
-				"config/environments/production.rb"
-			],
-			[
-				"production",
-				"config/environments/production.rb"
-			],
-			[
-				"applicc",
-				"app/controllers/application_controller.rb"
 			]
 		],
 		"width": 0.0

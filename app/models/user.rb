@@ -345,7 +345,8 @@ class User < ActiveRecord::Base
     photos = DataPoint.select([:id, :created_at])
       .where(:user_id =>self.id, :created_at => startWeek..endWeek)
       .order("created_at ASC")
-      .group_by(&:group_by_day_of_week)
+      .group_by{|d| (d.created_at + (u.timezone_offset()).seconds).strftime("%w")}
+
 
     for i in 0..6
       day = startWeek + i.days

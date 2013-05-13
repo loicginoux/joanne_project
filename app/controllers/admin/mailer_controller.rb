@@ -27,7 +27,7 @@ class Admin::MailerController < ApplicationController
   end
 
   def preview_follower()
-    @followee = current_user
+    @followee = User.first
     @follower = User.last
     @user = current_user
 

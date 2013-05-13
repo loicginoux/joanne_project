@@ -47,7 +47,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@stack.changePeriod(@period)
 		@getDates()
 		@stack.activeController = @
-		@graphic.adjustCompareBtnState(options)
+		@graphic.adjustCompareBtnState(options, @period)
 		if options.compare
 			# @log "compare from route"
 			@graphic.compare()
