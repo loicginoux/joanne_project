@@ -80,66 +80,93 @@
         </table>
       </td>
       <td width="10px"></td>
-      <td width="440px">
-        <table height="80px" width="100%" style="border: 5px solid #efefef;">
-          <tbody>
+      <td width="440px" height="137px">
+        <table height="137px" width="100%" style="border: 5px solid #efefef;">
+          <tbody height="137px">
             <tr height="8px"></tr>
             <% if @stats["intro"]["daily_calories_limit"] != 0  %>
-
-              <tr>
-                <td width="5px"></td>
-                <td style="font-size: 14px;font-family:sans-serif; line-height: 14px; color:#111111;">
-                  <p>
-                    <span style="display: inline-block; width:265px">Daily calorie limit</span><span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 130px;"><%= number_with_delimiter(@stats["intro"]["daily_calories_limit"], :delimiter => ',') %></span>
-                  </p>
-                  <p>
-                    <span style="display: inline-block; width:265px">This week, you met your goal</span> <span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 125px;"><%= @stats["intro"]["current_week_nb_days_below"] %> days out of 7</span>
-                  </p>
-                  <p style="margin-bottom: 0px;">
-                    <span style="display: inline-block; width:265px">Last week, you met your goal</span>
-                    <span style="font-weight: bold; font-size: 16px; display: inline-block; text-align: right; width: 125px;"><%= @stats["intro"]["last_week_nb_days_below"] %> days out of 7</span>
-                  </p>
-
-
-                  <p style="margin-top: 5px;">
-                    <% case compare
+            <tr>
+              <td width="5px"></td>
+              <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                  <tbody>
+                    <tr style="font-size: 14px;font-family:sans-serif; color:#111111;">
+                      <td  width="265px">Daily calorie limit</td>
+                      <td width="125px" style="font-weight: bold; font-size: 16px; text-align:right"><%= number_with_delimiter(@stats["intro"]["daily_calories_limit"], :delimiter => ',') %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="5px"></td>
+            </tr>
+            <tr>
+              <td width="5px"></td>
+              <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                  <tbody>
+                    <tr style="font-size: 14px;font-family:sans-serif; color:#111111;">
+                      <td  width="265px">This week, you met your goal</td>
+                      <td width="125px" style="font-weight: bold; font-size: 16px; text-align:right"><%= @stats["intro"]["current_week_nb_days_below"] %> days out of 7</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="5px"></td>
+            </tr>
+            <tr>
+              <td width="5px"></td>
+              <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                  <tbody>
+                    <tr style="font-size: 14px;font-family:sans-serif; color:#111111;">
+                      <td  width="265px">Last week, you met your goal</td>
+                      <td width="125px" style="font-weight: bold; font-size: 16px; text-align:right"><%= @stats["intro"]["last_week_nb_days_below"] %> days out of 7</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="5px"></td>
+            </tr>
+            <tr>
+              <td width="5px"></td>
+              <td style="font-size: 14px;font-family:sans-serif; color:#111111;">
+                <% case compare
                     when "impossible" %>
-                      <%= case @stats["intro"]["current_week_nb_days_below"]
-                      when 0
-                        "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
-                      when 1
-                        "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
-                      when 2
-                        "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
-                      when 3
-                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                      when 4
-                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                      when 5
-                        "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
-                      when 6
-                        "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
-                      else
-                        "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
+                    <%= case @stats["intro"]["current_week_nb_days_below"]
+                    when 0
+                      "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
+                    when 1
+                      "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
+                    when 2
+                      "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
+                    when 3
+                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                    when 4
+                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                    when 5
+                      "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
+                    when 6
+                      "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
+                    else
+                      "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
                       end %>
 
-                    <% when "up" %>
+                      <% when "up" %>
                       You did better this week. Good job! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
-                    <% when "down" %>
+                      <% when "down" %>
                       You didn't do as well this week. <%= image_tag("email/sad.png", :style => "width:20px") %> Try again.
-                    <% else %>
+                      <% else %>
                       You did as well as last week. Keep it up! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
-                    <% end %>
-                  </p>
-                </td>
-                <td width="5px"></td>
-              </tr>
+                      <% end %>
+              </td>
+              <td width="5px"></td>
+            </tr>
             <% else %>
               <tr height="97px">
                 <td width="5px"></td>
                 <td style="font-size: 14px;font-family:sans-serif; line-height: 20px; color:#111111;">
-                  <p style="font-size: 18px; font-weight: bold;">Did you know?</p>
-                  <p>If you go under <a href="<%= edit_user_url(@user) %>">Settings</a> and set your daily calorie goal, you will get more usefull stats in your weekly email.</p>
+                  <tr style="font-size: 18px; font-weight: bold;">Did you know?</tr>
+                  <tr>If you go under <a href="<%= edit_user_url(@user) %>">Settings</a> and set your daily calorie goal, you will get more usefull stats in your weekly email.</tr>
                 <td>
                 <td width="5px"></td>
               </tr>
