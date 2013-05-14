@@ -335,6 +335,8 @@ class User < ActiveRecord::Base
 
   def email_progress_bar_data(date)
     array = []
+    offset = self.timezone_offset()
+
     if date.wday == 0
       # on sunday, start of week is the current day so we get the previous sunday
       startWeek = (date - 1.days).beginning_of_week(:sunday)
@@ -345,7 +347,7 @@ class User < ActiveRecord::Base
     photos = DataPoint.select([:id, :created_at])
       .where(:user_id =>self.id, :created_at => startWeek..endWeek)
       .order("created_at ASC")
-      .group_by{|d| (d.created_at + (u.timezone_offset()).seconds).strftime("%w")}
+      .group_by{|d| (d.created_at + (offset).seconds).strftime("%w")}
 
 
     for i in 0..6
