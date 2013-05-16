@@ -48,16 +48,32 @@ ActiveAdmin.register User do
 
 	form do |f|
 		f.inputs "User Details" do
+			f.input :username
 			f.input :email
 			f.input :confirmed
 			f.input :active
+			f.input :leaderboard_points
+			f.input :total_leaderboard_points
 			f.input :timezone
+			# f.input :streak
+			# f.input :best_streak
+			# f.input :best_daily_score
 			f.input :password
 			f.input :password_confirmation
 			f.input :first_friend, :label=> "if checked, you will be automatically added to users as their first friend"
 			f.input :hidden, :label=> "if checked, you will be hidden from the leaderboard"
 		end
-		f.buttons
+
+  	f.inputs "Preferences", :for => [:preference, f.object.preference || Preference.new] do |pref|
+  		pref.input :daily_email
+  		pref.input :weekly_email
+  		pref.input :fb_sharing, :label => "Facebook sharing"
+  		pref.input :coaching_intensity, :as => :select, :collection => ["low", "medium", "high"]
+  		pref.input :daily_calories_limit
+  		pref.input :diet
+  		pref.input :joining_goal
+  	end
+  	f.buttons
 	end
 
 
