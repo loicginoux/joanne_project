@@ -1,14 +1,22 @@
 ActiveAdmin.register DataPoint do
-	batch_action :delete do |selection|
-      DataPoint.find(selection).each do |dp|
-        dp.destroy
-      end
-    end
+
+	config.batch_actions = true
+	batch_action :destroy,:if => proc { true }, :confirm => "Are you sure you want to delete all of these?" do |selection|
+		DataPoint.destroy(selection)
+		redirect_to admin_data_points_path, :notice => "all photos deleted"
+	end
+
+	# batch_action :delete do |selection|
+ #      DataPoint.find(selection).each do |dp|
+ #        dp.destroy
+ #      end
+ #    end
     scope :all
     scope :hot_photo_awarded
 	scope :smart_choice_awarded
 
 	index do
+		selectable_column
 		column :id
 		column :user
 		column :calories

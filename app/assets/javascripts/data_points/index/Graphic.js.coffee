@@ -92,15 +92,24 @@ class foodrubix.Graphic extends Spine.Controller
 
 	# compare current period with previous one
 	clickCompare:	(e) =>
+		# if no comparison
 		if Spine.Route.getPath().indexOf("compare") == -1
+			# we fetch new data and compare
 			@navigate(Spine.Route.getPath(), "compare")
 		else
-			@navigate(Spine.Route.getPath().replace("/compare", ""))
+			# we remove the graphic line for previous period
+			@navigate(Spine.Route.getPath().replace("/compare", ""), {trigger: false})
+			delete @data.previous_period
+			@adjustCompareBtnState({compare:false}, @master.period)
+			@display()
+			$("html, body").animate({scrollTop: (@compareBtn.offset().top - 70)}, 1000);
+
 
 	compare:	(e) =>
 		@master.stack.getDataPoints(@master.stack.onSuccessFetch, @master.getComparisonDates())
 
 	adjustCompareBtnState: (options, period) ->
+		# @log "compare", options.compare
 		if options.compare
 			@compareBtn.html("Remove Comparison")
 		else

@@ -53,6 +53,8 @@ Foodrubix::Application.routes.draw do
 
   end
 
+  ActiveAdmin.routes(self)
+
   # http://chris.chowie.net/2011/02/17/Username-in-Rails-routes/
   match ":username/edit", :to => "users#edit",
                           :as => "edit_user",
@@ -88,7 +90,7 @@ Foodrubix::Application.routes.draw do
 
   root :to => 'home_redirect#show'
 
-  ActiveAdmin.routes(self)
+
 
 
   # The priority is based upon order of creation:
