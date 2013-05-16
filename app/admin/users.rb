@@ -116,93 +116,93 @@ ActiveAdmin.register User do
 			row :first_friend
 		end
 
-		panel "Monthly leaderboard" do
-			attributes_table_for(user)do ||
-				row :comments do |user|
-					Point.for_user(user).for_current_month().on_comments().map(&:number).inject(:+) || 0
-				end
-				row :commented_points do |user|
-					Point.for_user(user).for_current_month().on_comments_received().map(&:number).inject(:+) || 0
-				end
-				row :likes_points do |user|
-					Point.for_user(user).for_current_month().on_like().map(&:number).inject(:+) || 0
-				end
-				row :liked_points do |user|
-					Point.for_user(user).for_current_month().on_like_received().map(&:number).inject(:+) || 0
-				end
-				row :photo_upload_points do |user|
-					Point.for_user(user).for_current_month().on_photo_uploaded().map(&:number).inject(:+) || 0
-				end
-				row :followee_points do |user|
-					Point.for_user(user).for_current_month().on_follow().map(&:number).inject(:+) || 0
-				end
-				row :follower_points do |user|
-					Point.for_user(user).for_current_month().on_follower().map(&:number).inject(:+) || 0
-				end
-				row :profile_photo_points do |user|
-					Point.for_user(user).for_current_month().on_profile_photo().map(&:number).inject(:+) || 0
-				end
-				row :daily_calories_limit_points do |user|
-					Point.for_user(user).for_current_month().on_daily_calories_limit().map(&:number).inject(:+) || 0
-				end
-				row :fb_sharing_points do |user|
-					Point.for_user(user).for_current_month().on_fb_sharing().map(&:number).inject(:+) || 0
-				end
-				row :smart_choice_award_points do |user|
-					Point.for_user(user).for_current_month().on_hot_photo_award().map(&:number).inject(:+) || 0
-				end
-				row :hot_photo_award_points do |user|
-					Point.for_user(user).for_current_month().on_smart_choice_award().map(&:number).inject(:+) || 0
-				end
-				row :joining_goale do |user|
-					Point.for_user(user).for_current_month().on_joining_goal().map(&:number).inject(:+) || 0
-				end
-			end
-		end
+		# panel "Monthly leaderboard" do
+		# 	attributes_table_for(user)do ||
+		# 		row :comments do |user|
+		# 			Point.for_user(user).for_current_month().on_comments().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :commented_points do |user|
+		# 			Point.for_user(user).for_current_month().on_comments_received().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :likes_points do |user|
+		# 			Point.for_user(user).for_current_month().on_like().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :liked_points do |user|
+		# 			Point.for_user(user).for_current_month().on_like_received().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :photo_upload_points do |user|
+		# 			Point.for_user(user).for_current_month().on_photo_uploaded().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :followee_points do |user|
+		# 			Point.for_user(user).for_current_month().on_follow().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :follower_points do |user|
+		# 			Point.for_user(user).for_current_month().on_follower().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :profile_photo_points do |user|
+		# 			Point.for_user(user).for_current_month().on_profile_photo().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :daily_calories_limit_points do |user|
+		# 			Point.for_user(user).for_current_month().on_daily_calories_limit().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :fb_sharing_points do |user|
+		# 			Point.for_user(user).for_current_month().on_fb_sharing().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :smart_choice_award_points do |user|
+		# 			Point.for_user(user).for_current_month().on_hot_photo_award().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :hot_photo_award_points do |user|
+		# 			Point.for_user(user).for_current_month().on_smart_choice_award().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :joining_goale do |user|
+		# 			Point.for_user(user).for_current_month().on_joining_goal().map(&:number).inject(:+) || 0
+		# 		end
+		# 	end
+		# end
 
-		panel "Total leaderboard" do
-			attributes_table_for(user)do ||
-				row :comments do |user|
-					Point.for_user(user).on_comments().map(&:number).inject(:+) || 0
-				end
-				row :commented_points do |user|
-					Point.for_user(user).on_comments_received().map(&:number).inject(:+) || 0
-				end
-				row :likes_points do |user|
-					Point.for_user(user).on_like().map(&:number).inject(:+) || 0
-				end
-				row :liked_points do |user|
-					Point.for_user(user).on_like_received().map(&:number).inject(:+) || 0
-				end
-				row :photo_upload_points do |user|
-					Point.for_user(user).on_photo_uploaded().map(&:number).inject(:+) || 0
-				end
-				row :followee_points do |user|
-					Point.for_user(user).on_follow().map(&:number).inject(:+) || 0
-				end
-				row :follower_points do |user|
-					Point.for_user(user).on_follower().map(&:number).inject(:+) || 0
-				end
-				row :profile_photo_points do |user|
-					Point.for_user(user).on_profile_photo().map(&:number).inject(:+) || 0
-				end
-				row :daily_calories_limit_points do |user|
-					Point.for_user(user).on_daily_calories_limit().map(&:number).inject(:+) || 0
-				end
-				row :fb_sharing_points do |user|
-					Point.for_user(user).on_fb_sharing().map(&:number).inject(:+) || 0
-				end
-				row :smart_choice_award_points do |user|
-					Point.for_user(user).on_hot_photo_award().map(&:number).inject(:+) || 0
-				end
-				row :hot_photo_award_points do |user|
-					Point.for_user(user).on_smart_choice_award().map(&:number).inject(:+) || 0
-				end
-				row :hot_photo_award_points do |user|
-					Point.for_user(user).on_joining_goal().map(&:number).inject(:+) || 0
-				end
-			end
-		end
+		# panel "Total leaderboard" do
+		# 	attributes_table_for(user)do ||
+		# 		row :comments do |user|
+		# 			Point.for_user(user).on_comments().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :commented_points do |user|
+		# 			Point.for_user(user).on_comments_received().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :likes_points do |user|
+		# 			Point.for_user(user).on_like().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :liked_points do |user|
+		# 			Point.for_user(user).on_like_received().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :photo_upload_points do |user|
+		# 			Point.for_user(user).on_photo_uploaded().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :followee_points do |user|
+		# 			Point.for_user(user).on_follow().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :follower_points do |user|
+		# 			Point.for_user(user).on_follower().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :profile_photo_points do |user|
+		# 			Point.for_user(user).on_profile_photo().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :daily_calories_limit_points do |user|
+		# 			Point.for_user(user).on_daily_calories_limit().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :fb_sharing_points do |user|
+		# 			Point.for_user(user).on_fb_sharing().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :smart_choice_award_points do |user|
+		# 			Point.for_user(user).on_hot_photo_award().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :hot_photo_award_points do |user|
+		# 			Point.for_user(user).on_smart_choice_award().map(&:number).inject(:+) || 0
+		# 		end
+		# 		row :hot_photo_award_points do |user|
+		# 			Point.for_user(user).on_joining_goal().map(&:number).inject(:+) || 0
+		# 		end
+		# 	end
+		# end
 	end
 end
 

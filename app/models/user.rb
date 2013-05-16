@@ -422,14 +422,30 @@ class User < ActiveRecord::Base
     stats["intro"]["current_week_calories"] = current_week_photos.map(&:calories).inject(:+) || 0
     stats["intro"]["last_week_calories"] = last_week_photos.map(&:calories).inject(:+) || 0
 
-    stats["intro"]["last_week_nb_days_below"] = 0
-    stats["week_calories"]["last_week"].each do |key, val|
-      stats["intro"]["last_week_nb_days_below"] += 1
+    current_week_nb_days_below_limit = 0
+    last_week_nb_days_below_limit = 0
+
+    for i in 0..6
+      day_photos = stats["week_calories"]["current_week"][i.to_s]
+      day_calories = (day_photos.nil?)? 0 : day_photos.map(&:calories).inject(:+)
+      if self.preference.daily_calories_limit != 0 && day_calories > 0  && self.preference.daily_calories_limit >= day_calories
+        current_week_nb_days_below_limit += 1
+      end
+      stats["week_calories"]["current_week"][i.to_s] = day_calories
     end
-    stats["intro"]["current_week_nb_days_below"] = 0
-    stats["week_calories"]["current_week"].each do |key, val|
-      stats["intro"]["current_week_nb_days_below"] += 1
+
+    for i in 0..6
+      day_photos = stats["week_calories"]["last_week"][i.to_s]
+      day_calories = (day_photos.nil?)? 0 : day_photos.map(&:calories).inject(:+)
+      if stats["intro"]["daily_calories_limit"] && day_calories > 0 && stats["intro"]["daily_calories_limit"] >= day_calories
+        last_week_nb_days_below_limit += 1
+      end
+      stats["week_calories"]["last_week"][i.to_s] = day_calories
     end
+
+    stats["intro"]["current_week_nb_days_below"] = current_week_nb_days_below_limit
+    stats["intro"]["last_week_nb_days_below"] = last_week_nb_days_below_limit
+
     puts " "
     puts ">>>>>>>>>>>>>>>>>>"
     puts "stats: "+stats.inspect

@@ -50,8 +50,7 @@
 						</tr>
 						<tr height="40px">
 							<% for i in 0..6 %>
-									<% day_photos = @stats["week_calories"]["current_week"][i.to_s] %>
-									<% day_calories = (day_photos.nil?)? 0 : day_photos.map(&:calories).inject(:+)%>
+									<% day_calories = @stats["week_calories"]["current_week"][i.to_s] %>
 									<%= render :partial	=> "email/reports/weekly/goal_check_cell",
 									:locals => {
 										:day_calories => day_calories,
@@ -61,8 +60,7 @@
 						</tr>
 						<tr height="40px">
 							<% for i in 0..6 %>
-								<% day_photos = @stats["week_calories"]["last_week"][i.to_s] %>
-								<% day_calories = (day_photos.nil?) ? 0 : day_photos.map(&:calories).inject(:+) %>
+								<% day_calories = @stats["week_calories"]["last_week"][i.to_s] %>
 								<%= render :partial	=> "email/reports/weekly/goal_check_cell",
 									:locals => {
 										:day_calories => day_calories,

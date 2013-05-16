@@ -24,8 +24,18 @@
             <% end %>
           </tbody>
         </table>
-        <% unless isCurrentUserInLeaderboard %>
-          <p style="color:#111111;font-family:sans-serif;">Don't see yourself here? Click <%= link_to "here", team_rubix_url() %>.</p>
+        <% unless !isCurrentUserInLeaderboard %>
+          <table width="320px" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
+            <tbody>
+                <tr height="10px"></tr>
+                <tr height="30px" style="color:#111111;font-family:sans-serif;">
+                  <td width="19px"></td>
+                  <td width="70px">
+                    Don't see yourself here? Click <%= link_to "here", team_rubix_url() %>.
+                  </td>
+                </tr>
+            </tbody>
+          </table>
         <% end %>
       </td>
       <td style="border-collapse:collapse">&nbsp;</td>

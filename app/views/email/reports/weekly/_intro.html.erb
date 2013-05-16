@@ -1,4 +1,3 @@
-
 <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse">
   <tbody>
     <tr>
@@ -113,60 +112,73 @@
               </td>
               <td width="5px"></td>
             </tr>
-            <tr>
-              <td width="5px"></td>
-              <td>
-                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
-                  <tbody>
-                    <tr style="font-size: 14px;font-family:sans-serif; color:#111111;">
-                      <td  width="265px">Last week, you met your goal</td>
-                      <td width="125px" style="font-weight: bold; font-size: 16px; text-align:right"><%= @stats["intro"]["last_week_nb_days_below"] %> days out of 7</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td width="5px"></td>
-            </tr>
+            <% if compare != "impossible" %>
+              <tr>
+                <td width="5px"></td>
+                <td>
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tbody>
+                      <tr style="font-size: 14px;font-family:sans-serif; color:#111111;">
+                        <td  width="265px">Last week, you met your goal</td>
+                        <td width="125px" style="font-weight: bold; font-size: 16px; text-align:right"><%= @stats["intro"]["last_week_nb_days_below"] %> days out of 7</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td width="5px"></td>
+              </tr>
+            <% end %>
             <tr>
               <td width="5px"></td>
               <td style="font-size: 14px;font-family:sans-serif; color:#111111;">
-                <% case compare
-                    when "impossible" %>
+                <% if compare == "impossible" %>
                     <%= case @stats["intro"]["current_week_nb_days_below"]
-                    when 0
-                      "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
-                    when 1
-                      "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
-                    when 2
-                      "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
-                    when 3
-                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                    when 4
-                      "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
-                    when 5
-                      "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
-                    when 6
-                      "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
-                    else
-                      "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
-                      end %>
+                      when 0
+                        "We know you can do better! #{ image_tag("email/sad.png", :style => "width:20px")}".html_safe
+                      when 1
+                        "Keep trying! #{ image_tag("email/smiley1.png", :style => "width:20px")}".html_safe
+                      when 2
+                        "You're on your way #{ image_tag("email/smiley2.png", :style => "width:20px")}".html_safe
+                      when 3
+                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                      when 4
+                        "Good job! #{ image_tag("email/smiley4.png", :style => "width:20px")}".html_safe
+                      when 5
+                        "Not bad for your 1st week! #{ image_tag("email/smiley5.png", :style => "width:20px")}".html_safe
+                      when 6
+                        "Great job! #{ image_tag("email/smiley6.png", :style => "width:20px")}".html_safe
+                      else
+                        "Awesome job! We're so proud of you! #{ image_tag("email/smiley7.png", :style => "width:20px")}".html_safe
+                    end %>
+                <% elsif @stats["intro"]["last_week_nb_days_below"] > @stats["intro"]["current_week_nb_days_below"] %>
+                  You didn't do as well this week. <%= image_tag("email/sad.png", :style => "width:20px") %> Try again.
+                <% elsif @stats["intro"]["last_week_nb_days_below"] < @stats["intro"]["current_week_nb_days_below"] %>
+                    You did better this week. Good job! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
+                <% else %>
+                  You did as well as last week. Keep it up! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
+                <% end %>
 
-                      <% when "up" %>
-                      You did better this week. Good job! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
-                      <% when "down" %>
-                      You didn't do as well this week. <%= image_tag("email/sad.png", :style => "width:20px") %> Try again.
-                      <% else %>
-                      You did as well as last week. Keep it up! <%= image_tag("email/smiley4.png", :style => "width:20px") %>
-                      <% end %>
               </td>
               <td width="5px"></td>
             </tr>
             <% else %>
               <tr height="97px">
                 <td width="5px"></td>
-                <td style="font-size: 14px;font-family:sans-serif; line-height: 20px; color:#111111;">
-                  <tr style="font-size: 18px; font-weight: bold;">Did you know?</tr>
-                  <tr>If you go under <a href="<%= edit_user_url(@user) %>">Settings</a> and set your daily calorie goal, you will get more usefull stats in your weekly email.</tr>
+                <td>
+                  <table>
+                    <tbody style="font-size: 14px;font-family:sans-serif; line-height: 20px; color:#111111;">
+                      <tr>
+                        <td style="font-size: 18px; font-weight: bold;">Did you know?</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          If you go under <a href="<%= edit_user_url(@user) %>">Settings</a> and set your daily calorie goal, you will get more usefull stats in your weekly email.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
                 <td>
                 <td width="5px"></td>
               </tr>

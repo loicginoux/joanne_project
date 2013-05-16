@@ -52,9 +52,9 @@
 						<tr height="40px">
 							<% for i in 0..6 %>
 								<td width="70px" style="border-left: 1px solid #fff; border-bottom: 1px solid #fff; background-color: #efefef;">
-									<% day_photos = @stats["week_calories"]["current_week"][i.to_s] %>
-									<% unless day_photos.nil? %>
-										<%= number_with_delimiter( @stats["week_calories"]["current_week"][i.to_s].map(&:calories).inject(:+), :delimiter => ',')%>
+									<% day_cal = @stats["week_calories"]["current_week"][i.to_s] %>
+									<% unless day_cal == 0 %>
+										<%= number_with_delimiter( day_cal, :delimiter => ',')%>
 									<% end %>
 								</td>
 							<% end %>
@@ -64,9 +64,9 @@
 						<tr height="40px">
 							<% for i in 0..6 %>
 								<td width="70px" style="border-left: 1px solid #fff; background-color: #efefef;">
-									<% day_photos = @stats["week_calories"]["last_week"][i.to_s] %>
-									<% unless day_photos.nil? %>
-										<%= number_with_delimiter(@stats["week_calories"]["last_week"][i.to_s].map(&:calories).inject(:+) , :delimiter => ',')%>
+									<% day_cal = @stats["week_calories"]["last_week"][i.to_s] %>
+									<% unless day_cal == 0 %>
+										<%= number_with_delimiter(day_cal , :delimiter => ',')%>
 									<% end %>
 								</td>
 							<% end %>
@@ -75,15 +75,10 @@
 						<!-- row for comparison between these 2 weeks -->
 						<tr height="40px">
 							<% for i in 0..6 %>
-									<% day_photos = @stats["week_calories"]["current_week"][i.to_s] %>
-									<% prev_day_photos = @stats["week_calories"]["last_week"][i.to_s] %>
-									<% if !day_photos || !prev_day_photos %>
 
-										<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; color: #111111; font-weight: normal; font-size: 11px;"></td>
-									<% else %>
 
-										<% dayCal = @stats["week_calories"]["current_week"][i.to_s].map(&:calories).inject(:+) %>
-										<% prev_dayCal = @stats["week_calories"]["last_week"][i.to_s].map(&:calories).inject(:+) %>
+										<% dayCal = @stats["week_calories"]["current_week"][i.to_s]%>
+										<% prev_dayCal = @stats["week_calories"]["last_week"][i.to_s] %>
 
 										<% if dayCal > prev_dayCal %>
 											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; background-color: #e96000; color: #fff; font-weight: normal; font-size: 11px;">
@@ -103,10 +98,11 @@
 													(<%= (prev_dayCal - dayCal) * 100 / prev_dayCal  %>%)
 												</span>
 											</td>
-										<% else%>
+										<% elsif dayCal == 0 && prev_dayCal == 0%>
+											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; color: #111111; font-weight: normal; font-size: 11px;"></td>
+										<% else %>
 											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; background-color: #058dc7; color: #fff; font-weight: normal; font-size: 18px;">=</td>
 										<% end %>
-									<% end %>
 							<% end %>
 						</tr>
 					</tbody>
