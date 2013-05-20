@@ -79,8 +79,9 @@
 
 										<% dayCal = @stats["week_calories"]["current_week"][i.to_s]%>
 										<% prev_dayCal = @stats["week_calories"]["last_week"][i.to_s] %>
-
-										<% if dayCal > prev_dayCal %>
+										<% if dayCal == 0 || prev_dayCal == 0%>
+											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; color: #111111; font-weight: normal; font-size: 11px;"></td>
+										<% elsif dayCal > prev_dayCal %>
 											<td width="70px" style="border-top: 5px solid #fff; border-left: 1px solid #fff; background-color: #e96000; color: #fff; font-weight: normal; font-size: 11px;">
 												<span style="display: block;">
 													<%=  image_tag("email/arrow_increase.png", :width => "15px")  %> <%= dayCal - prev_dayCal %>
