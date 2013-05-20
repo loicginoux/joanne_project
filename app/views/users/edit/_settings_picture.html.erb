@@ -18,6 +18,10 @@
 					</div>
 				</div>
 		</div>
+		<!-- hidden field used when redirecting after updating, this anchor attached to url
+			will open the right tab -->
+			<%= hidden_field_tag :anchor, "picture" %>
+
 		<div class="form-actions">
 			<button type="submit" class="btn btn-primary"><% if @user.picture.present? %>Update<% else %>Save<% end %></button>
 		</div>

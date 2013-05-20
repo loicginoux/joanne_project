@@ -1,11 +1,15 @@
 
-	<%= form_for @preference, :html => { :class => "form-horizontal" } do |f| %>
-		<fieldset>
-			<%= render :partial => "preferences/edit/diet", :locals => {:f => f}%>
-			<%= render :partial => "preferences/edit/eating_habits", :locals => {:f => f}%>
+<%= form_for @preference, :html => { :class => "form-horizontal" } do |f| %>
+<fieldset>
+	<%= render :partial => "preferences/edit/diet", :locals => {:f => f}%>
+	<%= render :partial => "preferences/edit/eating_habits", :locals => {:f => f}%>
 
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Update</button>
-			</div>
-		</fieldset>
-	<% end %>
+	<!-- hidden field used when redirecting after updating, this anchor attached to url
+	will open the right tab -->
+	<%= hidden_field_tag :anchor, "eatingHabits" %>
+
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Update</button>
+	</div>
+</fieldset>
+<% end %>

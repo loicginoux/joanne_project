@@ -14,8 +14,11 @@
 				  		<%= image_tag "facebook_login.jpg", :alt => "Facebook", :height => "28px" %>
 					</a>
 				<% end %>
-
 			</div>
+			<!-- hidden field used when redirecting after updating, this anchor attached to url
+			will open the right tab -->
+			<%= hidden_field_tag :anchor, "social" %>
+
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">Update</button>
 			</div>

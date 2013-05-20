@@ -7,8 +7,10 @@ class foodrubix.SettingsTabController extends Spine.Controller
 		".content": "contents"
 
 	constructor: ()->
-		super		
-		
+		super
+		path = if Spine.Route.getPath() then Spine.Route.getPath() else "profile"
+		this.pills.filter("[data-content="+path+"]").click()
+
 	changeTab: (e) =>
 		this.pills.removeClass("active")
 		this.contents.addClass("hide")

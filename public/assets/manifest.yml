@@ -27,8 +27,8 @@ email/bullets-2col-alpha_new.gif: email/bullets-2col-alpha_new-e19c2b51be06bfe8f
 email/bullets-2col-alpha_new/index.gif: email/bullets-2col-alpha_new-e19c2b51be06bfe8f55f8a2c53c57af5.gif
 email/sad.png: email/sad-52c80115849a587cdbd2fc871bfbaa8b.png
 email/sad/index.png: email/sad-52c80115849a587cdbd2fc871bfbaa8b.png
-email/sample_goal_check.png: email/sample_goal_check-583eff385943e298867f07db26969a05.png
-email/sample_goal_check/index.png: email/sample_goal_check-583eff385943e298867f07db26969a05.png
+email/sample_goal_check.png: email/sample_goal_check-fb7cbda83a168705044871ae5230cfad.png
+email/sample_goal_check/index.png: email/sample_goal_check-fb7cbda83a168705044871ae5230cfad.png
 email/sample_goal_check.psd: email/sample_goal_check-9519792181f1962efe83e115d8b834cd.psd
 email/sample_goal_check/index.psd: email/sample_goal_check-9519792181f1962efe83e115d8b834cd.psd
 email/smiley1.png: email/smiley1-1baf10019dfc9b482c93016a0befd8fc.png
@@ -111,12 +111,12 @@ active_admin.js: active_admin-69956dfc4c87c9b3b96f2612d0f4358c.js
 active_admin/index.js: active_admin-69956dfc4c87c9b3b96f2612d0f4358c.js
 application-ie9.js: application-ie9-3aa70fe2cf693ae83968fa6b9ba63542.js
 application-ie9/index.js: application-ie9-3aa70fe2cf693ae83968fa6b9ba63542.js
-application.js: application-13c7d6b8222cdf5218868787e5203327.js
-application/index.js: application-13c7d6b8222cdf5218868787e5203327.js
+application.js: application-35f89b711147649ea1b285d870adf260.js
+application/index.js: application-35f89b711147649ea1b285d870adf260.js
 homepage.js: homepage-e3d763ebc020407c100447eeccd3d264.js
 homepage/index.js: homepage-e3d763ebc020407c100447eeccd3d264.js
-active_admin.css: active_admin-0ffbb1d2584cc392cfe994898fc13eda.css
-active_admin/index.css: active_admin-0ffbb1d2584cc392cfe994898fc13eda.css
+active_admin.css: active_admin-9f72c107d67820d8fe40d6ba1e66da80.css
+active_admin/index.css: active_admin-9f72c107d67820d8fe40d6ba1e66da80.css
 application-ie.css: application-ie-7c4185cb916e034561cd9618b79b8ba0.css
 application-ie/index.css: application-ie-7c4185cb916e034561cd9618b79b8ba0.css
 application.css: application-e6912c04258a0b10e02cad47223a6dbc.css

@@ -11,11 +11,16 @@
 					<%end%>
 				</div>
 			</div>
+			<!-- hidden field used when redirecting after updating, this anchor attached to url
+			will open the right tab -->
+			<%= hidden_field_tag :anchor, "preferences" %>
+
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">Update</button>
+				<span> or </span><a class="highlight" href="http://www.wolframalpha.com/widgets/view.jsp?id=d0098546738adcb07d504b36fc17f652" target="_blank">Help me calculate my daily calorie limit</a>
 			</div>
-			<div class="control-group">
+			<!-- <div class="control-group">
 				<div id="wolframScript"></div>
-			</div>
+			</div> -->
 		</fieldset>
 	<% end %>

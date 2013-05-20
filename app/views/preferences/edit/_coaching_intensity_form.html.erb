@@ -1,6 +1,11 @@
 <%= form_for @preference, :html => { :class => "form-horizontal" } do |f| %>
 	<fieldset>
 		<%= render :partial => "preferences/edit/coaching_intensity", :locals => {:f => f} %>
+
+		<!-- hidden field used when redirecting after updating, this anchor attached to url
+			will open the right tab -->
+		<%= hidden_field_tag :anchor, "coaching" %>
+
 		<div class="form-actions">
 			<button type="submit" class="btn btn-primary">Update</button>
 		</div>

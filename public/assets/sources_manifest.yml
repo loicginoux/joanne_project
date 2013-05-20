@@ -13,7 +13,7 @@ email/bullets-1col-alpha_new.gif: c54a1cba7c9d9b2a047db58c64cb7b16
 email/bullets-2col-alpha.gif: 21eda45a4aab4d41e06d1a80ed5aedc8
 email/bullets-2col-alpha_new.gif: e19c2b51be06bfe8f55f8a2c53c57af5
 email/sad.png: 52c80115849a587cdbd2fc871bfbaa8b
-email/sample_goal_check.png: 583eff385943e298867f07db26969a05
+email/sample_goal_check.png: fb7cbda83a168705044871ae5230cfad
 email/sample_goal_check.psd: 9519792181f1962efe83e115d8b834cd
 email/smiley1.png: 1baf10019dfc9b482c93016a0befd8fc
 email/smiley2.png: ef21a5d6fd60729712265a0a9fc832a1
@@ -55,9 +55,9 @@ twitter_64.png: da1d6d6e368402753b2243a58f5e0bdd
 twitter_login.jpg: f271653538037ea3b1bafd2b5aa5ebaa
 active_admin.js: 1cc4d849f98b4e56dc1ad45808cc210a
 application-ie9.js: 81f45d7509930bfe3b5773e578e4f534
-application.js: e12bcc5716b6eb4717d08f5f623a04d4
+application.js: 64e679eff80e554fbe61d50598c94a04
 homepage.js: 690c8cc0aae8aa877c70531779656de5
-active_admin.css: 0ffbb1d2584cc392cfe994898fc13eda
+active_admin.css: 9f72c107d67820d8fe40d6ba1e66da80
 application-ie.css: 61d8029035794aac01f5b4a5fcecd109
 application.css: c75ff65a1b4797f2f229fb26cfcd2029
 homepage.css: 4acda22292e952254ead3cca08f5df91

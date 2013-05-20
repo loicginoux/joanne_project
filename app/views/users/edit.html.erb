@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="span3">
 			<ul class="nav nav-pills nav-stacked">
-				<li class="active" data-content="profile">
+				<li data-content="profile">
 					<a href="javascript:void(0)">Profile</a>
 				</li>
 				<li data-content="picture">
@@ -26,7 +26,7 @@
 				</li>
 			</ul>
 		</div>
-		<div id="profile" class="content span9"><%= render 'users/edit/settings_profile' %></div>
+		<div id="profile" class="content span9 hide"><%= render 'users/edit/settings_profile' %></div>
 		<div id="picture" class="content span9 hide"><%= render 'users/edit/settings_picture' %></div>
 		<div id="social" class="content span9 hide"><%= render 'preferences/edit/social_sharing' %></div>
 		<div id="preferences" class="content span9 hide"><%= render 'preferences/edit/daily_calory_limit' %></div>

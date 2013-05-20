@@ -28,6 +28,7 @@
 /assets/images/data_points
 /assets/images/users
 
+*.psd
 *.rbc
 *.sassc
 .sass-cache

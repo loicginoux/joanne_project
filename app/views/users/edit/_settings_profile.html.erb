@@ -99,6 +99,10 @@
 
 			<%= f.hidden_field :timezone %>
 
+			<!-- hidden field used when redirecting after updating, this anchor attached to url
+			will open the right tab -->
+			<%= hidden_field_tag :anchor, "profile" %>
+
 
 
 			<div class="form-actions">

@@ -176,7 +176,7 @@ class UsersController < ApplicationController
     @preference = current_user.preference
     @url = edit_user_path(:username=> current_user.username)
     if @user.update_attributes(params[:user])
-      redirect_to edit_user_path(:username=> @user.username), notice: 'Successfully updated profile.'
+      redirect_to edit_user_path(:username=> @user.username, :anchor => params[:anchor]), notice: 'Successfully updated profile.'
     else
       render :action => 'edit'
     end
