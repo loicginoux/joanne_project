@@ -174,6 +174,10 @@ class UserMailer < ActionMailer::Base
     self.message.perform_deliveries = false
     endDate = DateTime.parse(Date.today.to_s)
     startDate = DateTime.parse((endDate - 1.days).to_s)
+
+    tz_start_yesterday = (@user.now().beginning_of_day()) - 1.days
+    tz_end_yesterday = tz_start_yesterday + 1.days
+
     @leaderboard_users = leaderboard_users
     @user = user
     # this removes the offset that can't be done with the Date object
@@ -181,7 +185,11 @@ class UserMailer < ActionMailer::Base
     @slackerboard_users = user.slackerboard().limit(20)
     @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
     @data_points = DataPoint.where(:user_id => user.id,:uploaded_at => startDate..endDate).order("uploaded_at ASC")
-    @daily_points = Point.for_user(@user).for_period(startDate,endDate).map(&:number).inject(:+) || 0
+
+    @daily_points = Point.for_user(@user)
+      .for_period(tz_start_yesterday,tz_end_yesterday, @user.timezone_offset())
+      .map(&:number).inject(:+) || 0
+
     @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
     @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
     @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0

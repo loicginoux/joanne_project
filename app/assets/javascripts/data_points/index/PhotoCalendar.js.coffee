@@ -34,7 +34,7 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	isActive: () => @isActive
 
 	initGraphic:() ->
-		# @log "initGraphic"
+		@log "initGraphic"
 		if @graphic
 			@graphic.cancel()
 
@@ -56,29 +56,33 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 		@
 
 	deactivate:() =>
-    @isActive = false
-    @load()
-   	@el.undelegate(".image", "mouseenter mouseleave")
-    @
+		@isActive = false
+		@load()
+		@el.undelegate(".image", "mouseenter mouseleave")
+		if @graphic
+			@log "cancel deactivate"
+			@graphic.graphicContainer.empty()
+			@graphic.compareBtn.hide()
+		@
 
-  setDateFromHash: (options) ->
-  	if options
-  		day = options.day
-  		month = options.month
-  		year = options.year
-  		if day && month && year
-  			@urlDate = Date.parseExact([day, month, year].join("/"), @urlDateParser)
+	setDateFromHash: (options) ->
+		if options
+			day = options.day
+			month = options.month
+			year = options.year
+			if day && month && year
+				@urlDate = Date.parseExact([day, month, year].join("/"), @urlDateParser)
 
-  applyHoverImage:() ->
-  	@el.delegate(".image", "mouseenter mouseleave", @onHoverImage.bind(@))
+	applyHoverImage:() ->
+		@el.delegate(".image", "mouseenter mouseleave", @onHoverImage.bind(@))
 
-  load: ()->
-  	UTIL.load(@photos, "photos", true)
+	load: ()->
+		UTIL.load(@photos, "photos", true)
 
-  unload: ()->
-  	$(".loading").remove()
+	unload: ()->
+		$(".loading").remove()
 
-  #  when hovering an image
+	#  when hovering an image
 	onHoverImage: (e) ->
 		target = $(e.target)
 		image = target.parents('.image')
@@ -97,9 +101,9 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 	# when we drag and drop images around, we need to resize the css height of the day/week/month
 	unifySpanHeights: (weekSpans) ->
 		arr = weekSpans.map((i, el) ->
-            return $(el).outerHeight()
-        )
-        max = Math.max.apply(null, arr)
+						return $(el).outerHeight()
+				)
+				max = Math.max.apply(null, arr)
 		if (weekSpans.find(".sortableImages").children().length)
 			sortableImagesHeight = max-18
 		else
@@ -197,13 +201,13 @@ class foodrubix.PhotoCalendar extends Spine.Controller
 				that.ctrlDown = true
 				# if ctrl or cmd is down, this is a copy of photo
 				$( ".sortableImages" ).sortable( "option", "helper", "clone" );
-    )
-    .bind("keyup.copy", (e)->
-    	if (e.keyCode == ctrlKey || e.keyCode == cmdKey)
-    		that.ctrlDown = false
-    		# if ctrl or cmd is up, dragging is to move the photo
-    		$( ".sortableImages" ).sortable( "option", "helper", "original" );
-    )
+		)
+		.bind("keyup.copy", (e)->
+			if (e.keyCode == ctrlKey || e.keyCode == cmdKey)
+				that.ctrlDown = false
+				# if ctrl or cmd is up, dragging is to move the photo
+				$( ".sortableImages" ).sortable( "option", "helper", "original" );
+		)
 
 	# Determines if the passed element is overflowing its bounds,
 	# either vertically or horizontally.

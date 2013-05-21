@@ -129,6 +129,7 @@ class foodrubix.Graphic extends Spine.Controller
 		max
 
 	cancel:() ->
+		@log "cancel"
 		@el.undelegate(".compare", "click")
 		@graphicContainer.empty()
 		@compareBtn.hide()

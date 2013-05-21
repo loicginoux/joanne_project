@@ -6,7 +6,7 @@ task :calculate_best_score => :environment do
     Time.zone = user.timezone
     now = Time.zone.now
     if now.hour == 0
-      user.calculate_best_score(now)
+      user.calculate_best_score()
     end
   }
 	puts "calculating day points: done"
@@ -20,7 +20,7 @@ task :calculate_streaks => :environment do
   	now = Time.zone.now
   	# we calculate it only for people whose time is midnight
     if now.hour == 0
-    	user.calculate_streaks(now)
+    	user.calculate_streaks()
   	end
   }
 	puts "calculating streaks: done"

@@ -326,7 +326,7 @@ class User < ActiveRecord::Base
 
   def update_points()
     points = self.points.map(&:number).inject(:+) || 0
-    monthly_points = self.points.for_current_month().map(&:number).inject(:+) || 0
+    monthly_points = self.points.for_current_month(self.now()).map(&:number).inject(:+) || 0
     self.update_attributes(
       :total_leaderboard_points => points,
       :leaderboard_points => monthly_points,
@@ -363,21 +363,31 @@ class User < ActiveRecord::Base
   end
 
 
-  def calculate_best_score(date)
-    beg_yesterday = (date - 1.day).beginning_of_day()
-    end_yesterday = (date - 1.day).end_of_day()
+  # this is run every day at midnight, and check that yesterday's score
+  # is not better that the user's best score
+  # if it is, it replaces it
+  def calculate_best_score()
+    tz_start_yesterday = (self.now().beginning_of_day()) - 1.days
+    tz_end_yesterday = tz_start_yesterday + 1.days
+
     # score for the day of yesterday
-    daily_score = Point.for_user(self).for_period(beg_yesterday,end_yesterday).map(&:number).inject(:+) || 0
-    puts "daily score for user '#{self.username}' for #{beg_yesterday}: #{daily_score} - best score: #{self.best_daily_score}"
+    daily_score = Point.for_user(self)
+      .for_period(tz_start_yesterday,tz_end_yesterday, self.timezone_offset())
+      .map(&:number).inject(:+) || 0
+
+    puts "daily score for user '#{self.username}' for #{tz_start_yesterday}: #{daily_score} - best score: #{self.best_daily_score}"
     if (self.best_daily_score < daily_score)
       self.update_attributes(:best_daily_score => daily_score)
     end
   end
 
-  def calculate_streaks(date)
-    beg_yesterday = (date - 1.day).beginning_of_day()
-    end_yesterday = (date - 1.day).end_of_day()
-    nbPhotos = self.data_points.where(:created_at => beg_yesterday..end_yesterday).count()
+  # this is run every day, and update streak attributes
+  # depending on phot upload from yesterday
+  def calculate_streaks()
+    tz_start_yesterday = ((self.now().beginning_of_day()) - 1.days)
+    tz_end_yesterday = (tz_start_yesterday + 1.days)
+
+    nbPhotos = self.data_points.where(:created_at => tz_start_yesterday..tz_end_yesterday).count()
     new_streak = (nbPhotos > 0) ? self.streak + 1 : 0
     puts "nbPhotos for user '#{self.username}' for #{beg_yesterday}: #{nbPhotos} - user.streak: #{self.streak} - user.best_streak: #{self.best_streak}"
     if new_streak > self.best_streak

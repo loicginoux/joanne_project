@@ -73,9 +73,11 @@ class Point < ActiveRecord::Base
 			Point::ACTION_TYPE[:daily_calories_limit],
 			Point::ACTION_TYPE[:fb_sharing],
 			Point::ACTION_TYPE[:joining_goal] )
-	scope :for_period, lambda{ |startPeriod, endPeriod|
-		if startPeriod && endPeriod
-			Point.where(:attribution_date => startPeriod..endPeriod)
+	scope :for_period, lambda{ |startPeriod, endPeriod, offset|
+		if startPeriod && endPeriod && offset
+			tz_startPeriod = (startPeriod + (offset).seconds)
+			tz_endPeriod = (endPeriod + (offset).seconds)
+			Point.where(:attribution_date => tz_startPeriod..tz_endPeriod)
 		else
 			[]
 		end
@@ -87,11 +89,10 @@ class Point < ActiveRecord::Base
 			[]
 		end
 	}
-	scope :for_current_month, lambda{ ||
-		now = DateTime.now
-		startP = now.beginning_of_month
-		endP = now.end_of_month
-		Point.for_period(startP,endP)
+	scope :for_current_month, lambda{ |tz_now|
+		startP = tz_now.beginning_of_month
+		endP = tz_now.end_of_month
+		Point.for_period(startP,endP, tz_now.utc_offset)
 	}
 
 

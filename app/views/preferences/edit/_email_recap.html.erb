@@ -3,8 +3,8 @@
 		<fieldset>
 			<div class="control-group <% if @preference.errors[:daily_email].present? %>error<%end%>">
 				<p>Do you want to receive emails to remind you what you have been eating?</p>
-				<p>(Recommended because you'll become more aware of how many calories you ate for the day and it's the easiest way to see if you've won a Smart Choice or Hot Photo Award)</p>
-				<%= f.label :daily_email, "Daily emails?", :class => "control-label"  %>
+				<p>Highly recommended because you'll become more aware of how many calories you ate for the day, and it's the easiest way to see if you've won a Smart Choice or Hot Photo Award. Plus, you'll get detailed reporting with weekly comparison and trends!</p>
+				<label class="control-label">Daily emails? (<a class="highlight" target="_blank" href="https://dl.dropboxusercontent.com/u/125982/FoodRubix-Images/New-Features/Stats/Daily-Email-Sample.png">sample</a>)</label>
 				<div class="controls">
 					<%= f.check_box :daily_email %>
 					<% if @preference.errors[:daily_email].present? %>
@@ -14,7 +14,7 @@
 
 			</div>
 			<div class="control-group <% if @preference.errors[:weekly_email].present? %>error<%end%>">
-				<%= f.label :weekly_email, "Weekly emails?", :class => "control-label"  %>
+				<label class="control-label">Weekly emails? (<a class="highlight" target="_blank" href="https://dl.dropboxusercontent.com/u/125982/FoodRubix-Images/New-Features/Stats/Weekly-Email-Sample.png">sample</a>)</label>
 				<div class="controls">
 					<%= f.check_box :weekly_email %>
 					<% if @preference.errors[:weekly_email].present? %>
