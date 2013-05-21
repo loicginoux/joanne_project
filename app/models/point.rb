@@ -76,7 +76,7 @@ class Point < ActiveRecord::Base
 
 	# here we assume that the timezone conversion have already been done on the dates
 	scope :for_period, lambda{ |startPeriod, endPeriod|
-		if startPeriod && endPeriod && offset
+		if startPeriod && endPeriod
 			Point.where(:attribution_date => startPeriod..endPeriod)
 		else
 			[]
