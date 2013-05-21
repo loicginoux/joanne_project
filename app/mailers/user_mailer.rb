@@ -187,7 +187,7 @@ class UserMailer < ActionMailer::Base
     @data_points = DataPoint.where(:user_id => user.id,:uploaded_at => startDate..endDate).order("uploaded_at ASC")
 
     @daily_points = Point.for_user(@user)
-      .for_period(tz_start_yesterday,tz_end_yesterday, @user.timezone_offset())
+      .for_period(tz_start_yesterday,tz_end_yesterday)
       .map(&:number).inject(:+) || 0
 
     @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last

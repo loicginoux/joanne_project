@@ -372,7 +372,7 @@ class User < ActiveRecord::Base
 
     # score for the day of yesterday
     daily_score = Point.for_user(self)
-      .for_period(tz_start_yesterday,tz_end_yesterday, self.timezone_offset())
+      .for_period(tz_start_yesterday,tz_end_yesterday)
       .map(&:number).inject(:+) || 0
 
     puts "daily score for user '#{self.username}' for #{tz_start_yesterday}: #{daily_score} - best score: #{self.best_daily_score}"
