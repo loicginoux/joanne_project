@@ -19,6 +19,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       user = User.first(:conditions => {:username=> @user_session.username.downcase})
+      user = (user) ? user : User.first(:conditions => {:email=> @user_session.username.downcase})
       redirect_back_or_default(user_path(:username=> user.username))
     else
       puts "login failed: #{@user_session.inspect}"
