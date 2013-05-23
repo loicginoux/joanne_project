@@ -38,3 +38,7 @@ div#wolframAlphaWidget47689.WolframAlphaWidgetLarge{
 .coaching_intensity .helps .high{
 	margin-top: 5px;
 }
+
+#emails .form-horizontal .control-label{
+	width: 145px;
+}

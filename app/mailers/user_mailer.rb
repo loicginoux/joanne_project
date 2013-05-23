@@ -157,8 +157,8 @@ class UserMailer < ActionMailer::Base
 
   def weekly_recap_email(user, leaderboard_users)
     self.message.perform_deliveries = false
-    @stats = user.prepare_weekly_stats()
     @user = user
+    @stats = user.prepare_weekly_stats()
     puts "sending weekly email to #{user.username} at curent time #{Time.zone.now} which is in UTC #{Time.zone.now.utc}"
 
     html = render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
@@ -172,6 +172,8 @@ class UserMailer < ActionMailer::Base
 
   def daily_recap_email(user, leaderboard_users)
     self.message.perform_deliveries = false
+    @user = user
+
     endDate = DateTime.parse(Date.today.to_s)
     startDate = DateTime.parse((endDate - 1.days).to_s)
 
@@ -179,7 +181,6 @@ class UserMailer < ActionMailer::Base
     tz_end_yesterday = tz_start_yesterday + 1.days
 
     @leaderboard_users = leaderboard_users
-    @user = user
     # this removes the offset that can't be done with the Date object
 
     @slackerboard_users = user.slackerboard().limit(20)
