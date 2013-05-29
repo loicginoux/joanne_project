@@ -184,8 +184,8 @@ class UserMailer < ActionMailer::Base
     # this removes the offset that can't be done with the Date object
 
     @slackerboard_users = user.slackerboard().limit(20)
-    @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
-    @data_points = DataPoint.where(:user_id => user.id,:uploaded_at => startDate..endDate).order("uploaded_at ASC")
+    @progress_bar_data = @user.email_progress_bar_data(@user.now())
+    @data_points = DataPoint.where(:user_id => @user.id,:uploaded_at => startDate..endDate).order("uploaded_at ASC")
 
     @daily_points = Point.for_user(@user)
       .for_period(tz_start_yesterday,tz_end_yesterday)

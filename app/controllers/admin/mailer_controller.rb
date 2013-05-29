@@ -81,42 +81,45 @@ class Admin::MailerController < ApplicationController
 
   def preview_daily()
     @user = current_user
-    # this removes the offset that can't be done with the Date object
-    endDate = DateTime.parse(Date.today.to_s)
-    startDate = DateTime.parse((endDate - 1.days).to_s)
+    if @user
+      # this removes the offset that can't be done with the Date object
+      endDate = DateTime.parse(Date.today.to_s)
+      startDate = DateTime.parse((endDate - 1.days).to_s)
 
-    tz_start_yesterday = (@user.now().beginning_of_day()) - 1.days
-    tz_end_yesterday = tz_start_yesterday + 1.days
+      tz_start_yesterday = (@user.now().beginning_of_day()) - 1.days
+      tz_end_yesterday = tz_start_yesterday + 1.days
 
-    @data_points = DataPoint.where(
-      :user_id => @user.id,
-      :uploaded_at => startDate..endDate
-      )
-    .order("uploaded_at ASC")
+      @data_points = DataPoint.where(
+        :user_id => @user.id,
+        :uploaded_at => startDate..endDate
+        )
+      .order("uploaded_at ASC")
 
-    @progress_bar_data = @user.email_progress_bar_data(Time.zone.now)
+      @progress_bar_data = @user.email_progress_bar_data(@user.now)
 
-    @daily_points = Point.for_user(@user)
-      .for_period(tz_start_yesterday,tz_end_yesterday)
-      .map(&:number).inject(:+) || 0
+      @daily_points = Point.for_user(@user)
+        .for_period(tz_start_yesterday,tz_end_yesterday)
+        .map(&:number).inject(:+) || 0
 
-    @leaderboard_users = User.monthly_leaderboard().limit(20)
+      @leaderboard_users = User.monthly_leaderboard().limit(20)
 
-    @slackerboard_users = current_user.slackerboard().limit(20)
+      @slackerboard_users = current_user.slackerboard().limit(20)
 
-    @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
+      @totalDayCalories = @data_points.map(&:calories).inject(:+) || 0
 
-    @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
+      @hot_photo = DataPoint.hot_photo_awarded().order("uploaded_at").last
 
-    @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
+      @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
 
-    render :partial => "email/reports/daily/daily_recap", :layout => "email"
-
+      render :partial => "email/reports/daily/daily_recap", :layout => "email"
+    end
   end
 
   def preview_weekly()
     @user = current_user
-    @stats = @user.prepare_weekly_stats()
-    render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
+    if @user
+      @stats = @user.prepare_weekly_stats()
+      render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
+    end
   end
 end

@@ -1,8 +1,9 @@
 /*user show (month, week and day view)
 --------------------------------*/
-#graphicContainer{
+.graphicContainer{
 	padding-top: 20px;
 }
+
 
 .hoverActive{
 	background-color: #E96000;
@@ -25,3 +26,4 @@ margin: 100px 130px 0 0;
 	margin-bottom: 10px;
 
 }
+

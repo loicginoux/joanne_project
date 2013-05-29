@@ -1,9 +1,17 @@
 class DataPointObserver < ActiveRecord::Observer
   observe :data_point
-
+  def after_create(data_point)
+    update_points(data_point)
+  end
 
   def after_update(data_point)
+    update_points(data_point)
+  end
 
+
+  private
+
+  def update_points(data_point)
     unless data_point.noObserver
       user = data_point.user
       beg_of_month = user.now().beginning_of_month()
@@ -71,5 +79,4 @@ class DataPointObserver < ActiveRecord::Observer
       end
     end
   end
-
 end
