@@ -22,7 +22,7 @@ class DataPoint < ActiveRecord::Base
   #########################
   validates_presence_of :calories, :user, :photo
   validates_numericality_of :calories, :only_integer => true
-  validates_attachment_size :photo, :less_than=>3.megabyte
+  validates_attachment_size :photo, :less_than=>4.megabyte
   validates_attachment_content_type :photo, :content_type=>['image/jpeg','image/jpg', 'image/png', 'image/gif', "image/tiff"]
   validate :editor_must_be_owner, :on => :update
 

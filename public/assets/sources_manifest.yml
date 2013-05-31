@@ -1,17 +1,20 @@
 ---
 arrow_empty_state.png: 8750bd965157196717fd1f0e87ebc562
 default_user_medium.gif: 20c2b50c48c2b1187f0d7c243ca3abe4
+default_user_medium.jpg: d0740a2338b219d2dcbcd5b874807250
 default_user_small.gif: d75dd73562e0ad274211a258c2954164
+default_user_small.jpg: dc1a67b453ef465c43ad92eb75cfc2c6
 diary.png: bf8300d6362c4a207e7d5493174f82b6
 diary.svg: a48919dce8f55090c0b676c8e197abf4
+email/  .gif: e19c2b51be06bfe8f55f8a2c53c57af5
 email/arrow_decrease.png: 72890c8b71771aa4ef41cadf316c7b96
 email/arrow_increase.png: 640dcce490b41b9b824b556fadbbb569
 email/bullet-single-alpha.gif: 3a11b017db6feb0595606bda002c3cb0
 email/bullet-single-alpha_new.gif: 1a5f23efe2fdbfcd2703d37db235bd1d
 email/bullets-1col-alpha.gif: 91c88f16ec0b32ee11089203c729d0ee
+email/bullets-1col-alpha.psd: 5d7e6234b464b466bead205c1b7f08e8
 email/bullets-1col-alpha_new.gif: c54a1cba7c9d9b2a047db58c64cb7b16
 email/bullets-2col-alpha.gif: 21eda45a4aab4d41e06d1a80ed5aedc8
-email/bullets-2col-alpha_new.gif: e19c2b51be06bfe8f55f8a2c53c57af5
 email/sad.png: 52c80115849a587cdbd2fc871bfbaa8b
 email/sample_goal_check.png: fb7cbda83a168705044871ae5230cfad
 email/sample_goal_check.psd: 9519792181f1962efe83e115d8b834cd
@@ -55,9 +58,9 @@ twitter_64.png: da1d6d6e368402753b2243a58f5e0bdd
 twitter_login.jpg: f271653538037ea3b1bafd2b5aa5ebaa
 active_admin.js: 1cc4d849f98b4e56dc1ad45808cc210a
 application-ie9.js: 81f45d7509930bfe3b5773e578e4f534
-application.js: 35819a68ca2bb1d3385acc8fc143a848
+application.js: 26b5a2c4e0b66e492da7960d72c97a49
 homepage.js: 690c8cc0aae8aa877c70531779656de5
-active_admin.css: 4cf6bb5cdf566f71020b5d23eb0194df
+active_admin.css: 2a5c70386536a294478ecd0bf1d5f1a6
 application-ie.css: 61d8029035794aac01f5b4a5fcecd109
 application.css: 031bd0166bee65100f4d3ada1b13d4f0
 homepage.css: 4acda22292e952254ead3cca08f5df91

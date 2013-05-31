@@ -60,7 +60,7 @@ group :production, :staging, :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', :git =>  "git://github.com/jnicklas/capybara.git"
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'

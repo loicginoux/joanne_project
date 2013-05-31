@@ -3,12 +3,18 @@ arrow_empty_state.png: arrow_empty_state-8750bd965157196717fd1f0e87ebc562.png
 arrow_empty_state/index.png: arrow_empty_state-8750bd965157196717fd1f0e87ebc562.png
 default_user_medium.gif: default_user_medium-20c2b50c48c2b1187f0d7c243ca3abe4.gif
 default_user_medium/index.gif: default_user_medium-20c2b50c48c2b1187f0d7c243ca3abe4.gif
+default_user_medium.jpg: default_user_medium-d0740a2338b219d2dcbcd5b874807250.jpg
+default_user_medium/index.jpg: default_user_medium-d0740a2338b219d2dcbcd5b874807250.jpg
 default_user_small.gif: default_user_small-d75dd73562e0ad274211a258c2954164.gif
 default_user_small/index.gif: default_user_small-d75dd73562e0ad274211a258c2954164.gif
+default_user_small.jpg: default_user_small-dc1a67b453ef465c43ad92eb75cfc2c6.jpg
+default_user_small/index.jpg: default_user_small-dc1a67b453ef465c43ad92eb75cfc2c6.jpg
 diary.png: diary-bf8300d6362c4a207e7d5493174f82b6.png
 diary/index.png: diary-bf8300d6362c4a207e7d5493174f82b6.png
 diary.svg: diary-a48919dce8f55090c0b676c8e197abf4.svg
 diary/index.svg: diary-a48919dce8f55090c0b676c8e197abf4.svg
+email/  .gif: email/  -e19c2b51be06bfe8f55f8a2c53c57af5.gif
+email/  /index.gif: email/  -e19c2b51be06bfe8f55f8a2c53c57af5.gif
 email/arrow_decrease.png: email/arrow_decrease-72890c8b71771aa4ef41cadf316c7b96.png
 email/arrow_decrease/index.png: email/arrow_decrease-72890c8b71771aa4ef41cadf316c7b96.png
 email/arrow_increase.png: email/arrow_increase-640dcce490b41b9b824b556fadbbb569.png
@@ -19,12 +25,12 @@ email/bullet-single-alpha_new.gif: email/bullet-single-alpha_new-1a5f23efe2fdbfc
 email/bullet-single-alpha_new/index.gif: email/bullet-single-alpha_new-1a5f23efe2fdbfcd2703d37db235bd1d.gif
 email/bullets-1col-alpha.gif: email/bullets-1col-alpha-91c88f16ec0b32ee11089203c729d0ee.gif
 email/bullets-1col-alpha/index.gif: email/bullets-1col-alpha-91c88f16ec0b32ee11089203c729d0ee.gif
+email/bullets-1col-alpha.psd: email/bullets-1col-alpha-5d7e6234b464b466bead205c1b7f08e8.psd
+email/bullets-1col-alpha/index.psd: email/bullets-1col-alpha-5d7e6234b464b466bead205c1b7f08e8.psd
 email/bullets-1col-alpha_new.gif: email/bullets-1col-alpha_new-c54a1cba7c9d9b2a047db58c64cb7b16.gif
 email/bullets-1col-alpha_new/index.gif: email/bullets-1col-alpha_new-c54a1cba7c9d9b2a047db58c64cb7b16.gif
 email/bullets-2col-alpha.gif: email/bullets-2col-alpha-21eda45a4aab4d41e06d1a80ed5aedc8.gif
 email/bullets-2col-alpha/index.gif: email/bullets-2col-alpha-21eda45a4aab4d41e06d1a80ed5aedc8.gif
-email/bullets-2col-alpha_new.gif: email/bullets-2col-alpha_new-e19c2b51be06bfe8f55f8a2c53c57af5.gif
-email/bullets-2col-alpha_new/index.gif: email/bullets-2col-alpha_new-e19c2b51be06bfe8f55f8a2c53c57af5.gif
 email/sad.png: email/sad-52c80115849a587cdbd2fc871bfbaa8b.png
 email/sad/index.png: email/sad-52c80115849a587cdbd2fc871bfbaa8b.png
 email/sample_goal_check.png: email/sample_goal_check-fb7cbda83a168705044871ae5230cfad.png
@@ -111,12 +117,12 @@ active_admin.js: active_admin-69956dfc4c87c9b3b96f2612d0f4358c.js
 active_admin/index.js: active_admin-69956dfc4c87c9b3b96f2612d0f4358c.js
 application-ie9.js: application-ie9-3aa70fe2cf693ae83968fa6b9ba63542.js
 application-ie9/index.js: application-ie9-3aa70fe2cf693ae83968fa6b9ba63542.js
-application.js: application-c2e12d91aa3ae2f76caa79bbdfd68c2c.js
-application/index.js: application-c2e12d91aa3ae2f76caa79bbdfd68c2c.js
+application.js: application-a9662c78751e0624ee9422143064a7b6.js
+application/index.js: application-a9662c78751e0624ee9422143064a7b6.js
 homepage.js: homepage-e3d763ebc020407c100447eeccd3d264.js
 homepage/index.js: homepage-e3d763ebc020407c100447eeccd3d264.js
-active_admin.css: active_admin-4cf6bb5cdf566f71020b5d23eb0194df.css
-active_admin/index.css: active_admin-4cf6bb5cdf566f71020b5d23eb0194df.css
+active_admin.css: active_admin-2a5c70386536a294478ecd0bf1d5f1a6.css
+active_admin/index.css: active_admin-2a5c70386536a294478ecd0bf1d5f1a6.css
 application-ie.css: application-ie-7c4185cb916e034561cd9618b79b8ba0.css
 application-ie/index.css: application-ie-7c4185cb916e034561cd9618b79b8ba0.css
 application.css: application-9d2ec46d9ee837f0ed1491a4bd5b91cb.css

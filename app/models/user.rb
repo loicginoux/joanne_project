@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
       :small => ["50x50#",:jpg],
       :medium => ["200x200#",:jpg]
     },
-    :default_url => '/assets/default_user_:style.gif'
+    :default_url => '/assets/default_user_:style.jpg'
     # :convert_options => { :all => '-auto-orient' },
     # :storage => :s3,
     # :bucket => S3_CREDENTIALS[:bucket],
@@ -389,7 +389,7 @@ class User < ActiveRecord::Base
 
     nbPhotos = self.data_points.where(:created_at => tz_start_yesterday..tz_end_yesterday).count()
     new_streak = (nbPhotos > 0) ? self.streak + 1 : 0
-    puts "nbPhotos for user '#{self.username}' for #{beg_yesterday}: #{nbPhotos} - user.streak: #{self.streak} - user.best_streak: #{self.best_streak}"
+    puts "nbPhotos for user '#{self.username}' for #{tz_start_yesterday}: #{nbPhotos} - user.streak: #{self.streak} - user.best_streak: #{self.best_streak}"
     if new_streak > self.best_streak
       self.update_attributes(:streak => new_streak, :best_streak => new_streak)
     else

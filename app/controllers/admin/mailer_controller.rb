@@ -113,6 +113,7 @@ class Admin::MailerController < ApplicationController
 
       render :partial => "email/reports/daily/daily_recap", :layout => "email"
     end
+    render :text => ""
   end
 
   def preview_weekly()
@@ -121,5 +122,6 @@ class Admin::MailerController < ApplicationController
       @stats = @user.prepare_weekly_stats()
       render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
     end
+    render :text => ""
   end
 end

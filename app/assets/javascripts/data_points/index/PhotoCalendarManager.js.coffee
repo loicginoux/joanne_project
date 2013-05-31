@@ -43,7 +43,8 @@ class foodrubix.PhotoCalendarManager extends Spine.Stack
 	constructor: ()->
 		super
 		@userId = @el.attr("data-user")
-		@period = if (UTIL.readCookie("period")) then UTIL.readCookie("period") else "week"
+		# @period = if (UTIL.readCookie("period")) then UTIL.readCookie("period") else "week"
+		@period = "week"
 		@date = Date.today()
 		Spine.Route.setup()
 		unless Spine.Route.getPath()
