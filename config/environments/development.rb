@@ -82,8 +82,8 @@ Foodrubix::Application.configure do
 
   # paperclip options
   config.paperclip_defaults = {
-    :url => "/assets/images/:class/:attachment/:id/:style/:basename.:extension",
-    :path => ":rails_root/public/assets/images/:class/:attachment/:id/:style/:basename.:extension"
+    :url => "/assets/images/:class/:attachment/:id/:style/:basename_:updated_at.:extension",
+    :path => ":rails_root/public/assets/images/:class/:attachment/:id/:style/:basename_:updated_at.:extension"
   }
   # config.paperclip_defaults = {
   #   :convert_options => { :all => '-auto-orient' },
