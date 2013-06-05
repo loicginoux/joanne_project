@@ -18,9 +18,6 @@ class foodrubix.Graphic extends Spine.Controller
 		current_max = @maxGraph(@data.current_period)
 		prev_max = @maxGraph(@data.previous_period)
 		@maxPoints =  if (current_max > prev_max) then current_max else prev_max
-		console.log(current_max)
-		console.log(prev_max)
-		console.log(@maxPoints)
 		@display() if @maxPoints && @maxPoints > 0
 
 	display: () =>
@@ -50,7 +47,7 @@ class foodrubix.Graphic extends Spine.Controller
 					text: 'Calories'
 				},
 				min: 0,
-				max: @maxPoints,
+				max: @maxPoints + 100,
 				gridLineWidth: 1,
 				gridLineDashStyle: 'longdash'
 				gridLineColor: "#ddd"
