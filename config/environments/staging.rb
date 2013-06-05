@@ -111,7 +111,7 @@ Foodrubix::Application.configure do
     :storage => :s3,
     :bucket => S3_CREDENTIALS[:bucket],
     :s3_credentials => S3_CREDENTIALS,
-    :path => ":attachment/:id/:style_:updated_at.:extension",
+    :path => ":attachment/:id/:style.:extension",
     :default_url => '/assets/default_user_:style.gif',
     :url => ':s3_alias_url',
     :s3_host_alias => CLOUDFRONT_CREDENTIALS[:host],
