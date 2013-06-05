@@ -80,6 +80,7 @@ class foodrubix.Graphic extends Spine.Controller
 		}
 
 		if gon.daily_calories_limit != 0
+			console.log("here")
 			@settings.yAxis.plotLines = [{
 				value : gon.daily_calories_limit,
 				color : '#e96000',
@@ -89,6 +90,7 @@ class foodrubix.Graphic extends Spine.Controller
 					text : 'daily goal'
 				}
 			}]
+
 
 	# compare current period with previous one
 	clickCompare:	(e) =>

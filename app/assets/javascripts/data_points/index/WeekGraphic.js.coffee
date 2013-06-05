@@ -6,6 +6,9 @@ class foodrubix.WeekGraphic extends foodrubix.Graphic
 
 	display: () ->
 		super
+		console.log("graphic settings:")
+		console.log(@settings)
+
 		categories = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
 
@@ -32,5 +35,6 @@ class foodrubix.WeekGraphic extends foodrubix.Graphic
 			}
 			series: @series
 		})
-
+		console.log("graphic settings:")
+		console.log(@settings)
 		@graphicContainer.highcharts(@settings)
