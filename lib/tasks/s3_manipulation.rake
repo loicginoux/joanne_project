@@ -34,19 +34,14 @@ namespace :s3 do
 			if !pic_updated_at.nil?
 	  		puts userFolder
 	  		obj = bucket.objects["#{userFolder}/small.jpg"]
-	  		puts obj.exists?
 	  		if obj.exists?
 	  			 obj.copy_to("#{userFolder}/small_#{pic_updated_at}.jpg")
 	  		end
+	  		obj = bucket.objects["#{userFolder}/medium.jpg"]
+	  		if obj.exists?
+	  			 obj.copy_to("#{userFolder}/medium_#{pic_updated_at}.jpg")
+	  		end
 	  	end
-	  	# if !pic_updated_at.nil? && AWS::S3::S3Object.exists?("small.jpg", userFolder)
-	  	# 	puts "process small"
-	  	# 	AWS::S3::S3Object.copy?("small.jpg", "small_#{pic_updated_at.to_time.to_i}.jpg",  userFolder)
-	  	# end
-	  	# if !pic_updated_at.nil? && AWS::S3::S3Object.exists?("medium.jpg", userFolder)
-	  	# 	puts "process medium"
-	  	# 	AWS::S3::S3Object.copy? "medium.jpg", "medium_#{pic_updated_at.to_time.to_i}.jpg",  userFolder
-	  	# end
 	  }
 
 	end
