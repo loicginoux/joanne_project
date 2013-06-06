@@ -36,7 +36,7 @@ namespace :s3 do
 	  		obj = bucket.objects["#{userFolder}/small.jpg"]
 	  		puts obj.exists?
 	  		if obj.exists?
-	  			 obj.copy_to("#{userFolder}/small_#{pic_updated_at.to_time.to_i}.jpg")
+	  			 obj.copy_to("#{userFolder}/small_#{pic_updated_at}.jpg")
 	  		end
 	  	end
 	  	# if !pic_updated_at.nil? && AWS::S3::S3Object.exists?("small.jpg", userFolder)
