@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
     c.merge_validates_length_of_password_field_options(:minimum => 6)
     c.merge_validates_length_of_password_confirmation_field_options(:minimum => 6)
-    c.perishable_token_valid_for = 1.hours
+    c.perishable_token_valid_for = 8.hours
   end
 
   #see http://www.tatvartha.com/2009/09/authlogic-after-the-initial-hype/
