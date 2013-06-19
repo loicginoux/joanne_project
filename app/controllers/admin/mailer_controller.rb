@@ -112,8 +112,9 @@ class Admin::MailerController < ApplicationController
       @smart_choice_photo = DataPoint.smart_choice_awarded().order("uploaded_at").last
 
       render :partial => "email/reports/daily/daily_recap", :layout => "email"
+    else
+      render :text => ""
     end
-    render :text => ""
   end
 
   def preview_weekly()
@@ -121,7 +122,8 @@ class Admin::MailerController < ApplicationController
     if @user
       @stats = @user.prepare_weekly_stats()
       render :partial => "email/reports/weekly/weekly_recap", :layout => "email"
+    else
+      render :text => ""
     end
-    render :text => ""
   end
 end

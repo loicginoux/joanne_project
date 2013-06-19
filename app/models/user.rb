@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
       :small => ["50x50#",:jpg],
       :medium => ["200x200#",:jpg]
     },
-    :default_url => '/assets/default_user_:style.jpg'
+    :default_url => '/assets/default_user_:style.gif'
     # :convert_options => { :all => '-auto-orient' },
     # :storage => :s3,
     # :bucket => S3_CREDENTIALS[:bucket],
