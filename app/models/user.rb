@@ -173,8 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def activate!
-    self.active = true
-    self.save
+
   end
 
   def verify!
@@ -182,8 +181,10 @@ class User < ActiveRecord::Base
     Rails.cache.delete("latests_members")
     # confirm the user
     self.confirmed = true
-    self.activate!
-    self.save
+    self.active = true
+    puts self
+    a = self.save
+    puts a
   end
 
   def deliver_password_reset_instructions!

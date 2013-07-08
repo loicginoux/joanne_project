@@ -131,6 +131,8 @@ class UsersController < ApplicationController
     @url = register_path
     # we came to registration page from an authentifaction provider page, we redirect here because the password needs to be filled
     if session[:omniauth]
+      puts "omniauth session"
+      puts session[:omniauth]
       @user.authentications.build(:provider => session[:omniauth][:provider], :uid => session[:omniauth][:uid], :username => session[:omniauth][:username] , :access_token => session[:omniauth][:access_token])
       if session[:omniauth][:image]
         # @user.local_picture = open(session[:omniauth][:image])
