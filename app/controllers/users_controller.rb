@@ -144,6 +144,7 @@ class UsersController < ApplicationController
         session[:omniauth] = nil
         redirect_to user_path(:username=> @user.username), notice: 'successfully logged in.'
       else
+        puts "Couldn't verify user, errors: #{@user.errors.inspect}"
         render :action => 'new'
       end
     # we register directly a new user
