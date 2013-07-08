@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
   # Authlogic
   #########################
   acts_as_authentic do |c|
-    c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
+    # c.merge_validates_format_of_login_field_options(:with => /^[a-zA-Z0-9]+$/)
+    c.merge_validates_format_of_login_field_options(:message => "should use only letters, numbers, spaces, and .-_@ please.")
     c.merge_validates_length_of_password_field_options(:minimum => 6)
     c.merge_validates_length_of_password_confirmation_field_options(:minimum => 6)
     c.perishable_token_valid_for = 8.hours
