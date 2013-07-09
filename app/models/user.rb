@@ -181,8 +181,8 @@ class User < ActiveRecord::Base
     puts self.inspect
     puts self.preference.inspect
     puts self.preference.valid?
-    puts self.authentication.presence
-    puts self.authentication.valid?
+    puts self.authentications.inspect
+    puts self.authentications.valid?
     puts self.valid?
     puts self.errors.inspect
     self.save
