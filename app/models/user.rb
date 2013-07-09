@@ -462,7 +462,7 @@ class User < ActiveRecord::Base
 
   def rename_profile_pic
     "renaming facebook profile picture to #{self.username}.jpg"
-    self.profile_pic.instance_write :file_name, "#{self.username}.jpg"
+    self.picture.instance_write :file_name, "#{self.username}.jpg"
   end
 end
 
