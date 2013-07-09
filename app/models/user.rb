@@ -179,10 +179,13 @@ class User < ActiveRecord::Base
     self.confirmed = true
     self.active = true
     puts self.inspect
-    a = self.save!
-    puts a
+    puts self.preference.inspect
+    puts self.preference.valid?
+    puts self.authentication.presence
+    puts self.authentication.valid?
+    puts self.valid?
     puts self.errors.inspect
-    a
+    self.save
   end
 
   def deliver_password_reset_instructions!
