@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   # Callbacks
   #########################
   # after_save :queue_upload_to_s3
-
+  before_post_process :rename_profile_pic
 
   #########################
   # Methods
@@ -458,6 +458,11 @@ class User < ActiveRecord::Base
     puts ">>>>>>>>>>>>>>>>>"
     puts " "
     return stats
+  end
+
+  def rename_profile_pic
+    "renaming facebook profile picture to #{self.username}.jpg"
+    self.profile_pic.instance_write :file_name, "#{self.username}.jpg"
   end
 end
 
