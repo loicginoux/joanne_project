@@ -178,12 +178,12 @@ class User < ActiveRecord::Base
     # confirm the user
     self.confirmed = true
     self.active = true
-    puts self.inspect
-    puts self.preference.inspect
-    puts self.preference.valid?
-    puts self.preference.errors.inspect
-    puts self.valid?
-    puts self.errors.inspect
+    # puts self.inspect
+    # puts self.preference.inspect
+    # puts self.preference.valid?
+    # puts self.preference.errors.inspect
+    # puts self.valid?
+    # puts self.errors.inspect
     self.save
   end
 
