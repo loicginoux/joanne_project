@@ -29,6 +29,7 @@ class AuthenticationsController < ApplicationController
         sign_in_and_redirect(user)
       else
         # session[:omniauth] = omniauth
+        puts omniauth
         session[:omniauth] =  {:provider=>omniauth['provider'],
                               :uid => omniauth['uid'],
                               :username => omniauth['extra']['raw_info']['username'] ,

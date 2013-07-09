@@ -179,9 +179,10 @@ class User < ActiveRecord::Base
     self.confirmed = true
     self.active = true
     puts self.inspect
-    a = self.save
+    a = self.save!
     puts a
     puts self.errors.inspect
+    a
   end
 
   def deliver_password_reset_instructions!
@@ -255,9 +256,9 @@ class User < ActiveRecord::Base
       if self.username.nil?
         self.username = fb_username
       end
-      if omniauth[:info][:image]
-        self.picture = open(omniauth[:info][:image])
-      end
+      # if omniauth[:info][:image]
+      #   self.picture = open(omniauth[:info][:image])
+      # end
     when 'twitter'
       # fetch extra user info from twitter
     end
