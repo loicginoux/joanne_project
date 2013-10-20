@@ -1,4 +1,6 @@
 # List of environments and their heroku git remotes
+
+# bundle exec rake deploy:production
   ENVIRONMENTS = {
     :staging => "staging", #'calm-gorge-1213'
     :production => "heroku" #'quiet-summer-5721'

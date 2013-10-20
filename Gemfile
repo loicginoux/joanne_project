@@ -47,10 +47,10 @@ group :production, :staging, :development do
   gem 'whenever', :require => false
 
   # Application Performance Monitoring
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', "~> 3.6.8.168"
 
   # memcache
-  # gem 'memcachier'
+  gem 'memcachier'
   gem 'dalli'
   # gem 'dalli-store-extensions', :git => "git://github.com/defconomicron/dalli-store-extensions.git"
 
@@ -61,7 +61,7 @@ end
 
 group :test do
   gem 'capybara', :git =>  "git://github.com/jnicklas/capybara.git"
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'shoulda'

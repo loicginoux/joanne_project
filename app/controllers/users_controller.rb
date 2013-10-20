@@ -49,8 +49,6 @@ class UsersController < ApplicationController
     end
 
     if @update.nil? || @update == "leaderboard"
-      # get user list
-      userList =  User.monthly_leaderboard()
       # filter by diet
       @diet = params[:diet]
       if (@diet && @diet != "")
@@ -63,9 +61,10 @@ class UsersController < ApplicationController
           .paginate(
             :per_page => nb_leaderboard_users_per_page,
             :page => params[:leaderboard_page])
+
       end
 
-      if @isInLeaderboard.nil?
+      if @isInLeaderboard.nil? && !@current_user.hidden
         @current_user_position = User.in_leadeboard().where("leaderboard_points < ?", @current_user.leaderboard_points ).count()
         @isInLeaderboard = ((@leaderboard_users.current_page * nb_leaderboard_users_per_page) >=  @current_user_position )
       end
@@ -182,7 +181,7 @@ class UsersController < ApplicationController
       puts " "
       puts ">>>>>>>>>>>>>>>>>>"
       puts "resultat update user: "
-      puts res
+      puts res.errors.inspect
       puts ">>>>>>>>>>>>>>>>>"
       puts " "
       redirect_to edit_user_path(:username=> current_user.username), notice: "Something went wrong!"
