@@ -68,7 +68,8 @@ Foodrubix::Application.configure do
   # config.action_controller.asset_host = "foodrubix-production.s3.amazonaws.com"
   config.action_controller.asset_host = "//#{CLOUDFRONT_CREDENTIALS[:host]}"
 
-  config.action_mailer.asset_host = config.action_controller.asset_host
+  #config.action_mailer.asset_host = config.action_controller.asset_host
+  config.action_mailer.asset_host = "http://www.foodrubix.com"
 
   # email configuration
   config.action_mailer.default_url_options = {
